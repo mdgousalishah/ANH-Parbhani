@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Masjid e Mehtab Ali Shah</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Applying custom fonts to the body and headings */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #555;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            color: #2c3e50;
+        }
+        .carousel-item img {
+            height: 450px; /* Reduced from 550px */
+            object-fit: cover;
+        }
+        /* Custom styles for navbar links to avoid conflicts */
+        .navbar-nav .nav-link {
+            color: #2c3e50;
+            font-weight: 500; /* medium weight */
+            transition: color 0.3s;
+        }
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: #1abc9c; /* primary color */
+        }
+        /* Force navbar to be visible on desktop to override conflicts */
+        @media (min-width: 992px) {
+            #main-nav.navbar-collapse {
+                display: flex !important;
+                visibility: visible !important;
+            }
+        }
+        .service-card, .landmark-card, .news-card-redesigned, .testimonial-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover, .landmark-card:hover, .news-card-redesigned:hover, .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 1.5rem 4rem rgba(0,0,0,.18)!important;
+        }
+        .btn {
+             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .news-img-container {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 3px solid #1abc9c;
+        }
+        .bg-primary {
+            background-color: #1abc9c !important;
+        }
+        .bg-secondary {
+            background-color: #e67e22 !important;
+        }
+        .bg-dark-blue {
+            background-color: #2c3e50 !important;
+        }
+        .bg-light-gray {
+            background-color: #f8f9fa !important;
+        }
+        .text-primary {
+            color: #1abc9c !important;
+        }
+        .text-dark-blue {
+            color: #2c3e50 !important;
+        }
+        /* Reduced Font Sizes */
+        .display-3 {
+            font-size: 3rem;
+        }
+        .display-5 {
+            font-size: 2.5rem;
+        }
+        .lead {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+        <div class="container">
+            <!-- Logo + Site Name -->
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
+                <span style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
+            </a>
+            <!-- Hamburger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link active px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="News.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Prayer Times -->
+    <header class="position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(Home/structure.jpg) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/cccccc/ffffff?text=Image+Not+Found)'">
+        <div class="container" style="padding-top: 70px;">
+            <h1 class="display-3 fw-bold mb-3 text-white" data-aos="fade-down">A Place of Peace, Prayer, and Heritage</h1>
+            <p class="lead col-md-8 mx-auto mb-4" data-aos="fade-up" data-aos-delay="200">
+                Welcome to the historic complex of Masjid e Mehtab Ali Shah in Parbhani. A spiritual center built during the Nizam era, dedicated to community, worship, and our rich history.
+            </p>
+            <a href="About.html" class="btn bg-primary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover" data-aos="fade-up" data-aos-delay="400">Learn More About Us</a>
+
+            <!-- Prayer Times Section Integrated -->
+            <div class="my-5" data-aos="fade-up" data-aos-delay="600">
+                <h2 class="display-5 fw-bold text-white">Daily Prayer Times</h2>
+                <p class="lead text-white-50">Join us for our five daily congregational prayers.</p>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 text-center mt-4">
+                    <!-- Prayer Time Card -->
+                    <div class="col"><div class="card bg-dark bg-opacity-50 text-white shadow-sm h-100 p-3 border-0"><h3 class="fs-5 text-primary">Fajr</h3><p class="fs-6 fw-bold mb-0">5:30 AM</p></div></div>
+                    <div class="col"><div class="card bg-dark bg-opacity-50 text-white shadow-sm h-100 p-3 border-0"><h3 class="fs-5 text-primary">Dhuhr</h3><p class="fs-6 fw-bold mb-0">1:15 PM</p></div></div>
+                    <div class="col"><div class="card bg-dark bg-opacity-50 text-white shadow-sm h-100 p-3 border-0"><h3 class="fs-5 text-primary">Asr</h3><p class="fs-6 fw-bold mb-0">5:00 PM</p></div></div>
+                    <div class="col"><div class="card bg-dark bg-opacity-50 text-white shadow-sm h-100 p-3 border-0"><h3 class="fs-5 text-primary">Maghrib</h3><p class="fs-6 fw-bold mb-0">6:45 PM</p></div></div>
+                    <div class="col"><div class="card bg-dark bg-opacity-50 text-white shadow-sm h-100 p-3 border-0"><h3 class="fs-5 text-primary">Isha</h3><p class="fs-6 fw-bold mb-0">8:30 PM</p></div></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carousel Section -->
+    <section class="py-5">
+        <div class="container" data-aos="fade-up">
+            <div id="imageCarousel" class="carousel slide shadow-lg rounded-3 overflow-hidden" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <img src="Home/Sbm.jpg" class="d-block w-100" alt="Community Event" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Error';">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded-pill px-4 py-2">
+                            <h5 class="fw-bold mb-0 text-white">Annual Community Gathering</h5>
+                            <p>A look back at our successful annual event celebrating our shared heritage.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <img src="Home/architectural.jpg" class="d-block w-100" alt="Architectural Detail" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Error';">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded-pill px-4 py-2">
+                            <h5 class="fw-bold text-white">Preserving Our History</h5>
+                            <p class="text-white">Discover the intricate architectural details of our historic Masjid.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <img src="Home/Student2.jpg" class="d-block w-100" alt="Youth Program" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Error';">
+                        <div class="carousel-caption bg-dark bg-opacity-50 rounded-pill px-4 py-2">
+                            <h5 class="text-white fw-bold mb-0">Youth Education Programs</h5>
+                            <p class="text-white">Engaging the next generation with our new Islamic studies program.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voices of Our Community Section -->
+    <section class="py-5 bg-dark-blue text-white">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold text-white">Voices of Our Community</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                        <div class="card-body text-center d-flex flex-column">
+                            <img src="Home/AA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=Error';">
+                            <p class="fst-italic">"This masjid is the heart of our community. It's a place of peace and connection for my family."</p>
+                            <h5 class="fw-bold mt-auto">- Dr. Anwar Ali Shah.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                        <div class="card-body text-center d-flex flex-column">
+                            <img src="Home/FA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=Error';">
+                            <p class="fst-italic">"The youth programs have been a blessing for my children. They are learning so much about their faith."</p>
+                            <h5 class="fw-bold mt-auto">- Mr. Farooq Ali Shah.</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                        <div class="card-body text-center d-flex flex-column">
+                            <img src="Home/JA Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=Error';">
+                            <p class="fst-italic">"I am grateful for the daily meal service. It helps so many people in our city who are in need."</p>
+                            <h5 class="fw-bold mt-auto">- Mr. Junaid Ali Shah.</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="Home/In SideMasjid .jpg" alt="Community at the Masjid" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Error';">
+                </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold mb-3">Welcome to Our Historic Complex</h2>
+                    <p class="text-secondary fs-5">For generations, Masjid e Mehtab Ali Shah and the surrounding Ashoorkhana Nale Hyder have served as a cornerstone of the community in Parbhani. It is a place of prayer, reflection, and gathering, holding deep spiritual and historical significance.</p>
+                    <p class="text-secondary">Our mission is to preserve the traditions, architecture, and values of this sacred place, while continuing to serve the needs of our community. We invite you to explore its history and join us in our activities.</p>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+    
+    <!-- Historic Landmarks Section -->
+    <section class="py-5 bg-light-gray">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Historic Landmarks</h2>
+                <p class="lead text-secondary">Explore the architectural gems and sacred grounds within our complex.</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm p-4 text-center card-hover border-0">
+                        <i class="fas fa-moon fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Ashoorkhana Nale Hyder</h4>
+                        <p class="mb-0 small">A sacred space for mourning and remembrance, central to our community's spiritual life and traditions.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm p-4 text-center card-hover border-0">
+                        <i class="fas fa-drum fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Naqqar Khana</h4>
+                        <p class="mb-0 small">This historic drum house once announced important events and prayer times, echoing the traditions of the Nizam era.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm p-4 text-center card-hover border-0">
+                        <i class="fas fa-archway fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Baradari</h4>
+                        <p class="mb-0 small">A twelve-doored pavilion designed for ventilation, serving as a timeless spot for community gatherings.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card h-100 shadow-sm p-4 text-center card-hover border-0">
+                        <i class="fas fa-gopuram fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Graveyard</h4>
+                        <p class="mb-0 small">A peaceful and final resting place, reminding us of our heritage and the generations that came before us.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Latest News & Updates</h2>
+                <p class="lead text-secondary">Stay informed about recent events and important announcements.</p>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- News Card 1 -->
+                <div class="col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/Mushtaque\ Ahmed\ Photo.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=Error)'"></div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 1, 2025</p>
+                            <h5 class="card-title fw-bold"><a href="single-news-post.html" class="text-dark-blue text-decoration-none">New Mutawalli Appointed by Wakf Board</a></h5>
+                            <p class="card-text">We are honored to announce the official appointment of Mohammed Mushtaque Ahmed as the new Mutawalli...</p>
+                            <div class="mt-auto pt-3">
+                                <a href="single-news-post.html" class="btn btn-sm bg-primary text-white rounded-pill px-3 btn-hover">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- News Card 2 -->
+                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/student.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=Error)'"></div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 15, 2025</p>
+                            <h5 class="card-title fw-bold"><a href="youth-program.html" class="text-dark-blue text-decoration-none">New Youth Islamic Studies Program</a></h5>
+                            <p class="card-text">We're excited to launch our new weekend Islamic Studies Program for youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p>
+                             <div class="mt-auto pt-3">
+                                <a href="youth-program.html" class="btn btn-sm bg-primary text-white rounded-pill px-3 me-2 btn-hover">Read More</a>
+                                <!-- <a href="youth-program.html#registration-form" class="btn btn-sm bg-secondary text-white rounded-pill px-3 btn-hover">Register</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- News Card 3 -->
+                <div class="col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/Old\ Document.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=Error)'"></div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p>
+                            <h5 class="card-title fw-bold"><a href="land-grant-archives.html" class="text-dark-blue text-decoration-none">A Glimpse into Our History: Land Grants</a></h5>
+                            <p class="card-text">This historic document from the Nizam's government details the original land grant for the Masjid complex...</p>
+                             <div class="mt-auto pt-3">
+                                <a href="land-grant-archives.html" class="btn btn-sm bg-primary text-white rounded-pill px-3 btn-hover">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="News.html" class="btn bg-secondary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover">View All News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/cccccc/ffffff?text=Image+Not+Found)'">
+        <div class="container">
+            <div class="py-4">
+                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
+                <p class="col-md-6 mx-auto text-white-50">
+                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
+                </p>
+                <div class="social-links mt-4">
+                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
+               <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS with some default options
+        AOS.init({
+            duration: 800, // values from 0 to 3000, with step 50ms
+            once: true, // whether animation should happen only once - while scrolling down
+        });
+    </script>
+</body>
+
+</html>

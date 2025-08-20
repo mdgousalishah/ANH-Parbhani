@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youth Islamic Studies Program - Masjid e Mehtab Ali Shah</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Applying custom fonts to the body and headings */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #555;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            color: #2c3e50;
+        }
+        /* Custom styles for navbar links to avoid conflicts */
+        .navbar-nav .nav-link {
+            color: #2c3e50;
+            font-weight: 500; /* medium weight */
+            transition: color 0.3s;
+        }
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: #1abc9c; /* primary color */
+        }
+        /* Force navbar to be visible on desktop to override conflicts */
+        @media (min-width: 992px) {
+            #main-nav.navbar-collapse {
+                display: flex !important;
+                visibility: visible !important;
+            }
+        }
+        .btn {
+             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .benefit-card, .instructor-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .benefit-card:hover, .instructor-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 1.5rem 4rem rgba(0,0,0,.12)!important;
+        }
+        .instructor-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #1abc9c;
+        }
+        .bg-primary {
+            background-color: #1abc9c !important;
+        }
+        .bg-secondary {
+            background-color: #e67e22 !important;
+        }
+        .bg-dark-blue {
+            background-color: #2c3e50 !important;
+        }
+        .bg-light-gray {
+            background-color: #f8f9fa !important;
+        }
+        .text-primary {
+            color: #1abc9c !important;
+        }
+        .text-dark-blue {
+            color: #2c3e50 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+        <div class="container">
+            <!-- Logo + Site Name -->
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+                <img src="About/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
+                <span style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
+            </a>
+            <!-- Hamburger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.425), rgba(44, 62, 80, 0.42)), url(Home/student1.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/cccccc/ffffff?text=Image+Not+Found)'">
+        <div class="container text-center" data-aos="fade-in">
+            <h1 class="display-4 fw-bold text-white">Youth Islamic Studies Program</h1>
+            <p class="lead text-white">Nurturing the next generation with knowledge and faith.</p>
+        </div>
+    </header>
+
+    <!-- Program Details Section -->
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <img src="Home/student.jpg" alt="Youth learning program" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Error';">
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h2 class="display-5 fw-bold mb-3">About the Program</h2>
+                    <p class="fs-5 text-secondary">We are excited to launch our new weekend Islamic Studies Program designed to build a strong foundation in Islamic knowledge and values for the youth of our community.</p>
+                    <p>Our engaging curriculum covers essential topics in a way that is both educational and inspiring for young minds. Classes are held in a supportive and welcoming environment where students are encouraged to ask questions, engage in discussions, and connect with their faith on a deeper level.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-book-open text-primary me-2"></i><strong>Curriculum:</strong> Quranic studies, stories of the Prophets, Islamic history, and essential prayers.</li>
+                        <li class="list-group-item"><i class="fas fa-user-friends text-primary me-2"></i><strong>Age Group:</strong> 7 - 14 years.</li>
+                        <li class="list-group-item"><i class="fas fa-calendar-alt text-primary me-2"></i><strong>Schedule:</strong> Saturday & Sunday mornings.</li>
+                        <li class="list-group-item"><i class="fas fa-map-marker-alt text-primary me-2"></i><strong>Location:</strong> Community Hall, Masjid e Mehtab Ali Shah Complex.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-5 bg-light-gray">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Why Enroll Your Child?</h2>
+            </div>
+            <div class="row text-center">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
+                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
+                            <i class="fas fa-seedling fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Strong Foundation</h5>
+                        <p class="card-text">Build a solid base of Islamic knowledge and values that will last a lifetime.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
+                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
+                            <i class="fas fa-lightbulb fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Engaging Lessons</h5>
+                        <p class="card-text">Interactive and age-appropriate lessons that make learning about Islam enjoyable.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
+                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Community Connection</h5>
+                        <p class="card-text">A chance for children to connect with peers in a positive and faith-based environment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Instructors Section -->
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Meet Our Instructors</h2>
+                <p class="lead text-secondary">Our dedicated teachers are passionate about Islamic education.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
+                        <img src="https://placehold.co/150x150/2c3e50/ffffff?text=A" alt="Instructor 1" class="rounded-circle mx-auto instructor-img mb-3">
+                        <h5 class="fw-bold">Ahmed Khan</h5>
+                        <p class="text-secondary">Specializes in Quranic Studies and Tafsir. Over 10 years of teaching experience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
+                        <img src="https://placehold.co/150x150/e67e22/ffffff?text=F" alt="Instructor 2" class="rounded-circle mx-auto instructor-img mb-3">
+                        <h5 class="fw-bold">Fatima Ali</h5>
+                        <p class="text-secondary">Focuses on Islamic History and the stories of the Prophets. Creates an engaging and interactive classroom.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section class="py-5 bg-light-gray" id="registration-form">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="card border-0 shadow-sm p-4 p-md-5">
+                        <div id="registration-form-container">
+                            <h2 class="display-6 fw-bold mb-4 text-center">Register Your Child</h2>
+                            <p class="text-center text-secondary mb-4">Spaces are limited, so please register early to secure a spot. We look forward to welcoming your child to our program!</p>
+                            <form id="registration-form-element">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="parent-name" class="form-label">Parent's Full Name</label>
+                                        <input type="text" class="form-control" id="parent-name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="child-name" class="form-label">Child's Full Name</label>
+                                        <input type="text" class="form-control" id="child-name" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="child-age" class="form-label">Child's Age</label>
+                                        <input type="number" class="form-control" id="child-age" min="7" max="14" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn bg-secondary text-white fw-bold rounded-pill px-5 py-2 mt-3 btn-hover">Submit Registration</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="confirmation-message" class="text-center" style="display: none;">
+                            <i class="fas fa-check-circle fa-4x text-primary mb-3"></i>
+                            <h3 class="fw-bold">Thank You for Registering!</h3>
+                            <p class="lead">Your registration has been received. We will contact you shortly with further details about the program.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+        <div class="container">
+            <div class="py-4">
+                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
+                <p class="col-md-6 mx-auto text-white-50">
+                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
+                </p>
+                <div class="social-links mt-4">
+                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
+               <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS with some default options
+        AOS.init({
+            duration: 800, // values from 0 to 3000, with step 50ms
+            once: true, // whether animation should happen only once - while scrolling down
+        });
+
+        // Handle form submission
+        const form = document.getElementById('registration-form');
+        const formContainer = document.getElementById('registration-form-container');
+        const confirmationMessage = document.getElementById('confirmation-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual form submission
+            formContainer.style.display = 'none';
+            confirmationMessage.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
