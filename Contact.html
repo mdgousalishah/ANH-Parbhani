@@ -195,7 +195,7 @@
                                 <label for="attachment" class="form-label">Attach Document (Optional)</label>
                                 <input class="form-control" type="file" id="attachment">
                             </div>
-                            <button type="submit" class="btn bg-secondary text-white fw-bold rounded-pill px-5 py-2 btn-hover">Submit</button>
+                            <button type="submit" class="btn bg-secondary text-white fw-bold rounded-pill px-5 py-2 btn-hover">Submit to WhatsApp</button>
                         </form>
                     </div>
                 </div>
@@ -272,7 +272,7 @@
         </div>
     </footer>
 
-    <!-- Confirmation Modal -->
+    <!-- Confirmation Modal (Not used by WhatsApp script but kept in case of future use) -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -303,15 +303,45 @@
             once: true, // whether animation should happen only once - while scrolling down
         });
 
-        // Handle Join Us form submission
-        const joinUsForm = document.getElementById('joinUsForm');
-        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        // Handle Join Us form submission and redirect to WhatsApp
+        document.getElementById('joinUsForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
 
-        joinUsForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the form from actually submitting
+            // Your WhatsApp number, including the country code without the '+' sign.
+            const phoneNumber = '919421488111'; 
+
+            // Get the values from the form fields
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Note: File attachments cannot be sent via a URL link. This script ignores the attachment field.
+
+            // Construct the message body for WhatsApp.
+            const messageBody = `
+*New Inquiry*
+
+*Name:* ${name}
+*Email:* ${email}
+*Subject:* ${subject}
+
+*Message:*
+${message}
+            `;
+
+            // Encode the message for use in a URL
+            const encodedMessage = encodeURIComponent(messageBody.trim());
+
+            // Construct the WhatsApp "click to chat" URL
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            // Open the WhatsApp URL in a new browser tab
+            window.open(whatsappURL, '_blank');
             
-            confirmationModal.show(); // Show the modal
-            joinUsForm.reset(); // Reset the form fields
+            // Optionally, reset the form after preparing the WhatsApp message
+            document.getElementById('joinUsForm').reset();
         });
     </script>
 </body>
