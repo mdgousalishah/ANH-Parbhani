@@ -19,6 +19,9 @@
 
     <!-- AOS (Animate on Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Three.js for 3D Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         /* Applying custom fonts to the body and headings */
@@ -41,17 +44,10 @@
         .navbar-nav .nav-link:hover {
             color: #1abc9c; /* primary color */
         }
-        /* Force navbar to be visible on desktop to override conflicts */
-        @media (min-width: 992px) {
-            #main-nav.navbar-collapse {
-                display: flex !important;
-                visibility: visible !important;
-            }
-        }
-        .btn {
+        .btn-hover {
              transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
-        .btn:hover {
+        .btn-hover:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
@@ -63,23 +59,66 @@
             transform: scale(1.05);
             box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
         }
-        .bg-primary {
-            background-color: #1abc9c !important;
+        .bg-primary { background-color: #1abc9c !important; }
+        .bg-secondary { background-color: #e67e22 !important; }
+        .bg-dark-blue { background-color: #2c3e50 !important; }
+        .bg-light-gray { background-color: #f8f9fa !important; }
+        .text-primary { color: #1abc9c !important; }
+        .text-dark-blue { color: #2c3e50 !important; }
+        
+        header {
+            overflow: hidden;
         }
-        .bg-secondary {
-            background-color: #e67e22 !important;
+
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
+
+        header .container {
+            position: relative;
+            z-index: 1;
         }
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
+
+        /* Custom Animated Navbar Toggler */
+        .navbar-toggler.custom-toggler {
+            border: none;
+            background: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            position: relative;
+            width: 30px;
+            height: 20px;
+            padding: 0;
+            cursor: pointer;
         }
-        .text-primary {
-            color: #1abc9c !important;
+        .custom-toggler .toggler-icon {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #2c3e50;
+            border-radius: 1px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
         }
-        .text-dark-blue {
-            color: #2c3e50 !important;
+        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
+        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
+        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
+        
+        @media (max-width: 420px) {
+            .brand-text {
+                font-size: 16px !important;
+            }
         }
     </style>
 </head>
@@ -91,12 +130,14 @@
         <div class="container">
             <!-- Logo + Site Name -->
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
-                <span style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
+                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
             </a>
             <!-- Hamburger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
             </button>
             <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="main-nav">
@@ -112,16 +153,25 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Page Header -->
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(Home/Old\ Document.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Archives)'">
+        <canvas id="bg-animation"></canvas>
+        <div class="container py-5" data-aos="fade-in">
+            <h1 class="display-4 fw-bold text-white">From the Archives</h1>
+            <p class="lead text-white col-md-8 mx-auto">A Glimpse into Our History: The Land Grants</p>
+        </div>
+    </header>
 
     <!-- Article Content Section -->
-    <section class="py-5">
+    <section class="py-5 bg-light-gray">
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-9">
                     <!-- Article Header -->
                     <div class="text-center" data-aos="fade-down">
-                        <h1 class="display-5 fw-bold mb-3">A Glimpse into Our History: The Land Grants</h1>
-                        <p class="text-muted mb-4"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p>
+                        <h1 class="display-5 fw-bold mb-3">The Foundation of Our Heritage</h1>
+                        <p class="text-muted mb-4"><i class="fas fa-archive text-primary me-1"></i> Historic Land Grant Documents</p>
                     </div>
                     
                     <!-- Article Image -->
@@ -133,7 +183,7 @@
                     <div class="fs-5" data-aos="fade-up">
                         <p>This historic document, dating back to the Nizam era, is a cornerstone of our institution's history. It details the original service endowment (**Khidmat-e-Mash**) of over 13 acres of land granted for the establishment and maintenance of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Nale Hyder.</p>
                         <p>The grant was a sacred trust, intended to ensure that the complex would serve as a center for prayer, community gathering, and spiritual remembrance for generations to come. The document outlines the specific survey numbers and boundaries of the land, underscoring its legal and religious significance as a Waqf property.</p>
-                        <blockquote class="blockquote bg-light-gray p-4 rounded-3 my-4 border-start border-5 border-primary" data-aos="fade-left">
+                        <blockquote class="blockquote bg-white p-4 rounded-3 my-4 border-start border-5 border-primary" data-aos="fade-left">
                             <p class="mb-0 fst-italic">"This endowment was not merely a gift of land, but a commitment to the future of our community—a promise that this sacred space would be protected and preserved."</p>
                         </blockquote>
                         <p>Today, this document is more important than ever. It serves as a critical piece of evidence in our ongoing efforts to address the illegal encroachment on these historic grounds. Preserving this land is not just about protecting property; it is about honoring the intentions of our ancestors and safeguarding a vital piece of our heritage for the future.</p>
@@ -143,9 +193,9 @@
                     <div class="mt-5" data-aos="fade-up">
                         <h2 class="fw-bold text-center mb-4">Explore the Documents</h2>
                         <div class="row g-4">
-                            <div class="col-md-4"><img src="Home/waqf 123_5.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 1" data-bs-toggle="modal" data-bs-target="#docModal1"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_6.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 2" data-bs-toggle="modal" data-bs-target="#docModal2"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_433.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 3" data-bs-toggle="modal" data-bs-target="#docModal3"></div>
+                            <div class="col-md-4"><img src="Home/waqf 123_5.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 1" data-bs-toggle="modal" data-bs-target="#docModal1" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+1';"></div>
+                            <div class="col-md-4"><img src="Home/waqf 123_6.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 2" data-bs-toggle="modal" data-bs-target="#docModal2" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+2';"></div>
+                            <div class="col-md-4"><img src="Home/waqf 123_433.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 3" data-bs-toggle="modal" data-bs-target="#docModal3" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+3';"></div>
                         </div>
                     </div>
 
@@ -166,7 +216,7 @@
     <div class="modal fade" id="docModal3" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_433.jpg" class="img-fluid"></div></div></div></div>
 
     <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -181,7 +231,7 @@
             </div>
             <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
                <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+                <p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
             </div>
         </div>
     </footer>
@@ -197,7 +247,54 @@
             duration: 800, // values from 0 to 3000, with step 50ms
             once: true, // whether animation should happen only once - while scrolling down
         });
+        
+        // 3D Background Animation Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof THREE !== 'undefined') {
+                const header = document.querySelector('header');
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: document.querySelector('#bg-animation'),
+                    alpha: true
+                });
+                renderer.setSize(header.clientWidth, header.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                camera.position.z = 5;
+
+                const particlesGeometry = new THREE.BufferGeometry();
+                const count = 5000;
+                const positions = new Float32Array(count * 3);
+                for (let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 10;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.005,
+                    color: 0xffffff,
+                });
+                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particles);
+
+                const clock = new THREE.Clock();
+                const animate = () => {
+                    const elapsedTime = clock.getElapsedTime();
+                    particles.rotation.y = elapsedTime * 0.05;
+                    particles.rotation.x = elapsedTime * 0.02;
+                    renderer.render(scene, camera);
+                    window.requestAnimationFrame(animate);
+                };
+                animate();
+
+                window.addEventListener('resize', () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                });
+            }
+        });
     </script>
 </body>
 
 </html>
+```

@@ -19,6 +19,9 @@
 
     <!-- AOS (Animate on Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Three.js for 3D Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         /* Applying custom fonts to the body and headings */
@@ -41,44 +44,77 @@
         .navbar-nav .nav-link:hover {
             color: #1abc9c; /* primary color */
         }
-        /* Force navbar to be visible on desktop to override conflicts */
-        @media (min-width: 992px) {
-            #main-nav.navbar-collapse {
-                display: flex !important;
-                visibility: visible !important;
-            }
-        }
-        .contact-info-card {
+        .contact-info-card, .btn-hover {
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .contact-info-card:hover {
              transform: translateY(-10px);
-             box-shadow: 0 1.5rem 4rem rgba(0,0,0,.12)!important;
+             box-shadow: 0 1.5rem 4rem rgba(0,0,0,.15)!important;
         }
-        .btn {
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .btn-hover:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        .bg-primary { background-color: #1abc9c !important; }
+        .bg-secondary { background-color: #e67e22 !important; }
+        .bg-dark-blue { background-color: #2c3e50 !important; }
+        .bg-light-gray { background-color: #f8f9fa !important; }
+        .text-primary { color: #1abc9c !important; }
+        .text-dark-blue { color: #2c3e50 !important; }
+
+        header {
+            overflow: hidden;
         }
-        .bg-primary {
-            background-color: #1abc9c !important;
+
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
-        .bg-secondary {
-            background-color: #e67e22 !important;
+
+        header .container {
+            position: relative;
+            z-index: 1;
         }
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
+        
+        /* Custom Animated Navbar Toggler */
+        .navbar-toggler.custom-toggler {
+            border: none;
+            background: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            position: relative;
+            width: 30px;
+            height: 20px;
+            padding: 0;
+            cursor: pointer;
         }
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
+        .custom-toggler .toggler-icon {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #2c3e50;
+            border-radius: 1px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
         }
-        .text-primary {
-            color: #1abc9c !important;
-        }
-        .text-dark-blue {
-            color: #2c3e50 !important;
+        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
+        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
+        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
+        
+        @media (max-width: 420px) {
+            .brand-text {
+                font-size: 16px !important;
+            }
         }
     </style>
 </head>
@@ -90,12 +126,14 @@
         <div class="container">
             <!-- Logo + Site Name -->
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="Contact/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
-                <span style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
+                <img src="Contact/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
             </a>
             <!-- Hamburger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
             </button>
             <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="main-nav">
@@ -113,10 +151,11 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.425), rgba(44, 62, 80, 0.42)), url(Contact/about\ page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/cccccc/ffffff?text=Image+Not+Found)'">
-        <div class="container text-center" data-aos="fade-in">
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(Contact/about\ page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Contact+Us)'">
+        <canvas id="bg-animation"></canvas>
+        <div class="container py-5" data-aos="fade-in">
             <h1 class="display-4 fw-bold text-white">Contact Us</h1>
-            <p class="lead text-white">We'd love to hear from you. Get in touch with us.</p>
+            <p class="lead text-white col-md-8 mx-auto">We'd love to hear from you. Get in touch with us for inquiries, support, or to join our community efforts.</p>
         </div>
     </header>
 
@@ -127,16 +166,16 @@
                 <!-- Contact Information -->
                 <div class="col-lg-5" data-aos="fade-right">
                     <h2 class="display-6 fw-bold mb-4">Get in Touch</h2>
-                    <div class="card border-0 shadow-sm p-4 mb-4 contact-card">
+                    <div class="card border-0 shadow-sm p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <i class="fas fa-map-marker-alt fa-2x text-primary me-4 mt-1"></i>
                             <div>
-                                <h5 class="fw-bold">Our Address</h5>
-                                <p class="mb-0">Masjid e Mehtab Ali Shah Complex,<br>Parbhani, Maharashtra, India</p>
+                                <h5 class="fw-bold">Our Office Address</h5>
+                                <p class="mb-0">Lokmanya Tilak Road, Parbhani, Maharashtra, India</p>
                             </div>
                         </div>
                     </div>
-                     <div class="card border-0 shadow-sm p-4 mb-4 contact-card">
+                     <div class="card border-0 shadow-sm p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <i class="fas fa-envelope fa-2x text-primary me-4 mt-1"></i>
                             <div>
@@ -145,16 +184,17 @@
                             </div>
                         </div>
                     </div>
-                     <div class="card border-0 shadow-sm p-4 mb-4 contact-card">
+                     <div class="card border-0 shadow-sm p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <i class="fas fa-phone-alt fa-2x text-primary me-4 mt-1"></i>
                             <div>
                                 <h5 class="fw-bold">Call Us</h5>
-                                <p class="mb-0"><a href="tel:+919421488111" class="text-decoration-none text-dark-blue">+91 9421488111</a></p>
+                                <p class="mb-1"><a href="tel:+919421488111" class="text-decoration-none text-dark-blue">+91 9421488111</a></p>
+                                <p class="mb-0"><a href="tel:+919119488111" class="text-decoration-none text-dark-blue">+91 9119488111</a></p>
                             </div>
                         </div>
                     </div>
-                    <div class="card border-0 shadow-sm p-4 mb-4 contact-card">
+                    <div class="card border-0 shadow-sm p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <i class="fas fa-share-alt fa-2x text-primary me-4 mt-1"></i>
                             <div>
@@ -170,8 +210,8 @@
                 <!-- Join Us Form -->
                 <div class="col-lg-7" data-aos="fade-left" id="message-form">
                      <div class="card border-0 shadow-sm p-4 h-100">
-                        <h2 class="display-6 fw-bold mb-4">Join Us</h2>
-                        <p class="text-secondary mb-4">Fill out the form below to join our community mailing list or to get in touch with us about volunteering and other opportunities.</p>
+                        <h2 class="display-6 fw-bold mb-4">Send Us a Message</h2>
+                        <p class="text-secondary mb-4">Fill out the form below to join our community mailing list or to get in touch with us about volunteering and other opportunities. Your message will be sent directly to our WhatsApp.</p>
                         <form id="joinUsForm">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -215,31 +255,42 @@
                     <div class="col-md-7">
                         <h4 class="fw-bold mb-3">Bank Details for Donation</h4>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Bank Name:</strong> Canara Bank, Parbhani</li>
-                            <li class="list-group-item"><strong>Account Name:</strong> ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</li>
-                            <li class="list-group-item"><strong>Account Number:</strong> 120029337799</li>
-                            <li class="list-group-item"><strong>IFSC Code:</strong> CNRB0005939</li>
+                            <li class="list-group-item bg-transparent"><strong>Bank Name:</strong> Canara Bank, Parbhani</li>
+                            <li class="list-group-item bg-transparent"><strong>Account Name:</strong> ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</li>
+                            <li class="list-group-item bg-transparent"><strong>Account Number:</strong> 120029337799</li>
+                            <li class="list-group-item bg-transparent"><strong>IFSC Code:</strong> CNRB0005939</li>
                         </ul>
                         <p class="mt-3 text-secondary">Your donation will be a great support to our community. Thank you!</p>
                     </div>
-                    <div class="col-md-5 text-center">
+                    <div class="col-md-5 text-center mt-4 mt-md-0">
                         <h5 class="fw-bold mb-3">Or Scan QR Code to Pay</h5>
-                        <img src="Contact/QR.png" alt="QR Code for Donation" class="img-fluid rounded-3 shadow-sm" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=Error';">
+                        <img src="Contact/QR.png" alt="QR Code for Donation" class="img-fluid rounded-3 shadow-sm" style="max-width: 250px;" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=QR+Error';">
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Shop Registration Section -->
     <section class="py-5">
-        <div class="container my-5 text-center" data-aos="fade-up">
-            <h2 class="display-5 fw-bold">Shop & Land Registration</h2>
-            <p class="lead text-secondary col-md-8 mx-auto">If you are an existing shop owner on the Waqf property or are interested in new commercial opportunities, please get in touch with our administrative office to ensure your business is properly registered.</p>
-            <div class="mt-4">
-                <a href="shop-registration.html" class="btn btn-lg bg-primary text-white fw-bold rounded-pill px-5 py-3 mt-3 btn-hover">
-                    <i class="fas fa-store me-2"></i> Register Your Business
-                </a>
+        <div class="container my-5" data-aos="fade-up">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="display-6 fw-bold mb-4 text-center">Official Notice & Terms</h2>
+                    <p class="text-center text-secondary mb-4">Please read the following terms carefully before proceeding with your application.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">All properties are offered on a lease basis for a period of <strong>11 months, 3 years, or 30 years</strong>.</li>
+                        <li class="list-group-item">The lease is for <strong>business, residential, or educational purposes only</strong>, as specified in your application.</li>
+                        <li class="list-group-item">A <strong>deposit is required</strong> to participate in the auction/bidding process for new leases.</li>
+                        <li class="list-group-item">All tenants must adhere to the terms and conditions set forth by the <strong>Maharashtra State Board of Waqfs</strong>.</li>
+                        <li class="list-group-item">You can download the official rent agreement form below to review all terms and conditions in detail.</li>
+                    </ul>
+                    <div class="text-center mt-4">
+                        <a href="Contact/Waqf Rent Agreement.pdf" class="btn btn-lg bg-primary text-white fw-bold rounded-pill px-5 py-3 mt-3 btn-hover" download>
+                            <i class="fas fa-file-download me-2"></i> Download Rent Agreement PDF
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -247,12 +298,12 @@
     <!-- Map Section -->
     <section>
         <div class="container-fluid p-0">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120553.57232258813!2d76.69742054313054!3d19.26011211992113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd01834c3905a9f%3A0x28b34575438318f7!2sParbhani%2C%20Maharashtra%2C%2C%20India!5e0!3m2!1sen!2sus!4v1694580888000!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120553.57232258813!2d76.69742054313054!3d19.26011211992113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd01834c3905a9f%3A0x28b34575438318f7!2sParbhani%2C%20Maharashtra%2C%2C%nbsp;India!5e0!3m2!1sen!2sus!4v1694580888000!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 
     <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Contact/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Contact/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -267,29 +318,10 @@
             </div>
             <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
                 <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+                <p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
             </div>
         </div>
     </footer>
-
-    <!-- Confirmation Modal (Not used by WhatsApp script but kept in case of future use) -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="confirmationModalLabel">Thank You!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center">
-            <i class="fas fa-check-circle fa-4x text-primary mb-3"></i>
-            <p class="lead">Your message has been sent successfully. We will get in touch with you shortly.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -303,9 +335,54 @@
             once: true, // whether animation should happen only once - while scrolling down
         });
 
+        // 3D Background Animation Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof THREE !== 'undefined') {
+                const header = document.querySelector('header');
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: document.querySelector('#bg-animation'),
+                    alpha: true
+                });
+                renderer.setSize(header.clientWidth, header.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                camera.position.z = 5;
+
+                const particlesGeometry = new THREE.BufferGeometry();
+                const count = 5000;
+                const positions = new Float32Array(count * 3);
+                for (let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 10;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                const particlesMaterial = new THREE.PointsMaterial({
+                    size: 0.005,
+                    color: 0xffffff,
+                });
+                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particles);
+
+                const clock = new THREE.Clock();
+                const animate = () => {
+                    const elapsedTime = clock.getElapsedTime();
+                    particles.rotation.y = elapsedTime * 0.05;
+                    particles.rotation.x = elapsedTime * 0.02;
+                    renderer.render(scene, camera);
+                    window.requestAnimationFrame(animate);
+                };
+                animate();
+
+                window.addEventListener('resize', () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                });
+            }
+        });
+
         // Handle Join Us form submission and redirect to WhatsApp
         document.getElementById('joinUsForm').addEventListener('submit', function(event) {
-            // Prevent the default form submission behavior
             event.preventDefault();
 
             // Your WhatsApp number, including the country code without the '+' sign.
@@ -347,3 +424,4 @@ ${message}
 </body>
 
 </html>
+
