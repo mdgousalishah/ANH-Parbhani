@@ -62,11 +62,13 @@
             z-index: 1;
         }
         
-        /* New Gallery Styles */
+        /* Updated Gallery Styles */
         .gallery-item {
             overflow: hidden;
             border-radius: 0.5rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative; /* Added for caption positioning */
+            aspect-ratio: 4 / 3; /* Ensures uniform aspect ratio */
         }
         .gallery-item img {
             transition: transform 0.4s ease;
@@ -76,6 +78,59 @@
         }
         .gallery-item:hover img {
             transform: scale(1.1);
+        }
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateY(20px);
+        }
+        .gallery-item:hover .caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .caption h6 {
+            color: white;
+            margin-bottom: 0.25rem;
+            font-family: 'Merriweather', serif; /* Match heading font */
+            font-weight: 700;
+        }
+        .caption small {
+            color: #e0e0e0;
+        }
+        
+        /* Horizontal Scroll Gallery */
+        .horizontal-scroll-gallery {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 4px;
+            /* Hide scrollbar but keep functionality */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+        }
+        .horizontal-scroll-gallery::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .horizontal-scroll-gallery .gallery-item {
+            flex: 0 0 80%; /* Mobile first: show one full item and a bit of the next */
+        }
+
+        @media (min-width: 576px) {
+            .horizontal-scroll-gallery .gallery-item {
+                flex-basis: 45%;
+            }
+        }
+        @media (min-width: 992px) {
+            .horizontal-scroll-gallery .gallery-item {
+                flex-basis: 30%;
+            }
         }
 
         /* Custom Animated Navbar Toggler */
@@ -181,13 +236,55 @@
                 <h2 class="display-5 fw-bold">Visual Timeline of Our Efforts</h2>
                 <p class="lead text-muted">A gallery of key moments in the campaign to protect our heritage.</p>
             </div>
-            <div class="row g-4" id="lightgallery">
-                <a href="News/Survey1.jpg" class="col-lg-4 col-md-6 gallery-item"><img src="News/Survey1.jpg" alt="Meeting with Waqf Board" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
-                <a href="News/Survey3.jpg" class="col-lg-4 col-md-6 gallery-item"><img src="News/Survey3.jpg" alt="Municipal Site Inspection" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
-                <a href="News/Survey4.jpg" class="col-lg-4 col-md-6 gallery-item"><img src="News/Survey4.jpg" alt="Submitting Demand to Minister" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
-                <a href="News/Survey5.jpg" class="col-lg-3 col-md-6 gallery-item"><img src="News/Survey5.jpg" alt="Minister Orders Report" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
-                <a href="News/waqf 123_327.jpg" class="col-lg-6 col-md-6 gallery-item"><img src="News/waqf 123_327.jpg" alt="Waqf Board Notice News" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
-                <a href="News/waqf 123_448.jpg" class="col-lg-3 col-md-6 gallery-item"><img src="News/waqf 123_448.jpg" alt="All India Organization Meeting" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"></a>
+            <div id="lightgallery" class="horizontal-scroll-gallery">
+                <!-- Item 1: May 3, 2024 -->
+                <a href="News/Survey4.jpg" class="gallery-item">
+                    <img src="News/Survey4.jpg" alt="Submitting Demand to Minister" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Demand Submitted to Minister</h6>
+                        <small>May 3, 2024</small>
+                    </div>
+                </a>
+                <!-- Item 2: Jun 1, 2024 -->
+                <a href="News/Survey1.jpg" class="gallery-item">
+                    <img src="News/Survey1.jpg" alt="Meeting with Waqf Board" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Meeting with Waqf Board</h6>
+                        <small>June 1, 2024</small>
+                    </div>
+                </a>
+                <!-- Item 3: Jul 20, 2024 -->
+                <a href="News/Survey3.jpg" class="gallery-item">
+                    <img src="News/Survey3.jpg" alt="Municipal Site Inspection" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Municipal Site Inspection</h6>
+                        <small>July 20, 2024</small>
+                    </div>
+                </a>
+                <!-- Item 4: Oct 3, 2024 -->
+                <a href="News/waqf 123_327.jpg" class="gallery-item">
+                    <img src="News/waqf 123_327.jpg" alt="Waqf Board Notice News" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Waqf Board Issues Notices</h6>
+                        <small>October 3, 2024</small>
+                    </div>
+                </a>
+                <!-- Item 5: Feb 23, 2025 -->
+                <a href="News/waqf 123_448.jpg" class="gallery-item">
+                    <img src="News/waqf 123_448.jpg" alt="All India Organization Meeting" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>National Organization Meeting</h6>
+                        <small>February 23, 2025</small>
+                    </div>
+                </a>
+                <!-- Item 6: Jul 24, 2025 -->
+                <a href="News/Survey5.jpg" class="gallery-item">
+                    <img src="News/Survey5.jpg" alt="Minister Orders Report" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Minister Orders Report</h6>
+                        <small>July 24, 2025</small>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
