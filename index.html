@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Masjid e Mehtab Ali Shah</title>
 
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+    <link rel="apple-touch-icon" href="favicon.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <!-- AOS (Animate on Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Custom Styles -->
     <style>
         /* Applying custom fonts to the body and headings */
         body {
@@ -33,14 +28,21 @@
             /* Prevent horizontal overflow */
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
             color: #2c3e50;
+        }
+
+        /* Modern Animation: Slide-in on Scroll */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Navbar link styles */
@@ -91,46 +93,18 @@
         }
 
         /* Custom color palette */
-        .bg-primary {
-            background-color: #1abc9c !important;
-        }
-
-        .bg-secondary {
-            background-color: #e67e22 !important;
-        }
-
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
-        }
-
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
-        }
-
-        .text-primary {
-            color: #1abc9c !important;
-        }
-
-        .text-dark-blue {
-            color: #2c3e50 !important;
-        }
-
-        .text-secondary {
-            color: #555 !important;
-        }
+        .bg-primary { background-color: #1abc9c !important; }
+        .bg-secondary { background-color: #e67e22 !important; }
+        .bg-dark-blue { background-color: #2c3e50 !important; }
+        .bg-light-gray { background-color: #f8f9fa !important; }
+        .text-primary { color: #1abc9c !important; }
+        .text-dark-blue { color: #2c3e50 !important; }
+        .text-secondary { color: #555 !important; }
 
         /* Responsive font size adjustments */
-        .display-3 {
-            font-size: 3rem;
-        }
-
-        .display-5 {
-            font-size: 2.5rem;
-        }
-
-        .lead {
-            font-size: 1.1rem;
-        }
+        .display-3 { font-size: 3rem; }
+        .display-5 { font-size: 2.5rem; }
+        .lead { font-size: 1.1rem; }
 
         /* Prayer Times Dashboard Styles */
         .prayer-dashboard {
@@ -214,7 +188,6 @@
 
 <body class="bg-white">
 
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
@@ -240,17 +213,17 @@
         </div>
     </nav>
 
-    <!-- Header Section -->
     <header class="position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://img.freepik.com/premium-photo/city-is-city-with-lot-buildings-moon_916191-300942.jpg) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/2c3e50/ffffff?text=Welcome)'">
         <canvas id="bg-animation"></canvas>
         <div class="container" style="padding-top: 70px;">
-            <h1 class="display-3 fw-bold mb-3 text-white" data-aos="fade-down">A Beacon of Faith, Heritage, and Community</h1>
-            <p class="lead col-md-8 mx-auto mb-5" data-aos="fade-up" data-aos-delay="200">
-                Welcome to the historic complex of Masjid e Mehtab Ali Shah in Parbhani. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
-            </p>
+            <div class="animated-section is-visible">
+                <h1 class="display-3 fw-bold mb-3 text-white">A Beacon of Faith, Heritage, and Community</h1>
+                <p class="lead col-md-8 mx-auto mb-5">
+                    Welcome to the historic complex of Masjid e Mehtab Ali Shah in Parbhani. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
+                </p>
+            </div>
 
-            <!-- Prayer Times Dashboard -->
-            <div class="prayer-dashboard p-4 my-5 col-lg-10 mx-auto" data-aos="fade-up" data-aos-delay="400">
+            <div class="prayer-dashboard p-4 my-5 col-lg-10 mx-auto animated-section">
                 <h2 class="fw-bold text-white mb-2">Daily Prayer Times</h2>
                 <p class="lead text-white-50" id="prayer-countdown">Next prayer: Calculating...</p>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 text-center mt-3">
@@ -289,14 +262,13 @@
         </div>
     </header>
 
-    <!-- About Section -->
-    <section class="py-5">
+    <section class="py-5 animated-section">
         <div class="container my-5">
             <div class="row align-items-center g-5">
-                <div class="col-lg-6" data-aos="fade-right">
+                <div class="col-lg-6">
                     <img src="Home/In SideMasjid .jpg" alt="Inside the Masjid" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Inside+Masjid';">
                 </div>
-                <div class="col-lg-6" data-aos="fade-left">
+                <div class="col-lg-6">
                     <h2 class="display-5 fw-bold mb-3">A Living History, A Thriving Community</h2>
                     <p class="lead text-secondary" style="font-size: 1.2rem;">For generations, the <strong>Ashoorkhana Nale Hyder & Masjid Mehtab Ali Shah</strong> complex has been a cornerstone of faith in Parbhani.</p>
                     <p class="text-secondary">Registered as a historic Waqf property (MSBW/PBN/47/2010), our mission is to preserve the profound spiritual traditions and Nizam-era architecture of this sacred place. We are committed to serving the needs of our modern community while honoring the legacy of those who came before us.</p>
@@ -306,15 +278,14 @@
         </div>
     </section>
 
-    <!-- Explore Complex Section -->
-    <section class="py-5 bg-light-gray">
+    <section class="py-5 bg-light-gray animated-section">
         <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Explore Our Sacred Complex</h2>
                 <p class="lead text-secondary">Discover the historic landmarks that make our complex unique.</p>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
                         <div class="card-body">
@@ -323,7 +294,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
                         <div class="card-body">
@@ -332,7 +303,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/structure.jpg" class="card-img-top" alt="Baradari" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
                         <div class="card-body">
@@ -341,7 +312,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/Footer Img.jpg" class="card-img-top" alt="Graveyard" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Graveyard';">
                         <div class="card-body">
@@ -354,16 +325,15 @@
         </div>
     </section>
 
-    <!-- History Section -->
-    <section class="py-5">
+    <section class="py-5 animated-section">
         <div class="container my-5">
             <div class="row align-items-center g-5">
-                <div class="col-lg-5 order-lg-2" data-aos="fade-left">
+                <div class="col-lg-5 order-lg-2">
                     <a href="Home/waqf 123_432.jpg" target="_blank">
                         <img src="Home/waqf 123_432.jpg" alt="Historic Lineage Document (Silsila)" class="img-fluid rounded-3 shadow-lg card-hover" onerror="this.onerror=null;this.src='https://placehold.co/500x700/cccccc/ffffff?text=Silsila+Document';">
                     </a>
                 </div>
-                <div class="col-lg-7 order-lg-1" data-aos="fade-right">
+                <div class="col-lg-7 order-lg-1">
                     <h2 class="display-5 fw-bold mb-3">An Unbroken Chain of Stewardship</h2>
                     <p class="lead text-secondary" style="font-size: 1.2rem;">Our leadership is rooted in a deep, documented history of service.</p>
                     <p class="text-secondary">This historic document, the <b>Silsila</b> (Chain of Succession), details the lineage of caretakers who have preserved this sacred trust for generations. It is a testament to the unbroken commitment to faith and community, linking the original founders like <strong>Syed Mehtab Ali Shah</strong> to the present day. We are honored to continue this profound legacy.</p>
@@ -373,14 +343,13 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-5 bg-dark-blue text-white">
+    <section class="py-5 bg-dark-blue text-white animated-section">
         <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold text-white">Voices of Our Community</h2>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/AA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
@@ -389,7 +358,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/FA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
@@ -398,7 +367,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/JA Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
@@ -407,7 +376,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/Dr Habib Ali Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
@@ -420,15 +389,14 @@
         </div>
     </section>
 
-    <!-- News Section -->
-    <section class="py-5">
+    <section class="py-5 animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Latest News & Updates</h2>
                 <p class="lead text-secondary">Stay informed about recent events and important announcements.</p>
             </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col" data-aos="fade-up" data-aos-delay="100">
+                <div class="col">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
                         <div class="news-img-container" style="background-image: url('Home/Mushtaque Ahmed Photo.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
                         <div class="card-body d-flex flex-column">
@@ -441,7 +409,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                <div class="col">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
                         <div class="news-img-container" style="background-image: url('Home/student.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
                         <div class="card-body d-flex flex-column">
@@ -454,7 +422,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col" data-aos="fade-up" data-aos-delay="300">
+                <div class="col">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
                         <div class="news-img-container" style="background-image: url('Home/Old Document.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
                         <div class="card-body d-flex flex-column">
@@ -468,13 +436,12 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-5" data-aos="fade-up">
+            <div class="text-center mt-5">
                 <a href="News.html" class="btn bg-secondary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover">View All News</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
         <div class="container">
             <div class="py-4">
@@ -496,19 +463,29 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
+        // Modern "slide-in" animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
         });
 
         // Prayer Time Countdown Logic
         document.addEventListener('DOMContentLoaded', function() {
-            // NOTE: Updated Prayer Times for Parbhani, India on Sep 26, 2025
+            // NOTE: Updated Prayer Times for Parbhani, India on Oct 7, 2025
             const prayerTimes = {
                 'Fajr': '05:05',
                 'Dhuhr': '12:23',
@@ -532,7 +509,6 @@
                 let nextPrayer = null;
                 let nextPrayerTime = null;
 
-                // Find the next prayer for today by iterating through the prayer times
                 for (const [name, time] of Object.entries(prayerTimes)) {
                     const [hours, minutes] = time.split(':');
                     const prayerDate = new Date();
@@ -545,7 +521,6 @@
                     }
                 }
 
-                // If all prayers for today are done, the next one is Fajr tomorrow
                 if (!nextPrayer) {
                     nextPrayer = 'Fajr';
                     const [hours, minutes] = prayerTimes['Fajr'].split(':');
@@ -571,52 +546,53 @@
 
                 countdownElement.innerHTML = `Next prayer: <strong>${nextPrayerInfo.name}</strong> in ${hours}h ${minutes}m ${seconds}s`;
 
-                // Highlight the upcoming prayer card
                 Object.values(prayerElements).forEach(el => el.removeAttribute('id'));
                 if (prayerElements[nextPrayerInfo.name]) {
                     prayerElements[nextPrayerInfo.name].id = 'next-prayer-highlight';
                 }
             }
-            // Update the countdown every second
             setInterval(updateCountdown, 1000);
-            updateCountdown(); // Initial call to display immediately
+            updateCountdown();
         });
 
         // 3D Background Animation Logic
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
-                // Scene setup
+                const header = document.querySelector('header');
+                if (!header) return;
+
                 const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
                 const renderer = new THREE.WebGLRenderer({
                     canvas: document.querySelector('#bg-animation'),
                     alpha: true
                 });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                // Camera position
+                const setSize = () => {
+                    const width = header.clientWidth;
+                    const height = header.clientHeight;
+                    renderer.setSize(width, height);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                };
+                setSize();
+
                 camera.position.z = 5;
-
-                // Particles
                 const particlesGeometry = new THREE.BufferGeometry();
                 const count = 5000;
                 const positions = new Float32Array(count * 3);
-
                 for (let i = 0; i < count * 3; i++) {
                     positions[i] = (Math.random() - 0.5) * 10;
                 }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
                 const particlesMaterial = new THREE.PointsMaterial({
                     size: 0.005,
                     color: 0xffffff,
                 });
-
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
 
-                // Animation loop
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
@@ -628,23 +604,10 @@
                 };
                 animate();
 
-                // Handle window resize
-                window.addEventListener('resize', () => {
-                    const header = document.querySelector('header');
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                });
-                
-                // Set initial size
-                const header = document.querySelector('header');
-                renderer.setSize(header.clientWidth, header.clientHeight);
-                camera.aspect = header.clientWidth / header.clientHeight;
-                camera.updateProjectionMatrix();
+                window.addEventListener('resize', setSize);
             }
         });
     </script>
 </body>
 
 </html>
-
