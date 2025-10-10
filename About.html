@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us - Masjid e Mehtab Ali Shah</title>
 
-        <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="favicon.png">
 
     <!-- Bootstrap CSS -->
@@ -22,6 +22,8 @@
 
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -31,14 +33,10 @@
             font-family: 'Roboto', sans-serif;
             color: #555;
             overflow-x: hidden;
+            background-color: #f8f9fa;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
             color: #2c3e50;
         }
@@ -54,14 +52,10 @@
             color: #1abc9c;
         }
 
-        .landmark-card,
-        .profile-card,
         .card-hover {
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .landmark-card:hover,
-        .profile-card:hover,
         .card-hover:hover {
             transform: translateY(-10px);
             box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .18) !important;
@@ -75,10 +69,18 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
+        
+        .btn-gradient-secondary {
+            background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
+            background-size: 200% auto;
+        }
+        .btn-gradient-secondary:hover {
+             background-position: right center;
+        }
 
         .profile-image {
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border: 5px solid #1abc9c;
         }
@@ -101,29 +103,12 @@
             z-index: 1;
         }
 
-        .bg-primary {
-            background-color: #1abc9c !important;
-        }
-
-        .bg-secondary {
-            background-color: #e67e22 !important;
-        }
-
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
-        }
-
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
-        }
-
-        .text-primary {
-            color: #1abc9c !important;
-        }
-
-        .text-dark-blue {
-            color: #2c3e50 !important;
-        }
+        .bg-primary { background-color: #1abc9c !important; }
+        .bg-secondary { background-color: #f39c12 !important; }
+        .bg-dark-blue { background-color: #2c3e50 !important; }
+        .bg-light-gray { background-color: #f8f9fa !important; }
+        .text-primary { color: #1abc9c !important; }
+        .text-dark-blue { color: #2c3e50 !important; }
 
         .map-wrapper {
             position: relative;
@@ -150,14 +135,78 @@
             opacity: 1;
         }
 
-        .details-card dt {
-            font-weight: 700;
-            color: #2c3e50;
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
         }
-        .details-card dd {
-            margin-left: 0;
-            color: #555;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: #1abc9c;
         }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1rem 2rem;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 4rem;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 4rem;
+        }
+        .timeline-content {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 4px solid #1abc9c;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 4rem;
+                padding-right: 1rem;
+            }
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) {
+                left: 0;
+                text-align: left;
+            }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after {
+                left: 10px;
+            }
+        }
+
 
         /* Custom Animated Navbar Toggler */
         .navbar-toggler.custom-toggler {
@@ -206,7 +255,7 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="About/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
             </a>
             <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -221,81 +270,126 @@
                     <li class="nav-item"><a class="nav-link px-3" href="News.html">News</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form" role="button">Join Us</a>
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover btn-gradient-secondary" href="Contact.html#message-form" role="button">Join Us</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(About/about\ page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=About+Us)'">
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(About/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=About+Us)'">
         <canvas id="bg-animation"></canvas>
         <div class="container py-5" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">About Us</h1>
-            <p class="lead text-white col-md-8 mx-auto">Our History, Our Mission, and Our Enduring Legacy</p>
+            <h1 class="display-4 fw-bold text-white">Our Story</h1>
+            <p class="lead text-white col-md-8 mx-auto">A Beacon of Faith and Heritage Since the Nizam Era</p>
         </div>
     </header>
 
     <section class="py-5">
         <div class="container my-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <img src="https://weareholidays.co.in/articles/wp-content/uploads/2013/08/Nizam-of-Hyderabad.jpg" alt="Historic view of the Nizam Era" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=History';">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Our Journey Through Time</h2>
+                <p class="lead text-muted">Tracing a legacy of faith from its historic origins to the present day.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content card-hover">
+                        <h4 class="fw-bold text-primary">October 1880 (Shawal 1302 Hijri)</h4>
+                        <h5 class="fw-bold">Foundation of the Endowment</h5>
+                        <p>The complex is established as a service endowment (Khidmat-e-Mash) through the historic deed Muntaqab No. 25624, with Mahemood Ali Shah Roshan Ali Shah as the first Mutawalli.</p>
+                    </div>
                 </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <h2 class="display-5 fw-bold mb-3">A Legacy from the Nizam Era</h2>
-                    <p class="fs-5 text-secondary">The Masjid e Mehtab Ali Shah complex is a cherished landmark in Parbhani, established as a service endowment (Khidmat-e-Mash) in October 1880, according to the historic deed Muntaqab No. 25624.</p>
-                    <p>Officially recognized as a Waqf property in the Maharashtra Government Gazette on May 2, 1974, the complex has grown into a multifaceted institution. Today, it not only serves the spiritual needs of our community but also faces the challenge of preserving its unique heritage against illegal encroachment, a testament to its historical and ongoing significance.</p>
+                <div class="timeline-item" data-aos="fade-left">
+                     <div class="timeline-content card-hover">
+                        <h4 class="fw-bold text-primary">May 2, 1974</h4>
+                        <h5 class="fw-bold">Official Waqf Recognition</h5>
+                        <p>The property is officially recognized and registered as a Waqf in the Maharashtra Government Gazette, cementing its legal status as a protected charitable endowment.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content card-hover">
+                        <h4 class="fw-bold text-primary">1959</h4>
+                        <h5 class="fw-bold">Land Lease Agreement</h5>
+                        <p>A portion of the endowed land (4 acres from Survey No. 2) is leased to the Parbhani Municipal Council for public use, highlighting the Masjid's early role in civic life.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-left">
+                     <div class="timeline-content card-hover">
+                        <h4 class="fw-bold text-primary">September 25, 2025</h4>
+                        <h5 class="fw-bold">Leadership Reaffirmed</h5>
+                        <p>An official corrigendum reaffirms the details of the Waqf and confirms the appointment of Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed as the current caretaker.</p>
+                    </div>
+                </div>
+                 <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content card-hover">
+                        <h4 class="fw-bold text-primary">Present Day</h4>
+                        <h5 class="fw-bold">Preserving the Legacy</h5>
+                        <p>The current leadership continues the mission, focusing on community service, spiritual guidance, and actively working to protect the historic Waqf land from illegal encroachment for future generations.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Official Details Section -->
+    <!-- Leadership Section -->
     <section class="py-5 bg-light-gray">
         <div class="container my-5">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold">Official Waqf Details</h2>
-                <p class="lead text-muted">Key information as per the official corrigendum dated 25/09/2025.</p>
+                <h2 class="display-5 fw-bold">Our Leadership</h2>
+                <p class="lead text-muted">A sacred trust passed down through generations.</p>
             </div>
-            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="col-lg-10">
-                    <div class="card shadow-sm border-0 card-hover">
-                        <div class="card-body p-5">
-                            <dl class="row details-card">
-                                <div class="col-md-6 mb-4">
-                                    <dt>Name of the Trust</dt>
-                                    <dd>Ashoorkhana Nale Hyder Masjid Mahtab Ali Shah and Graveyard, Naqqar Khana, Baradari etc.</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>Name of the Mutawalli</dt>
-                                    <dd>Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed Mohammad Ali Shah.</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>District</dt>
-                                    <dd>Parbhani</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>Waqf Type</dt>
-                                    <dd>Sunni</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>Object of the Waqf</dt>
-                                    <dd>Religious</dd>
-                                </div>
-                                 <div class="col-md-6 mb-4">
-                                    <dt>Name of the Waqf</dt>
-                                    <dd>Ack. Endt.</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>Date of Creation</dt>
-                                    <dd>Original Deed: October 1880 (Shawal 1302 Hijri) | Corrigendum: 25/09/2025</dd>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <dt>Details of Waqf Deed</dt>
-                                    <dd>Muntaqab No. 25624, Dt, Shawal 1302 Hijri.</dd>
-                                </div>
-                            </dl>
+            <div class="row justify-content-center g-5">
+                 <div class="col-md-6 col-lg-5 text-center" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm card-hover p-4">
+                        <img src="About/1st%20mutawalli.jpg" alt="Mahemood Ali Shah Roshan Ali Shah" class="img-fluid rounded-circle shadow-lg profile-image mx-auto mb-3" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/ffffff?text=Founder';">
+                        <h4 class="fw-bold">Mahemood Ali Shah</h4>
+                        <p class="text-primary fw-bold">The First Mutawalli</p>
+                        <p class="text-muted">The original caretaker who laid the foundation for the spiritual and community life of the complex, establishing a legacy of service and devotion.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm card-hover p-4">
+                        <img src="About/Mushtaque%20Ahmed%20Photo.jpg" alt="Mohammed Mushtaque Ahmed" class="img-fluid rounded-circle shadow-lg profile-image mx-auto mb-3" onerror="this.onerror=null;this.src='https://placehold.co/200x200/cccccc/ffffff?text=Mutawalli';">
+                        <h4 class="fw-bold">Mohammed Mushtaque Ahmed</h4>
+                         <p class="text-primary fw-bold">The Current Mutawalli</p>
+                        <p class="text-muted">As the present Sajjada Nashin and Mutawalli, he is dedicated to preserving our heritage and protecting the sacred Waqf property for future generations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Architectural Marvels</h2>
+                <p class="lead text-muted">Discover the historic landmarks that define our sacred complex.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm card-hover border-0 text-center">
+                        <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana" style="height: 220px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold">Ashoorkhana Nale Hyder</h4>
+                            <p>The spiritual heart of our complex. A sacred space dedicated to the remembrance of Imam Hussain (AS), hosting gatherings for mourning and reflection, especially during Muharram.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
+                        <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana" style="height: 220px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold">Naqqar Khana</h4>
+                            <p>The historic drum house, a classic feature of Nizam-era architecture. It was traditionally used to announce prayer times and important events, its echoes a link to our vibrant past.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card h-100 shadow-sm card-hover border-0 text-center">
+                        <img src="Home/structure.jpg" class="card-img-top" alt="Baradari" style="height: 220px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold">Baradari</h4>
+                            <p>The twelve-doored pavilion, designed for ventilation and elegance. This timeless structure serves as a beautiful open space for community gatherings, meetings, and serene contemplation.</p>
                         </div>
                     </div>
                 </div>
@@ -303,67 +397,15 @@
         </div>
     </section>
 
-    <section class="py-5">
-        <div class="container my-5">
-            <div class="row align-items-center g-5">
-                 <div class="col-lg-6 order-lg-2" data-aos="fade-left">
-                    <a href="#" class="map-wrapper" data-bs-toggle="modal" data-bs-target="#mapModal">
-                        <img src="About/Map.jpg" alt="Map of the Masjid land" class="img-fluid rounded-3 shadow-lg">
-                        <div class="overlay-icon"><i class="fas fa-search-plus"></i></div>
-                    </a>
-                </div>
-                <div class="col-lg-6 order-lg-1" data-aos="fade-right">
-                    <h2 class="display-5 fw-bold mb-3">Our Endowed Land</h2>
-                    <p class="fs-5 text-secondary">The total endowed land for the complex is <b>13 acres and 23 gunthas</b>, spread across three survey numbers:</p>
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item bg-transparent"><strong>Survey No. 1:</strong> 3 acres, 36 gunthas</li>
-                        <li class="list-group-item bg-transparent"><strong>Survey No. 2:</strong> 8 acres, 16 gunthas</li>
-                        <li class="list-group-item bg-transparent"><strong>Survey No. 3:</strong> 1 acre, 11 gunthas</li>
-                    </ul>
-                    <p>From this, <b>4 acres from Survey No. 2 were leased to the Parbhani Municipal Council in 1959</b>. Unfortunately, much of the remaining land is currently illegally occupied, and efforts are underway to reclaim and protect this sacred endowment for community use.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-light-gray">
-        <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold">Our Leadership</h2>
-                <p class="lead text-muted">A sacred trust passed down through generations.</p>
-            </div>
-
-            <div class="row align-items-center g-5 mb-5">
-                <div class="col-lg-4 text-center" data-aos="fade-right">
-                    <img src="About/1st mutawalli.jpg" alt="Mahemood Ali Shah Roshan Ali Shah" class="img-fluid rounded-circle shadow-lg profile-image" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=Founder';">
-                </div>
-                <div class="col-lg-8" data-aos="fade-left">
-                    <h3 class="fw-bold">The First Mutawalli: Mahemood Ali Shah Roshan Ali Shah</h3>
-                    <p class="fs-5 text-secondary">As the first Mutawalli, Mahemood Ali Shah Roshan Ali Shah was the original caretaker of this sacred endowment. He laid the foundation for the spiritual and community life of the complex, establishing a legacy of service and devotion. His leadership was instrumental in shaping the institution into the cornerstone it is today.</p>
-                </div>
-            </div>
-            <hr class="my-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-8 order-lg-2" data-aos="fade-left">
-                    <h3 class="fw-bold">Our Current Leadership</h3>
-                     <p class="fs-5 text-secondary">The administration of the complex is overseen by the Mutawalli and Sajjada Nashin, a hereditary role appointed by the Maharashtra State Waqf Board. The Mutawalli is responsible for preserving the heritage of the complex and ensuring it serves the community's needs.</p>
-                    <h4 class="fw-bold mt-4">Mohammed Mushtaque Ahmed, Mutawalli</h4>
-                    <p>We are honored to have Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed Mohammad Ali Shah as our current Mutawalli. He is actively working with the Waqf Board and government officials to address the significant issue of illegal encroachment on the Masjid's land. His dedicated efforts are focused on protecting this sacred property for future generations.</p>
-                </div>
-                <div class="col-lg-4 text-center order-lg-1" data-aos="fade-right">
-                    <img src="About/Mushtaque Ahmed Photo.jpg" alt="Mohammed Mushtaque Ahmed" class="img-fluid rounded-circle shadow-lg profile-image" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=Mutawalli';">
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <section class="py-5 text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
         <div class="container" data-aos="fade-up">
             <h2 class="display-5 fw-bold text-white">Our Mission & Vision</h2>
             <p class="lead col-md-8 mx-auto mt-3">
                 Our mission is to serve as a vibrant center for Islamic life, dedicated to spiritual growth, education, and community service. We strive to preserve our rich heritage while fostering an inclusive environment where all can gather, learn, and worship in peace and harmony.
             </p>
+             <button class="btn bg-primary text-white btn-lg rounded-pill mt-4 btn-hover" data-bs-toggle="modal" data-bs-target="#qa-modal">
+                <i class="fas fa-question-circle me-2"></i> Have a Question?
+            </button>
         </div>
     </section>
 
@@ -400,6 +442,37 @@
             </div>
         </div>
     </div>
+    
+    <!-- Community Q&A Modal -->
+    <div class="modal fade" id="qa-modal" tabindex="-1" aria-labelledby="qaModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="qaModalLabel">💬 Community Q&A Helper</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.</p>
+            <div class="mb-3">
+              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., What are the timings for the youth program? or Tell me about the history of the Naqqar Khana."></textarea>
+            </div>
+             <div class="text-center">
+                <button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">
+                    Ask Question
+                </button>
+            </div>
+            <hr>
+            <div id="qa-output" style="max-height: 40vh; overflow-y: auto;">
+                <p class="text-center text-secondary">Your answer will appear here...</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -453,6 +526,85 @@
                     camera.updateProjectionMatrix();
                 });
             }
+        });
+        
+        // Gemini API Logic for Q&A
+        document.addEventListener('DOMContentLoaded', () => {
+            const apiKey = ""; // This will be populated by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const qaBtn = document.getElementById('generate-qa-btn');
+            const qaTopicInput = document.getElementById('qa-topic-input');
+            const qaOutput = document.getElementById('qa-output');
+            
+            const showLoading = (button, originalText) => {
+                button.disabled = true;
+                button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Asking...`;
+                return originalText;
+            };
+            
+            const hideLoading = (button, originalText) => {
+                 button.disabled = false;
+                 button.innerHTML = originalText;
+            };
+
+            const callGeminiAPI = async (payload) => {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) {
+                       const errorBody = await response.json();
+                       console.error('API Error Response:', errorBody);
+                       throw new Error(`API request failed with status ${response.status}`);
+                    }
+                    const result = await response.json();
+                    return result.candidates[0].content.parts[0].text;
+                } catch(error) {
+                    console.error("Error calling Gemini API:", error);
+                    return "Sorry, there was an error connecting to the AI service. Please try again later.";
+                }
+            };
+            
+            qaBtn.addEventListener('click', async () => {
+                const topic = qaTopicInput.value;
+                if (!topic.trim()) {
+                    qaOutput.innerHTML = `<p class="text-danger text-center">Please enter a question.</p>`;
+                    return;
+                }
+                
+                const originalBtnText = qaBtn.innerHTML;
+                showLoading(qaBtn, originalBtnText);
+                qaOutput.innerHTML = `<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
+
+                const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website in Parbhani, Maharashtra. Your role is to answer community questions based ONLY on the following information. Do not invent details. If the answer is not in the information provided, politely say you don't have that information.
+
+                **About the Masjid:**
+                - Name: Masjid e Mehtab Ali Shah, part of the Ashoorkhana Nale Hyder complex.
+                - History: A historic Waqf property (MSBW/PBN/47/2010) from the Nizam era, founded in October 1880. It has a long history of stewardship detailed in a document called the Silsila (Chain of Succession). The complex includes the Ashoorkhana, a Naqqar Khana (drum house), a Baradari (pavilion), and a graveyard.
+                - Leadership: The first Mutawalli was Mahemood Ali Shah. The current Mutawalli (caretaker) is Mohammed Mushtaque Ahmed, appointed by the Maharashtra State Board of Waqfs.
+                - Location: Parbhani, Maharashtra, India.
+                - Land: Total endowed land is 13 acres and 23 gunthas. 4 acres were leased to the Municipal Council in 1959. There are ongoing efforts to protect the land from illegal encroachment.
+
+                **Community Services & Events:**
+                - Educational Programs: Quranic studies, Islamic history, and Arabic language classes are available for all ages. There is a specific weekend Islamic Studies Program for youth aged 7-14.
+                - Charitable Initiatives: The Masjid organizes food drives, offers financial assistance, and helps with disaster relief.
+                - Community Events: Regular events include Eid celebrations, lectures, and workshops.
+
+                Keep your answers concise, friendly, and clear.`;
+                const userQuery = topic;
+
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                };
+
+                const responseText = await callGeminiAPI(payload);
+                qaOutput.innerHTML = marked.parse(responseText);
+                hideLoading(qaBtn, originalBtnText);
+            });
         });
     </script>
 </body>

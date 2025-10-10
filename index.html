@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 
     <style>
         /* Applying custom fonts to the body and headings */
@@ -69,12 +71,18 @@
 
         /* Button hover effect */
         .btn-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
+            background-size: 200% auto;
         }
 
         .btn-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-position: right center; /* change the direction of the change here */
+        }
+        
+        .btn-gradient-secondary {
+            background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
         }
 
         /* News image container */
@@ -84,27 +92,60 @@
             background-position: center;
         }
 
-        /* Testimonial image styling */
+        /* Testimonial and Profile image styling */
         .testimonial-img {
             width: 80px;
             height: 80px;
             object-fit: cover;
             border: 3px solid #1abc9c;
         }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 5px solid #1abc9c; /* primary color border */
+        }
+
 
         /* Custom color palette */
         .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #e67e22 !important; }
-        .bg-dark-blue { background-color: #2c3e50 !important; }
+        .bg-secondary { background-color: #f39c12 !important; } /* Updated secondary color */
+        .bg-dark-blue { 
+            background-color: #2c3e50 !important; 
+            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
+        }
         .bg-light-gray { background-color: #f8f9fa !important; }
         .text-primary { color: #1abc9c !important; }
         .text-dark-blue { color: #2c3e50 !important; }
-        .text-secondary { color: #555 !important; }
+        .text-secondary { color: #6c757d !important; } /* Softer secondary text color */
 
         /* Responsive font size adjustments */
         .display-3 { font-size: 3rem; }
         .display-5 { font-size: 2.5rem; }
         .lead { font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            .display-3 { font-size: 2.5rem; }
+            .display-5 { font-size: 2rem; }
+            .lead { font-size: 1.05rem; }
+            .prayer-dashboard {
+                padding: 1.5rem !important;
+            }
+        }
+        @media (max-width: 576px) {
+            .display-3 { font-size: 2.2rem; }
+            .display-5 { font-size: 1.8rem; }
+            .prayer-time-card {
+                padding: 0.75rem !important;
+            }
+            .prayer-time-card h3 {
+                font-size: 1rem;
+            }
+            .prayer-time-card p {
+                font-size: 0.9rem;
+            }
+        }
 
         /* Prayer Times Dashboard Styles */
         .prayer-dashboard {
@@ -117,6 +158,7 @@
         .prayer-time-card {
             background: rgba(44, 62, 80, 0.6);
             border-radius: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         #bg-animation {
@@ -125,6 +167,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 0;
         }
 
         header .container {
@@ -135,6 +178,7 @@
         #next-prayer-highlight {
             background-color: #1abc9c;
             border: 2px solid #fff;
+            transform: scale(1.05);
         }
 
         #next-prayer-highlight h3,
@@ -183,12 +227,19 @@
                 font-size: 16px !important;
             }
         }
+        
+        /* Feature Styles */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: .2em;
+        }
     </style>
 </head>
 
 <body class="bg-white">
 
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg bg-white shadow sticky-top py-2">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
                 <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
@@ -206,64 +257,83 @@
                     <li class="nav-item"><a class="nav-link px-3" href="News.html">News</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover btn-gradient-secondary" href="Contact.html#message-form">Join Us</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://img.freepik.com/premium-photo/city-is-city-with-lot-buildings-moon_916191-300942.jpg) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/2c3e50/ffffff?text=Welcome)'">
+    <header class="position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://images.unsplash.com/photo-1587598993888-a7342618a6e8?q=80&w=2070&auto=format&fit=crop) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/2c3e50/ffffff?text=Welcome)'">
         <canvas id="bg-animation"></canvas>
         <div class="container" style="padding-top: 70px;">
             <div class="animated-section is-visible">
                 <h1 class="display-3 fw-bold mb-3 text-white">A Beacon of Faith, Heritage, and Community</h1>
                 <p class="lead col-md-8 mx-auto mb-5">
-                    Welcome to the historic complex of Masjid e Mehtab Ali Shah in Parbhani. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
+                    Welcome to the historic complex of Ashoorkhana Naale Hyder, Masjid Mahetab Ali Shah, parbhani. Survey No. 1, 2 & 3.. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
                 </p>
             </div>
 
-            <div class="prayer-dashboard p-4 my-5 col-lg-10 mx-auto animated-section">
-                <h2 class="fw-bold text-white mb-2">Daily Prayer Times</h2>
+            <div class="prayer-dashboard p-4 my-4 my-lg-5 col-lg-10 mx-auto animated-section">
+                <h2 class="fw-bold text-white mb-2">Today's Prayer Times</h2>
                 <p class="lead text-white-50" id="prayer-countdown">Next prayer: Calculating...</p>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 text-center mt-3">
                     <div class="col" id="fajr">
                         <div class="card prayer-time-card text-white shadow-sm h-100 p-3 border-0">
                             <h3 class="fs-5 text-primary">Fajr</h3>
-                            <p class="fs-6 fw-bold mb-0">5:05 AM</p>
+                            <p class="fs-6 fw-bold mb-0">--:--</p>
                         </div>
                     </div>
                     <div class="col" id="dhuhr">
                         <div class="card prayer-time-card text-white shadow-sm h-100 p-3 border-0">
                             <h3 class="fs-5 text-primary">Dhuhr</h3>
-                            <p class="fs-6 fw-bold mb-0">12:23 PM</p>
+                            <p class="fs-6 fw-bold mb-0">--:--</p>
                         </div>
                     </div>
                     <div class="col" id="asr">
                         <div class="card prayer-time-card text-white shadow-sm h-100 p-3 border-0">
                             <h3 class="fs-5 text-primary">Asr</h3>
-                            <p class="fs-6 fw-bold mb-0">4:42 PM</p>
+                            <p class="fs-6 fw-bold mb-0">--:--</p>
                         </div>
                     </div>
                     <div class="col" id="maghrib">
                         <div class="card prayer-time-card text-white shadow-sm h-100 p-3 border-0">
                             <h3 class="fs-5 text-primary">Maghrib</h3>
-                            <p class="fs-6 fw-bold mb-0">6:17 PM</p>
+                            <p class="fs-6 fw-bold mb-0">--:--</p>
                         </div>
                     </div>
                     <div class="col" id="isha">
                         <div class="card prayer-time-card text-white shadow-sm h-100 p-3 border-0">
                             <h3 class="fs-5 text-primary">Isha</h3>
-                            <p class="fs-6 fw-bold mb-0">7:40 PM</p>
+                            <p class="fs-6 fw-bold mb-0">--:--</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+    
+    <!-- Today's Reflection Section -->
+    <section class="py-5 bg-light-gray animated-section">
+        <div class="container my-4">
+            <div class="text-center mb-4">
+                <h2 class="display-5 fw-bold">Today's Reflection (आजचा विचार)</h2>
+                <p class="lead text-secondary">A moment for spiritual contemplation.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card text-center shadow-sm" style="border-left: 5px solid #1abc9c;">
+                        <div class="card-body p-4 p-lg-5" id="reflection-content">
+                            <!-- This content will be updated automatically by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section class="py-5 animated-section">
-        <div class="container my-5">
+    <section class="py-4 py-lg-5 animated-section">
+        <div class="container my-4 my-lg-5">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6">
                     <img src="Home/In SideMasjid .jpg" alt="Inside the Masjid" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Inside+Masjid';">
@@ -278,7 +348,7 @@
         </div>
     </section>
 
-    <section class="py-5 bg-light-gray animated-section">
+    <section class="py-4 py-lg-5 bg-light-gray animated-section">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Explore Our Sacred Complex</h2>
@@ -325,8 +395,76 @@
         </div>
     </section>
 
+    <!-- A Message from the Mutawalli Section -->
     <section class="py-5 animated-section">
-        <div class="container my-5">
+        <div class="container my-4">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">A Message From Our Mutawalli</h2>
+                 <p class="lead text-secondary">Guidance from our appointed steward.</p>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm bg-light-gray">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4 text-center p-4">
+                                <img src="Home/Mushtaque Ahmed Photo.jpg" class="rounded-circle shadow-lg profile-image" alt="Mohammed Mushtaque Ahmed" onerror="this.onerror=null;this.src='https://placehold.co/180x180/cccccc/ffffff?text=Mutawalli';">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <blockquote class="blockquote mb-0">
+                                        <p class="fst-italic">"I am humbled by the responsibility to serve this historic institution. My commitment is to uphold its sacred values, protect its heritage, and ensure it continues to be a source of guidance and support for our entire community."</p>
+                                        <footer class="blockquote-footer mt-2">Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-4 py-lg-5 bg-light-gray animated-section">
+        <div class="container my-4 my-lg-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Our Commitment to Community Service</h2>
+                <p class="lead text-secondary">We are dedicated to serving our community through a variety of programs and initiatives.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm card-hover border-0 text-center p-3">
+                        <div class="card-body d-flex flex-column">
+                             <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
+                            <h4 class="fw-bold">Educational Programs</h4>
+                            <p>We offer a range of educational programs for all ages, including Quranic studies, Islamic history, and Arabic language classes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm card-hover border-0 text-center p-3">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-hands-helping fa-3x text-primary mb-3"></i>
+                            <h4 class="fw-bold">Charitable Initiatives</h4>
+                            <p>We are committed to helping those in need through our various charitable initiatives, including food drives, financial assistance, and disaster relief.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm card-hover border-0 text-center p-3">
+                        <div class="card-body d-flex flex-column">
+                            <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                            <h4 class="fw-bold">Community Events</h4>
+                            <p class="flex-grow-1">We host a variety of community events throughout the year, including Eid celebrations, lectures, and workshops, to foster a sense of unity and belonging.</p>
+                            <button class="btn bg-primary text-white btn-sm rounded-pill mt-3" data-bs-toggle="modal" data-bs-target="#qa-modal">💬 Ask a Question</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-4 py-lg-5 bg-light-gray animated-section">
+        <div class="container my-4 my-lg-5">
             <div class="row align-items-center g-5">
                 <div class="col-lg-5 order-lg-2">
                     <a href="Home/waqf 123_432.jpg" target="_blank">
@@ -337,7 +475,8 @@
                     <h2 class="display-5 fw-bold mb-3">An Unbroken Chain of Stewardship</h2>
                     <p class="lead text-secondary" style="font-size: 1.2rem;">Our leadership is rooted in a deep, documented history of service.</p>
                     <p class="text-secondary">This historic document, the <b>Silsila</b> (Chain of Succession), details the lineage of caretakers who have preserved this sacred trust for generations. It is a testament to the unbroken commitment to faith and community, linking the original founders like <strong>Syed Mehtab Ali Shah</strong> to the present day. We are honored to continue this profound legacy.</p>
-                    <a href="About.html" class="btn bg-secondary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover mt-3">Discover Our History</a>
+                     <p class="text-secondary">The term 'Waqf' refers to an inalienable charitable endowment under Islamic law, made in perpetuity. It typically involves donating a building, plot of land, or other assets for Muslim religious or charitable purposes with no intention of reclaiming the assets. Our Waqf is registered under the Maharashtra State Board of Waqfs and is dedicated to the upkeep of the Masjid and the welfare of the community.</p>
+                    <a href="About.html" class="btn bg-secondary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover btn-gradient-secondary mt-3">Discover Our History</a>
                 </div>
             </div>
         </div>
@@ -389,14 +528,14 @@
         </div>
     </section>
 
-    <section class="py-5 animated-section">
-        <div class="container my-5">
+    <section class="py-4 py-lg-5 animated-section">
+        <div class="container my-4 my-lg-5">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Latest News & Updates</h2>
                 <p class="lead text-secondary">Stay informed about recent events and important announcements.</p>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
                         <div class="news-img-container" style="background-image: url('Home/Mushtaque Ahmed Photo.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
                         <div class="card-body d-flex flex-column">
@@ -409,40 +548,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
-                        <div class="news-img-container" style="background-image: url('Home/student.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 15, 2025</p>
-                            <h5 class="card-title fw-bold"><a href="youth-program.html" class="text-dark-blue text-decoration-none">New Youth Islamic Studies Program</a></h5>
-                            <p class="card-text">We're excited to launch our new weekend Islamic Studies Program for youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p>
-                            <div class="mt-auto pt-3">
-                                <a href="youth-program.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
-                        <div class="news-img-container" style="background-image: url('Home/Old Document.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
-                        <div class="card-body d-flex flex-column">
-                            <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p>
-                            <h5 class="card-title fw-bold"><a href="land-grant-archives.html" class="text-dark-blue text-decoration-none">Our Roots: The Nizam-Era Land Grant</a></h5>
-                            <p class="card-text">This historic document from the Nizam's government details the original land grant for the Masjid complex, cementing our place in history...</p>
-                            <div class="mt-auto pt-3">
-                                <a href="land-grant-archives.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="text-center mt-5">
-                <a href="News.html" class="btn bg-secondary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover">View All News</a>
+                <a href="News.html" class="btn bg-secondary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover btn-gradient-secondary">View All News</a>
             </div>
         </div>
     </section>
 
-    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -462,6 +575,37 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Community Q&A Modal -->
+    <div class="modal fade" id="qa-modal" tabindex="-1" aria-labelledby="qaModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="qaModalLabel">💬 Community Q&A Helper</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Have a question about our services, history, or events? This chatbot can help.</p>
+            <div class="mb-3">
+              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., What are the timings for the youth program? or Tell me about the history of the Naqqar Khana."></textarea>
+            </div>
+             <div class="text-center">
+                <button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">
+                    Ask Question
+                </button>
+            </div>
+            <hr>
+            <div id="qa-output" style="max-height: 40vh; overflow-y: auto;">
+                <p class="text-center text-secondary">Your answer will appear here...</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -481,18 +625,49 @@
             animatedSections.forEach(section => {
                 observer.observe(section);
             });
+
+            // Automatic Daily Reflection
+            const reflectionContainer = document.getElementById('reflection-content');
+            if (reflectionContainer) {
+                const today = new Date();
+                const dayOfWeek = today.getDay(); // Sunday - 0, Friday - 5
+
+                let reflectionHtml = '';
+
+                if (dayOfWeek === 5) { // It's Friday
+                    reflectionHtml = `
+                        <i class="fas fa-star-and-crescent fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">The Blessing of Jumu'ah (Friday)</h4>
+                        <p class="text-secondary">Today is Friday, the most blessed day of the week. The Prophet (PBUH) said, "The best day on which the sun has risen is Friday." (Sahih Muslim). It is a day for increased prayer, reflection, and sending blessings upon the Prophet.</p>
+                        <hr>
+                        <h5 class="fw-bold mt-4">A Thought for Today</h5>
+                        <blockquote class="blockquote mb-0 mt-3">
+                            <p class="fst-italic">"O you who have believed, when the adhan is called for the prayer on the day of Jumu'ah (Friday), then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew."</p>
+                            <footer class="blockquote-footer mt-2">Quran 62:9</footer>
+                        </blockquote>
+                    `;
+                } else { // Any other day
+                    reflectionHtml = `
+                        <i class="fas fa-moon fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">A Daily Reflection</h4>
+                        <p class="text-secondary">Every day is a new opportunity to grow closer to Allah through remembrance and good deeds. Take a moment for a thought that can inspire your day.</p>
+                        <hr>
+                        <h5 class="fw-bold mt-4">A Thought for Today</h5>
+                        <blockquote class="blockquote mb-0 mt-3">
+                            <p class="fst-italic">"So remember Me; I will remember you. And be grateful to Me and do not deny Me."</p>
+                            <footer class="blockquote-footer mt-2">Quran 2:152</footer>
+                        </blockquote>
+                    `;
+                }
+                reflectionContainer.innerHTML = reflectionHtml;
+            }
         });
 
-        // Prayer Time Countdown Logic
+        // Prayer Time Logic
         document.addEventListener('DOMContentLoaded', function() {
-            // NOTE: Updated Prayer Times for Parbhani, India on Oct 7, 2025
-            const prayerTimes = {
-                'Fajr': '05:05',
-                'Dhuhr': '12:23',
-                'Asr': '16:42',
-                'Maghrib': '18:17',
-                'Isha': '19:40'
-            };
+            let prayerTimes = {
+                'Fajr': '05:06', 'Dhuhr': '12:21', 'Asr': '15:45', 'Maghrib': '18:13', 'Isha': '19:35'
+            }; // Fallback times
 
             const prayerElements = {
                 'Fajr': document.getElementById('fajr').querySelector('.card'),
@@ -501,8 +676,46 @@
                 'Maghrib': document.getElementById('maghrib').querySelector('.card'),
                 'Isha': document.getElementById('isha').querySelector('.card')
             };
-
             const countdownElement = document.getElementById('prayer-countdown');
+
+            function formatTime(time24) {
+                const [hours, minutes] = time24.split(':');
+                const h = parseInt(hours, 10);
+                const m = parseInt(minutes, 10);
+                const ampm = h >= 12 ? 'PM' : 'AM';
+                const h12 = h % 12 || 12;
+                return `${h12}:${m < 10 ? '0' + m : m} ${ampm}`;
+            }
+
+            async function fetchPrayerTimes() {
+                try {
+                    const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Parbhani&country=India&method=2');
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    const times = data.data.timings;
+                    prayerTimes = {
+                        'Fajr': times.Fajr, 'Dhuhr': times.Dhuhr, 'Asr': times.Asr, 'Maghrib': times.Maghrib, 'Isha': times.Isha
+                    };
+
+                    // Update UI with fetched times
+                    document.querySelector('#fajr p').textContent = formatTime(times.Fajr);
+                    document.querySelector('#dhuhr p').textContent = formatTime(times.Dhuhr);
+                    document.querySelector('#asr p').textContent = formatTime(times.Asr);
+                    document.querySelector('#maghrib p').textContent = formatTime(times.Maghrib);
+                    document.querySelector('#isha p').textContent = formatTime(times.Isha);
+
+                    startCountdown();
+                } catch (error) {
+                    console.error("Failed to fetch prayer times:", error);
+                    // Use fallback times if API fails
+                    document.querySelector('#fajr p').textContent = formatTime(prayerTimes.Fajr);
+                    document.querySelector('#dhuhr p').textContent = formatTime(prayerTimes.Dhuhr);
+                    document.querySelector('#asr p').textContent = formatTime(prayerTimes.Asr);
+                    document.querySelector('#maghrib p').textContent = formatTime(prayerTimes.Maghrib);
+                    document.querySelector('#isha p').textContent = formatTime(prayerTimes.Isha);
+                    startCountdown();
+                }
+            }
 
             function getNextPrayer() {
                 const now = new Date();
@@ -528,11 +741,7 @@
                     nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
                     nextPrayerTime.setHours(hours, minutes, 0, 0);
                 }
-
-                return {
-                    name: nextPrayer,
-                    time: nextPrayerTime
-                };
+                return { name: nextPrayer, time: nextPrayerTime };
             }
 
             function updateCountdown() {
@@ -551,8 +760,13 @@
                     prayerElements[nextPrayerInfo.name].id = 'next-prayer-highlight';
                 }
             }
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
+            
+            function startCountdown() {
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+
+            fetchPrayerTimes();
         });
 
         // 3D Background Animation Logic
@@ -580,24 +794,33 @@
 
                 camera.position.z = 5;
                 const particlesGeometry = new THREE.BufferGeometry();
-                const count = 5000;
+                const count = 7000;
                 const positions = new Float32Array(count * 3);
                 for (let i = 0; i < count * 3; i++) {
-                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i] = (Math.random() - 0.5) * 15;
                 }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
                 const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.005,
+                    size: 0.008,
                     color: 0xffffff,
                 });
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
 
+                let mouseX = 0;
+                let mouseY = 0;
+
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+
+
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05;
-                    particles.rotation.x = elapsedTime * 0.02;
+                    particles.rotation.y = elapsedTime * 0.05 + mouseX * 0.2;
+                    particles.rotation.x = elapsedTime * 0.02 + mouseY * 0.2;
 
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
@@ -607,7 +830,35 @@
                 window.addEventListener('resize', setSize);
             }
         });
+        
+        // Community Q&A Logic (Removed AI call)
+        document.addEventListener('DOMContentLoaded', () => {
+            const qaBtn = document.getElementById('generate-qa-btn');
+            const qaTopicInput = document.getElementById('qa-topic-input');
+            const qaOutput = document.getElementById('qa-output');
+
+            qaBtn.addEventListener('click', () => {
+                const topic = qaTopicInput.value.toLowerCase();
+                let answer = '';
+
+                if (topic.includes('program') || topic.includes('class') || topic.includes('youth')) {
+                    answer = "We offer a weekend Islamic Studies Program for youth aged 7-14, covering Quran, Islamic history, and more. For specific timings, please contact the Masjid office directly through the details on our Contact page.";
+                } else if (topic.includes('history') || topic.includes('naqqar khana') || topic.includes('baradari')) {
+                    answer = "Our complex is a historic Waqf property from the Nizam era. It includes the Ashoorkhana Nale Hyder, the Naqqar Khana (drum house), and the Baradari pavilion. You can learn more on our 'About Us' page.";
+                } else if (topic.includes('donate') || topic.includes('charity')) {
+                    answer = "You can find all donation details, including bank account information and a QR code, on our 'Contact Us' page. Your support is greatly appreciated!";
+                } else if (topic.includes('contact') || topic.includes('phone') || topic.includes('email')) {
+                    answer = "You can find our phone number, email, and address on the 'Contact Us' page. We look forward to hearing from you.";
+                } else {
+                    answer = "Thank you for your question. For detailed inquiries, please use the form on our 'Contact Us' page to send us a message directly. You can ask about our history, community services, or events.";
+                }
+                qaOutput.innerHTML = `<p>${answer}</p>`;
+            });
+        });
+
     </script>
 </body>
 
 </html>
+
+
