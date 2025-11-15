@@ -15,74 +15,290 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    
+
     <!-- Light Gallery for image popups -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
 
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
-        body { font-family: 'Roboto', sans-serif; color: #555; overflow-x: hidden; background-color: #f8f9fa; }
-        h1, h2, h3, h4, h5, h6 { font-family: 'Merriweather', serif; color: #2c3e50; }
-        .navbar-nav .nav-link { color: #2c3e50; font-weight: 500; transition: color 0.3s; }
-        .navbar-nav .nav-link.active,
-        .navbar-nav .nav-link:hover { color: #1abc9c; }
-        .news-card { transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s; cursor: pointer; }
-        .news-card:hover { transform: translateY(-10px); box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .18) !important; }
-        .btn-hover { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
-        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
-        .news-img-container { height: 200px; background-size: cover; background-position: center; }
-        .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #f39c12 !important; }
-        .bg-dark-blue { background-color: #2c3e50 !important; }
-        .bg-light-gray { background-color: #f8f9fa !important; }
-        .text-primary { color: #1abc9c !important; }
-        .text-dark-blue { color: #2c3e50 !important; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #555;
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
 
-        header { overflow: hidden; }
-        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        header .container { position: relative; z-index: 1; }
-        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Merriweather', serif;
+            color: #2c3e50;
+        }
+
+        .navbar-nav .nav-link {
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: #1abc9c;
+        }
+
+        .news-card {
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .18) !important;
+        }
+
+        .btn-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-img-container {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bg-primary {
+            background-color: #1abc9c !important;
+        }
+
+        .bg-secondary {
+            background-color: #f39c12 !important;
+        }
+
+        .bg-dark-blue {
+            background-color: #2c3e50 !important;
+        }
+
+        .bg-light-gray {
+            background-color: #f8f9fa !important;
+        }
+
+        .text-primary {
+            color: #1abc9c !important;
+        }
+
+        .text-dark-blue {
+            color: #2c3e50 !important;
+        }
+
+        header {
+            overflow: hidden;
+        }
+
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Gallery Styles */
-        .gallery-item { overflow: hidden; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); position: relative; aspect-ratio: 4 / 3; }
-        .gallery-item img { transition: transform 0.4s ease; width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-item .caption { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); color: white; padding: 1rem; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; transform: translateY(20px); }
-        .gallery-item:hover .caption { opacity: 1; transform: translateY(0); }
-        .caption h6 { color: white; margin-bottom: 0.25rem; font-family: 'Merriweather', serif; font-weight: 700; }
-        .caption small { color: #e0e0e0; }
-        
-        .horizontal-scroll-gallery { display: flex; overflow-x: auto; gap: 1.5rem; padding: 4px; scrollbar-width: none; -ms-overflow-style: none; }
-        .horizontal-scroll-gallery::-webkit-scrollbar { display: none; }
-        .horizontal-scroll-gallery .gallery-item { flex: 0 0 80%; }
-        @media (min-width: 576px) { .horizontal-scroll-gallery .gallery-item { flex-basis: 45%; } }
-        @media (min-width: 992px) { .horizontal-scroll-gallery .gallery-item { flex-basis: 30%; } }
-        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            aspect-ratio: 4 / 3;
+        }
+
+        .gallery-item img {
+            transition: transform 0.4s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateY(20px);
+        }
+
+        .gallery-item:hover .caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .caption h6 {
+            color: white;
+            margin-bottom: 0.25rem;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+        }
+
+        .caption small {
+            color: #e0e0e0;
+        }
+
+        .horizontal-scroll-gallery {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            /* Changed padding to allow for shadows and peeking */
+            padding: 2rem 1rem; /* More padding for reflection */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            /* Added CSS Scroll Snap */
+            scroll-snap-type: x mandatory;
+            /* Added a subtle gradient to fade out items on the edge */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .horizontal-scroll-gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .horizontal-scroll-gallery .gallery-item {
+            flex: 0 0 75%; /* Peek effect */
+            /* Added scroll-snap-align */
+            scroll-snap-align: start;
+            /* Adding a bit more visual flair */
+            border: 1px solid #eee;
+            /* Add reflection */
+            -webkit-box-reflect: below 1px linear-gradient(transparent, transparent 80%, rgba(0,0,0,0.15));
+            /* Add transition */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            transform: scale(0.98); /* Slightly smaller by default */
+            opacity: 0.8;
+        }
+
+        .horizontal-scroll-gallery .gallery-item:hover {
+            transform: scale(1.02); /* Scale up on hover */
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+            opacity: 1;
+            z-index: 10;
+        }
+
+
+        @media (min-width: 576px) {
+            .horizontal-scroll-gallery .gallery-item {
+                flex-basis: 40%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .horizontal-scroll-gallery .gallery-item {
+                flex-basis: 28%;
+            }
+        }
+
         /* Filter buttons */
-        .filter-btn-group .btn { transition: background-color 0.3s, color 0.3s; }
-        .filter-btn-group .btn.active { background-color: #1abc9c !important; color: white !important; }
+        .filter-btn-group .btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .filter-btn-group .btn.active {
+            background-color: #1abc9c !important;
+            color: white !important;
+        }
 
         /* Custom Animated Navbar Toggler */
-        .navbar-toggler.custom-toggler { border: none; background: transparent !important; outline: none !important; box-shadow: none !important; position: relative; width: 30px; height: 20px; padding: 0; cursor: pointer; }
-        .custom-toggler .toggler-icon { display: block; position: absolute; height: 3px; width: 100%; background: #2c3e50; border-radius: 1px; opacity: 1; left: 0; transform: rotate(0deg); transition: all 0.25s ease-in-out; }
-        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
-        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
-        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
-        
-        @media (max-width: 420px) { .brand-text { font-size: 16px !important; } }
+        .navbar-toggler.custom-toggler {
+            border: none;
+            background: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            position: relative;
+            width: 30px;
+            height: 20px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .custom-toggler .toggler-icon {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #2c3e50;
+            border-radius: 1px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+
+        .custom-toggler .toggler-icon:nth-child(1) {
+            top: 0px;
+        }
+
+        .custom-toggler .toggler-icon:nth-child(2) {
+            top: 8px;
+        }
+
+        .custom-toggler .toggler-icon:nth-child(3) {
+            top: 16px;
+        }
+
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        @media (max-width: 420px) {
+            .brand-text {
+                font-size: 16px !important;
+            }
+        }
     </style>
 </head>
 
@@ -91,10 +307,14 @@
     <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="News/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
-                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
+                <img src="News/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;"
+                    onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali
+                    Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="toggler-icon"></span>
                 <span class="toggler-icon"></span>
                 <span class="toggler-icon"></span>
@@ -106,14 +326,17 @@
                     <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form" role="button">Join Us</a>
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover"
+                            href="Contact.html#message-form" role="button">Join Us</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(News/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=News)'">
+    <header class="py-5 position-relative text-white text-center"
+        style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(News/about%20page.jpg) center/cover no-repeat;"
+        onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=News)'">
         <canvas id="bg-animation"></canvas>
         <div class="container py-5 text-center" data-aos="fade-in">
             <h1 class="display-4 fw-bold text-white">News & Updates</h1>
@@ -126,14 +349,20 @@
             <div class="p-5 bg-white rounded-3 shadow-sm" data-aos="fade-up">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <img src="News/Ministry%20order.jpg" class="img-fluid rounded-3 shadow" alt="Minority Commission Newspaper Clipping" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Featured+News';">
+                        <img src="News/Ministry%20order.jpg" class="img-fluid rounded-3 shadow"
+                            alt="Minority Commission Newspaper Clipping"
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Featured+News';">
                     </div>
                     <div class="col-lg-6">
                         <h5 class="text-primary">Featured News</h5>
                         <h2 class="fw-bold display-6">Minority Commission Orders Municipality to Return Land</h2>
                         <p class="text-muted"><i class="fas fa-calendar-alt me-2"></i>December 26, 2024</p>
-                        <p class="lead">In a landmark decision, the Maharashtra State Minority Commission has directed the Parbhani Municipal Corporation to hand over possession of the leased Waqf land back to the institution. This is a significant victory in the long-standing effort to reclaim the property, whose lease expired in 1989.</p>
-                        <button class="btn btn-primary rounded-pill px-4 btn-hover" data-bs-toggle="modal" data-bs-target="#newsModal6">Read Full Story</button>
+                        <p class="lead">In a landmark decision, the Maharashtra State Minority Commission has directed
+                            the Parbhani Municipal Corporation to hand over possession of the leased Waqf land back to
+                            the institution. This is a significant victory in the long-standing effort to reclaim the
+                            property, whose lease expired in 1989.</p>
+                        <button class="btn btn-primary rounded-pill px-4 btn-hover" data-bs-toggle="modal"
+                            data-bs-target="#newsModal6">Read Full Story</button>
                     </div>
                 </div>
             </div>
@@ -147,12 +376,117 @@
                 <p class="lead text-muted">A gallery of key moments in the campaign to protect our heritage.</p>
             </div>
             <div id="lightgallery" class="horizontal-scroll-gallery">
-                <a href="News/Survey4.jpg" class="gallery-item"><img src="News/Survey4.jpg" alt="Submitting Demand to Minister" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>Demand Submitted to Minister</h6><small>May 3, 2024</small></div></a>
-                <a href="News/Survey1.jpg" class="gallery-item"><img src="News/Survey1.jpg" alt="Meeting with Waqf Board" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>Meeting with Waqf Board</h6><small>June 1, 2024</small></div></a>
-                <a href="News/Survey3.jpg" class="gallery-item"><img src="News/Survey3.jpg" alt="Municipal Site Inspection" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>Municipal Site Inspection</h6><small>July 20, 2024</small></div></a>
-                <a href="News/waqf%20123_327.jpg" class="gallery-item"><img src="News/waqf%20123_327.jpg" alt="Waqf Board Notice News" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>Waqf Board Issues Notices</h6><small>October 3, 2024</small></div></a>
-                <a href="News/waqf%20123_448.jpg" class="gallery-item"><img src="News/waqf%20123_448.jpg" alt="All India Organization Meeting" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>National Organization Meeting</h6><small>February 23, 2025</small></div></a>
-                <a href="News/Survey5.jpg" class="gallery-item"><img src="News/Survey5.jpg" alt="Minister Orders Report" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';"><div class="caption"><h6>Minister Orders Report</h6><small>July 24, 2025</small></div></a>
+                <a href="News/Survey4.jpg" class="gallery-item"><img src="News/Survey4.jpg"
+                        alt="Submitting Demand to Minister"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Demand Submitted to Minister</h6><small>May 3, 2024</small>
+                    </div>
+                </a>
+                <a href="News/Survey1.jpg" class="gallery-item"><img src="News/Survey1.jpg"
+                        alt="Meeting with Waqf Board"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Meeting with Waqf Board</h6><small>June 1, 2024</small>
+                    </div>
+                </a>
+                <a href="News/Survey3.jpg" class="gallery-item"><img src="News/Survey3.jpg"
+                        alt="Municipal Site Inspection"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Municipal Site Inspection</h6><small>July 20, 2024</small>
+                    </div>
+                </a>
+                <a href="News/waqf%20123_327.jpg" class="gallery-item"><img src="News/waqf%20123_327.jpg"
+                        alt="Waqf Board Notice News"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Waqf Board Issues Notices</h6><small>October 3, 2024</small>
+                    </div>
+                </a>
+                <a href="News/waqf%20123_448.jpg" class="gallery-item"><img src="News/waqf%20123_448.jpg"
+                        alt="All India Organization Meeting"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>National Organization Meeting</h6><small>February 23, 2025</small>
+                    </div>
+                </a>
+                <a href="News/Survey5.jpg" class="gallery-item"><img src="News/Survey5.jpg" alt="Minister Orders Report"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Minister Orders Report</h6><small>July 24, 2025</small>
+                    </div>
+                </a>
+                <!-- 10 NEW IMAGES - Corrected Paths -->
+                <a href="News/waqf 123_502.jpg" class="gallery-item"><img src="News/waqf 123_502.jpg"
+                        alt="118th Urs Announcement"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>118th Urs Announcement</h6><small>Feb 1, 2025</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_346.jpg" class="gallery-item"><img src="News/waqf 123_346.jpg"
+                        alt="Meeting Minority Commissioner"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Meeting Minority Commissioner</h6><small>Engaging with State Officials</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_267.jpg" class="gallery-item"><img src="News/waqf 123_267.jpg"
+                        alt="Meeting with Haji Arfat"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Meeting with Haji Arfat</h6><small>Ex-President, Minority Commission</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_391.jpg" class="gallery-item"><img src="News/waqf 123_391.jpg"
+                        alt="Flag Hoisting Ceremony"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Flag Hoisting Ceremony</h6><small>Community Leadership</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_403.jpg" class="gallery-item"><img src="News/waqf 123_403.jpg"
+                        alt="Discussion with Officials"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Discussion with Officials</h6><small>Advocacy in Action</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_423.jpg" class="gallery-item"><img src="News/waqf 123_423.jpg"
+                        alt="Community Discussion"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Community Discussion</h6><small>Nov 10, 2024</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_508.jpg" class="gallery-item"><img src="News/waqf 123_508.jpg"
+                        alt="Community Meeting"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Community Meeting</h6><small>Feb 16, 2025</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_520.jpg" class="gallery-item"><img src="News/waqf 123_520.jpg"
+                        alt="Felicitation Ceremony"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Felicitation Ceremony</h6><small>May 19, 2025</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_532.jpg" class="gallery-item"><img src="News/waqf 123_532.jpg" alt="Leadership"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Community Leadership</h6><small>Building Connections</small>
+                    </div>
+                </a>
+                <a href="News/waqf 123_263.jpg" class="gallery-item"><img src="News/waqf 123_263.jpg"
+                        alt="Mutawalli with Official"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
+                    <div class="caption">
+                        <h6>Meeting with Officials</h6><small>Ongoing Advocacy</small>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -163,36 +497,207 @@
                 <h2 class="display-5 fw-bold">News Archive</h2>
                 <p class="lead text-muted">Browse our articles and stay informed on our community's progress.</p>
             </div>
-             <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 filter-btn-group" data-aos="fade-up">
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 filter-btn-group" data-aos="fade-up">
                 <button class="btn btn-outline-secondary rounded-pill px-4 active" data-filter="all">All</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="legal">Legal & Official</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="community">Community Updates</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="announcements">Announcements</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="legal">Legal &
+                    Official</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="community">Community
+                    Updates</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4"
+                    data-filter="announcements">Announcements</button>
             </div>
             <div id="news-grid" class="row g-4">
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal6"><div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Dec 26, 2024</p><h5 class="card-title fw-bold">Minority Commission Orders Return of Land</h5><p class="card-text">The State Minority Commission has issued a landmark order directing the Parbhani Municipal Corporation to return the leased Waqf land...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal7"><div class="news-img-container" style="background-image: url('News/Grp%20Photo.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Feb 23, 2025</p><h5 class="card-title fw-bold">Mutawalli Engages with All India Organization</h5><p class="card-text">Office-bearers of the All India Mutawalli Inamdar Organization felicitated Waqf Board member Sameer Kazi at an event in Jalna...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal8"><div class="news-img-container" style="background-image: url('News/Waqf%20News%20PP_page-0009.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Oct 3, 2024</p><h5 class="card-title fw-bold">Waqf Board Notices Trouble Illegal Occupants</h5><p class="card-text">The Waqf Board has issued notices to 621 shopkeepers on the institution's land, causing a stir among illegal occupants...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal3"><div class="news-img-container" style="background-image: url('News/MNP%20sr.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Jul 20, 2024</p><h5 class="card-title fw-bold">Municipal Officials Inspect Waqf Board Land</h5><p class="card-text">Following a notice from the Waqf Board, municipal officials conducted a site inspection of the land whose 30-year lease expired in 1989...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal4"><div class="news-img-container" style="background-image: url('News/notice%20210.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Jun 14, 2025</p><h5 class="card-title fw-bold">610 Individuals Receive Notices from Waqf Board</h5><p class="card-text">In a second phase of action, the Waqf Board has issued notices to 610 occupants on the Masjid's land...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal5"><div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Jul 24, 2025</p><h5 class="card-title fw-bold">Minister Orders Report on Encroachment</h5><p class="card-text">The Minister for Minority Development has ordered an immediate inquiry and report on the complaints of illegal encroachment...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal1"><div class="news-img-container" style="background-image: url('News/meet%20with%20offical.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Jun 1, 2024</p><h5 class="card-title fw-bold">Mutawalli Meets with Waqf Board Leadership</h5><p class="card-text">Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to discuss the illegal encroachment on the Masjid's land...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal2"><div class="news-img-container" style="background-image: url('News/Demand.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> May 3, 2024</p><h5 class="card-title fw-bold">Formal Demand Submitted to Minister</h5><p class="card-text">A formal request has been submitted to the Minority Affairs Minister to take legal action against illegal occupants...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal9"><div class="news-img-container" style="background-image: url('News/Waqf%20News%20PP_page-0007.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Dec 31, 2024</p><h5 class="card-title fw-bold">Call to Action as Municipal Lease Expires</h5><p class="card-text">With the 30-year lease officially expired, there is a strong demand for the municipality to return the land to the Mutawalli...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="announcements legal" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal10"><div class="news-img-container" style="background-image: url('Home/Mushtaque%20Ahmed%20Photo.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Aug 1, 2025</p><h5 class="card-title fw-bold">Waqf Board Appoints New Mutawalli</h5><p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal11"><div class="news-img-container" style="background-image: url('Home/student.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> Aug 15, 2025</p><h5 class="card-title fw-bold">New Youth Islamic Studies Program</h5><p class="card-text">We're excited to launch our new weekend Islamic Studies Program for youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p></div></div></div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community" data-aos="fade-up"><div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal" data-bs-target="#newsModal12"><div class="news-img-container" style="background-image: url('Home/Old%20Document.jpg');"></div><div class="card-body p-4"><p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p><h5 class="card-title fw-bold">Our Roots: The Nizam-Era Land Grant</h5><p class="card-text">This historic document from the Nizam's government details the original land grant for the Masjid complex, cementing our place in history...</p></div></div></div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal6">
+                        <div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');">
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Dec 26, 2024</p>
+                            <h5 class="card-title fw-bold">Minority Commission Orders Return of Land</h5>
+                            <p class="card-text">The State Minority Commission has issued a landmark order directing the
+                                Parbhani Municipal Corporation to return the leased Waqf land...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="community legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal7">
+                        <div class="news-img-container" style="background-image: url('News/Grp%20Photo.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Feb 23, 2025</p>
+                            <h5 class="card-title fw-bold">Mutawalli Engages with All India Organization</h5>
+                            <p class="card-text">Office-bearers of the All India Mutawalli Inamdar Organization
+                                felicitated Waqf Board member Sameer Kazi at an event in Jalna...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal8">
+                        <div class="news-img-container"
+                            style="background-image: url('News/Waqf%20News%20PP_page-0009.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Oct 3, 2024</p>
+                            <h5 class="card-title fw-bold">Waqf Board Notices Trouble Illegal Occupants</h5>
+                            <p class="card-text">The Waqf Board has issued notices to 621 shopkeepers on the
+                                institution's land, causing a stir among illegal occupants...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal3">
+                        <div class="news-img-container" style="background-image: url('News/MNP%20sr.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Jul 20, 2024</p>
+                            <h5 class="card-title fw-bold">Municipal Officials Inspect Waqf Board Land</h5>
+                            <p class="card-text">Following a notice from the Waqf Board, municipal officials conducted a
+                                site inspection of the land whose 30-year lease expired in 1989...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal4">
+                        <div class="news-img-container" style="background-image: url('News/notice%20210.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Jun 14, 2025</p>
+                            <h5 class="card-title fw-bold">610 Individuals Receive Notices from Waqf Board</h5>
+                            <p class="card-text">In a second phase of action, the Waqf Board has issued notices to 610
+                                occupants on the Masjid's land...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal5">
+                        <div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');">
+                        </div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Jul 24, 2025</p>
+                            <h5 class="card-title fw-bold">Minister Orders Report on Encroachment</h5>
+                            <p class="card-text">The Minister for Minority Development has ordered an immediate inquiry
+                                and report on the complaints of illegal encroachment...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal1">
+                        <div class="news-img-container"
+                            style="background-image: url('News/meet%20with%20offical.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Jun 1, 2024</p>
+                            <h5 class="card-title fw-bold">Mutawalli Meets with Waqf Board Leadership</h5>
+                            <p class="card-text">Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to
+                                discuss the illegal encroachment on the Masjid's land...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal2">
+                        <div class="news-img-container" style="background-image: url('News/Demand.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> May 3, 2024</p>
+                            <h5 class="card-title fw-bold">Formal Demand Submitted to Minister</h5>
+                            <p class="card-text">A formal request has been submitted to the Minority Affairs Minister to
+                                take legal action against illegal occupants...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal9">
+                        <div class="news-img-container"
+                            style="background-image: url('News/Waqf%20News%20PP_page-0007.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Dec 31, 2024</p>
+                            <h5 class="card-title fw-bold">Call to Action as Municipal Lease Expires</h5>
+                            <p class="card-text">With the 30-year lease officially expired, there is a strong demand for
+                                the municipality to return the land to the Mutawalli...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="announcements legal" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal10">
+                        <div class="news-img-container"
+                            style="background-image: url('Home/Mushtaque%20Ahmed%20Photo.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Aug 1, 2025</p>
+                            <h5 class="card-title fw-bold">Waqf Board Appoints New Mutawalli</h5>
+                            <p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new
+                                Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal11">
+                        <div class="news-img-container" style="background-image: url('Home/student.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Aug 15, 2025</p>
+                            <h5 class="card-title fw-bold">New Youth Islamic Studies Program</h5>
+                            <p class="card-text">We're excited to launch our new weekend Islamic Studies Program for
+                                youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 news-item" data-category="community" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal12">
+                        <div class="news-img-container" style="background-image: url('Home/Old%20Document.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i>
+                                From the Archives</p>
+                            <h5 class="card-title fw-bold">Our Roots: The Nizam-Era Land Grant</h5>
+                            <p class="card-text">This historic document from the Nizam's government details the original
+                                land grant for the Masjid complex, cementing our place in history...</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- NEW News Card for 118th Urs -->
+                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
+                        data-bs-target="#newsModal13">
+                        <div class="news-img-container" style="background-image: url('waqf 123_502.jpg');"></div>
+                        <div class="card-body p-4">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> Feb 1, 2025</p>
+                            <h5 class="card-title fw-bold">118th Urs of H. Syed Shah Turab Ul Haq</h5>
+                            <p class="card-text">The community gathered to celebrate the 118th Urs of Syed Shah Turab Ul Haq,
+                                with Sajjada Nashin Mushtaq Ali Shah and Waqf officials...</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5 text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
+    <section class="py-5 text-white text-center"
+        style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;"
+        onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
         <div class="container" data-aos="fade-up">
             <h2 class="display-5 fw-bold text-white">Stay Engaged</h2>
             <p class="lead col-md-8 mx-auto mt-3">
-                Our history is ongoing, and every update marks a new chapter. If you have questions about our efforts, community programs, or history, our AI assistant is here to help.
+                Our history is ongoing, and every update marks a new chapter. If you have questions about our efforts,
+                community programs, or history, our AI assistant is here to help.
             </p>
-             <button class="btn bg-primary text-white btn-lg rounded-pill mt-4 btn-hover" data-bs-toggle="modal" data-bs-target="#qa-modal">
+            <button class="btn bg-primary text-white btn-lg rounded-pill mt-4 btn-hover" data-bs-toggle="modal"
+                data-bs-target="#qa-modal">
                 <i class="fas fa-question-circle me-2"></i> Have a Question?
             </button>
         </div>
@@ -202,11 +707,17 @@
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2 text-white">Ashoorkhana Nale Hyder</h3>
-                <p class="col-md-6 mx-auto text-white-50">Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra.</p>
+                <p class="col-md-6 mx-auto text-white-50">Preserving our shared history and fostering a vibrant
+                    community in Parbhani, Maharashtra.</p>
                 <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2" aria-label="Email us"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener noreferrer" class="text-white fs-4 mx-2" aria-label="Visit our Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener noreferrer" class="text-white fs-4 mx-2" aria-label="Visit our Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2" aria-label="Email us"><i
+                            class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener noreferrer"
+                        class="text-white fs-4 mx-2" aria-label="Visit our Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank"
+                        rel="noopener noreferrer" class="text-white fs-4 mx-2" aria-label="Visit our Facebook"><i
+                            class="fab fa-facebook"></i></a>
                 </div>
             </div>
             <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
@@ -217,20 +728,269 @@
     </footer>
 
     <!-- Modals -->
-    <div class="modal fade" id="newsModal1" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/meet%20with%20offical.jpg" class="img-fluid rounded mb-4" alt="Meeting with officials"><h3 class="fw-bold mb-3">Mutawalli Meets with Waqf Board on Encroachment</h3><p>Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to discuss the illegal encroachment on the Masjid's land and praised the board for issuing notices to the encroachers. The meeting was a crucial step in the ongoing efforts to reclaim and protect the sacred property for community use.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal2" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Demand.jpg" class="img-fluid rounded mb-4" alt="Land Survey"><h3 class="fw-bold mb-3">Demand to Remove Encroachment on Survey No. 1-2-3</h3><p>A formal request has been submitted to the Minority Affairs Minister, Abdul Sattar, to take legal action against illegal occupants on the registered Waqf land of Ashoorkhana Nale Hyder and Masjid e Mehtab Ali Shah. The request highlights the long-standing issue and urges the government to intervene to protect the religious endowment.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal3" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/MNP%20sr.jpg" class="img-fluid rounded mb-4" alt="Site Inspection"><h3 class="fw-bold mb-3">Municipal Officials Inspect Waqf Board Land</h3><p>Following a notice from the Waqf Board, municipal officials conducted a site inspection of the land leased to the municipality. The 30-year lease, which began in 1959, officially expired in 1989. This inspection is a critical step in the legal process of having the land returned to the Waqf institution for its intended community and religious purposes.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal4" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/notice%20210.jpg" class="img-fluid rounded mb-4" alt="Legal Action"><h3 class="fw-bold mb-3">610 Individuals Receive Notices from Waqf Board</h3><p>In a second phase of decisive action, the Maharashtra State Waqf Board has issued legal notices to 610 occupants on the Masjid's land. The notice warns of criminal proceedings under the Waqf Act if they do not provide a satisfactory explanation for their occupation within four weeks. This move has been widely welcomed by the community.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal5" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Ministry-order.jpg" class="img-fluid rounded mb-4" alt="Government Meeting"><h3 class="fw-bold mb-3">Minister Orders Report on Waqf Property Encroachment</h3><p>The Minister for Minority Development, Dattatray Bharane, has ordered an immediate inquiry and report on the complaints of illegal encroachment and dealings on Waqf properties in Parbhani. The minister has instructed officials to conduct a thorough investigation and submit a report within one month to determine the course of action.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal6" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Ministry%20order.jpg" class="img-fluid rounded mb-4" alt="Minority Commission Order"><h3 class="fw-bold mb-3">Minority Commission Orders Municipality to Return Land</h3><p>In a major victory for the Waqf, the Maharashtra State Minority Commission has ordered the Parbhani Municipal Commissioner to hand over the possession of the leased Waqf land back to the institution. The commission's decision comes after a complaint filed by the Mutawalli regarding the land for which the lease expired in 1989 after 30 years. This is a significant step towards reclaiming the property.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal7" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Grp%20Photo.jpg" class="img-fluid rounded mb-4" alt="Felicitation Event"><h3 class="fw-bold mb-3">Mutawalli Engages with All India Organization</h3><p>The office-bearers of the All India Mutawalli Inamdar Organization, including Mutawalli Mushtaque Ahmed, attended a program in Jalna to felicitate Mr. Sameer Kazi, a respected member of the Maharashtra State Waqf Board. This event highlights the ongoing efforts of the leadership to engage with state-level organizations to advocate for the protection and proper management of Waqf properties.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal8" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Waqf%20News%20PP_page-0009.jpg" class="img-fluid rounded mb-4" alt="Bhaskar Hindi News"><h3 class="fw-bold mb-3">Waqf Board Notices Trouble Illegal Occupants</h3><p>The Waqf Board has issued legal notices to 621 shopkeepers and residents on the institution's land, giving them four weeks to provide a legal basis for their occupation. According to Waqf officials, action will be taken under Section 52(2) of the Waqf Act against those who fail to comply. This strict action aims to clear the encroachments and restore the property to the Waqf.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal9" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="News/Waqf%20News%20PP_page-0007.jpg" class="img-fluid rounded mb-4" alt="Azaad Bhumi News"><h3 class="fw-bold mb-3">Call to Action as Municipal Lease Expires</h3><p>Newspapers have highlighted the demand for the Parbhani Municipal Corporation to return the land of Survey No. 1, 2, and 3, for which the 30-year lease expired in 1989. The Mutawalli has formally requested the transfer of possession, and officials have conducted surveys in response. The community is eagerly awaiting the return of the land to the Waqf institution.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal10" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="Home/Mushtaque%20Ahmed%20Photo.jpg" class="img-fluid rounded mb-4" alt="New Mutawalli"><h3 class="fw-bold mb-3">Waqf Board Appoints New Mutawalli</h3><p>We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs. His leadership marks a new chapter in our history, continuing the sacred trust of preserving our heritage and serving the community with dedication and vision. We look forward to his guidance.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal11" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="Home/student.jpg" class="img-fluid rounded mb-4" alt="Youth Program"><h3 class="fw-bold mb-3">New Youth Islamic Studies Program Launched</h3><p>We are excited to launch our new weekend Islamic Studies Program for youth ages 7-14! Classes will be held on Saturday and Sunday mornings, covering Quranic recitation, Islamic history, and fundamental principles of our faith in an engaging and supportive environment. Registration is now open.</p></div></div></div></div>
-    <div class="modal fade" id="newsModal12" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">News Story</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><img src="Home/Old%20Document.jpg" class="img-fluid rounded mb-4" alt="Historic Document"><h3 class="fw-bold mb-3">From the Archives: The Nizam-Era Land Grant</h3><p>This historic document from the Nizam's government details the original land grant for the Masjid complex, cementing our place in Parbhani's history. It is a testament to the enduring legacy of our founders and the importance of this sacred endowment, which we are committed to preserving for all future generations.</p></div></div></div></div>
-    
-    <div class="modal fade" id="qa-modal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">💬 Community Q&A Helper</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.</p><div class="mb-3"><textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., What is the latest update on the land encroachment issue?"></textarea></div><div class="text-center"><button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">Ask Question</button></div><hr><div id="qa-output" style="max-height: 40vh; overflow-y: auto;"><p class="text-center text-secondary">Your answer will appear here...</p></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+    <div class="modal fade" id="newsModal1" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/meet%20with%20offical.jpg" class="img-fluid rounded mb-4"
+                        alt="Meeting with officials">
+                    <h3 class="fw-bold mb-3">Mutawalli Meets with Waqf Board on Encroachment</h3>
+                    <p>Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to discuss the illegal
+                        encroachment on the Masjid's land and praised the board for issuing notices to the encroachers.
+                        The meeting was a crucial step in the ongoing efforts to reclaim and protect the sacred property
+                        for community use.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal2" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Demand.jpg" class="img-fluid rounded mb-4" alt="Land Survey">
+                    <h3 class="fw-bold mb-3">Demand to Remove Encroachment on Survey No. 1-2-3</h3>
+                    <p>A formal request has been submitted to the Minority Affairs Minister, Abdul Sattar, to take legal
+                        action against illegal occupants on the registered Waqf land of Ashoorkhana Nale Hyder and
+                        Masjid e Mehtab Ali Shah. The request highlights the long-standing issue and urges the
+                        government to intervene to protect the religious endowment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal3" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/MNP%20sr.jpg" class="img-fluid rounded mb-4"
+                        alt="Site Inspection">
+                    <h3 class="fw-bold mb-3">Municipal Officials Inspect Waqf Board Land</h3>
+                    <p>Following a notice from the Waqf Board, municipal officials conducted a site inspection of the
+                        land leased to the municipality. The 30-year lease, which began in 1959, officially expired in
+                        1989. This inspection is a critical step in the legal process of having the land returned to the
+                        Waqf institution for its intended community and religious purposes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal4" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/notice%20210.jpg" class="img-fluid rounded mb-4"
+                        alt="Legal Action">
+                    <h3 class="fw-bold mb-3">610 Individuals Receive Notices from Waqf Board</h3>
+                    <p>In a second phase of decisive action, the Maharashtra State Waqf Board has issued legal notices
+                        to 610 occupants on the Masjid's land. The notice warns of criminal proceedings under the Waqf
+                        Act if they do not provide a satisfactory explanation for their occupation within four weeks.
+                        This move has been widely welcomed by the community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal5" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Ministry-order.jpg" class="img-fluid rounded mb-4"
+                        alt="Government Meeting">
+                    <h3 class="fw-bold mb-3">Minister Orders Report on Waqf Property Encroachment</h3>
+                    <p>The Minister for Minority Development, Dattatray Bharane, has ordered an immediate inquiry and
+                        report on the complaints of illegal encroachment and dealings on Waqf properties in Parbhani.
+                        The minister has instructed officials to conduct a thorough investigation and submit a report
+                        within one month to determine the course of action.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal6" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Ministry%20order.jpg" class="img-fluid rounded mb-4"
+                        alt="Minority Commission Order">
+                    <h3 class="fw-bold mb-3">Minority Commission Orders Municipality to Return Land</h3>
+                    <p>In a major victory for the Waqf, the Maharashtra State Minority Commission has ordered the
+                        Parbhani Municipal Commissioner to hand over the possession of the leased Waqf land back to the
+                        institution. The commission's decision comes after a complaint filed by the Mutawalli regarding
+                        the land for which the lease expired in 1989 after 30 years. This is a significant step towards
+                        reclaiming the property.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal7" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Grp%20Photo.jpg" class="img-fluid rounded mb-4"
+                        alt="Felicitation Event">
+                    <h3 class="fw-bold mb-3">Mutawalli Engages with All India Organization</h3>
+                    <p>The office-bearers of the All India Mutawalli Inamdar Organization, including Mutawalli Mushtaque
+                        Ahmed, attended a program in Jalna to felicitate Mr. Sameer Kazi, a respected member of the
+                        Maharashtra State Waqf Board. This event highlights the ongoing efforts of the leadership to
+                        engage with state-level organizations to advocate for the protection and proper management of
+                        Waqf properties.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal8" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Waqf%20News%20PP_page-0009.jpg"
+                        class="img-fluid rounded mb-4" alt="Bhaskar Hindi News">
+                    <h3 class="fw-bold mb-3">Waqf Board Notices Trouble Illegal Occupants</h3>
+                    <p>The Waqf Board has issued legal notices to 621 shopkeepers and residents on the institution's
+                        land, giving them four weeks to provide a legal basis for their occupation. According to Waqf
+                        officials, action will be taken under Section 52(2) of the Waqf Act against those who fail to
+                        comply. This strict action aims to clear the encroachments and restore the property to the Waqf.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal9" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="News/Waqf%20News%20PP_page-0007.jpg"
+                        class="img-fluid rounded mb-4" alt="Azaad Bhumi News">
+                    <h3 class="fw-bold mb-3">Call to Action as Municipal Lease Expires</h3>
+                    <p>Newspapers have highlighted the demand for the Parbhani Municipal Corporation to return the land
+                        of Survey No. 1, 2, and 3, for which the 30-year lease expired in 1989. The Mutawalli has
+                        formally requested the transfer of possession, and officials have conducted surveys in response.
+                        The community is eagerly awaiting the return of the land to the Waqf institution.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal10" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="Home/Mushtaque%20Ahmed%20Photo.jpg" class="img-fluid rounded mb-4"
+                        alt="New Mutawalli">
+                    <h3 class="fw-bold mb-3">Waqf Board Appoints New Mutawalli</h3>
+                    <p>We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by
+                        the Maharashtra State Board of Waqfs. His leadership marks a new chapter in our history,
+                        continuing the sacred trust of preserving our heritage and serving the community with dedication
+                        and vision. We look forward to his guidance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal11" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="Home/student.jpg" class="img-fluid rounded mb-4"
+                        alt="Youth Program">
+                    <h3 class="fw-bold mb-3">New Youth Islamic Studies Program Launched</h3>
+                    <p>We are excited to launch our new weekend Islamic Studies Program for youth ages 7-14! Classes
+                        will be held on Saturday and Sunday mornings, covering Quranic recitation, Islamic history, and
+                        fundamental principles of our faith in an engaging and supportive environment. Registration is
+                        now open.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsModal12" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="Home/Old%20Document.jpg" class="img-fluid rounded mb-4"
+                        alt="Historic Document">
+                    <h3 class="fw-bold mb-3">From the Archives: The Nizam-Era Land Grant</h3>
+                    <p>This historic document from the Nizam's government details the original land grant for the Masjid
+                        complex, cementing our place in Parbhani's history. It is a testament to the enduring legacy of
+                        our founders and the importance of this sacred endowment, which we are committed to preserving
+                        for all future generations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- NEW Modal for 118th Urs -->
+    <div class="modal fade" id="newsModal13" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">News Story</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4"><img src="waqf 123_502.jpg" class="img-fluid rounded mb-4"
+                        alt="118th Urs">
+                    <h3 class="fw-bold mb-3">Community Celebrates 118th Urs of H. Syed Shah Turab Ul Haq</h3>
+                    <p>The 118th Urs of H. Syed Shah Turab Ul Haq was celebrated on February 1, 2025, in Parbhani. The
+                        event was graced by Sajjada Nashin Mutawlly Mushtaq Ali Shah, Waqf Dy. CEO Mushir Sk, and Dist.
+                        Waqf Officer Imran Khan Nadvi, who joined the community in this sacred observance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="qa-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">💬 Community Q&A Helper</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.
+                    </p>
+                    <div class="mb-3"><textarea class="form-control" id="qa-topic-input" rows="3"
+                            placeholder="e.g., What is the latest update on the land encroachment issue?"></textarea>
+                    </div>
+                    <div class="text-center"><button id="generate-qa-btn"
+                            class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">Ask
+                            Question</button></div>
+                    <hr>
+                    <div id="qa-output" style="max-height: 40vh; overflow-y: auto;">
+                        <p class="text-center text-secondary">Your answer will appear here...</p>
+                    </div>
+                </div>
+                <div class="modal-footer"><button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button></div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
@@ -243,7 +1003,7 @@
         lightGallery(document.getElementById('lightgallery'), { selector: '.gallery-item', download: false });
 
         // News Filter Logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const filterButtons = document.querySelectorAll('.filter-btn-group .btn');
             const newsItems = document.querySelectorAll('#news-grid .news-item');
 
@@ -267,7 +1027,7 @@
         });
 
         // 3D Background Animation Logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
                 const scene = new THREE.Scene();
@@ -303,57 +1063,81 @@
                 });
             }
         });
-        
-         // Gemini API Logic for Q&A
+
+        // Gemini API Logic for Q&A
         document.addEventListener('DOMContentLoaded', () => {
             const apiKey = ""; // This will be populated by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            // UPDATED API URL and added retry logic
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const qaBtn = document.getElementById('generate-qa-btn');
             const qaTopicInput = document.getElementById('qa-topic-input');
             const qaOutput = document.getElementById('qa-output');
-            
+
             const showLoading = (button, originalText) => {
                 button.disabled = true;
                 button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Asking...`;
                 return originalText;
             };
-            
+
             const hideLoading = (button, originalText) => {
-                 button.disabled = false;
-                 button.innerHTML = originalText;
+                button.disabled = false;
+                button.innerHTML = originalText;
             };
 
+            // FIXED entire broken function
             const callGeminiAPI = async (payload) => {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) {
-                       const errorBody = await response.json();
-                       console.error('API Error Response:', errorBody);
-                       throw new Error(`API request failed with status ${response.status}`);
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!response.ok) {
+                             if (response.status === 429 && retries > 1) {
+                                // Wait and retry on rate limit
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                delay *= 2; 
+                                retries--;
+                                continue;
+                            }
+                            const errorBody = await response.json();
+                            console.error('API Error Response:', errorBody);
+                            throw new Error(`API request failed with status ${response.status}`);
+                        }
+                        const result = await response.json();
+                        
+                        if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                            console.error("Unexpected API response structure:", result);
+                            return "Sorry, I received an unusual response from the AI. Please try rephrasing your question.";
+                        }
+
+                    } catch (error) {
+                        console.error("Error calling Gemini API:", error);
+                        retries = 0; // Stop retrying on code-level error
+                        return "Sorry, there was an error connecting to the AI service. Please try again later.";
                     }
-                    const result = await response.json();
-                    return result.candidates[0].content.parts[0].text;
-                } catch(error) {
-                    console.error("Error calling Gemini API:", error);
-                    return "Sorry, there was an error connecting to the AI service. Please try again later.";
                 }
+                return "Sorry, the AI service is currently busy. Please try again in a moment.";
             };
-            
+
             qaBtn.addEventListener('click', async () => {
                 const topic = qaTopicInput.value;
                 if (!topic.trim()) {
                     qaOutput.innerHTML = `<p class="text-danger text-center">Please enter a question.</p>`;
                     return;
                 }
-                
+
                 const originalBtnText = qaBtn.innerHTML;
                 showLoading(qaBtn, originalBtnText);
                 qaOutput.innerHTML = `<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
 
+                // UPDATED System Prompt with new info
                 const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website in Parbhani, Maharashtra. Your role is to answer community questions based ONLY on the following information. Do not invent details. If the answer is not in the information provided, politely say you don't have that information.
 
                 **About the Masjid:**
@@ -367,18 +1151,19 @@
                 - Educational Programs: Quranic studies, Islamic history, and Arabic language classes are available for all ages. There is a specific weekend Islamic Studies Program for youth aged 7-14.
                 - Charitable Initiatives: The Masjid organizes food drives, offers financial assistance, and helps with disaster relief.
                 - Community Events: Regular events include Eid celebrations, lectures, and workshops.
+                - **New Event:** The 118th Urs of H. Syed Shah Turab Ul Haq was celebrated on Feb 1, 2025, attended by Sajjada Nashin Mushtaq Ali Shah and Waqf officials.
                 
                 **Recent News Summary:**
                 - The Maharashtra State Minority Commission has ordered the Parbhani Municipal Corporation to return leased Waqf land (Dec 2024).
                 - The Waqf Board has issued hundreds of notices to illegal occupants of the land (2024-2025).
-                - The Mutawalli is actively meeting with government and Waqf officials to pursue the return of the land.
+                - The Mutawalli is actively meeting with government and Waqf officials (like the Minority Commissioner and Haji Arfat) to pursue the return of the land.
 
                 Keep your answers concise, friendly, and clear.`;
                 const userQuery = topic;
 
                 const payload = {
                     contents: [{ parts: [{ text: userQuery }] }],
-                    systemInstruction: { parts: [{ text: userQuery }] },
+                    systemInstruction: { parts: [{ text: systemPrompt }] }, // FIXED BUG: was userQuery
                 };
 
                 const responseText = await callGeminiAPI(payload);
@@ -390,4 +1175,3 @@
 </body>
 
 </html>
-
