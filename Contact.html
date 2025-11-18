@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,77 +9,154 @@
     <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <!-- AOS (Animate on Scroll) Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
-    <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        /* --- CSS VARIABLES FOR THEMING --- */
         :root {
-            --primary-color: #20c997; /* A fresh, modern teal */
-            --secondary-color: #f39c12; /* A neutral, sophisticated grey */
-            --dark-blue: #2c3e50;
-            --light-gray: #f8f9fa;
-            --white: #fff;
-        }
- /* Button hover effect */
-        .btn-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
-            background-size: 200% auto;
-        }
-
-        .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-position: right center; /* change the direction of the change here */
-        }
-        
-        .btn-gradient-secondary {
-            background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
+            --bg-body: #ffffff;
+            --bg-light-gray: #f8f9fa;
+            --text-main: #555555;
+            --text-heading: #2c3e50;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --navbar-text: #2c3e50;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --primary-color: #1abc9c;
+            --secondary-color: #f39c12;
+            --modal-bg: #fff;
+            --modal-text: #555;
+            --input-bg: #fff;
+            --input-text: #495057;
         }
 
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-light-gray: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-heading: #ecf0f1;
+            --text-secondary: #b0b3b8;
+            --card-bg: #252525;
+            --navbar-bg: #1a1a1a;
+            --navbar-text: #ecf0f1;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --modal-bg: #2d2d2d;
+            --modal-text: #e0e0e0;
+            --input-bg: #333;
+            --input-text: #e0e0e0;
+        }
+
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #555;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             overflow-x: hidden;
-            background-color: var(--light-gray);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
-            color: var(--dark-blue);
+            color: var(--text-heading);
+            transition: color 0.3s ease;
         }
-        .navbar-nav .nav-link {
-            color: var(--dark-blue);
-            font-weight: 500;
-            transition: color 0.3s;
+
+        .text-secondary { color: var(--text-secondary) !important; }
+        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
+        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
+        
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .animated-section {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform, opacity;
         }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--navbar-text) !important;
+        }
+
         .navbar-nav .nav-link.active,
         .navbar-nav .nav-link:hover {
-            color: var(--primary-color);
+            color: var(--primary-color) !important;
         }
+
+        /* Dark Mode Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--navbar-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Cards & Inputs */
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+        
+        .form-control {
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-color: var(--border-color);
+        }
+        
+        .form-control:focus {
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
+        }
+        
         .contact-info-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: var(--white);
-            border: 1px solid #eee;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-left: 4px solid var(--primary-color);
         }
         .contact-info-card:hover {
-             transform: translateY(-8px);
-             box-shadow: 0 1rem 3rem rgba(0,0,0,.12)!important;
+             transform: translateY(-8px) scale(1.02);
+             box-shadow: 0 1rem 3rem var(--shadow-color)!important;
+             z-index: 10;
         }
         .contact-info-icon {
             display: flex;
@@ -87,48 +164,86 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            background-color: rgba(32, 201, 151, 0.1);
+            background-color: rgba(26, 188, 156, 0.1);
             color: var(--primary-color);
             border-radius: 50%;
             flex-shrink: 0;
         }
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(32, 201, 151, 0.25);
+
+        /* Buttons */
+        .btn-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
+            background-size: 200% auto;
         }
 
-        .btn-hover {
-            background-size: 200% auto;
-            transition: all 0.4s ease;
-        }
         .btn-hover:hover {
-             transform: translateY(-3px);
-             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-             background-position: right center;
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            background-position: right center;
         }
+        
+        /* Colors */
         .bg-primary { background-color: var(--primary-color) !important; }
         .bg-secondary { background-color: var(--secondary-color) !important; }
-        .bg-dark-blue { background-color: var(--dark-blue) !important; }
-        .bg-light-gray { background-color: var(--light-gray) !important; }
+        .bg-dark-blue { 
+            background-color: #2c3e50 !important; 
+            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
+        }
+        
         .text-primary { color: var(--primary-color) !important; }
-        .text-dark-blue { color: var(--dark-blue) !important; }
+        .text-dark-blue { color: var(--text-heading) !important; }
 
-        header { overflow: hidden; }
-        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        /* Three.js Canvas */
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
         header .container { position: relative; z-index: 1; }
         
         /* FAQ Accordion Styles */
+        .accordion-button {
+            color: var(--text-heading);
+            background-color: var(--card-bg);
+        }
         .accordion-button:not(.collapsed) {
             color: #fff;
             background-color: var(--dark-blue);
         }
         .accordion-button:focus {
-            box-shadow: 0 0 0 0.25rem rgba(32, 201, 151, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
         }
-        
-        /* Custom Animated Navbar Toggler */
-        .navbar-toggler.custom-toggler { border: none; background: transparent !important; outline: none !important; box-shadow: none !important; position: relative; width: 30px; height: 20px; padding: 0; cursor: pointer; }
-        .custom-toggler .toggler-icon { display: block; position: absolute; height: 3px; width: 100%; background: var(--dark-blue); border-radius: 1px; opacity: 1; left: 0; transform: rotate(0deg); transition: all 0.25s ease-in-out; }
+        .accordion-item {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            color: var(--text-main);
+        }
+
+        /* Custom Navbar Toggler */
+        .navbar-toggler.custom-toggler {
+            border: none;
+            background: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            position: relative;
+            width: 30px;
+            height: 20px;
+            padding: 0;
+            cursor: pointer;
+        }
+        .custom-toggler .toggler-icon {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--navbar-text);
+            border-radius: 1px;
+            transition: all 0.25s ease-in-out;
+        }
         .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
         .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
         .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
@@ -137,23 +252,44 @@
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
         
         @media (max-width: 420px) { .brand-text { font-size: 16px !important; } }
+        
+        /* Modal Dark Mode Fixes */
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--modal-text);
+            border: 1px solid var(--border-color);
+        }
+        .list-group-item {
+            background-color: transparent;
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+        .btn-close { transition: filter 0.3s ease; }
+        [data-theme="dark"] .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
     </style>
 </head>
 
-<body>
+<body class="bg-white">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top py-2">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
                 <img src="Contact/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex align-items-center order-lg-3">
+                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
@@ -168,31 +304,31 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(Contact/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Contact+Us)'">
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(18, 18, 18, 0.9)), url(Contact/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Contact+Us)'">
         <canvas id="bg-animation"></canvas>
-        <div class="container py-5" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">Contact Us</h1>
-            <p class="lead text-white col-md-8 mx-auto">We'd love to hear from you. Get in touch for inquiries, support, or to join our community efforts.</p>
+        <div class="container py-5" style="position: relative; z-index: 1;">
+            <div class="animated-section is-visible">
+                <h1 class="display-4 fw-bold text-white">Contact Us</h1>
+                <p class="lead text-white col-md-8 mx-auto">We'd love to hear from you. Get in touch for inquiries, support, or to join our community efforts.</p>
+            </div>
         </div>
     </header>
 
-    <!-- Contact Section -->
-    <section class="py-5 bg-white">
+    <section class="py-5 bg-white animated-section">
         <div class="container my-5">
             <div class="row g-5">
-                <div class="col-lg-5" data-aos="fade-right">
+                <div class="col-lg-5">
                     <h2 class="display-6 fw-bold mb-4">Get in Touch</h2>
                     <div class="card border-0 p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <div class="contact-info-icon me-4"><i class="fas fa-map-marker-alt fa-lg"></i></div>
                             <div>
                                 <h5 class="fw-bold">Our Office Address</h5>
-                                <p class="mb-0">Lokmanya Tilak Road, Parbhani, Maharashtra, India</p>
+                                <p class="mb-0 fw-bold text-dark-blue">Lokmanya Tilak Road, Parbhani, Maharashtra, India</p>
                             </div>
                         </div>
                     </div>
-                     <div class="card border-0 p-4 mb-4 contact-info-card">
+                      <div class="card border-0 p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                             <div class="contact-info-icon me-4"><i class="fas fa-envelope fa-lg"></i></div>
                             <div>
@@ -201,7 +337,7 @@
                             </div>
                         </div>
                     </div>
-                     <div class="card border-0 p-4 mb-4 contact-info-card">
+                      <div class="card border-0 p-4 mb-4 contact-info-card">
                         <div class="d-flex align-items-start">
                            <div class="contact-info-icon me-4"><i class="fas fa-phone-alt fa-lg"></i></div>
                             <div>
@@ -224,31 +360,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7" data-aos="fade-left" id="message-form">
-                     <div class="card border-0 shadow-sm p-4 p-lg-5 h-100">
+                <div class="col-lg-7" id="message-form">
+                      <div class="card border-0 shadow-sm p-4 p-lg-5 h-100">
                         <h2 class="display-6 fw-bold mb-4">Send Us a Message</h2>
                         <p class="text-secondary mb-4">Fill out the form below to join our mailing list or to get in touch. Your message will be sent directly to our WhatsApp.</p>
                         <form id="joinUsForm">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label">Your Name</label>
+                                    <label for="name" class="form-label fw-bold text-dark-blue">Your Name</label>
                                     <input type="text" class="form-control p-2" id="name" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Your Email</label>
+                                    <label for="email" class="form-label fw-bold text-dark-blue">Your Email</label>
                                     <input type="email" class="form-control p-2" id="email" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
+                                <label for="subject" class="form-label fw-bold text-dark-blue">Subject</label>
                                 <input type="text" class="form-control p-2" id="subject" required>
                             </div>
                             <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
+                                <label for="message" class="form-label fw-bold text-dark-blue">Message</label>
                                 <textarea class="form-control p-2" id="message" rows="5" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="attachment" class="form-label">Attach Document (Optional)</label>
+                                <label for="attachment" class="form-label fw-bold text-dark-blue">Attach Document (Optional)</label>
                                 <input class="form-control" type="file" id="attachment">
                             </div>
                             <button type="submit" class="btn bg-primary text-white fw-bold rounded-pill px-5 py-3 btn-hover">Submit to WhatsApp</button>
@@ -259,9 +395,8 @@
         </div>
     </section>
 
-    <!-- Donation Section -->
-    <section class="py-5 bg-light-gray">
-        <div class="container my-5" data-aos="fade-up">
+    <section class="py-5 bg-light-gray animated-section">
+        <div class="container my-5">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Help Us Preserve Our Heritage</h2>
                 <p class="lead text-secondary col-md-8 mx-auto">Your contribution is vital for maintaining our historic complex and running community services. Your support is invaluable.</p>
@@ -271,10 +406,10 @@
                     <div class="col-md-7">
                         <h4 class="fw-bold mb-3">Bank Details for Donation</h4>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item bg-transparent"><strong>Bank Name:</strong> Canara Bank, Parbhani</li>
-                            <li class="list-group-item bg-transparent"><strong>Account Name:</strong> ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</li>
-                            <li class="list-group-item bg-transparent"><strong>Account Number:</strong> 120029337799</li>
-                            <li class="list-group-item bg-transparent"><strong>IFSC Code:</strong> CNRB0005939</li>
+                            <li class="list-group-item"><strong>Bank Name:</strong> Canara Bank, Parbhani</li>
+                            <li class="list-group-item"><strong>Account Name:</strong> ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</li>
+                            <li class="list-group-item"><strong>Account Number:</strong> 120029337799</li>
+                            <li class="list-group-item"><strong>IFSC Code:</strong> CNRB0005939</li>
                         </ul>
                         <p class="mt-3 text-secondary">Your donation will be a great support to our community. Thank you!</p>
                     </div>
@@ -287,9 +422,8 @@
         </div>
     </section>
     
-    <!-- Shop Registration Section -->
-    <section class="py-5">
-        <div class="container my-5" data-aos="fade-up">
+    <section class="py-5 animated-section">
+        <div class="container my-5">
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-4 p-md-5">
                     <h2 class="display-6 fw-bold mb-4 text-center">Official Notice & Terms for Leasing</h2>
@@ -311,9 +445,8 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-5 bg-light-gray">
-        <div class="container my-5" data-aos="fade-up">
+    <section class="py-5 bg-light-gray animated-section">
+        <div class="container my-5">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Frequently Asked Questions</h2>
                 <p class="lead text-secondary col-md-8 mx-auto">Have a question? Find quick answers here. For more specific inquiries, use our contact form or the AI Assistant.</p>
@@ -361,22 +494,20 @@
                 </div>
             </div>
              <div class="text-center mt-5">
-                <button class="btn btn-primary btn-lg rounded-pill px-5 py-3 btn-hover" data-bs-toggle="modal" data-bs-target="#qa-modal">
+                <button class="btn bg-primary text-white btn-lg rounded-pill px-5 py-3 btn-hover" data-bs-toggle="modal" data-bs-target="#qa-modal">
                     <i class="fas fa-robot me-2"></i> Ask Our AI Assistant
                 </button>
             </div>
         </div>
     </section>
     
-    <!-- Map Section -->
-    <section>
+    <section class="animated-section">
         <div class="container-fluid p-0">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120553.57232258813!2d76.69742054313054!3d19.26011211992113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd01834c3905a9f%3A0x28b34575438318f7!2sParbhani%2C%20Maharashtra%2C%2C%nbsp;India!5e0!3m2!1sen!2sus!4v1694580888000!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120553.57232258813!2d76.69742054313054!3d19.26011211992113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd01834c3905a9f%3A0x28b34575438318f7!2sParbhani%2C%20Maharashtra%2C%2C%nbsp;India!5e0!3m2!1sen!2sus!4v1694580888000!5m2!1sen!2sus" width="100%" height="450" style="border:0; filter: grayscale(1) contrast(1.2) opacity(0.9);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 
-    <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Contact/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Contact/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -390,44 +521,130 @@
                 </div>
             </div>
             <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
-                <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+                <p class="mb-0">© Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
                 <p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
             </div>
         </div>
     </footer>
 
-    <!-- Community Q&A Modal -->
     <div class="modal fade" id="qa-modal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">💬 Community Q&A Helper</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.</p><div class="mb-3"><textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., How can I volunteer?"></textarea></div><div class="text-center"><button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">Ask Question</button></div><hr><div id="qa-output" style="max-height: 40vh; overflow-y: auto;"><p class="text-center text-secondary">Your answer will appear here...</p></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+        const mapIframe = document.querySelector('iframe');
 
-        // 3D Background Animation Logic
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+            updateMap(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateIcon('dark');
+            updateMap('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+            updateMap(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+        
+        function updateMap(theme) {
+            if(mapIframe) {
+                if (theme === 'dark') {
+                     mapIframe.style.filter = "invert(90%) hue-rotate(180deg) brightness(90%) contrast(1.2)";
+                } else {
+                     mapIframe.style.filter = "grayscale(1) contrast(1.2) opacity(0.9)";
+                }
+            }
+        }
+
+        // --- 3D SCROLL ANIMATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
+                if (!header) return;
+
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true });
-                renderer.setSize(header.clientWidth, header.clientHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                camera.position.z = 5;
+                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
 
+                const setSize = () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                };
+                setSize();
+
+                camera.position.z = 2.5;
+
+                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
+                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x1abc9c, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                scene.add(sphere);
+
+                // Add some floating particles around it
                 const particlesGeometry = new THREE.BufferGeometry();
-                const count = 5000;
+                const count = 500;
                 const positions = new Float32Array(count * 3);
-                for (let i = 0; i < count * 3; i++) { positions[i] = (Math.random() - 0.5) * 10; }
+                for (let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 8;
+                }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({ size: 0.005, color: 0xffffff });
+                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
 
-                let mouseX = 0, mouseY = 0;
+                let mouseX = 0;
+                let mouseY = 0;
                 document.addEventListener('mousemove', (event) => {
                     mouseX = (event.clientX / window.innerWidth) * 2 - 1;
                     mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -436,18 +653,18 @@
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05 + mouseX * 0.2;
-                    particles.rotation.x = elapsedTime * 0.02 + mouseY * 0.2;
+                    
+                    sphere.rotation.y = elapsedTime * 0.1;
+                    sphere.rotation.x = elapsedTime * 0.05;
+                    sphere.rotation.y += mouseX * 0.01;
+                    sphere.rotation.x -= mouseY * 0.01;
+                    particles.rotation.y = -elapsedTime * 0.05;
+
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
-
-                window.addEventListener('resize', () => {
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                });
+                window.addEventListener('resize', setSize);
             }
         });
 
@@ -466,10 +683,10 @@
             document.getElementById('joinUsForm').reset();
         });
         
-         // Gemini API Logic for Q&A
+        // Gemini API Logic for Q&A
         document.addEventListener('DOMContentLoaded', () => {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const apiKey = ""; // This will be populated by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const qaBtn = document.getElementById('generate-qa-btn');
             const qaTopicInput = document.getElementById('qa-topic-input');
             const qaOutput = document.getElementById('qa-output');
@@ -485,23 +702,40 @@
             };
 
             const callGeminiAPI = async (payload) => {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) {
-                       const errorBody = await response.json();
-                       console.error('API Error Response:', errorBody);
-                       throw new Error(`API request failed with status ${response.status}`);
+                let retries = 3;
+                let delay = 1000;
+
+                while (retries > 0) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!response.ok) {
+                             if (response.status === 429 && retries > 1) {
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                delay *= 2; 
+                                retries--;
+                                continue;
+                            }
+                            const errorBody = await response.json();
+                            console.error('API Error Response:', errorBody);
+                            throw new Error(`API request failed with status ${response.status}`);
+                        }
+                        const result = await response.json();
+                        if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts) {
+                            return result.candidates[0].content.parts[0].text;
+                        } else {
+                             return "Sorry, I received an unusual response from the AI. Please try rephrasing your question.";
+                        }
+                    } catch(error) {
+                        console.error("Error calling Gemini API:", error);
+                        retries = 0;
+                        return "Sorry, there was an error connecting to the AI service. Please try again later.";
                     }
-                    const result = await response.json();
-                    return result.candidates[0].content.parts[0].text;
-                } catch(error) {
-                    console.error("Error calling Gemini API:", error);
-                    return "Sorry, there was an error connecting to the AI service. Please try again later.";
                 }
+                return "Sorry, the AI service is currently busy. Please try again in a moment.";
             };
             
             qaBtn.addEventListener('click', async () => {
@@ -553,4 +787,3 @@
 </body>
 
 </html>
-

@@ -1,78 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>From the Archives: Land Grants - Masjid e Mehtab Ali Shah</title>
 
-        <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <!-- AOS (Animate on Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
-        /* Applying custom fonts to the body and headings */
+        /* --- CSS VARIABLES FOR THEMING --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-light-gray: #f8f9fa;
+            --text-main: #555555;
+            --text-heading: #2c3e50;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --navbar-text: #2c3e50;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --primary-color: #1abc9c;
+            --secondary-color: #e67e22;
+            --modal-bg: #fff;
+            --modal-text: #555;
+            --blockquote-bg: #fff;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-light-gray: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-heading: #ecf0f1;
+            --text-secondary: #b0b3b8;
+            --card-bg: #252525;
+            --navbar-bg: #1a1a1a;
+            --navbar-text: #ecf0f1;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --modal-bg: #2d2d2d;
+            --modal-text: #e0e0e0;
+            --blockquote-bg: #252525;
+        }
+
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #555;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            color: var(--text-main);
+            background-color: var(--bg-light-gray);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
-            color: #2c3e50;
+            color: var(--text-heading);
+            transition: color 0.3s ease;
         }
-        /* Custom styles for navbar links to avoid conflicts */
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500; /* medium weight */
-            transition: color 0.3s;
+
+        .text-secondary, .text-muted { color: var(--text-secondary) !important; }
+        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
+        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .animated-section {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform, opacity;
         }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--navbar-text) !important;
+        }
+
         .navbar-nav .nav-link.active,
         .navbar-nav .nav-link:hover {
-            color: #1abc9c; /* primary color */
+            color: var(--primary-color) !important;
         }
+
+        /* Dark Mode Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--navbar-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Buttons */
         .btn-hover {
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
+            background-size: 200% auto;
         }
+
         .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px) translateZ(10px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            background-position: right center;
         }
+
+        /* Gallery Images */
         .gallery-img {
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
         }
         .gallery-img:hover {
             transform: scale(1.05);
-            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-        }
-        .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #e67e22 !important; }
-        .bg-dark-blue { background-color: #2c3e50 !important; }
-        .bg-light-gray { background-color: #f8f9fa !important; }
-        .text-primary { color: #1abc9c !important; }
-        .text-dark-blue { color: #2c3e50 !important; }
-        
-        header {
-            overflow: hidden;
+            box-shadow: 0 1rem 3rem var(--shadow-color) !important;
+            z-index: 10;
         }
 
+        /* Colors */
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+        .bg-dark-blue { 
+            background-color: #2c3e50 !important; 
+            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
+        }
+        .text-primary { color: var(--primary-color) !important; }
+        .text-dark-blue { color: var(--text-heading) !important; }
+        
+        /* Header & 3D Canvas */
+        header { overflow: hidden; }
         #bg-animation {
             position: absolute;
             top: 0;
@@ -80,14 +168,19 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none;
+        }
+        header .container { position: relative; z-index: 1; }
+
+        /* Blockquote */
+        .blockquote {
+            background-color: var(--blockquote-bg) !important;
+            color: var(--text-heading);
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0.5rem 1rem var(--shadow-color);
         }
 
-        header .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Custom Animated Navbar Toggler */
+        /* Custom Navbar Toggler */
         .navbar-toggler.custom-toggler {
             border: none;
             background: transparent !important;
@@ -104,11 +197,8 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: #2c3e50;
+            background: var(--navbar-text);
             border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
             transition: all 0.25s ease-in-out;
         }
         .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
@@ -118,31 +208,40 @@
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
         
-        @media (max-width: 420px) {
-            .brand-text {
-                font-size: 16px !important;
-            }
+        @media (max-width: 420px) { .brand-text { font-size: 16px !important; } }
+
+        /* Modal Fixes */
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--modal-text);
+            border: 1px solid var(--border-color);
         }
+        .btn-close { transition: filter 0.3s ease; }
+        [data-theme="dark"] .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
     </style>
 </head>
 
-<body class="bg-white">
+<body class="bg-light-gray">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top py-2">
         <div class="container">
-            <!-- Logo + Site Name -->
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
                 <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
             </a>
-            <!-- Hamburger -->
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-            </button>
-            <!-- Navbar Links -->
+            
+            <div class="d-flex align-items-center order-lg-3">
+                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
@@ -157,53 +256,54 @@
         </div>
     </nav>
     
-    <!-- Page Header -->
     <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(Home/Old\ Document.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Archives)'">
         <canvas id="bg-animation"></canvas>
-        <div class="container py-5" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">From the Archives</h1>
-            <p class="lead text-white col-md-8 mx-auto">A Glimpse into Our History: The Land Grants</p>
+        <div class="container py-5" style="position: relative; z-index: 1;">
+            <div class="animated-section is-visible">
+                <h1 class="display-4 fw-bold text-white">From the Archives</h1>
+                <p class="lead text-white col-md-8 mx-auto">A Glimpse into Our History: The Land Grants</p>
+            </div>
         </div>
     </header>
 
-    <!-- Article Content Section -->
-    <section class="py-5 bg-light-gray">
+    <section class="py-5 bg-light-gray animated-section">
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <!-- Article Header -->
-                    <div class="text-center" data-aos="fade-down">
+                    <div class="text-center">
                         <h1 class="display-5 fw-bold mb-3">The Foundation of Our Heritage</h1>
                         <p class="text-muted mb-4"><i class="fas fa-archive text-primary me-1"></i> Historic Land Grant Documents</p>
                     </div>
                     
-                    <!-- Article Image -->
-                    <div class="text-center my-4" data-aos="zoom-in">
+                    <div class="text-center my-4">
                         <img src="Home/Old Document.jpg" class="img-fluid rounded-3 shadow-lg" alt="Historic Land Grant Document" onerror="this.onerror=null;this.src='https://placehold.co/800x500/cccccc/ffffff?text=Error';">
                     </div>
 
-                    <!-- Article Body -->
-                    <div class="fs-5" data-aos="fade-up">
-                        <p>This historic document, dating back to the Nizam era, is a cornerstone of our institution's history. It details the original service endowment (**Khidmat-e-Mash**) of over 13 acres of land granted for the establishment and maintenance of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Nale Hyder.</p>
+                    <div class="fs-5">
+                        <p>This historic document, dating back to the Nizam era, is a cornerstone of our institution's history. It details the original service endowment (<strong>Khidmat-e-Mash</strong>) of over 13 acres of land granted for the establishment and maintenance of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Nale Hyder.</p>
                         <p>The grant was a sacred trust, intended to ensure that the complex would serve as a center for prayer, community gathering, and spiritual remembrance for generations to come. The document outlines the specific survey numbers and boundaries of the land, underscoring its legal and religious significance as a Waqf property.</p>
-                        <blockquote class="blockquote bg-white p-4 rounded-3 my-4 border-start border-5 border-primary" data-aos="fade-left">
+                        <blockquote class="blockquote p-4 rounded-3 my-4 border-start border-5 border-primary">
                             <p class="mb-0 fst-italic">"This endowment was not merely a gift of land, but a commitment to the future of our community—a promise that this sacred space would be protected and preserved."</p>
                         </blockquote>
                         <p>Today, this document is more important than ever. It serves as a critical piece of evidence in our ongoing efforts to address the illegal encroachment on these historic grounds. Preserving this land is not just about protecting property; it is about honoring the intentions of our ancestors and safeguarding a vital piece of our heritage for the future.</p>
                     </div>
 
-                    <!-- Document Gallery -->
-                    <div class="mt-5" data-aos="fade-up">
+                    <div class="mt-5">
                         <h2 class="fw-bold text-center mb-4">Explore the Documents</h2>
                         <div class="row g-4">
-                            <div class="col-md-4"><img src="Home/waqf 123_5.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 1" data-bs-toggle="modal" data-bs-target="#docModal1" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+1';"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_6.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 2" data-bs-toggle="modal" data-bs-target="#docModal2" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+2';"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_433.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 3" data-bs-toggle="modal" data-bs-target="#docModal3" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+3';"></div>
+                            <div class="col-md-4">
+                                <img src="Home/waqf 123_5.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 1" data-bs-toggle="modal" data-bs-target="#docModal1" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+1';">
+                            </div>
+                            <div class="col-md-4">
+                                <img src="Home/waqf 123_6.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 2" data-bs-toggle="modal" data-bs-target="#docModal2" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+2';">
+                            </div>
+                            <div class="col-md-4">
+                                <img src="Home/waqf 123_433.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 3" data-bs-toggle="modal" data-bs-target="#docModal3" onerror="this.onerror=null;this.src='https://placehold.co/400x500/cccccc/ffffff?text=Doc+3';">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Back to News Link -->
-                    <div class="text-center mt-5" data-aos="fade-up">
+                    <div class="text-center mt-5">
                         <a href="News.html" class="btn bg-primary text-white fw-bold rounded-pill px-5 py-2 btn-hover">
                             <i class="fas fa-arrow-left me-2"></i> Back to All News
                         </a>
@@ -213,13 +313,11 @@
         </div>
     </section>
 
-    <!-- Modals for Document Viewer -->
-    <div class="modal fade" id="docModal1" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_5.jpg" class="img-fluid"></div></div></div></div>
-    <div class="modal fade" id="docModal2" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_6.jpg" class="img-fluid"></div></div></div></div>
-    <div class="modal fade" id="docModal3" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_433.jpg" class="img-fluid"></div></div></div></div>
+    <div class="modal fade" id="docModal1" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body text-center"><img src="Home/waqf 123_5.jpg" class="img-fluid" alt="Document 1"></div></div></div></div>
+    <div class="modal fade" id="docModal2" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body text-center"><img src="Home/waqf 123_6.jpg" class="img-fluid" alt="Document 2"></div></div></div></div>
+    <div class="modal fade" id="docModal3" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body text-center"><img src="Home/waqf 123_433.jpg" class="img-fluid" alt="Document 3"></div></div></div></div>
 
-    <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -239,65 +337,131 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS with some default options
-        AOS.init({
-            duration: 800, // values from 0 to 3000, with step 50ms
-            once: true, // whether animation should happen only once - while scrolling down
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateIcon('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
         });
-        
-        // 3D Background Animation Logic
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- 3D SCROLL ANIMATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
+                if (!header) return;
+
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({
-                    canvas: document.querySelector('#bg-animation'),
-                    alpha: true
-                });
-                renderer.setSize(header.clientWidth, header.clientHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                camera.position.z = 5;
+                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
 
+                const setSize = () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                };
+                setSize();
+
+                camera.position.z = 2.5;
+
+                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
+                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x1abc9c, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                scene.add(sphere);
+
+                // Add some floating particles around it
                 const particlesGeometry = new THREE.BufferGeometry();
-                const count = 5000;
+                const count = 500;
                 const positions = new Float32Array(count * 3);
                 for (let i = 0; i < count * 3; i++) {
-                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i] = (Math.random() - 0.5) * 8;
                 }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.005,
-                    color: 0xffffff,
-                });
+                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
+
+                let mouseX = 0;
+                let mouseY = 0;
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
 
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05;
-                    particles.rotation.x = elapsedTime * 0.02;
+                    
+                    sphere.rotation.y = elapsedTime * 0.1;
+                    sphere.rotation.x = elapsedTime * 0.05;
+                    sphere.rotation.y += mouseX * 0.01;
+                    sphere.rotation.x -= mouseY * 0.01;
+                    particles.rotation.y = -elapsedTime * 0.05;
+
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
-
-                window.addEventListener('resize', () => {
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                });
+                window.addEventListener('resize', setSize);
             }
         });
     </script>
 </body>
 
 </html>
-```

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,114 +9,156 @@
     <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="favicon.png">
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-    <!-- AOS (Animate on Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        /* --- CSS VARIABLES FOR THEMING --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-light-gray: #f8f9fa;
+            --text-main: #555555;
+            --text-heading: #2c3e50;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --navbar-text: #2c3e50;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --primary-color: #1abc9c;
+            --secondary-color: #f39c12;
+            --modal-bg: #fff;
+            --modal-text: #555;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-light-gray: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-heading: #ecf0f1;
+            --text-secondary: #b0b3b8;
+            --card-bg: #252525;
+            --navbar-bg: #1a1a1a;
+            --navbar-text: #ecf0f1;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --modal-bg: #2d2d2d;
+            --modal-text: #e0e0e0;
+        }
+
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #555;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             overflow-x: hidden;
-            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
-            color: #2c3e50;
+            color: var(--text-heading);
+            transition: color 0.3s ease;
         }
 
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500;
-            transition: color 0.3s;
+        .text-muted { color: var(--text-secondary) !important; }
+        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
+        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .animated-section {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform, opacity;
+        }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--navbar-text) !important;
         }
 
         .navbar-nav .nav-link.active,
         .navbar-nav .nav-link:hover {
-            color: #1abc9c;
+            color: var(--primary-color) !important;
         }
 
-        .card-hover {
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* Dark Mode Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--navbar-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
         }
 
         .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .18) !important;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 1.5rem 4rem var(--shadow-color) !important;
+            z-index: 10;
         }
 
+        /* Buttons */
         .btn-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
+            background-size: 200% auto;
         }
-
         .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px) translateZ(10px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            background-position: right center;
         }
         
         .btn-gradient-secondary {
             background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
-            background-size: 200% auto;
-        }
-        .btn-gradient-secondary:hover {
-             background-position: right center;
         }
 
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border: 5px solid #1abc9c;
-        }
-        
-        header {
-            overflow: hidden;
-        }
-
-        #bg-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        header .container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #f39c12 !important; }
-        .bg-dark-blue { background-color: #2c3e50 !important; }
-        .bg-light-gray { background-color: #f8f9fa !important; }
-        .text-primary { color: #1abc9c !important; }
-        .text-dark-blue { color: #2c3e50 !important; }
-
+        /* Map & Images */
         .map-wrapper {
             position: relative;
             display: inline-block;
             cursor: pointer;
             border-radius: 0.5rem;
             overflow: hidden;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            box-shadow: 0 0.5rem 1rem var(--shadow-color);
         }
 
         .map-wrapper .overlay-icon {
@@ -134,16 +176,52 @@
             pointer-events: none;
         }
 
-        .map-wrapper:hover .overlay-icon {
-            opacity: 1;
+        .map-wrapper:hover .overlay-icon { opacity: 1; }
+        .map-wrapper img { transition: transform 0.3s ease; }
+        .map-wrapper:hover img { transform: scale(1.05); }
+
+        .news-img-container {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Colors */
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+        .bg-dark-blue { 
+            background-color: #2c3e50 !important; 
+            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
         }
         
-        .map-wrapper img {
-            transition: transform 0.3s ease;
+        .text-primary { color: var(--primary-color) !important; }
+        .text-dark-blue { color: var(--text-heading) !important; }
+
+        /* Text Sizes */
+        .display-4 { font-size: 2.8rem; }
+        .display-5 { font-size: 2.5rem; }
+        .lead { font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            .display-4 { font-size: 2.2rem; }
+            .display-5 { font-size: 2rem; }
+            .lead { font-size: 1.05rem; }
         }
-        
-        .map-wrapper:hover img {
-            transform: scale(1.05);
+
+        /* Three.js Canvas */
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
         }
 
         /* Custom Animated Navbar Toggler */
@@ -164,11 +242,8 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: #2c3e50;
+            background: var(--navbar-text);
             border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
             transition: all 0.25s ease-in-out;
         }
 
@@ -179,29 +254,45 @@
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
-        
+
         @media (max-width: 420px) {
-            .brand-text {
-                font-size: 16px !important;
-            }
+            .brand-text { font-size: 16px !important; }
         }
+        
+        /* Modal Dark Mode Fixes */
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--modal-text);
+        }
+        .btn-close {
+            transition: filter 0.3s ease;
+        }
+        [data-theme="dark"] .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+
     </style>
 </head>
 
 <body class="bg-white">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top py-2">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
                 <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex align-items-center order-lg-3">
+                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
@@ -216,127 +307,122 @@
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(About/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=About+Us)'">
+    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(18, 18, 18, 0.9)), url(About/about%20page.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=About+Us)'">
         <canvas id="bg-animation"></canvas>
-        <div class="container py-5" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">Our Story</h1>
-            <p class="lead text-white col-md-8 mx-auto">A 250+ Year Old Beacon of Faith and Heritage in the Qutub Shahi Style</p>
+        <div class="container py-5" style="position: relative; z-index: 1;">
+            <div class="animated-section is-visible">
+                <h1 class="display-4 fw-bold text-white">Our Story</h1>
+                <p class="lead text-white col-md-8 mx-auto">A 250+ Year Old Beacon of Faith and Heritage in the Qutub Shahi Style</p>
+            </div>
         </div>
     </header>
 
-    <!-- Updated Journey Section -->
-    <section class="py-5 bg-light-gray">
-            <div class="text-center mb-5" data-aos="fade-up">
+    <section class="py-5 bg-light-gray animated-section">
+        <div class="container">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Our Official Journey</h2>
                 <p class="lead text-muted">Tracing our legacy through key foundational milestones.</p>
             </div>
             <div class="row g-4 justify-content-center">
-                <!-- MODIFIED Item 1: Nizam's Grant -->
-                <div class="col-lg-10" data-aos="fade-up">
+                <div class="col-lg-10">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4">
                         <div class="row g-4 align-items-center">
                             <div class="col-md-4 text-center">
-                                <img src="/About/Nizam.png" class="img-fluid rounded-circle shadow-lg" alt="Sir Mir Mahboob Ali Khan, Asaf Jah VI" style="width: 250px; height: 250px; object-fit: cover; border: 5px solid #1abc9c;" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=Nizam';">
+                                <img src="/About/Nizam.png" class="img-fluid rounded-circle shadow-lg" alt="Sir Mir Mahboob Ali Khan, Asaf Jah VI" style="width: 250px; height: 250px; object-fit: cover; border: 5px solid var(--primary-color);" onerror="this.onerror=null;this.src='https://placehold.co/250x250/cccccc/ffffff?text=Nizam';">
                             </div>
                             <div class="col-md-8">
                                 <h4 class="fw-bold text-primary">The Nizam's Grant (Inaam)</h4>
-                                <h5 class="fw-bold">H.H. Sir Mir Mahboob Ali Khan (Asaf Jah VI)</h5>
-                                <p>The foundation of this complex begins with a historic "Inaam" (grant) of land from the 6th Nizam of Hyderabad, H.H. Sir Mir Mahboob Ali Khan Siddiqi Bayafandi (Asaf Jah VI). Known for his benevolence, his reign (1869-1911) was a period of great development. This generous grant established the land as a sacred endowment for generations to come.</p>
+                                <h5 class="fw-bold text-dark-blue">H.H. Sir Mir Mahboob Ali Khan (Asaf Jah VI)</h5>
+                                <p class="fw-bold text-dark-blue">The foundation of this complex begins with a historic "Inaam" (grant) of land from the 6th Nizam of Hyderabad, H.H. Sir Mir Mahboob Ali Khan Siddiqi Bayafandi (Asaf Jah VI). Known for his benevolence, his reign (1869-1911) was a period of great development. This generous grant established the land as a sacred endowment for generations to come.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 2: Original Deed -->
-                <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-5 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-file-signature fa-3x"></i>
                         </div>
                         <h4 class="fw-bold text-primary">Shawal 1302 Hijri (c. 1885)</h4>
-                        <h5 class="fw-bold">The Original Endowment Deed</h5>
-                        <p class="mb-0">The historic 'Sanad' (deed) bearing the seal of the Nizam's government (1302 H) which officially recorded the 'Inaam' (grant) of land.</p>
+                        <h5 class="fw-bold text-dark-blue">The Original Endowment Deed</h5>
+                        <p class="mb-0 text-muted">The historic 'Sanad' (deed) bearing the seal of the Nizam's government (1302 H) which officially recorded the 'Inaam' (grant) of land.</p>
                     </div>
                 </div>
-                <!-- Item 3: Official Registration -->
-                <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-5 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-certificate fa-3x"></i>
                         </div>
                         <h4 class="fw-bold text-primary">September 26, 1961</h4>
-                        <h5 class="fw-bold">Official Trust Registration</h5>
-                        <p class="mb-0">The trust is officially registered under the Bombay Public Trust Act, securing its legal status as Public Trust No. B.IS 123/61.</p>
+                        <h5 class="fw-bold text-dark-blue">Official Trust Registration</h5>
+                        <p class="mb-0 text-muted">The trust is officially registered under the Bombay Public Trust Act, securing its legal status as Public Trust No. B.IS 123/61.</p>
                     </div>
                 </div>
-                <!-- Item 4: Scheme Adoption -->
-                <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
+                <div class="col-lg-5 col-md-6">
+                      <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-gavel fa-3x"></i>
                         </div>
                         <h4 class="fw-bold text-primary">January 27, 1987</h4>
-                        <h5 class="fw-bold">Administrative Scheme Adopted</h5>
-                        <p class="mb-0">The official scheme for the administration and management of the trust is formally adopted, outlining its governance and operations.</p>
+                        <h5 class="fw-bold text-dark-blue">Administrative Scheme Adopted</h5>
+                        <p class="mb-0 text-muted">The official scheme for the administration and management of the trust is formally adopted, outlining its governance and operations.</p>
                     </div>
                 </div>
-                <!-- NEW Item 5: Present Day -->
-                <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
+                <div class="col-lg-5 col-md-6">
+                      <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-shield-alt fa-3x"></i>
                         </div>
                         <h4 class="fw-bold text-primary">Present Day</h4>
-                        <h5 class="fw-bold">Preserving the Legacy</h5>
-                        <p class="mb-0">Today, the leadership continues the mission, focusing on community service, spiritual guidance, and protecting the historic Waqf land.</p>
+                        <h5 class="fw-bold text-dark-blue">Preserving the Legacy</h5>
+                        <p class="mb-0 text-muted">Today, the leadership continues the mission, focusing on community service, spiritual guidance, and protecting the historic Waqf land.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Architectural Marvels Section (Changed to light gray background) -->
-    <section class="py-5 bg-light-gray">
+    <section class="py-5 animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Architectural Marvels</h2>
                 <p class="lead text-muted">Discover the 250+ year old Qutub Shahi landmarks that define our sacred complex.</p>
             </div>
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6" data-aos="fade-up">
+                <div class="col-lg-3 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana" style="height: 200px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold">Ashoorkhana Nal Saheb</h4>
-                            <p>The spiritual heart of our complex, dedicated to the remembrance of Imam Hussain (AS) and hosting sacred gatherings.</p>
+                            <h4 class="fw-bold text-dark-blue">Ashoorkhana Nal Saheb</h4>
+                            <p class="text-muted">The spiritual heart of our complex, dedicated to the remembrance of Imam Hussain (AS) and hosting sacred gatherings.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
-                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
+                <div class="col-lg-3 col-md-6">
+                      <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana" style="height: 200px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold">Naqqar Khana</h4>
-                            <p>The historic drum house, a classic feature of Nizam-era architecture used to announce prayer times and important events.</p>
+                            <h4 class="fw-bold text-dark-blue">Naqqar Khana</h4>
+                            <p class="text-muted">The historic drum house, a classic feature of Nizam-era architecture used to announce prayer times and important events.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-3 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
                         <img src="Home/structure.jpg" class="card-img-top" alt="Baradari" style="height: 200px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold">Baradari</h4>
-                            <p>The timeless twelve-doored pavilion, designed for ventilation and elegance, serving as a space for community gatherings.</p>
+                            <h4 class="fw-bold text-dark-blue">Baradari</h4>
+                            <p class="text-muted">The timeless twelve-doored pavilion, designed for ventilation and elegance, serving as a space for community gatherings.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="450">
+                <div class="col-lg-3 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
-                        <img src="httpsimg-fluid" alt="Graveyard" style="height: 200px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/2c3e50/ffffff?text=Graveyard';">
+                        <img src="Home/Footer Img.jpg" class="card-img-top" alt="Graveyard" style="height: 200px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Graveyard';">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold">Graveyard & Musafirkhana</h4>
-                            <p>The complex includes a historic graveyard and a Musafirkhana (guest house), both part of the original endowment.</p>
+                            <h4 class="fw-bold text-dark-blue">Graveyard & Musafirkhana</h4>
+                            <p class="text-muted">The complex includes a historic graveyard and a Musafirkhana (guest house), both part of the original endowment.</p>
                         </div>
                     </div>
                 </div>
@@ -344,57 +430,54 @@
         </div>
     </section>
 
-    <!-- NEW "Our Services" Section -->
-    <section class="py-5">
+    <section class="py-5 bg-light-gray animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Our Services & Community</h2>
                 <p class="lead text-muted">Serving our community's spiritual and modern needs.</p>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-laptop-code fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Computer Institute</h4>
-                        <p class="mb-0">We host a 24-hour computer institute, providing valuable technical education to students from all religious backgrounds.</p>
+                        <h4 class="fw-bold text-dark-blue">Computer Institute</h4>
+                        <p class="mb-0 text-muted">We host a 24-hour computer institute, providing valuable technical education to students from all religious backgrounds.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
+                <div class="col-lg-4 col-md-6">
+                      <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-glass-whiskey fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Ujra-e-Nal Saheb</h4>
-                        <p class="mb-0">An establishment providing cooling sharbat and 'Shital Jal' (cold water) to devotees and visitors, continuing a tradition of hospitality.</p>
+                        <h4 class="fw-bold text-dark-blue">Ujra-e-Nal Saheb</h4>
+                        <p class="mb-0 text-muted">An establishment providing cooling sharbat and 'Shital Jal' (cold water) to devotees and visitors, continuing a tradition of hospitality.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-video fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Modern Security</h4>
-                        <p class="mb-0">To ensure the safety and security of all visitors and devotees, the entire complex is monitored by modern CCTV cameras.</p>
+                        <h4 class="fw-bold text-dark-blue">Modern Security</h4>
+                        <p class="mb-0 text-muted">To ensure the safety and security of all visitors and devotees, the entire complex is monitored by modern CCTV cameras.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Map Section (UPDATED) -->
-    <section class="py-5 bg-light-gray">
+    <section class="py-5 animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Our Endowment & Land</h2>
-                <!-- Updated total land area based on the register -->
                 <p class="lead text-muted">A visual overview of the 13 acre, 23 guntha trust property (D.P. Plan No. 36/2015).</p>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-10" data-aos="fade-up">
+                <div class="col-lg-10">
                     <div class="map-wrapper card-hover" data-bs-toggle="modal" data-bs-target="#mapModal">
-                        <img src="/About/Map.jpg" class="img-fluid" alt="Plan of D.P. Parbhani showing Masjid land" onerror="this.onerror=null;this.src='About/Map.jpg';">
+                        <img src="/About/Map.jpg" class="img-fluid w-100" alt="Plan of D.P. Parbhani showing Masjid land" onerror="this.onerror=null;this.src='About/Map.jpg';">
                         <div class="overlay-icon">
                             <i class="fas fa-search-plus"></i>
                         </div>
@@ -403,55 +486,51 @@
                 </div>
             </div>
             
-            <!-- NEW Land Breakdown Section -->
             <div class="row g-4 mt-5 justify-content-center">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-map-marked-alt fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Survey No. 1</h4>
-                        <h5 class="fw-bold">3 Acres, 30 Gunthas</h5>
-                        <p class="mb-0">The main survey plot containing the core structures of the Ashoorkhana complex.</p>
+                        <h4 class="fw-bold text-dark-blue">Survey No. 1</h4>
+                        <h5 class="fw-bold text-primary">3 Acres, 30 Gunthas</h5>
+                        <p class="mb-0 text-muted">The main survey plot containing the core structures of the Ashoorkhana complex.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-city fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Survey No. 2</h4>
-                        <h5 class="fw-bold">8 Acres, 15 Gunthas</h5>
-                        <p class="mb-0">This plot is leased to the Parbhani Municipal Council for public use, as per the trust agreement.</p>
+                        <h4 class="fw-bold text-dark-blue">Survey No. 2</h4>
+                        <h5 class="fw-bold text-primary">8 Acres, 15 Gunthas</h5>
+                        <p class="mb-0 text-muted">This plot is leased to the Parbhani Municipal Council for public use, as per the trust agreement.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm card-hover border-0 p-4 text-center">
                         <div class="text-primary mb-3">
                             <i class="fas fa-layer-group fa-3x"></i>
                         </div>
-                        <h4 class="fw-bold">Survey No. 3</h4>
-                        <h5 class="fw-bold">1 Acres, 11 Gunthas</h5>
-                        <p class="mb-0">An additional parcel of land that is part of the total endowed trust property.</p>
+                        <h4 class="fw-bold text-dark-blue">Survey No. 3</h4>
+                        <h5 class="fw-bold text-primary">1 Acres, 11 Gunthas</h5>
+                        <p class="mb-0 text-muted">An additional parcel of land that is part of the total endowed trust property.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW Historical Archive Section -->
-     <section class="py-5">
+    <!-- <section class="py-5 bg-light-gray animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Our Historical Archives</h2>
                 <p class="lead text-muted">A glimpse into our foundational documents.</p>
             </div>
             <div class="row justify-content-center">
-                <!-- Card linking to News.html -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6">
                     <a href="News.html#our-roots" class="text-decoration-none" aria-label="Read more about our historical roots">
                         <div class="card h-100 shadow-sm card-hover border-0 overflow-hidden">
-                             <!-- Using an inline style for the background-image as in the user's example -->
                              <div class="news-img-container" style="background-image: url('/About/Old\ Document.jpg'); height: 200px; background-size: cover; background-position: center;" onerror="this.style.backgroundImage='url(https://placehold.co/400x200/cccccc/ffffff?text=Document)';"></div>
                             <div class="card-body p-4">
                                 <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i>
@@ -465,13 +544,12 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
-    <!-- Mission Section (Unchanged) -->
-    <section class="py-5 text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
-        <div class="container" data-aos="fade-up">
+    <section class="py-5 text-white text-center animated-section" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
+        <div class="container">
             <h2 class="display-5 fw-bold text-white">Our Mission & Vision</h2>
-            <p class="lead col-md-8 mx-auto mt-3">
+            <p class="lead col-md-8 mx-auto mt-3 text-light">
                 Our mission is to serve as a vibrant center for Islamic life, dedicated to spiritual growth, education, and community service. We strive to preserve our rich heritage while fostering an inclusive environment where all can gather, learn, and worship in peace and harmony.
             </p>
              <button class="btn bg-primary text-white btn-lg rounded-pill mt-4 btn-hover" data-bs-toggle="modal" data-bs-target="#qa-modal">
@@ -480,8 +558,7 @@
         </div>
     </section>
 
-    <!-- Footer (Unchanged) -->
-    <footer class="text-white text-center position-relative py-5 bg-dark-blue">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2 text-white">Ashoorkhana Nale Hyder</h3>
@@ -501,7 +578,6 @@
         </div>
     </footer>
 
-    <!-- Map Modal (Unchanged) -->
     <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -516,7 +592,6 @@
         </div>
     </div>
     
-    <!-- Community Q&A Modal (Updated System Prompt) -->
     <div class="modal fade" id="qa-modal" tabindex="-1" aria-labelledby="qaModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -527,9 +602,9 @@
           <div class="modal-body">
             <p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.</p>
             <div class="mb-3">
-              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., Is there a computer class? or How old is the mosque?"></textarea>
+              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., Is there a computer class? or How old is the mosque?" style="background: var(--bg-body); color: var(--text-main);"></textarea>
             </div>
-              <div class="text-center">
+             <div class="text-center">
                 <button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">
                     Ask Question
                 </button>
@@ -548,60 +623,136 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateIcon('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
         });
 
-        // 3D Background Animation Logic
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- 3D SCROLL ANIMATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully in view
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
+                if (!header) return;
+
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({
-                    canvas: document.querySelector('#bg-animation'),
-                    alpha: true
-                });
-                renderer.setSize(header.clientWidth, header.clientHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                camera.position.z = 5;
+                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
 
+                const setSize = () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                };
+                setSize();
+
+                camera.position.z = 2.5;
+
+                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
+                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x1abc9c, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                scene.add(sphere);
+
+                // Add some floating particles around it
                 const particlesGeometry = new THREE.BufferGeometry();
-                const count = 5000;
+                const count = 500;
                 const positions = new Float32Array(count * 3);
                 for (let i = 0; i < count * 3; i++) {
-                    positions[i] = (Math.random() - 0.5) * 10;
+                    positions[i] = (Math.random() - 0.5) * 8;
                 }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.005,
-                    color: 0xffffff,
-                });
+                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
+
+                let mouseX = 0;
+                let mouseY = 0;
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
 
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05;
-                    particles.rotation.x = elapsedTime * 0.02;
+                    
+                    // Rotate the sphere slowly
+                    sphere.rotation.y = elapsedTime * 0.1;
+                    sphere.rotation.x = elapsedTime * 0.05;
+                    
+                    // Mouse interaction tilt
+                    sphere.rotation.y += mouseX * 0.01;
+                    sphere.rotation.x -= mouseY * 0.01;
+
+                    // Rotate particles opposite direction
+                    particles.rotation.y = -elapsedTime * 0.05;
+
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
-
-                window.addEventListener('resize', () => {
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                });
+                window.addEventListener('resize', setSize);
             }
         });
-        
-        // Gemini API Logic for Q&A (Updated Model and Prompt)
+
+        // Gemini API Logic for Q&A
         document.addEventListener('DOMContentLoaded', () => {
             const apiKey = ""; // This will be populated by the environment
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -672,7 +823,6 @@
                 showLoading(qaBtn, originalBtnText);
                 qaOutput.innerHTML = `<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
 
-                <!-- UPDATED System Prompt with 1302 Deed -->
                 const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website in Parbhani, Maharashtra. Your role is to answer community questions based ONLY on the following information. Do not invent details. If the answer is not in the information provided, politely say you don't have that information.
 
                 **About the Masjid:**
@@ -715,5 +865,4 @@
         });
     </script>
 </body>
-
 </html>

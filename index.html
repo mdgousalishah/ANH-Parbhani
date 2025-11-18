@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
@@ -22,137 +22,197 @@
 
 
     <style>
-        /* Applying custom fonts to the body and headings */
+        /* --- CSS VARIABLES FOR THEMING --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-light-gray: #f8f9fa;
+            --text-main: #555555;
+            --text-heading: #2c3e50;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --navbar-text: #2c3e50;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --primary-color: #1abc9c;
+            --secondary-color: #f39c12;
+            --modal-bg: #fff;
+            --modal-text: #555;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-light-gray: #1e1e1e; /* Darker section bg */
+            --text-main: #e0e0e0;
+            --text-heading: #ecf0f1;
+            --text-secondary: #b0b3b8;
+            --card-bg: #252525;
+            --navbar-bg: #1a1a1a;
+            --navbar-text: #ecf0f1;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --modal-bg: #2d2d2d;
+            --modal-text: #e0e0e0;
+        }
+
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #555;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             overflow-x: hidden;
-            /* Prevent horizontal overflow */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
-            color: #2c3e50;
+            color: var(--text-heading);
+            transition: color 0.3s ease;
         }
 
-        /* Modern Animation: Slide-in on Scroll */
+        .text-secondary { color: var(--text-secondary) !important; }
+        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
+        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        /* We use perspective to give the tilt effect */
         .animated-section {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            /* Start pushed back, tilted down, and slightly lower */
+            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform, opacity;
         }
 
         .animated-section.is-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
         }
 
-        /* Navbar link styles */
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500;
-            transition: color 0.3s;
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--navbar-text) !important;
         }
 
         .navbar-nav .nav-link.active,
         .navbar-nav .nav-link:hover {
-            color: #1abc9c;
+            color: var(--primary-color) !important;
         }
 
-        /* Card hover effect */
-        .card-hover {
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* Dark Mode Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--navbar-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
         }
 
         .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .15) !important;
+            transform: translateY(-10px) scale(1.02); /* Slight scale for 3D feel */
+            box-shadow: 0 1.5rem 4rem var(--shadow-color) !important;
+            z-index: 10;
         }
 
-        /* Button hover effect */
+        /* Buttons */
         .btn-hover {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
             background-size: 200% auto;
         }
 
         .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-position: right center; /* change the direction of the change here */
+            transform: translateY(-2px) translateZ(10px); /* Hint of Z-depth */
+            box-shadow: 0 4px 12px var(--shadow-color);
+            background-position: right center;
         }
         
         .btn-gradient-secondary {
             background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
         }
 
-        /* News image container */
         .news-img-container {
             height: 200px;
             background-size: cover;
             background-position: center;
         }
 
-        /* Testimonial and Profile image styling */
         .testimonial-img {
             width: 80px;
             height: 80px;
             object-fit: cover;
-            border: 3px solid #1abc9c;
+            border: 3px solid var(--primary-color);
         }
         
         .profile-image {
             width: 180px;
             height: 180px;
             object-fit: cover;
-            border: 5px solid #1abc9c; /* primary color border */
+            border: 5px solid var(--primary-color);
         }
 
-
-        /* Custom color palette */
-        .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #f39c12 !important; } /* Updated secondary color */
+        /* Custom Colors */
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
         .bg-dark-blue { 
             background-color: #2c3e50 !important; 
             background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
         }
-        .bg-light-gray { background-color: #f8f9fa !important; }
-        .text-primary { color: #1abc9c !important; }
-        .text-dark-blue { color: #2c3e50 !important; }
-        .text-secondary { color: #6c757d !important; } /* Softer secondary text color */
+        
+        .text-primary { color: var(--primary-color) !important; }
+        .text-dark-blue { color: var(--text-heading) !important; }
 
-        /* Responsive font size adjustments */
+        /* Text sizes */
         .display-3 { font-size: 3rem; }
         .display-5 { font-size: 2.5rem; }
         .lead { font-size: 1.1rem; }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .display-3 { font-size: 2.5rem; }
             .display-5 { font-size: 2rem; }
             .lead { font-size: 1.05rem; }
-            .prayer-dashboard {
-                padding: 1.5rem !important;
-            }
+            .prayer-dashboard { padding: 1.5rem !important; }
         }
         @media (max-width: 576px) {
             .display-3 { font-size: 2.2rem; }
             .display-5 { font-size: 1.8rem; }
-            .prayer-time-card {
-                padding: 0.75rem !important;
-            }
-            .prayer-time-card h3 {
-                font-size: 1rem;
-            }
-            .prayer-time-card p {
-                font-size: 0.9rem;
-            }
+            .prayer-time-card { padding: 0.75rem !important; }
+            .prayer-time-card h3 { font-size: 1rem; }
+            .prayer-time-card p { font-size: 0.9rem; }
         }
 
-        /* Prayer Times Dashboard Styles */
+        /* Prayer Dashboard */
         .prayer-dashboard {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6); /* Darker for better contrast in both modes */
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         .prayer-time-card {
@@ -161,6 +221,7 @@
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
+        /* Three.js Canvas */
         #bg-animation {
             position: absolute;
             top: 0;
@@ -168,6 +229,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none; /* Allow clicking through */
         }
 
         header .container {
@@ -175,10 +237,13 @@
             z-index: 1;
         }
 
+        /* Highlight Next Prayer */
         #next-prayer-highlight {
-            background-color: #1abc9c;
+            background-color: var(--primary-color);
             border: 2px solid #fff;
-            transform: scale(1.05);
+            transform: scale(1.1) translateZ(20px); /* 3D Pop */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 5;
         }
 
         #next-prayer-highlight h3,
@@ -187,7 +252,7 @@
             font-weight: 700;
         }
 
-        /* Custom Animated Navbar Toggler */
+        /* Navbar Toggler */
         .navbar-toggler.custom-toggler {
             border: none;
             background: transparent !important;
@@ -205,11 +270,8 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: #2c3e50;
+            background: var(--navbar-text);
             border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
             transition: all 0.25s ease-in-out;
         }
 
@@ -221,35 +283,50 @@
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
         .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
 
-        /* Responsive brand text for small screens */
         @media (max-width: 420px) {
-            .brand-text {
-                font-size: 16px !important;
-            }
+            .brand-text { font-size: 16px !important; }
+        }
+
+        /* Modal Dark Mode Fixes */
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--modal-text);
         }
         
-        /* Feature Styles */
-        .spinner-border-sm {
-            width: 1rem;
-            height: 1rem;
-            border-width: .2em;
+        /* FIXED: Removed invalid ternary operator */
+        .btn-close {
+            transition: filter 0.3s ease;
         }
+        
+        /* Invert close button color in dark mode so it is visible */
+        [data-theme="dark"] .btn-close { 
+            filter: invert(1) grayscale(100%) brightness(200%); 
+        }
+
     </style>
 </head>
 
 <body class="bg-white">
 
-    <nav class="navbar navbar-expand-lg bg-white shadow sticky-top py-2">
+    <nav class="navbar navbar-expand-lg shadow sticky-top py-2">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
                 <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex align-items-center order-lg-3">
+                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item"><a class="nav-link active px-3" href="index.html">Home</a></li>
@@ -264,12 +341,12 @@
         </div>
     </nav>
 
-    <header class="position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://images.unsplash.com/photo-1587598993888-a7342618a6e8?q=80&w=2070&auto=format&fit=crop) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/2c3e50/ffffff?text=Welcome)'">
+    <header class="position-relative text-white text-center" style="background: linear-gradient(to bottom, rgba(44, 62, 80, 0.8), rgba(18, 18, 18, 0.9)), url(https://images.unsplash.com/photo-1587598993888-a7342618a6e8?q=80&w=2070&auto=format&fit=crop) center/cover no-repeat; padding-bottom: 5rem;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x1080/2c3e50/ffffff?text=Welcome)'">
         <canvas id="bg-animation"></canvas>
         <div class="container" style="padding-top: 70px;">
             <div class="animated-section is-visible">
                 <h1 class="display-3 fw-bold mb-3 text-white">A Beacon of Faith, Heritage, and Community</h1>
-                <p class="lead col-md-8 mx-auto mb-5">
+                <p class="lead col-md-8 mx-auto mb-5 text-light">
                     Welcome to the historic complex of Ashoorkhana Naale Hyder, Masjid Mahetab Ali Shah, parbhani. Survey No. 1, 2 & 3.. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
                 </p>
             </div>
@@ -313,7 +390,6 @@
         </div>
     </header>
     
-    <!-- Today's Reflection Section -->
     <section class="py-5 bg-light-gray animated-section">
         <div class="container my-4">
             <div class="text-center mb-4">
@@ -322,10 +398,9 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="card text-center shadow-sm" style="border-left: 5px solid #1abc9c;">
+                    <div class="card text-center shadow-sm" style="border-left: 5px solid var(--primary-color);">
                         <div class="card-body p-4 p-lg-5" id="reflection-content">
-                            <!-- This content will be updated automatically by JavaScript -->
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -360,7 +435,7 @@
                         <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
                         <div class="card-body">
                             <h4 class="fw-bold">Ashoorkhana Nale Hyder</h4>
-                            <p class="small">A sacred space for mourning and remembrance, central to our community's spiritual life.</p>
+                            <p class="small text-secondary">A sacred space for mourning and remembrance, central to our community's spiritual life.</p>
                         </div>
                     </div>
                 </div>
@@ -369,7 +444,7 @@
                         <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
                         <div class="card-body">
                             <h4 class="fw-bold">Naqqar Khana</h4>
-                            <p class="small">The historic drum house, echoing Nizam-era traditions of announcing prayer and events.</p>
+                            <p class="small text-secondary">The historic drum house, echoing Nizam-era traditions of announcing prayer and events.</p>
                         </div>
                     </div>
                 </div>
@@ -378,7 +453,7 @@
                         <img src="Home/structure.jpg" class="card-img-top" alt="Baradari" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
                         <div class="card-body">
                             <h4 class="fw-bold">Baradari</h4>
-                            <p class="small">The twelve-doored pavilion, a timeless architectural marvel for community gatherings.</p>
+                            <p class="small text-secondary">The twelve-doored pavilion, a timeless architectural marvel for community gatherings.</p>
                         </div>
                     </div>
                 </div>
@@ -387,7 +462,7 @@
                         <img src="Home/Footer Img.jpg" class="card-img-top" alt="Graveyard" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Graveyard';">
                         <div class="card-body">
                             <h4 class="fw-bold">Graveyard</h4>
-                            <p class="small">A peaceful resting place, connecting us to the generations that built our community.</p>
+                            <p class="small text-secondary">A peaceful resting place, connecting us to the generations that built our community.</p>
                         </div>
                     </div>
                 </div>
@@ -395,7 +470,6 @@
         </div>
     </section>
 
-    <!-- A Message from the Mutawalli Section -->
     <section class="py-5 animated-section">
         <div class="container my-4">
             <div class="text-center mb-5">
@@ -412,7 +486,7 @@
                             <div class="col-md-8">
                                 <div class="card-body p-4">
                                     <blockquote class="blockquote mb-0">
-                                        <p class="fst-italic">"I am humbled by the responsibility to serve this historic institution. My commitment is to uphold its sacred values, protect its heritage, and ensure it continues to be a source of guidance and support for our entire community."</p>
+                                        <p class="fst-italic text-secondary">"I am humbled by the responsibility to serve this historic institution. My commitment is to uphold its sacred values, protect its heritage, and ensure it continues to be a source of guidance and support for our entire community."</p>
                                         <footer class="blockquote-footer mt-2">Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed</footer>
                                     </blockquote>
                                 </div>
@@ -436,7 +510,7 @@
                         <div class="card-body d-flex flex-column">
                              <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
                             <h4 class="fw-bold">Educational Programs</h4>
-                            <p>We offer a range of educational programs for all ages, including Quranic studies, Islamic history, and Arabic language classes.</p>
+                            <p class="text-secondary">We offer a range of educational programs for all ages, including Quranic studies, Islamic history, and Arabic language classes.</p>
                         </div>
                     </div>
                 </div>
@@ -445,7 +519,7 @@
                         <div class="card-body d-flex flex-column">
                             <i class="fas fa-hands-helping fa-3x text-primary mb-3"></i>
                             <h4 class="fw-bold">Charitable Initiatives</h4>
-                            <p>We are committed to helping those in need through our various charitable initiatives, including food drives, financial assistance, and disaster relief.</p>
+                            <p class="text-secondary">We are committed to helping those in need through our various charitable initiatives, including food drives, financial assistance, and disaster relief.</p>
                         </div>
                     </div>
                 </div>
@@ -454,7 +528,7 @@
                         <div class="card-body d-flex flex-column">
                             <i class="fas fa-users fa-3x text-primary mb-3"></i>
                             <h4 class="fw-bold">Community Events</h4>
-                            <p class="flex-grow-1">We host a variety of community events throughout the year, including Eid celebrations, lectures, and workshops, to foster a sense of unity and belonging.</p>
+                            <p class="flex-grow-1 text-secondary">We host a variety of community events throughout the year, including Eid celebrations, lectures, and workshops, to foster a sense of unity and belonging.</p>
                             <button class="btn bg-primary text-white btn-sm rounded-pill mt-3" data-bs-toggle="modal" data-bs-target="#qa-modal">💬 Ask a Question</button>
                         </div>
                     </div>
@@ -489,38 +563,38 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                    <div class="card h-100 shadow-sm card-hover bg-white border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/AA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"Praying here feels like connecting with generations past. It’s more than a masjid; it’s our heritage. The sense of peace is profound."</p>
-                            <h5 class="fw-bold mt-auto">- Dr. Anwar Ali Shah.</h5>
+                            <p class="fst-italic text-dark-blue">"Praying here feels like connecting with generations past. It’s more than a masjid; it’s our heritage. The sense of peace is profound."</p>
+                            <h5 class="fw-bold mt-auto text-dark-blue">- Dr. Anwar Ali Shah.</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                    <div class="card h-100 shadow-sm card-hover bg-white border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/FA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"The new Islamic studies classes are wonderful. My kids are learning about their deen in the same place their great-grandparents prayed."</p>
-                            <h5 class="fw-bold mt-auto">- Mr. Farooq Ali Shah.</h5>
+                            <p class="fst-italic text-dark-blue">"The new Islamic studies classes are wonderful. My kids are learning about their deen in the same place their great-grandparents prayed."</p>
+                            <h5 class="fw-bold mt-auto text-dark-blue">- Mr. Farooq Ali Shah.</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                    <div class="card h-100 shadow-sm card-hover bg-white border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/JA Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"I am grateful for the sense of unity here. This complex is the heart of our community, a place of solace and connection for everyone."</p>
-                            <h5 class="fw-bold mt-auto">- Mr. Junaid Ali Shah.</h5>
+                            <p class="fst-italic text-dark-blue">"I am grateful for the sense of unity here. This complex is the heart of our community, a place of solace and connection for everyone."</p>
+                            <h5 class="fw-bold mt-auto text-dark-blue">- Mr. Junaid Ali Shah.</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
+                    <div class="card h-100 shadow-sm card-hover bg-white border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
                             <img src="Home/Dr Habib Ali Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"The preservation efforts are inspiring. It's a blessing to see our history and faith being honored with such dedication for future generations."</p>
-                            <h5 class="fw-bold mt-auto">- Dr. Habib Ali Shah.</h5>
+                            <p class="fst-italic text-dark-blue">"The preservation efforts are inspiring. It's a blessing to see our history and faith being honored with such dedication for future generations."</p>
+                            <h5 class="fw-bold mt-auto text-dark-blue">- Dr. Habib Ali Shah.</h5>
                         </div>
                     </div>
                 </div>
@@ -534,20 +608,48 @@
                 <h2 class="display-5 fw-bold">Latest News & Updates</h2>
                 <p class="lead text-secondary">Stay informed about recent events and important announcements.</p>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content">
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
                         <div class="news-img-container" style="background-image: url('Home/Mushtaque Ahmed Photo.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
                         <div class="card-body d-flex flex-column">
                             <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 1, 2025</p>
-                            <h5 class="card-title fw-bold"><a href="single-news-post.html" class="text-dark-blue text-decoration-none">Waqf Board Appoints New Mutawalli</a></h5>
-                            <p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
+                            <h5 class="card-title fw-bold"><a href="single-news-post.html" class="text-dark-blue text-decoration-none" style="color: var(--text-heading) !important;">Waqf Board Appoints New Mutawalli</a></h5>
+                            <p class="card-text text-secondary">We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
                             <div class="mt-auto pt-3">
                                 <a href="single-news-post.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/student.jpg');"></div>
+                        <div class="card-body d-flex flex-column p-4">
+                            <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 15, 2025</p>
+                            <h5 class="card-title fw-bold"><a href="youth-program.html" class="text-dark-blue text-decoration-none" style="color: var(--text-heading)!important;">New Youth Islamic Studies Program</a></h5>
+                            <p class="card-text text-secondary">We're excited to launch our new weekend Islamic Studies Program for youth ages 7-14...</p>
+                            <div class="mt-auto pt-3">
+                                <a href="youth-program.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4 col-md-6 mb-4">
+                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/Old Document.jpg');"></div>
+                        <div class="card-body d-flex flex-column p-4">
+                            <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p>
+                            <h5 class="card-title fw-bold"><a href="land-grant-archives.html" class="text-dark-blue text-decoration-none" style="color: var(--text-heading)!important;">Our Roots: The Nizam-Era Land Grant</a></h5>
+                            <p class="card-text text-secondary">This historic document from the Nizam's government details the original land grant...</p>
+                            <div class="mt-auto pt-3">
+                                <a href="land-grant-archives.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
             </div>
             <div class="text-center mt-5">
                 <a href="News.html" class="btn bg-secondary text-white fw-bold py-3 px-5 rounded-pill fs-5 btn-hover btn-gradient-secondary">View All News</a>
@@ -555,7 +657,7 @@
         </div>
     </section>
 
-    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
@@ -576,7 +678,6 @@
         </div>
     </footer>
     
-    <!-- Community Q&A Modal -->
     <div class="modal fade" id="qa-modal" tabindex="-1" aria-labelledby="qaModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -587,7 +688,7 @@
           <div class="modal-body">
             <p>Have a question about our services, history, or events? This chatbot can help.</p>
             <div class="mb-3">
-              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., What are the timings for the youth program? or Tell me about the history of the Naqqar Khana."></textarea>
+              <textarea class="form-control" id="qa-topic-input" rows="3" placeholder="e.g., What are the timings for the youth program? or Tell me about the history of the Naqqar Khana." style="background: var(--bg-body); color: var(--text-main);"></textarea>
             </div>
              <div class="text-center">
                 <button id="generate-qa-btn" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">
@@ -609,7 +710,43 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Modern "slide-in" animation on scroll
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateIcon('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- 3D SCROLL ANIMATION ---
         document.addEventListener('DOMContentLoaded', function() {
             const animatedSections = document.querySelectorAll('.animated-section');
             const observer = new IntersectionObserver((entries) => {
@@ -619,42 +756,43 @@
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px" // Trigger slightly before element is fully in view
             });
 
             animatedSections.forEach(section => {
                 observer.observe(section);
             });
 
-            // Automatic Daily Reflection
+            // --- DAILY REFLECTION ---
             const reflectionContainer = document.getElementById('reflection-content');
             if (reflectionContainer) {
                 const today = new Date();
-                const dayOfWeek = today.getDay(); // Sunday - 0, Friday - 5
+                const dayOfWeek = today.getDay(); 
 
                 let reflectionHtml = '';
 
-                if (dayOfWeek === 5) { // It's Friday
+                if (dayOfWeek === 5) { // Friday
                     reflectionHtml = `
                         <i class="fas fa-star-and-crescent fa-3x text-primary mb-3"></i>
                         <h4 class="fw-bold">The Blessing of Jumu'ah (Friday)</h4>
-                        <p class="text-secondary">Today is Friday, the most blessed day of the week. The Prophet (PBUH) said, "The best day on which the sun has risen is Friday." (Sahih Muslim). It is a day for increased prayer, reflection, and sending blessings upon the Prophet.</p>
+                        <p class="text-secondary">Today is Friday, the most blessed day of the week. The Prophet (PBUH) said, "The best day on which the sun has risen is Friday." (Sahih Muslim).</p>
                         <hr>
                         <h5 class="fw-bold mt-4">A Thought for Today</h5>
                         <blockquote class="blockquote mb-0 mt-3">
-                            <p class="fst-italic">"O you who have believed, when the adhan is called for the prayer on the day of Jumu'ah (Friday), then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew."</p>
+                            <p class="fst-italic">"O you who have believed, when the adhan is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah..."</p>
                             <footer class="blockquote-footer mt-2">Quran 62:9</footer>
                         </blockquote>
                     `;
-                } else { // Any other day
+                } else {
                     reflectionHtml = `
                         <i class="fas fa-moon fa-3x text-primary mb-3"></i>
                         <h4 class="fw-bold">A Daily Reflection</h4>
-                        <p class="text-secondary">Every day is a new opportunity to grow closer to Allah through remembrance and good deeds. Take a moment for a thought that can inspire your day.</p>
+                        <p class="text-secondary">Every day is a new opportunity to grow closer to Allah through remembrance and good deeds.</p>
                         <hr>
                         <h5 class="fw-bold mt-4">A Thought for Today</h5>
                         <blockquote class="blockquote mb-0 mt-3">
-                            <p class="fst-italic">"So remember Me; I will remember you. And be grateful to Me and do not deny Me."</p>
+                            <p class="fw-bold mt-auto text-dark-blue" "fst-italic">"So remember Me; I will remember you. And be grateful to Me and do not deny Me."</p>
                             <footer class="blockquote-footer mt-2">Quran 2:152</footer>
                         </blockquote>
                     `;
@@ -663,12 +801,9 @@
             }
         });
 
-        // Prayer Time Logic
+        // --- PRAYER TIME LOGIC ---
         document.addEventListener('DOMContentLoaded', function() {
-            let prayerTimes = {
-                'Fajr': '05:06', 'Dhuhr': '12:21', 'Asr': '15:45', 'Maghrib': '18:13', 'Isha': '19:35'
-            }; // Fallback times
-
+            let prayerTimes = { 'Fajr': '05:06', 'Dhuhr': '12:21', 'Asr': '15:45', 'Maghrib': '18:13', 'Isha': '19:35' }; 
             const prayerElements = {
                 'Fajr': document.getElementById('fajr').querySelector('.card'),
                 'Dhuhr': document.getElementById('dhuhr').querySelector('.card'),
@@ -693,47 +828,32 @@
                     if (!response.ok) throw new Error('Network response was not ok');
                     const data = await response.json();
                     const times = data.data.timings;
-                    prayerTimes = {
-                        'Fajr': times.Fajr, 'Dhuhr': times.Dhuhr, 'Asr': times.Asr, 'Maghrib': times.Maghrib, 'Isha': times.Isha
-                    };
-
-                    // Update UI with fetched times
-                    document.querySelector('#fajr p').textContent = formatTime(times.Fajr);
-                    document.querySelector('#dhuhr p').textContent = formatTime(times.Dhuhr);
-                    document.querySelector('#asr p').textContent = formatTime(times.Asr);
-                    document.querySelector('#maghrib p').textContent = formatTime(times.Maghrib);
-                    document.querySelector('#isha p').textContent = formatTime(times.Isha);
-
-                    startCountdown();
+                    prayerTimes = { 'Fajr': times.Fajr, 'Dhuhr': times.Dhuhr, 'Asr': times.Asr, 'Maghrib': times.Maghrib, 'Isha': times.Isha };
+                    updateUI(times);
                 } catch (error) {
-                    console.error("Failed to fetch prayer times:", error);
-                    // Use fallback times if API fails
-                    document.querySelector('#fajr p').textContent = formatTime(prayerTimes.Fajr);
-                    document.querySelector('#dhuhr p').textContent = formatTime(prayerTimes.Dhuhr);
-                    document.querySelector('#asr p').textContent = formatTime(prayerTimes.Asr);
-                    document.querySelector('#maghrib p').textContent = formatTime(prayerTimes.Maghrib);
-                    document.querySelector('#isha p').textContent = formatTime(prayerTimes.Isha);
-                    startCountdown();
+                    console.error("Failed to fetch:", error);
+                    updateUI(prayerTimes); // Use fallback
                 }
+            }
+
+            function updateUI(times) {
+                document.querySelector('#fajr p').textContent = formatTime(times.Fajr);
+                document.querySelector('#dhuhr p').textContent = formatTime(times.Dhuhr);
+                document.querySelector('#asr p').textContent = formatTime(times.Asr);
+                document.querySelector('#maghrib p').textContent = formatTime(times.Maghrib);
+                document.querySelector('#isha p').textContent = formatTime(times.Isha);
+                startCountdown();
             }
 
             function getNextPrayer() {
                 const now = new Date();
-                let nextPrayer = null;
-                let nextPrayerTime = null;
-
+                let nextPrayer = null, nextPrayerTime = null;
                 for (const [name, time] of Object.entries(prayerTimes)) {
                     const [hours, minutes] = time.split(':');
                     const prayerDate = new Date();
                     prayerDate.setHours(hours, minutes, 0, 0);
-
-                    if (prayerDate > now) {
-                        nextPrayer = name;
-                        nextPrayerTime = prayerDate;
-                        break;
-                    }
+                    if (prayerDate > now) { nextPrayer = name; nextPrayerTime = prayerDate; break; }
                 }
-
                 if (!nextPrayer) {
                     nextPrayer = 'Fajr';
                     const [hours, minutes] = prayerTimes['Fajr'].split(':');
@@ -748,28 +868,19 @@
                 const now = new Date();
                 const nextPrayerInfo = getNextPrayer();
                 const diff = nextPrayerInfo.time - now;
-
                 const hours = Math.floor(diff / (1000 * 60 * 60));
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
                 countdownElement.innerHTML = `Next prayer: <strong>${nextPrayerInfo.name}</strong> in ${hours}h ${minutes}m ${seconds}s`;
-
                 Object.values(prayerElements).forEach(el => el.removeAttribute('id'));
-                if (prayerElements[nextPrayerInfo.name]) {
-                    prayerElements[nextPrayerInfo.name].id = 'next-prayer-highlight';
-                }
+                if (prayerElements[nextPrayerInfo.name]) prayerElements[nextPrayerInfo.name].id = 'next-prayer-highlight';
             }
             
-            function startCountdown() {
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
-            }
-
+            function startCountdown() { updateCountdown(); setInterval(updateCountdown, 1000); }
             fetchPrayerTimes();
         });
 
-        // 3D Background Animation Logic
+        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
@@ -777,61 +888,72 @@
 
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({
-                    canvas: document.querySelector('#bg-animation'),
-                    alpha: true
-                });
+                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
 
                 const setSize = () => {
-                    const width = header.clientWidth;
-                    const height = header.clientHeight;
-                    renderer.setSize(width, height);
+                    renderer.setSize(header.clientWidth, header.clientHeight);
                     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                    camera.aspect = width / height;
+                    camera.aspect = header.clientWidth / header.clientHeight;
                     camera.updateProjectionMatrix();
                 };
                 setSize();
 
-                camera.position.z = 5;
+                camera.position.z = 2.5;
+
+                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
+                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x1abc9c, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                scene.add(sphere);
+
+                // Add some floating particles around it
                 const particlesGeometry = new THREE.BufferGeometry();
-                const count = 7000;
+                const count = 500;
                 const positions = new Float32Array(count * 3);
                 for (let i = 0; i < count * 3; i++) {
-                    positions[i] = (Math.random() - 0.5) * 15;
+                    positions[i] = (Math.random() - 0.5) * 8;
                 }
                 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.008,
-                    color: 0xffffff,
-                });
+                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
                 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
                 scene.add(particles);
 
                 let mouseX = 0;
                 let mouseY = 0;
-
                 document.addEventListener('mousemove', (event) => {
                     mouseX = (event.clientX / window.innerWidth) * 2 - 1;
                     mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
                 });
 
-
                 const clock = new THREE.Clock();
                 const animate = () => {
                     const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05 + mouseX * 0.2;
-                    particles.rotation.x = elapsedTime * 0.02 + mouseY * 0.2;
+                    
+                    // Rotate the sphere slowly
+                    sphere.rotation.y = elapsedTime * 0.1;
+                    sphere.rotation.x = elapsedTime * 0.05;
+                    
+                    // Mouse interaction tilt
+                    sphere.rotation.y += mouseX * 0.01;
+                    sphere.rotation.x -= mouseY * 0.01;
+
+                    // Rotate particles opposite direction
+                    particles.rotation.y = -elapsedTime * 0.05;
 
                     renderer.render(scene, camera);
                     window.requestAnimationFrame(animate);
                 };
                 animate();
-
                 window.addEventListener('resize', setSize);
             }
         });
-        
-        // Community Q&A Logic (Removed AI call)
+
+        // --- Q&A LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
             const qaBtn = document.getElementById('generate-qa-btn');
             const qaTopicInput = document.getElementById('qa-topic-input');
@@ -840,25 +962,18 @@
             qaBtn.addEventListener('click', () => {
                 const topic = qaTopicInput.value.toLowerCase();
                 let answer = '';
-
                 if (topic.includes('program') || topic.includes('class') || topic.includes('youth')) {
-                    answer = "We offer a weekend Islamic Studies Program for youth aged 7-14, covering Quran, Islamic history, and more. For specific timings, please contact the Masjid office directly through the details on our Contact page.";
-                } else if (topic.includes('history') || topic.includes('naqqar khana') || topic.includes('baradari')) {
-                    answer = "Our complex is a historic Waqf property from the Nizam era. It includes the Ashoorkhana Nale Hyder, the Naqqar Khana (drum house), and the Baradari pavilion. You can learn more on our 'About Us' page.";
+                    answer = "We offer a weekend Islamic Studies Program for youth covering Quran, history, and more. Contact us for timings.";
+                } else if (topic.includes('history') || topic.includes('naqqar')) {
+                    answer = "Our complex is a historic Waqf property from the Nizam era, featuring the Ashoorkhana, Naqqar Khana, and Baradari.";
                 } else if (topic.includes('donate') || topic.includes('charity')) {
-                    answer = "You can find all donation details, including bank account information and a QR code, on our 'Contact Us' page. Your support is greatly appreciated!";
-                } else if (topic.includes('contact') || topic.includes('phone') || topic.includes('email')) {
-                    answer = "You can find our phone number, email, and address on the 'Contact Us' page. We look forward to hearing from you.";
+                    answer = "You can find donation details and bank account info on our 'Contact Us' page.";
                 } else {
-                    answer = "Thank you for your question. For detailed inquiries, please use the form on our 'Contact Us' page to send us a message directly. You can ask about our history, community services, or events.";
+                    answer = "Thank you. For specific details, please use the Contact Us form to reach the Mutawalli directly.";
                 }
-                qaOutput.innerHTML = `<p>${answer}</p>`;
+                qaOutput.innerHTML = `<p class="text-primary fw-bold">Answer:</p><p>${answer}</p>`;
             });
         });
-
     </script>
 </body>
-
 </html>
-
-

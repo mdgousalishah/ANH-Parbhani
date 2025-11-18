@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,112 +9,164 @@
     <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="favicon.png">
 
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
-    <!-- Light Gallery for image popups -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
-
-    <!-- AOS (Animate on Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Three.js for 3D Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        /* --- CSS VARIABLES FOR THEMING --- */
+        :root {
+            --bg-body: #ffffff;
+            --bg-light-gray: #f8f9fa;
+            --text-main: #555555;
+            --text-heading: #2c3e50;
+            --text-secondary: #6c757d;
+            --card-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --navbar-text: #2c3e50;
+            --border-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --primary-color: #1abc9c;
+            --secondary-color: #f39c12;
+            --modal-bg: #fff;
+            --modal-text: #555;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --bg-light-gray: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-heading: #ecf0f1;
+            --text-secondary: #b0b3b8;
+            --card-bg: #252525;
+            --navbar-bg: #1a1a1a;
+            --navbar-text: #ecf0f1;
+            --border-color: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --modal-bg: #2d2d2d;
+            --modal-text: #e0e0e0;
+        }
+
+        /* Global Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #555;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             overflow-x: hidden;
-            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-family: 'Merriweather', serif;
-            color: #2c3e50;
+            color: var(--text-heading);
+            transition: color 0.3s ease;
         }
 
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500;
-            transition: color 0.3s;
+        .text-muted { color: var(--text-secondary) !important; }
+        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
+        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .animated-section {
+            opacity: 0;
+            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform, opacity;
+        }
+
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg) !important;
+            transition: background-color 0.3s ease;
+        }
+        
+        .navbar-brand, .nav-link {
+            color: var(--navbar-text) !important;
         }
 
         .navbar-nav .nav-link.active,
         .navbar-nav .nav-link:hover {
-            color: #1abc9c;
+            color: var(--primary-color) !important;
         }
 
-        .news-card {
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+        /* Dark Mode Toggle Button */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--navbar-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
         }
 
         .news-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .18) !important;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 1.5rem 4rem var(--shadow-color) !important;
+            z-index: 10;
+            cursor: pointer;
         }
 
+        /* Buttons */
         .btn-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
         }
 
         .btn-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px) translateZ(10px);
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
-
+        
         .news-img-container {
             height: 200px;
             background-size: cover;
             background-position: center;
         }
 
-        .bg-primary {
-            background-color: #1abc9c !important;
+        /* Colors */
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+        .bg-dark-blue { 
+            background-color: #2c3e50 !important; 
+            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
         }
+        
+        .text-primary { color: var(--primary-color) !important; }
+        .text-dark-blue { color: var(--text-heading) !important; }
 
-        .bg-secondary {
-            background-color: #f39c12 !important;
-        }
-
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
-        }
-
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
-        }
-
-        .text-primary {
-            color: #1abc9c !important;
-        }
-
-        .text-dark-blue {
-            color: #2c3e50 !important;
-        }
-
-        header {
-            overflow: hidden;
-        }
-
+        /* Three.js Canvas */
         #bg-animation {
             position: absolute;
             top: 0;
@@ -122,6 +174,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none;
         }
 
         header .container {
@@ -133,9 +186,10 @@
         .gallery-item {
             overflow: hidden;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px var(--shadow-color);
             position: relative;
             aspect-ratio: 4 / 3;
+            border: 1px solid var(--border-color);
         }
 
         .gallery-item img {
@@ -154,7 +208,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             color: white;
             padding: 1rem;
             opacity: 0;
@@ -167,81 +221,63 @@
             transform: translateY(0);
         }
 
-        .caption h6 {
-            color: white;
-            margin-bottom: 0.25rem;
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-        }
-
-        .caption small {
-            color: #e0e0e0;
-        }
-
         .horizontal-scroll-gallery {
             display: flex;
             overflow-x: auto;
             gap: 1.5rem;
-            /* Changed padding to allow for shadows and peeking */
-            padding: 2rem 1rem; /* More padding for reflection */
+            padding: 2rem 1rem;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            /* Added CSS Scroll Snap */
             scroll-snap-type: x mandatory;
-            /* Added a subtle gradient to fade out items on the edge */
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            /* Mask to fade edges */
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
         }
 
-        .horizontal-scroll-gallery::-webkit-scrollbar {
-            display: none;
-        }
+        .horizontal-scroll-gallery::-webkit-scrollbar { display: none; }
 
         .horizontal-scroll-gallery .gallery-item {
-            flex: 0 0 75%; /* Peek effect */
-            /* Added scroll-snap-align */
+            flex: 0 0 75%;
             scroll-snap-align: start;
-            /* Adding a bit more visual flair */
-            border: 1px solid #eee;
-            /* Add reflection */
-            -webkit-box-reflect: below 1px linear-gradient(transparent, transparent 80%, rgba(0,0,0,0.15));
-            /* Add transition */
             transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-            transform: scale(0.98); /* Slightly smaller by default */
-            opacity: 0.8;
+            transform: scale(0.98);
+            opacity: 0.9;
         }
 
         .horizontal-scroll-gallery .gallery-item:hover {
-            transform: scale(1.02); /* Scale up on hover */
-            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+            transform: scale(1.02);
+            box-shadow: 0 1rem 2rem var(--shadow-color);
             opacity: 1;
             z-index: 10;
         }
 
-
-        @media (min-width: 576px) {
-            .horizontal-scroll-gallery .gallery-item {
-                flex-basis: 40%;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .horizontal-scroll-gallery .gallery-item {
-                flex-basis: 28%;
-            }
-        }
+        @media (min-width: 576px) { .horizontal-scroll-gallery .gallery-item { flex-basis: 40%; } }
+        @media (min-width: 992px) { .horizontal-scroll-gallery .gallery-item { flex-basis: 28%; } }
 
         /* Filter buttons */
         .filter-btn-group .btn {
             transition: background-color 0.3s, color 0.3s;
+            color: var(--text-heading);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .filter-btn-group .btn-outline-secondary {
+            color: var(--text-main);
+            border-color: var(--text-secondary);
+        }
+        
+        [data-theme="dark"] .filter-btn-group .btn-outline-secondary:hover {
+            background-color: var(--text-secondary);
+            color: #fff;
         }
 
         .filter-btn-group .btn.active {
-            background-color: #1abc9c !important;
+            background-color: var(--primary-color) !important;
             color: white !important;
+            border-color: var(--primary-color) !important;
         }
 
-        /* Custom Animated Navbar Toggler */
+        /* Custom Navbar Toggler */
         .navbar-toggler.custom-toggler {
             border: none;
             background: transparent !important;
@@ -259,66 +295,53 @@
             position: absolute;
             height: 3px;
             width: 100%;
-            background: #2c3e50;
+            background: var(--navbar-text);
             border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
             transition: all 0.25s ease-in-out;
         }
 
-        .custom-toggler .toggler-icon:nth-child(1) {
-            top: 0px;
-        }
+        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
+        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
+        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
 
-        .custom-toggler .toggler-icon:nth-child(2) {
-            top: 8px;
+        @media (max-width: 420px) { .brand-text { font-size: 16px !important; } }
+        
+        /* Modal Dark Mode Fixes */
+        .modal-content {
+            background-color: var(--modal-bg);
+            color: var(--modal-text);
+            border: 1px solid var(--border-color);
         }
+        .btn-close { transition: filter 0.3s ease; }
+        [data-theme="dark"] .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
 
-        .custom-toggler .toggler-icon:nth-child(3) {
-            top: 16px;
-        }
-
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) {
-            top: 8px;
-            transform: rotate(135deg);
-        }
-
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) {
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) {
-            top: 8px;
-            transform: rotate(-135deg);
-        }
-
-        @media (max-width: 420px) {
-            .brand-text {
-                font-size: 16px !important;
-            }
-        }
     </style>
 </head>
 
 <body class="bg-white">
 
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg shadow-sm sticky-top py-2">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="News/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;"
-                    onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
-                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali
-                    Shah</span>
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
+                <img src="News/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex align-items-center order-lg-3">
+                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                
+                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                    <span class="toggler-icon"></span>
+                </button>
+            </div>
+
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
@@ -326,8 +349,7 @@
                     <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
                     <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
                     <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover"
-                            href="Contact.html#message-form" role="button">Join Us</a>
+                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form" role="button">Join Us</a>
                     </li>
                 </ul>
             </div>
@@ -335,18 +357,20 @@
     </nav>
 
     <header class="py-5 position-relative text-white text-center"
-        style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(News/about%20page.jpg) center/cover no-repeat;"
+        style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(18, 18, 18, 0.9)), url(News/about%20page.jpg) center/cover no-repeat;"
         onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=News)'">
         <canvas id="bg-animation"></canvas>
-        <div class="container py-5 text-center" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">News & Updates</h1>
-            <p class="lead text-white col-md-8 mx-auto">Stay informed about the latest happenings and announcements.</p>
+        <div class="container py-5 text-center" style="position: relative; z-index: 1;">
+            <div class="animated-section is-visible">
+                <h1 class="display-4 fw-bold text-white">News & Updates</h1>
+                <p class="lead text-white col-md-8 mx-auto">Stay informed about the latest happenings and announcements.</p>
+            </div>
         </div>
     </header>
 
-    <section class="py-5">
+    <section class="py-5 animated-section">
         <div class="container">
-            <div class="p-5 bg-white rounded-3 shadow-sm" data-aos="fade-up">
+            <div class="p-5 bg-white rounded-3 shadow-sm">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
                         <img src="News/Ministry%20order.jpg" class="img-fluid rounded-3 shadow"
@@ -355,9 +379,9 @@
                     </div>
                     <div class="col-lg-6">
                         <h5 class="text-primary">Featured News</h5>
-                        <h2 class="fw-bold display-6">Minority Commission Orders Municipality to Return Land</h2>
+                        <h2 class="fw-bold display-6 text-dark-blue">Minority Commission Orders Municipality to Return Land</h2>
                         <p class="text-muted"><i class="fas fa-calendar-alt me-2"></i>December 26, 2024</p>
-                        <p class="lead">In a landmark decision, the Maharashtra State Minority Commission has directed
+                        <p class="lead text-muted">In a landmark decision, the Maharashtra State Minority Commission has directed
                             the Parbhani Municipal Corporation to hand over possession of the leased Waqf land back to
                             the institution. This is a significant victory in the long-standing effort to reclaim the
                             property, whose lease expired in 1989.</p>
@@ -369,8 +393,8 @@
         </div>
     </section>
 
-    <section class="py-5 bg-light-gray">
-        <div class="container" data-aos="fade-up">
+    <section class="py-5 bg-light-gray animated-section">
+        <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">Visual Timeline of Our Efforts</h2>
                 <p class="lead text-muted">A gallery of key moments in the campaign to protect our heritage.</p>
@@ -417,7 +441,6 @@
                         <h6>Minister Orders Report</h6><small>July 24, 2025</small>
                     </div>
                 </a>
-                <!-- 10 NEW IMAGES - Corrected Paths -->
                 <a href="News/waqf 123_502.jpg" class="gallery-item"><img src="News/waqf 123_502.jpg"
                         alt="118th Urs Announcement"
                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Gallery+Image';">
@@ -491,23 +514,20 @@
         </div>
     </section>
 
-    <section class="py-5">
+    <section class="py-5 animated-section">
         <div class="container my-5">
-            <div class="text-center mb-5" data-aos="fade-up">
+            <div class="text-center mb-5">
                 <h2 class="display-5 fw-bold">News Archive</h2>
                 <p class="lead text-muted">Browse our articles and stay informed on our community's progress.</p>
             </div>
-            <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 filter-btn-group" data-aos="fade-up">
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 filter-btn-group">
                 <button class="btn btn-outline-secondary rounded-pill px-4 active" data-filter="all">All</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="legal">Legal &
-                    Official</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="community">Community
-                    Updates</button>
-                <button class="btn btn-outline-secondary rounded-pill px-4"
-                    data-filter="announcements">Announcements</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="legal">Legal & Official</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="community">Community Updates</button>
+                <button class="btn btn-outline-secondary rounded-pill px-4" data-filter="announcements">Announcements</button>
             </div>
             <div id="news-grid" class="row g-4">
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal6">
                         <div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');">
@@ -515,26 +535,26 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Dec 26, 2024</p>
-                            <h5 class="card-title fw-bold">Minority Commission Orders Return of Land</h5>
-                            <p class="card-text">The State Minority Commission has issued a landmark order directing the
+                            <h5 class="card-title fw-bold text-dark-blue">Minority Commission Orders Return of Land</h5>
+                            <p class="card-text text-muted">The State Minority Commission has issued a landmark order directing the
                                 Parbhani Municipal Corporation to return the leased Waqf land...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="community legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal7">
                         <div class="news-img-container" style="background-image: url('News/Grp%20Photo.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Feb 23, 2025</p>
-                            <h5 class="card-title fw-bold">Mutawalli Engages with All India Organization</h5>
-                            <p class="card-text">Office-bearers of the All India Mutawalli Inamdar Organization
+                            <h5 class="card-title fw-bold text-dark-blue">Mutawalli Engages with All India Organization</h5>
+                            <p class="card-text text-muted">Office-bearers of the All India Mutawalli Inamdar Organization
                                 felicitated Waqf Board member Sameer Kazi at an event in Jalna...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal8">
                         <div class="news-img-container"
@@ -542,39 +562,39 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Oct 3, 2024</p>
-                            <h5 class="card-title fw-bold">Waqf Board Notices Trouble Illegal Occupants</h5>
-                            <p class="card-text">The Waqf Board has issued notices to 621 shopkeepers on the
+                            <h5 class="card-title fw-bold text-dark-blue">Waqf Board Notices Trouble Illegal Occupants</h5>
+                            <p class="card-text text-muted">The Waqf Board has issued notices to 621 shopkeepers on the
                                 institution's land, causing a stir among illegal occupants...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal3">
                         <div class="news-img-container" style="background-image: url('News/MNP%20sr.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Jul 20, 2024</p>
-                            <h5 class="card-title fw-bold">Municipal Officials Inspect Waqf Board Land</h5>
-                            <p class="card-text">Following a notice from the Waqf Board, municipal officials conducted a
+                            <h5 class="card-title fw-bold text-dark-blue">Municipal Officials Inspect Waqf Board Land</h5>
+                            <p class="card-text text-muted">Following a notice from the Waqf Board, municipal officials conducted a
                                 site inspection of the land whose 30-year lease expired in 1989...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal4">
                         <div class="news-img-container" style="background-image: url('News/notice%20210.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Jun 14, 2025</p>
-                            <h5 class="card-title fw-bold">610 Individuals Receive Notices from Waqf Board</h5>
-                            <p class="card-text">In a second phase of action, the Waqf Board has issued notices to 610
+                            <h5 class="card-title fw-bold text-dark-blue">610 Individuals Receive Notices from Waqf Board</h5>
+                            <p class="card-text text-muted">In a second phase of action, the Waqf Board has issued notices to 610
                                 occupants on the Masjid's land...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal5">
                         <div class="news-img-container" style="background-image: url('News/Ministry%20order.jpg');">
@@ -582,13 +602,13 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Jul 24, 2025</p>
-                            <h5 class="card-title fw-bold">Minister Orders Report on Encroachment</h5>
-                            <p class="card-text">The Minister for Minority Development has ordered an immediate inquiry
+                            <h5 class="card-title fw-bold text-dark-blue">Minister Orders Report on Encroachment</h5>
+                            <p class="card-text text-muted">The Minister for Minority Development has ordered an immediate inquiry
                                 and report on the complaints of illegal encroachment...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal1">
                         <div class="news-img-container"
@@ -596,26 +616,26 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Jun 1, 2024</p>
-                            <h5 class="card-title fw-bold">Mutawalli Meets with Waqf Board Leadership</h5>
-                            <p class="card-text">Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to
+                            <h5 class="card-title fw-bold text-dark-blue">Mutawalli Meets with Waqf Board Leadership</h5>
+                            <p class="card-text text-muted">Mutawalli Mushtaque Shah met with Waqf Board President Mr. Mirza to
                                 discuss the illegal encroachment on the Masjid's land...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal2">
                         <div class="news-img-container" style="background-image: url('News/Demand.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> May 3, 2024</p>
-                            <h5 class="card-title fw-bold">Formal Demand Submitted to Minister</h5>
-                            <p class="card-text">A formal request has been submitted to the Minority Affairs Minister to
+                            <h5 class="card-title fw-bold text-dark-blue">Formal Demand Submitted to Minister</h5>
+                            <p class="card-text text-muted">A formal request has been submitted to the Minority Affairs Minister to
                                 take legal action against illegal occupants...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal9">
                         <div class="news-img-container"
@@ -623,13 +643,13 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Dec 31, 2024</p>
-                            <h5 class="card-title fw-bold">Call to Action as Municipal Lease Expires</h5>
-                            <p class="card-text">With the 30-year lease officially expired, there is a strong demand for
+                            <h5 class="card-title fw-bold text-dark-blue">Call to Action as Municipal Lease Expires</h5>
+                            <p class="card-text text-muted">With the 30-year lease officially expired, there is a strong demand for
                                 the municipality to return the land to the Mutawalli...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="announcements legal" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="announcements legal">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal10">
                         <div class="news-img-container"
@@ -637,48 +657,47 @@
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Aug 1, 2025</p>
-                            <h5 class="card-title fw-bold">Waqf Board Appoints New Mutawalli</h5>
-                            <p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new
+                            <h5 class="card-title fw-bold text-dark-blue">Waqf Board Appoints New Mutawalli</h5>
+                            <p class="card-text text-muted">We are honored to welcome Mohammed Mushtaque Ahmed as the new
                                 Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal11">
                         <div class="news-img-container" style="background-image: url('Home/student.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Aug 15, 2025</p>
-                            <h5 class="card-title fw-bold">New Youth Islamic Studies Program</h5>
-                            <p class="card-text">We're excited to launch our new weekend Islamic Studies Program for
+                            <h5 class="card-title fw-bold text-dark-blue">New Youth Islamic Studies Program</h5>
+                            <p class="card-text text-muted">We're excited to launch our new weekend Islamic Studies Program for
                                 youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 news-item" data-category="community" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="community">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal12">
                         <div class="news-img-container" style="background-image: url('Home/Old%20Document.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i>
                                 From the Archives</p>
-                            <h5 class="card-title fw-bold">Our Roots: The Nizam-Era Land Grant</h5>
-                            <p class="card-text">This historic document from the Nizam's government details the original
+                            <h5 class="card-title fw-bold text-dark-blue">Our Roots: The Nizam-Era Land Grant</h5>
+                            <p class="card-text text-muted">This historic document from the Nizam's government details the original
                                 land grant for the Masjid complex, cementing our place in history...</p>
                         </div>
                     </div>
                 </div>
-                <!-- NEW News Card for 118th Urs -->
-                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements" data-aos="fade-up">
+                <div class="col-lg-4 col-md-6 news-item" data-category="community announcements">
                     <div class="card h-100 shadow-sm news-card border-0 overflow-hidden" data-bs-toggle="modal"
                         data-bs-target="#newsModal13">
                         <div class="news-img-container" style="background-image: url('waqf 123_502.jpg');"></div>
                         <div class="card-body p-4">
                             <p class="card-text text-secondary small"><i
                                     class="fas fa-calendar-alt text-primary me-1"></i> Feb 1, 2025</p>
-                            <h5 class="card-title fw-bold">118th Urs of H. Syed Shah Turab Ul Haq</h5>
-                            <p class="card-text">The community gathered to celebrate the 118th Urs of Syed Shah Turab Ul Haq,
+                            <h5 class="card-title fw-bold text-dark-blue">118th Urs of H. Syed Shah Turab Ul Haq</h5>
+                            <p class="card-text text-muted">The community gathered to celebrate the 118th Urs of Syed Shah Turab Ul Haq,
                                 with Sajjada Nashin Mushtaq Ali Shah and Waqf officials...</p>
                         </div>
                     </div>
@@ -687,12 +706,12 @@
         </div>
     </section>
 
-    <section class="py-5 text-white text-center"
+    <section class="py-5 text-white text-center animated-section"
         style="background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://arabigsis.com/wp-content/uploads/2017/10/top-parallax.jpg) center/cover fixed no-repeat;"
         onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Mission)'">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
             <h2 class="display-5 fw-bold text-white">Stay Engaged</h2>
-            <p class="lead col-md-8 mx-auto mt-3">
+            <p class="lead col-md-8 mx-auto mt-3 text-light">
                 Our history is ongoing, and every update marks a new chapter. If you have questions about our efforts,
                 community programs, or history, our AI assistant is here to help.
             </p>
@@ -703,7 +722,7 @@
         </div>
     </section>
 
-    <footer class="text-white text-center position-relative py-5 bg-dark-blue">
+    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/2c3e50/ffffff?text=Contact)'">
         <div class="container">
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2 text-white">Ashoorkhana Nale Hyder</h3>
@@ -727,7 +746,6 @@
         </div>
     </footer>
 
-    <!-- Modals -->
     <div class="modal fade" id="newsModal1" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -946,7 +964,6 @@
             </div>
         </div>
     </div>
-    <!-- NEW Modal for 118th Urs -->
     <div class="modal fade" id="newsModal13" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -976,7 +993,7 @@
                     <p>Have a question about our services, history, or events? Ask our AI assistant, powered by Gemini.
                     </p>
                     <div class="mb-3"><textarea class="form-control" id="qa-topic-input" rows="3"
-                            placeholder="e.g., What is the latest update on the land encroachment issue?"></textarea>
+                            placeholder="e.g., What is the latest update on the land encroachment issue?" style="background: var(--bg-body); color: var(--text-main);"></textarea>
                     </div>
                     <div class="text-center"><button id="generate-qa-btn"
                             class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover">Ask
@@ -994,10 +1011,129 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({ duration: 800, once: true });
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const icon = themeToggleBtn.querySelector('i');
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        } else if (systemPrefersDark) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            updateIcon('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- 3D SCROLL ANIMATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            animatedSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof THREE !== 'undefined') {
+                const header = document.querySelector('header');
+                if (!header) return;
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
+
+                const setSize = () => {
+                    renderer.setSize(header.clientWidth, header.clientHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    camera.aspect = header.clientWidth / header.clientHeight;
+                    camera.updateProjectionMatrix();
+                };
+                setSize();
+
+                camera.position.z = 2.5;
+
+                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
+                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
+                const material = new THREE.MeshBasicMaterial({ 
+                    color: 0x1abc9c, 
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.15
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                scene.add(sphere);
+
+                // Add some floating particles around it
+                const particlesGeometry = new THREE.BufferGeometry();
+                const count = 500;
+                const positions = new Float32Array(count * 3);
+                for (let i = 0; i < count * 3; i++) {
+                    positions[i] = (Math.random() - 0.5) * 8;
+                }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
+                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                scene.add(particles);
+
+                let mouseX = 0;
+                let mouseY = 0;
+                document.addEventListener('mousemove', (event) => {
+                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+                });
+
+                const clock = new THREE.Clock();
+                const animate = () => {
+                    const elapsedTime = clock.getElapsedTime();
+                    
+                    sphere.rotation.y = elapsedTime * 0.1;
+                    sphere.rotation.x = elapsedTime * 0.05;
+                    sphere.rotation.y += mouseX * 0.01;
+                    sphere.rotation.x -= mouseY * 0.01;
+                    particles.rotation.y = -elapsedTime * 0.05;
+
+                    renderer.render(scene, camera);
+                    window.requestAnimationFrame(animate);
+                };
+                animate();
+                window.addEventListener('resize', setSize);
+            }
+        });
 
         // Initialize Light Gallery
         lightGallery(document.getElementById('lightgallery'), { selector: '.gallery-item', download: false });
@@ -1026,48 +1162,9 @@
             });
         });
 
-        // 3D Background Animation Logic
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof THREE !== 'undefined') {
-                const header = document.querySelector('header');
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true });
-                renderer.setSize(header.clientWidth, header.clientHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                camera.position.z = 5;
-
-                const particlesGeometry = new THREE.BufferGeometry();
-                const count = 5000;
-                const positions = new Float32Array(count * 3);
-                for (let i = 0; i < count * 3; i++) { positions[i] = (Math.random() - 0.5) * 10; }
-                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({ size: 0.005, color: 0xffffff });
-                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-                scene.add(particles);
-
-                const clock = new THREE.Clock();
-                const animate = () => {
-                    const elapsedTime = clock.getElapsedTime();
-                    particles.rotation.y = elapsedTime * 0.05;
-                    particles.rotation.x = elapsedTime * 0.02;
-                    renderer.render(scene, camera);
-                    window.requestAnimationFrame(animate);
-                };
-                animate();
-
-                window.addEventListener('resize', () => {
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                });
-            }
-        });
-
         // Gemini API Logic for Q&A
         document.addEventListener('DOMContentLoaded', () => {
             const apiKey = ""; // This will be populated by the environment
-            // UPDATED API URL and added retry logic
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const qaBtn = document.getElementById('generate-qa-btn');
             const qaTopicInput = document.getElementById('qa-topic-input');
@@ -1084,7 +1181,6 @@
                 button.innerHTML = originalText;
             };
 
-            // FIXED entire broken function
             const callGeminiAPI = async (payload) => {
                 let retries = 3;
                 let delay = 1000;
@@ -1097,8 +1193,7 @@
                             body: JSON.stringify(payload)
                         });
                         if (!response.ok) {
-                             if (response.status === 429 && retries > 1) {
-                                // Wait and retry on rate limit
+                            if (response.status === 429 && retries > 1) {
                                 await new Promise(resolve => setTimeout(resolve, delay));
                                 delay *= 2; 
                                 retries--;
@@ -1119,7 +1214,7 @@
 
                     } catch (error) {
                         console.error("Error calling Gemini API:", error);
-                        retries = 0; // Stop retrying on code-level error
+                        retries = 0; 
                         return "Sorry, there was an error connecting to the AI service. Please try again later.";
                     }
                 }
@@ -1137,7 +1232,6 @@
                 showLoading(qaBtn, originalBtnText);
                 qaOutput.innerHTML = `<div class="text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
 
-                // UPDATED System Prompt with new info
                 const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website in Parbhani, Maharashtra. Your role is to answer community questions based ONLY on the following information. Do not invent details. If the answer is not in the information provided, politely say you don't have that information.
 
                 **About the Masjid:**
@@ -1163,7 +1257,7 @@
 
                 const payload = {
                     contents: [{ parts: [{ text: userQuery }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }, // FIXED BUG: was userQuery
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
                 };
 
                 const responseText = await callGeminiAPI(payload);
