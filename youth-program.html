@@ -4,412 +4,606 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Youth Islamic Studies Program - Masjid e Mehtab Ali Shah</title>
+    <title>Youth Islamic Studies | Masjid e Mehtab Ali Shah</title>
+    <meta name="description" content="Weekend Islamic Studies Program for youth ages 7-14. Nurturing faith, knowledge, and character.">
 
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
+
+    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
-        /* --- CSS VARIABLES FOR THEMING --- */
+        /* --- THEME VARIABLES --- */
         :root {
-            --bg-body: #ffffff;
-            --bg-light-gray: #f8f9fa;
-            --text-main: #555555;
-            --text-heading: #2c3e50;
-            --text-secondary: #6c757d;
-            --card-bg: #ffffff;
-            --navbar-bg: #ffffff;
-            --navbar-text: #2c3e50;
+            --primary-green: #0f5132;   /* Deep Emerald */
+            --primary-light: #198754;
+            --accent-gold: #d4af37;     /* Royal Gold */
+            --accent-gold-hover: #bfa34a;
+            --bg-body: #fdfbf7;         /* Warm Cream */
+            --bg-card: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #6c757d;
             --border-color: rgba(0,0,0,0.1);
-            --shadow-color: rgba(0, 0, 0, 0.15);
-            --primary-color: #1abc9c;
-            --secondary-color: #e67e22;
-            --modal-bg: #fff;
-            --modal-text: #555;
-            --input-bg: #fff;
-            --input-text: #495057;
-            --list-group-bg: #fff;
-            --list-group-text: #212529;
+            --navbar-bg: rgba(255, 255, 255, 0.98);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         [data-theme="dark"] {
+            --primary-green: #2ecc71;
+            --primary-light: #27ae60;
+            --accent-gold: #f1c40f;
+            --accent-gold-hover: #f39c12;
             --bg-body: #121212;
-            --bg-light-gray: #1e1e1e;
-            --text-main: #e0e0e0;
-            --text-heading: #ecf0f1;
-            --text-secondary: #b0b3b8;
-            --card-bg: #252525;
-            --navbar-bg: #1a1a1a;
-            --navbar-text: #ecf0f1;
+            --bg-card: #1e1e1e;
+            --text-main: #ecf0f1;
+            --text-muted: #bdc3c7;
             --border-color: rgba(255,255,255,0.1);
-            --shadow-color: rgba(0, 0, 0, 0.5);
-            --modal-bg: #2d2d2d;
-            --modal-text: #e0e0e0;
-            --input-bg: #333;
-            --input-text: #e0e0e0;
-            --list-group-bg: #252525;
-            --list-group-text: #e0e0e0;
+            --navbar-bg: rgba(20, 20, 20, 0.98);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        /* Global Styles */
+        /* --- TYPOGRAPHY --- */
         body {
-            font-family: 'Roboto', sans-serif;
-            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
             background-color: var(--bg-body);
+            color: var(--text-main);
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Merriweather', serif;
-            color: var(--text-heading);
-            transition: color 0.3s ease;
-        }
-
-        .text-secondary, .text-muted { color: var(--text-secondary) !important; }
-        .bg-light-gray { background-color: var(--bg-light-gray) !important; transition: background-color 0.3s ease; }
-        .bg-white { background-color: var(--card-bg) !important; transition: background-color 0.3s ease; }
-
-        /* --- 3D SCROLL ANIMATIONS --- */
-        .animated-section {
-            opacity: 0;
-            transform: perspective(1000px) rotateX(10deg) translateY(50px) scale(0.95);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            will-change: transform, opacity;
-        }
-
-        .animated-section.is-visible {
-            opacity: 1;
-            transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: var(--navbar-bg) !important;
-            transition: background-color 0.3s ease;
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Amiri', serif;
+            color: var(--primary-green);
         }
         
-        .navbar-brand, .nav-link {
-            color: var(--navbar-text) !important;
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6, 
+        [data-theme="dark"] .brand-font {
+            color: var(--accent-gold);
         }
 
-        .navbar-nav .nav-link.active,
-        .navbar-nav .nav-link:hover {
-            color: var(--primary-color) !important;
+        .kufi-font { font-family: 'Reem Kufi', sans-serif; }
+        .gold-text { color: var(--accent-gold) !important; }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-gold);
+            transition: background-color 0.3s ease;
         }
 
-        /* Dark Mode Toggle Button */
-        .theme-toggle-btn {
-            background: none;
+        .navbar-subtitle { font-size: 0.85rem; color: var(--text-muted); }
+
+        .nav-link {
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 500;
+            color: var(--primary-green) !important;
+            font-size: 1.1rem;
+            margin: 0 5px;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        [data-theme="dark"] .nav-link { color: #ffffff !important; }
+        
+        .nav-link.active { border-bottom: 3px solid var(--accent-gold); }
+        .nav-link:hover { color: var(--accent-gold) !important; }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(15, 81, 50, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+        [data-theme="dark"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('Home/student.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 2; }
+
+        /* --- SUBJECT CARDS --- */
+        .subject-card {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            color: var(--navbar-text);
-            width: 40px;
-            height: 40px;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .subject-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow);
+            border-color: var(--accent-gold);
+        }
+        .subject-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(var(--primary-green), 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-left: 10px;
+            margin: 0 auto 1.5rem;
+            border: 2px solid var(--accent-gold);
         }
-        .theme-toggle-btn:hover {
-            background-color: var(--primary-color);
+        
+        /* --- SCHEDULE BOX --- */
+        .schedule-box {
+            background: linear-gradient(135deg, var(--primary-green), #0a3d25);
             color: white;
-            transform: rotate(15deg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 2px solid var(--accent-gold);
+        }
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .schedule-item:last-child { border-bottom: none; }
+
+        /* --- ACCORDION FAQ --- */
+        .accordion-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+            border-radius: 10px !important;
+            overflow: hidden;
+        }
+        .accordion-button {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            font-weight: bold;
+            font-family: 'Amiri', serif;
+            font-size: 1.1rem;
+        }
+        .accordion-button:not(.collapsed) {
+            color: var(--primary-green);
+            background-color: rgba(var(--primary-green), 0.05);
+            box-shadow: none;
+        }
+        [data-theme="dark"] .accordion-button:not(.collapsed) {
+            color: var(--accent-gold);
         }
 
-        /* Cards */
-        .card {
-            background-color: var(--card-bg);
-            border-color: var(--border-color);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        /* --- INSTRUCTORS --- */
+        .profile-frame {
+            padding: 6px;
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: inline-block;
+            background: var(--bg-card);
+            transition: 0.3s;
         }
-
-        .benefit-card, .instructor-card {
-            transition: transform 0.3s, box-shadow 0.3s;
+        .instructor-card:hover .profile-frame {
+            transform: scale(1.05);
+            border-color: var(--primary-green);
         }
-        .benefit-card:hover, .instructor-card:hover {
-             transform: translateY(-10px) scale(1.02);
-             box-shadow: 0 1.5rem 4rem var(--shadow-color)!important;
-             z-index: 10;
-        }
-
-        .instructor-img {
+        .profile-frame img {
             width: 150px;
             height: 150px;
             object-fit: cover;
-            border: 4px solid var(--primary-color);
+            border-radius: 50%;
         }
 
-        /* Form Controls */
+        /* --- FORM STYLING --- */
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border-top: 5px solid var(--accent-gold);
+        }
+        
         .form-control {
-            background-color: var(--input-bg);
-            color: var(--input-text);
-            border-color: var(--border-color);
-        }
-        
-        .form-control:focus {
-            background-color: var(--input-bg);
-            color: var(--input-text);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
-        }
-        
-        .list-group-item {
-            background-color: transparent;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            border-color: var(--border-color);
+            padding: 0.8rem;
+            border-radius: 10px;
         }
+        .form-control:focus {
+            background-color: var(--bg-body);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+            color: var(--text-main);
+        }
+        label { font-weight: bold; color: var(--primary-green); margin-bottom: 0.5rem; font-family: 'Reem Kufi', sans-serif; }
+        [data-theme="dark"] label { color: var(--accent-gold); }
 
-        /* Buttons */
-        .btn-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-position 0.3s ease;
-            background-size: 200% auto;
-        }
-        .btn-hover:hover {
-            transform: translateY(-2px) translateZ(10px);
-            box-shadow: 0 4px 8px var(--shadow-color);
-            background-position: right center;
-        }
-
-        /* Colors */
-        .bg-primary { background-color: var(--primary-color) !important; }
-        .bg-secondary { background-color: var(--secondary-color) !important; }
-        .bg-dark-blue { 
-            background-color: #2c3e50 !important; 
-            background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
-        }
-        .text-primary { color: var(--primary-color) !important; }
-        .text-dark-blue { color: var(--text-heading) !important; }
-
-        /* Header & 3D Canvas */
-        header { overflow: hidden; }
-        #bg-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        header .container { position: relative; z-index: 1; }
-
-        /* Custom Navbar Toggler */
-        .navbar-toggler.custom-toggler {
+        /* --- BUTTONS --- */
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: #000;
+            font-weight: bold;
             border: none;
-            background: transparent !important;
-            outline: none !important;
-            box-shadow: none !important;
+            transition: 0.3s;
+        }
+        .btn-gold:hover {
+            background-color: var(--accent-gold-hover);
+            transform: scale(1.05);
+            color: #000;
+        }
+
+        /* --- UTILS --- */
+        .text-dynamic { color: var(--text-main); }
+        .text-dynamic-muted { color: var(--text-muted); }
+        .islamic-pattern-bg {
+            background-color: var(--bg-body);
+            background-image: radial-gradient(var(--primary-green) 0.5px, transparent 0.5px), radial-gradient(var(--primary-green) 0.5px, var(--bg-body) 0.5px);
+            background-size: 20px 20px;
+            opacity: 1;
+        }
+        .section-title {
             position: relative;
-            width: 30px;
-            height: 20px;
-            padding: 0;
-            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 3rem;
         }
-        .custom-toggler .toggler-icon {
+        .section-title::after {
+            content: '♦'; 
             display: block;
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background: var(--navbar-text);
-            border-radius: 1px;
-            transition: all 0.25s ease-in-out;
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-top: 5px;
         }
-        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
-        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
-        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
-        
-        @media (max-width: 420px) { .brand-text { font-size: 16px !important; } }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0a0a0a;
+            color: #cccccc !important;
+            border-top: 4px solid var(--accent-gold);
+        }
+        footer h4 { color: #ffffff !important; }
+        footer a { color: #aaaaaa !important; text-decoration: none; }
+        footer a:hover { color: var(--accent-gold) !important; }
+        footer p, footer li { color: #cccccc !important; }
     </style>
 </head>
 
-<body class="bg-white">
+<body>
 
-    <nav class="navbar navbar-expand-lg shadow-sm sticky-top py-2">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
-                <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="width: 55px; height: 55px; object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
+                <div class="ms-3 lh-1">
+                    <span class="d-block fs-4 fw-bold brand-font">Masjid e Mehtab Ali Shah</span>
+                    <span class="d-block navbar-subtitle fw-bold kufi-font mt-1">Ashoorkhana Naale Hyder</span>
+                </div>
             </a>
             
-            <div class="d-flex align-items-center order-lg-3">
-                <button class="theme-toggle-btn ms-2" id="theme-toggle" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                
-                <button class="navbar-toggler custom-toggler collapsed ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="toggler-icon"></span>
-                    <span class="toggler-icon"></span>
-                    <span class="toggler-icon"></span>
-                </button>
-            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="News.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Dark Mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-2 mt-2 mt-lg-0">
+                        <a href="Contact.html#donation-section" class="btn btn-gold rounded-pill px-4 shadow-sm">Donate</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.6), rgba(44, 62, 80, 0.6)), url(Home/student1.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/2c3e50/ffffff?text=Youth+Program)'">
-        <canvas id="bg-animation"></canvas>
-        <div class="container py-5" style="position: relative; z-index: 1;">
-            <div class="animated-section is-visible">
-                <h1 class="display-4 fw-bold text-white">Youth Islamic Studies Program</h1>
-                <p class="lead text-white col-md-8 mx-auto">Nurturing the next generation with knowledge and faith.</p>
-            </div>
+    <!-- Hero Section -->
+    <header class="page-hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content container" data-aos="fade-up" data-aos-duration="1500">
+            <span class="badge bg-white text-success mb-3 px-3 py-2 fw-bold rounded-pill shadow">Registration Open</span>
+            <h1 class="brand-font fw-bold mb-3 display-4 text-white" style="text-shadow: 2px 2px 10px rgba(0,0,0,1);">Youth Islamic Studies</h1>
+            <p class="lead mb-4 mx-auto col-lg-8 text-white" style="text-shadow: 1px 1px 5px rgba(0,0,0,1);">
+                Nurturing the next generation with knowledge (Ilm), faith (Iman), and character (Akhlaq). A journey of learning and growth.
+            </p>
+            <a href="#registration-form" class="btn btn-gold btn-lg rounded-pill px-5 shadow">Enroll Your Child</a>
         </div>
     </header>
 
-    <section class="py-5 animated-section">
-        <div class="container my-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6">
-                    <img src="Home/student.jpg" alt="Youth learning program" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Students';">
+    <!-- Curriculum Grid (What We Learn) -->
+    <section class="py-5 bg-body">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="section-title">What We Learn</h2>
+                <p class="text-dynamic-muted">A comprehensive curriculum designed for young minds.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Subject 1 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                    <div class="subject-card">
+                        <div class="subject-icon-wrapper">
+                            <i class="fas fa-quran fa-2x gold-text"></i>
+                        </div>
+                        <h4 class="brand-font fw-bold">Quran & Tajweed</h4>
+                        <p class="text-dynamic-muted small">Learning correct pronunciation, recitation rules, and memorization of short Surahs.</p>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <h2 class="display-5 fw-bold mb-3">About the Program</h2>
-                    <p class="fs-5 text-secondary">We are excited to launch our new weekend Islamic Studies Program designed to build a strong foundation in Islamic knowledge and values for the youth of our community.</p>
-                    <p class="text-secondary">Our engaging curriculum covers essential topics in a way that is both educational and inspiring for young minds. Classes are held in a supportive and welcoming environment where students are encouraged to ask questions, engage in discussions, and connect with their faith on a deeper level.</p>
-                    <ul class="list-group list-group-flush mt-3">
-                        <li class="list-group-item"><i class="fas fa-book-open text-primary me-2"></i><strong>Curriculum:</strong> Quranic studies, stories of the Prophets, Islamic history, and essential prayers.</li>
-                        <li class="list-group-item"><i class="fas fa-user-friends text-primary me-2"></i><strong>Age Group:</strong> 7 - 14 years.</li>
-                        <li class="list-group-item"><i class="fas fa-calendar-alt text-primary me-2"></i><strong>Schedule:</strong> Saturday & Sunday mornings.</li>
-                        <li class="list-group-item"><i class="fas fa-map-marker-alt text-primary me-2"></i><strong>Location:</strong> Community Hall, Masjid e Mehtab Ali Shah Complex.</li>
-                    </ul>
+                <!-- Subject 2 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="subject-card">
+                        <div class="subject-icon-wrapper">
+                            <i class="fas fa-history fa-2x gold-text"></i>
+                        </div>
+                        <h4 class="brand-font fw-bold">Seerah & History</h4>
+                        <p class="text-dynamic-muted small">Inspiring stories from the life of Prophet Muhammad (PBUH) and other Prophets.</p>
+                    </div>
+                </div>
+                <!-- Subject 3 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="subject-card">
+                        <div class="subject-icon-wrapper">
+                            <i class="fas fa-hands-helping fa-2x gold-text"></i>
+                        </div>
+                        <h4 class="brand-font fw-bold">Adab & Akhlaq</h4>
+                        <p class="text-dynamic-muted small">Developing Islamic manners, respect for parents, kindness, and good character.</p>
+                    </div>
+                </div>
+                <!-- Subject 4 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="subject-card">
+                        <div class="subject-icon-wrapper">
+                            <i class="fas fa-pray fa-2x gold-text"></i>
+                        </div>
+                        <h4 class="brand-font fw-bold">Fiqh & Salah</h4>
+                        <p class="text-dynamic-muted small">Practical guidance on Wudu, Salah performance, and daily Duas.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5 bg-light-gray animated-section">
+    <!-- Methodology & Schedule -->
+    <section class="py-5 islamic-pattern-bg">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <h2 class="section-title mb-4">How We Teach</h2>
+                    <p class="text-dynamic lead mb-4">We believe education should be engaging, not just memorization.</p>
+                    
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-center">
+                            <div class="rounded-circle bg-white shadow-sm p-3 mb-2" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-comments fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold brand-font">Interactive Discussions</h5>
+                            <p class="text-dynamic-muted small">Students are encouraged to ask "Why?" and "How?" to build a deeper understanding of their faith.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4">
+                        <div class="me-4 text-center">
+                            <div class="rounded-circle bg-white shadow-sm p-3 mb-2" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-book-reader fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold brand-font">Storytelling</h5>
+                            <p class="text-dynamic-muted small">We use stories from the Quran and Seerah to teach moral lessons in a way that resonates with children.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="me-4 text-center">
+                            <div class="rounded-circle bg-white shadow-sm p-3 mb-2" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-chalkboard-teacher fa-2x text-success"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold brand-font">Mentorship</h5>
+                            <p class="text-dynamic-muted small">Our teachers act as mentors, guiding students in their personal and spiritual development.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5" data-aos="fade-left">
+                    <div class="schedule-box shadow-lg">
+                        <h3 class="text-center brand-font text-white mb-4"><i class="far fa-clock me-2"></i> Weekly Routine</h3>
+                        <div class="schedule-item">
+                            <span>Assembly & Dua</span>
+                            <span class="fw-bold gold-text">10:00 AM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Quranic Studies</span>
+                            <span class="fw-bold gold-text">10:15 AM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Break & Snack</span>
+                            <span class="fw-bold gold-text">11:00 AM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Islamic History/Adab</span>
+                            <span class="fw-bold gold-text">11:20 AM</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Dhuhr Prayer Practice</span>
+                            <span class="fw-bold gold-text">12:15 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructors -->
+    <section class="py-5 bg-body">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Why Enroll Your Child?</h2>
+                <h2 class="section-title">Meet Our Mentors</h2>
             </div>
-            <div class="row text-center">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-seedling fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Strong Foundation</h5>
-                        <p class="card-text text-secondary">Build a solid base of Islamic knowledge and values that will last a lifetime.</p>
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4 col-lg-3 text-center instructor-card" data-aos="zoom-in">
+                    <div class="profile-frame mb-3 shadow-sm">
+                        <img src="https://placehold.co/150x150/2c3e50/ffffff?text=A" alt="Ahmed Khan">
                     </div>
+                    <h5 class="brand-font fw-bold text-dynamic">Ustadh Ahmed Khan</h5>
+                    <p class="small text-dynamic-muted">Quran & Tajweed Specialist<br>10+ Years Experience</p>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-lightbulb fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Engaging Lessons</h5>
-                        <p class="card-text text-secondary">Interactive and age-appropriate lessons that make learning about Islam enjoyable.</p>
+                <div class="col-md-4 col-lg-3 text-center instructor-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="profile-frame mb-3 shadow-sm">
+                        <img src="https://placehold.co/150x150/e67e22/ffffff?text=F" alt="Fatima Ali">
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-users fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Community Connection</h5>
-                        <p class="card-text text-secondary">A chance for children to connect with peers in a positive and faith-based environment.</p>
-                    </div>
+                    <h5 class="brand-font fw-bold text-dynamic">Ustadha Fatima Ali</h5>
+                    <p class="small text-dynamic-muted">Islamic History & Seerah<br>Youth Mentor</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5 animated-section">
-        <div class="container my-5">
+    <!-- FAQ Section -->
+    <section class="py-5 bg-body border-top">
+        <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Meet Our Instructors</h2>
-                <p class="lead text-secondary">Our dedicated teachers are passionate about Islamic education.</p>
+                <h2 class="section-title">Parent's FAQ</h2>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4 text-center mb-4">
-                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
-                        <img src="https://placehold.co/150x150/2c3e50/ffffff?text=A" alt="Instructor 1" class="rounded-circle mx-auto instructor-img mb-3">
-                        <h5 class="fw-bold">Ahmed Khan</h5>
-                        <p class="text-secondary">Specializes in Quranic Studies and Tafsir. Over 10 years of teaching experience.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
-                        <img src="https://placehold.co/150x150/e67e22/ffffff?text=F" alt="Instructor 2" class="rounded-circle mx-auto instructor-img mb-3">
-                        <h5 class="fw-bold">Fatima Ali</h5>
-                        <p class="text-secondary">Focuses on Islamic History and the stories of the Prophets. Creates an engaging and interactive classroom.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-light-gray animated-section" id="registration-form">
-        <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm p-4 p-md-5">
+                    <div class="accordion" id="parentFAQ">
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Is there a fee for the program?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#parentFAQ">
+                                <div class="accordion-body text-dynamic-muted">
+                                    We charge a nominal monthly fee to cover the cost of materials and facility maintenance. However, scholarships are available for families in need. No child will be turned away due to lack of funds.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    What age groups are accepted?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#parentFAQ">
+                                <div class="accordion-body text-dynamic-muted">
+                                    Currently, the program is open to boys and girls between the ages of 7 and 14. We divide them into two groups (7-10 and 11-14) for age-appropriate learning.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    What materials does my child need?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#parentFAQ">
+                                <div class="accordion-body text-dynamic-muted">
+                                    We provide all necessary textbooks and notebooks. Students should bring a pencil case and a water bottle. We recommend modest dress code suitable for the Masjid environment.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="registration-form" class="py-5 islamic-pattern-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-card p-4 p-md-5" data-aos="fade-up">
                         <div id="registration-form-container">
-                            <h2 class="display-6 fw-bold mb-4 text-center">Register Your Child</h2>
-                            <p class="text-center text-secondary mb-4">Spaces are limited, so please register early to secure a spot. We look forward to welcoming your child to our program!</p>
+                            <div class="text-center mb-4">
+                                <h2 class="brand-font fw-bold mb-2">Register Now</h2>
+                                <p class="text-dynamic-muted">Spaces are limited. Secure your child's spot today.</p>
+                            </div>
+                            
                             <form id="registration-form-element">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="parent-name" class="form-label mb-4 fw-bold text-dark-blue">Parent's Full Name</label>
-                                        <input type="text" class="form-control" id="parent-name" required>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="parent-name" class="form-label">Parent's Name</label>
+                                        <input type="text" class="form-control" id="parent-name" required placeholder="Full Name">
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="child-name" class="form-label fw-bold text-dark-blue">Child's Full Name</label>
-                                        <input type="text" class="form-control" id="child-name" required>
+                                    <div class="col-md-6">
+                                        <label for="child-name" class="form-label">Child's Name</label>
+                                        <input type="text" class="form-control" id="child-name" required placeholder="Full Name">
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="child-age" class="form-label fw-bold text-dark-blue">Child's Age</label>
-                                        <input type="number" class="form-control" id="child-age" min="7" max="14" required>
+                                    <div class="col-md-6">
+                                        <label for="child-age" class="form-label">Child's Age (7-14)</label>
+                                        <input type="number" class="form-control" id="child-age" min="7" max="14" required placeholder="Age">
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="phone" class="form-label fw-bold text-dark-blue">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" required>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone" required placeholder="+91...">
                                     </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label fw-bold text-dark-blue">Email Address</label>
-                                    <input type="email" class="form-control" id="email" required>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn bg-secondary text-white fw-bold rounded-pill px-5 py-2 mt-3 btn-hover">Submit Registration</button>
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" required placeholder="name@example.com">
+                                    </div>
+                                    <div class="col-12 text-center mt-4">
+                                        <button type="submit" class="btn btn-gold btn-lg rounded-pill px-5 shadow">Submit Registration</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
-                        <div id="confirmation-message" class="text-center" style="display: none;">
-                            <i class="fas fa-check-circle fa-4x text-primary mb-3"></i>
-                            <h3 class="fw-bold">Thank You for Registering!</h3>
-                            <p class="lead text-secondary">Your registration has been received. We will contact you shortly with further details about the program.</p>
+
+                        <!-- Confirmation Message (Hidden by default) -->
+                        <div id="confirmation-message" class="text-center py-5" style="display: none;">
+                            <div class="mb-3">
+                                <i class="fas fa-check-circle fa-4x text-success"></i>
+                            </div>
+                            <h3 class="brand-font fw-bold">JazakAllah Khair!</h3>
+                            <p class="text-dynamic-muted">Your registration has been received. We will contact you shortly via phone/email with the start date and further details.</p>
+                            <button onclick="location.reload()" class="btn btn-outline-success rounded-pill mt-3">Register Another Child</button>
                         </div>
                     </div>
                 </div>
@@ -417,164 +611,119 @@
         </div>
     </section>
 
-    <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url(Home/Footer%20Img.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/cccccc/ffffff?text=Footer+Image';">
+    <!-- Footer -->
+    <footer id="contact" class="pt-5 pb-3">
         <div class="container">
-            <div class="py-4">
-                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
-                <p class="col-md-6 mx-auto text-white-50">
-                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
-                </p>
-                <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
+                    <p class="small text-white-50">
+                        Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
+                    </p>
+                    <div class="mt-3">
+                        <a href="https://www.facebook.com/people/Ashoorkhana-Naale-Hyder-Parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/anh_parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:anhparbhani123@gmail.com" class="fs-5"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html#prayer-times">Prayer Times</a></li>
+                        <li class="mb-2"><a href="about.html">History & Lineage</a></li>
+                        <li class="mb-2"><a href="index.html#services">Educational Programs</a></li>
+                        <li class="mb-2"><a href="Contact.html#donation-section">Donate for Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="text-white mb-3">Contact Us</h5>
+                    <p class="small text-white-50 mb-1"><i class="fas fa-map-marker-alt text-warning me-2"></i> Lokmanya Tilak Road, Parbhani, MH, India</p>
+                    <p class="small text-white-50 mb-1"><i class="fas fa-phone text-warning me-2"></i> +91 91194 88111, +91 94214 88111</p>
+                    <p class="small text-white-50"><i class="fas fa-envelope text-warning me-2"></i> anhparbhani123@gmail.com</p>
                 </div>
             </div>
-            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
-               <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+            <hr class="border-secondary mt-4">
+            <div class="text-center small text-white-50">
+                <p class="mb-0">&copy; 2025 Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+                <p class="mb-0 mt-1">Website Designed & Developed by <span class="text-white fw-bold">Kamel Shah</span></p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        // --- DARK MODE LOGIC ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        const icon = themeToggleBtn.querySelector('i');
+        AOS.init({ once: true, offset: 100, duration: 800 });
 
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Theme Toggle Logic
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const html = document.documentElement;
 
-        if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
-            updateIcon(savedTheme);
-        } else if (systemPrefersDark) {
-            htmlElement.setAttribute('data-theme', 'dark');
-            updateIcon('dark');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // 3D Background Logic
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            if(!canvas) return;
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
             
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcon(newTheme);
-        });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.position.z = 5;
 
-        function updateIcon(theme) {
-            if (theme === 'dark') {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+            const geometry = new THREE.BufferGeometry();
+            const count = 500;
+            const positions = new Float32Array(count * 3);
+            for(let i=0; i<count*3; i++) positions[i] = (Math.random()-0.5)*15;
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            // Gold color for particles
+            const material = new THREE.PointsMaterial({ size: 0.04, color: 0xd4af37, transparent: true, opacity: 0.6 });
+            const mesh = new THREE.Points(geometry, material);
+            scene.add(mesh);
+
+            let mouseX = 0; let mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX * 0.0005; mouseY = e.clientY * 0.0005;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                mesh.rotation.y += 0.001 + (mouseX - mesh.rotation.y) * 0.05;
+                mesh.rotation.x += 0.001 + (mouseY - mesh.rotation.x) * 0.05;
+                renderer.render(scene, camera);
             }
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
         }
+        initThreeJS();
 
-        // --- 3D SCROLL ANIMATION ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const animatedSections = document.querySelectorAll('.animated-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            });
-
-            animatedSections.forEach(section => {
-                observer.observe(section);
-            });
-        });
-
-        // --- ENHANCED 3D THREE.JS ANIMATION (ROTATING GEOMETRY) ---
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof THREE !== 'undefined') {
-                const header = document.querySelector('header');
-                if (!header) return;
-
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-animation'), alpha: true, antialias: true });
-
-                const setSize = () => {
-                    renderer.setSize(header.clientWidth, header.clientHeight);
-                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                    camera.aspect = header.clientWidth / header.clientHeight;
-                    camera.updateProjectionMatrix();
-                };
-                setSize();
-
-                camera.position.z = 2.5;
-
-                // Create a Geodesic Sphere (Icosahedron) for a "Geometric/Islamic" feel
-                const geometry = new THREE.IcosahedronGeometry(1.2, 1);
-                const material = new THREE.MeshBasicMaterial({ 
-                    color: 0x1abc9c, 
-                    wireframe: true,
-                    transparent: true,
-                    opacity: 0.15
-                });
-                const sphere = new THREE.Mesh(geometry, material);
-                scene.add(sphere);
-
-                // Add some floating particles around it
-                const particlesGeometry = new THREE.BufferGeometry();
-                const count = 500;
-                const positions = new Float32Array(count * 3);
-                for (let i = 0; i < count * 3; i++) {
-                    positions[i] = (Math.random() - 0.5) * 8;
-                }
-                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0xffffff, transparent: true, opacity: 0.4 });
-                const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-                scene.add(particles);
-
-                let mouseX = 0;
-                let mouseY = 0;
-                document.addEventListener('mousemove', (event) => {
-                    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-                });
-
-                const clock = new THREE.Clock();
-                const animate = () => {
-                    const elapsedTime = clock.getElapsedTime();
-                    
-                    sphere.rotation.y = elapsedTime * 0.1;
-                    sphere.rotation.x = elapsedTime * 0.05;
-                    sphere.rotation.y += mouseX * 0.01;
-                    sphere.rotation.x -= mouseY * 0.01;
-                    particles.rotation.y = -elapsedTime * 0.05;
-
-                    renderer.render(scene, camera);
-                    window.requestAnimationFrame(animate);
-                };
-                animate();
-                window.addEventListener('resize', setSize);
-            }
-        });
-
-        // Handle form submission
+        // Form Logic
         const form = document.getElementById('registration-form-element');
         const formContainer = document.getElementById('registration-form-container');
         const confirmationMessage = document.getElementById('confirmation-message');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
+            e.preventDefault();
             formContainer.style.display = 'none';
             confirmationMessage.style.display = 'block';
             
-            // In a real app, you would send the data to a server here
+            // In a real app, you would send data to backend/firebase here
+            // Example: db.collection('registrations').add({...})
         });
     </script>
 </body>
-
 </html>
