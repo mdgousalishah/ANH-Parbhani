@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Contact Us | Masjid e Mehtab Ali Shah</title>
     <meta name="description" content="Get in touch with Masjid e Mehtab Ali Shah. Contact details for the Mutawalli, location, and volunteer opportunities.">
 
@@ -44,24 +44,30 @@
         }
 
         [data-theme="dark"] {
-            --primary-green: #2ecc71;
+            --primary-green: #2ecc71;   /* Brighter Green for Dark Mode */
             --primary-light: #27ae60;
-            --accent-gold: #f1c40f;
+            --accent-gold: #f1c40f;     /* Brighter Gold */
             --accent-gold-hover: #f39c12;
-            --bg-body: #121212;
+            --bg-body: #121212;         /* Deep Dark */
             --bg-card: #1e1e1e;
-            --text-main: #ecf0f1;
-            --text-muted: #bdc3c7;
+            --text-main: #ecf0f1;       /* Very Light Gray/White */
+            --text-muted: #bdc3c7;      /* Light Gray */
             --border-color: rgba(255,255,255,0.1);
             --navbar-bg: rgba(20, 20, 20, 0.98);
         }
 
-        /* --- GLOBAL TYPOGRAPHY --- */
+        /* --- GLOBAL TYPOGRAPHY & OVERFLOW FIX --- */
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden !important; /* CRITICAL FIX: Forces no horizontal scroll */
+            position: relative;
+        }
+
         body {
             font-family: 'Lato', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
-            overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
             font-size: 1.1rem;
             line-height: 1.6;
@@ -87,11 +93,32 @@
             backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--accent-gold);
             transition: background-color 0.3s ease;
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+            width: 100%;
+        }
+
+        .navbar-brand img {
+            width: 45px; height: 45px;
+        }
+        @media (min-width: 992px) {
+            .navbar-brand img { width: 55px; height: 55px; }
         }
 
         .navbar-subtitle {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
+            line-height: 1.2;
+        }
+        @media (min-width: 992px) {
+            .navbar-subtitle { font-size: 0.85rem; }
+        }
+
+        .brand-title {
+            font-size: 1.2rem;
+        }
+        @media (min-width: 992px) {
+            .brand-title { font-size: 1.5rem; }
         }
 
         .nav-link {
@@ -100,6 +127,8 @@
             color: var(--primary-green) !important;
             font-size: 1.1rem;
             margin: 0 5px;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
         }
         [data-theme="dark"] .nav-link { color: #ffffff !important; }
 
@@ -108,6 +137,12 @@
             color: var(--accent-gold) !important;
             border-bottom: 2px solid var(--accent-gold);
         }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+        }
+        .navbar-toggler:focus { box-shadow: none; }
 
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(15, 81, 50, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
@@ -124,12 +159,17 @@
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Contact/about%20page.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-attachment: scroll; /* Mobile optimization */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            width: 100%;
+            overflow: hidden;
+        }
+        @media (min-width: 992px) {
+            .page-hero { background-attachment: fixed; }
         }
         
         #hero-canvas {
@@ -137,8 +177,12 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none;
         }
-        .hero-content { position: relative; z-index: 2; }
-        .hero-content h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,1); }
+        .hero-content { position: relative; z-index: 2; padding: 0 15px; }
+        
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+        }
 
         /* --- CARDS & FORMS --- */
         .card, .form-card {
@@ -163,6 +207,7 @@
             border-left-color: var(--accent-gold);
         }
         .contact-icon {
+            min-width: 50px;
             width: 50px; height: 50px;
             background: rgba(15, 81, 50, 0.1);
             color: var(--primary-green);
@@ -171,6 +216,7 @@
             font-size: 1.2rem;
             margin-right: 1rem;
         }
+        [data-theme="dark"] .contact-icon { background: rgba(241, 196, 15, 0.1); color: var(--accent-gold); }
 
         .form-control {
             background-color: var(--bg-body);
@@ -186,6 +232,23 @@
         }
 
         /* --- BUTTONS --- */
+        .btn-donate {
+            background-color: var(--accent-gold);
+            color: #000 !important;
+            font-weight: bold;
+            border: 2px solid var(--accent-gold);
+            transition: 0.3s;
+        }
+        .btn-donate:hover {
+            background-color: transparent;
+            color: var(--accent-gold) !important;
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+        [data-theme="dark"] .btn-donate:hover {
+            color: var(--accent-gold) !important;
+        }
+
         .btn-gold {
             background-color: var(--accent-gold);
             color: #000;
@@ -221,8 +284,13 @@
         .section-title {
             position: relative;
             display: inline-block;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
+        @media (min-width: 768px) {
+            .section-title { margin-bottom: 3rem; font-size: 2.2rem; }
+        }
+
         .section-title::after {
             content: '♦'; 
             display: block;
@@ -230,6 +298,12 @@
             color: var(--accent-gold);
             font-size: 1.5rem;
             margin-top: 5px;
+        }
+        
+        /* Prevent X-overflow on section containers */
+        section {
+            width: 100%;
+            overflow-x: hidden;
         }
 
         /* --- FOOTER (Matched) --- */
@@ -256,34 +330,38 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <!-- Logo -->
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="width: 55px; height: 55px; object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
                 <!-- Text -->
-                <div class="ms-3 lh-1">
-                    <span class="d-block fs-4 fw-bold brand-font">Masjid e Mehtab Ali Shah</span>
+                <div class="ms-2 ms-lg-3 lh-1">
+                    <span class="d-block brand-font brand-title fw-bold">Masjid e Mehtab Ali Shah</span>
                     <span class="d-block navbar-subtitle fw-bold kufi-font mt-1">Ashoorkhana Naale Hyder</span>
                 </div>
             </a>
             
+            <!-- Hamburger Menu (Moved theme toggle to collapse) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center text-center mt-3 mt-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="News.html">News</a></li>
                     <!-- Active Contact Link -->
-                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Theme">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                    <li class="nav-item"><a class="nav-link active" href="Contact.html">Contact</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="#donation-section" class="btn btn-donate rounded-pill px-4 shadow-sm w-100 w-lg-auto">Donate</a>
                     </li>
-                    <li class="nav-item ms-2 mt-2 mt-lg-0">
-                        <a href="#donation-section" class="btn btn-gold rounded-pill px-4 shadow-sm">Donate</a>
+
+                    <!-- Theme Toggle (Now behind/after Donate button) -->
+                    <li class="nav-item ms-lg-2 mt-3 mt-lg-0">
+                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Theme">
+                            <i class="fas fa-sun"></i>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -303,9 +381,9 @@
     </header>
 
     <!-- Contact Info & Form -->
-    <section class="py-5 islamic-pattern-bg">
-        <div class="container py-4">
-            <div class="row g-5">
+    <section class="py-4 py-lg-5 islamic-pattern-bg">
+        <div class="container py-2 py-lg-4">
+            <div class="row g-4 g-lg-5">
                 
                 <!-- Left: Contact Details -->
                 <div class="col-lg-5" data-aos="fade-right">
@@ -338,7 +416,21 @@
                         </div>
                     </div>
 
-                    <div class="mt-4">
+                    <!-- Society Info Box (Added as requested) -->
+                    <div class="mt-4 p-4 rounded-3 border border-1 border-warning shadow-sm" style="background: rgba(var(--primary-green), 0.05);">
+                        <h4 class="brand-font gold-text mb-3"><i class="fas fa-users me-2"></i>About the Society</h4>
+                        <h5 class="fw-bold mb-2">Anjuman-e-Intizamia</h5>
+                        <p class="small text-dynamic-muted mb-2">
+                            The Managing Committee (Waqf) is responsible for the administration, maintenance, and legal protection of the Masjid & Ashoorkhana complex.
+                        </p>
+                        <ul class="list-unstyled small mb-0">
+                            <li class="mb-1"><i class="fas fa-check-circle text-success me-2"></i>Reg. No: UCP0003 (Waqf Board)</li>
+                            <li class="mb-1"><i class="fas fa-check-circle text-success me-2"></i>Est. 1885 (Nizam Era)</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Tax Exemption: 80G Applied</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4 text-center text-lg-start">
                         <h6 class="fw-bold mb-3 gold-text kufi-font">FOLLOW US</h6>
                         <a href="https://www.facebook.com/people/Ashoorkhana-Naale-Hyder-Parbhani/" target="_blank" class="btn btn-outline-secondary rounded-circle me-2"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/anh_parbhani/" target="_blank" class="btn btn-outline-secondary rounded-circle me-2"><i class="fab fa-instagram"></i></a>
@@ -382,7 +474,7 @@
 
     <!-- Donation Section -->
     <section id="donation-section" class="py-5 bg-card">
-        <div class="container my-5">
+        <div class="container my-3 my-lg-5">
             <div class="text-center mb-5">
                 <h2 class="section-title">Preserve Our Heritage</h2>
                 <p class="lead text-dynamic-muted col-md-8 mx-auto">Your contribution helps maintain the historic structures and supports our community welfare programs.</p>
@@ -390,7 +482,7 @@
             
             <div class="card border-0 shadow-lg overflow-hidden border border-1" style="border-color: var(--accent-gold) !important;">
                 <div class="row g-0">
-                    <div class="col-md-7 p-5 bg-white">
+                    <div class="col-md-7 p-4 p-lg-5 bg-white">
                         <h3 class="fw-bold mb-4 brand-font text-dynamic">Bank Transfer</h3>
                         <div class="mb-4">
                             <label class="text-muted small text-uppercase fw-bold">Bank Name</label>
@@ -398,7 +490,7 @@
                         </div>
                         <div class="alert alert-warning d-flex align-items-center mb-4 small" role="alert">
                             <i class="fas fa-shield-alt me-2"></i>
-                            For security, full account details are hidden. Click "Reveal Details" to view.
+                            <div>For security, full account details are hidden. Click "Reveal Details" to view.</div>
                         </div>
                         
                         <div id="bank-details-wrapper" class="position-relative">
@@ -418,7 +510,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button id="reveal-btn" class="btn btn-gold position-absolute top-50 start-50 translate-middle shadow-sm fw-bold px-4">
+                            <button id="reveal-btn" class="btn btn-gold position-absolute top-50 start-50 translate-middle shadow-sm fw-bold px-4 w-75 w-md-auto">
                                 <i class="fas fa-eye me-2"></i> Reveal Details
                             </button>
                         </div>
@@ -442,13 +534,13 @@
     <!-- Leasing Info -->
     <section class="py-5 islamic-pattern-bg">
         <div class="container text-center">
-             <div class="card p-5 border-0 shadow-sm">
+             <div class="card p-4 p-lg-5 border-0 shadow-sm">
                 <h2 class="brand-font fw-bold mb-3">Property Leasing Information</h2>
                 <p class="text-dynamic-muted mb-4 mx-auto col-lg-8">
                     We offer transparent leasing options for business, residential, or educational purposes (11 months, 3 years, or 30 years) subject to Waqf Board regulations.
                 </p>
                 <div>
-                    <a href="Contact/Waqf Rent Agreement.pdf" class="btn btn-outline-success rounded-pill px-4" download>
+                    <a href="shop-registration.html" class="btn btn-outline-success rounded-pill px-4 text-wrap">
                         <i class="fas fa-file-download me-2"></i> Download Official Rent Agreement
                     </a>
                 </div>
@@ -460,7 +552,7 @@
     <footer id="contact" class="pt-5 pb-3">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
                     <p class="small text-white-50">
                         Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
@@ -471,16 +563,16 @@
                         <a href="mailto:anhparbhani123@gmail.com" class="fs-5"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h5 class="text-white mb-3">Quick Links</h5>
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="index.html#prayer-times">Prayer Times</a></li>
                         <li class="mb-2"><a href="about.html">History & Lineage</a></li>
                         <li class="mb-2"><a href="index.html#services">Educational Programs</a></li>
-                        <li class="mb-2"><a href="#">Donate for Maintenance</a></li>
+                        <li class="mb-2"><a href="Contact.html#donation-section">Donate for Maintenance</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h5 class="text-white mb-3">Contact Us</h5>
                     <p class="small text-white-50 mb-1"><i class="fas fa-map-marker-alt text-warning me-2"></i> Lokmanya Tilak Road, Parbhani, MH, India</p>
                     <p class="small text-white-50 mb-1"><i class="fas fa-phone text-warning me-2"></i> +91 91194 88111, +91 94214 88111</p>

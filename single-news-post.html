@@ -1,300 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Mutawalli Appointed | Masjid e Mehtab Ali Shah</title>
-    <meta name="description" content="Official appointment of Mohammed Mushtaque Ahmed as Mutawalli of Masjid e Mehtab Ali Shah.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>New Mutawalli Appointed | News</title>
+    <meta name="description" content="Official announcement: Mohammed Mushtaque Ahmed appointed as the new Mutawalli of the Waqf institution.">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         /* --- THEME VARIABLES --- */
         :root {
-            --primary-green: #0f5132;   /* Deep Emerald */
-            --primary-light: #198754;
-            --accent-gold: #d4af37;     /* Royal Gold */
-            --accent-gold-hover: #bfa34a;
-            --bg-body: #fdfbf7;         /* Warm Cream */
-            --bg-card: #ffffff;
-            --text-main: #2c3e50;
-            --text-muted: #6c757d;
-            --border-color: rgba(0,0,0,0.1);
-            --navbar-bg: rgba(255, 255, 255, 0.98);
+            --primary-green: #0f5132; --primary-light: #198754; --accent-gold: #d4af37;
+            --accent-gold-hover: #bfa34a; --bg-body: #fdfbf7; --bg-card: #ffffff;
+            --text-main: #2c3e50; --text-muted: #6c757d; --navbar-bg: rgba(255, 255, 255, 0.98);
         }
-
         [data-theme="dark"] {
-            --primary-green: #2ecc71;
-            --primary-light: #27ae60;
-            --accent-gold: #f1c40f;
-            --accent-gold-hover: #f39c12;
-            --bg-body: #121212;
-            --bg-card: #1e1e1e;
-            --text-main: #ecf0f1;
-            --text-muted: #bdc3c7;
-            --border-color: rgba(255,255,255,0.1);
-            --navbar-bg: rgba(20, 20, 20, 0.98);
+            --primary-green: #2ecc71; --primary-light: #27ae60; --accent-gold: #f1c40f;
+            --accent-gold-hover: #f39c12; --bg-body: #121212; --bg-card: #1e1e1e;
+            --text-main: #ecf0f1; --text-muted: #bdc3c7; --navbar-bg: rgba(20, 20, 20, 0.98);
         }
 
-        /* --- TYPOGRAPHY --- */
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-size: 1.15rem;
-            line-height: 1.8;
-        }
-
-        h1, h2, h3, h4, h5, h6, .brand-font {
-            font-family: 'Amiri', serif;
-            color: var(--primary-green);
-        }
-        
-        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
-        [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6, 
-        [data-theme="dark"] .brand-font {
-            color: var(--accent-gold);
-        }
-
+        html, body { width: 100%; overflow-x: hidden !important; }
+        body { font-family: 'Lato', sans-serif; background-color: var(--bg-body); color: var(--text-main); font-size: 1.1rem; }
+        .brand-font { font-family: 'Amiri', serif; color: var(--primary-green); }
+        [data-theme="dark"] .brand-font { color: var(--accent-gold); }
         .kufi-font { font-family: 'Reem Kufi', sans-serif; }
-        .gold-text { color: var(--accent-gold) !important; }
 
-        /* --- NAVBAR --- */
-        .navbar {
-            background-color: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent-gold);
-            transition: background-color 0.3s ease;
-        }
-
-        .navbar-subtitle { font-size: 0.85rem; color: var(--text-muted); }
-
-        .nav-link {
-            font-family: 'Reem Kufi', sans-serif;
-            font-weight: 500;
-            color: var(--primary-green) !important;
-            font-size: 1.1rem;
-            margin: 0 5px;
-            padding-bottom: 5px;
-            transition: color 0.3s ease;
-        }
+        .navbar { background-color: var(--navbar-bg); backdrop-filter: blur(10px); border-bottom: 2px solid var(--accent-gold); padding: 0.8rem 0; }
+        .nav-link { color: var(--primary-green) !important; font-family: 'Reem Kufi', sans-serif; font-weight: 500; transition: color 0.3s; }
         [data-theme="dark"] .nav-link { color: #ffffff !important; }
-        
-        .nav-link.active { border-bottom: 3px solid var(--accent-gold); }
-        .nav-link:hover { color: var(--accent-gold) !important; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-gold) !important; }
 
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(15, 81, 50, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        .btn-donate {
+            background-color: var(--accent-gold); color: #000 !important; font-weight: bold; border: 2px solid var(--accent-gold); transition: 0.3s;
         }
-        [data-theme="dark"] .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
+        .btn-donate:hover { background-color: transparent; color: var(--accent-gold) !important; transform: scale(1.05); }
+        .btn-gold { background-color: var(--accent-gold); color: #000; font-weight: bold; border: none; transition: 0.3s; }
+        .btn-gold:hover { background-color: var(--accent-gold-hover); transform: scale(1.05); }
 
-        /* --- HERO SECTION --- */
-        .page-hero {
-            position: relative;
-            height: 50vh;
-            min-height: 400px;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('News/about%20page.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
-        }
-
-        #hero-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; pointer-events: none;
-        }
-        .hero-content { position: relative; z-index: 2; }
-
-        /* --- ARTICLE STYLING --- */
-        .article-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-top: 5px solid var(--accent-gold);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .article-meta {
-            font-family: 'Reem Kufi', sans-serif;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-body {
-            color: var(--text-main);
-            font-size: 1.2rem;
-        }
-        
-        .article-body p { margin-bottom: 1.5rem; }
-
-        .drop-cap::first-letter {
-            float: left;
-            font-family: 'Amiri', serif;
-            font-size: 3.5rem;
-            line-height: 0.8;
-            padding-right: 10px;
-            padding-top: 5px;
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        .profile-frame {
-            padding: 8px;
-            border: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            display: inline-block;
-            background: var(--bg-card);
-        }
-        .profile-frame img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        blockquote {
-            border-left: 4px solid var(--accent-gold);
-            background: rgba(212, 175, 55, 0.1);
-            padding: 1.5rem;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            font-family: 'Amiri', serif;
-            font-size: 1.3rem;
-            color: var(--text-main);
-        }
-
-        /* --- BUTTONS --- */
-        .btn-gold {
-            background-color: var(--accent-gold);
-            color: #000;
-            font-weight: bold;
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-gold:hover {
-            background-color: var(--accent-gold-hover);
-            transform: scale(1.05);
-            color: #000;
-        }
-        
-        .btn-outline-gold {
-            border: 2px solid var(--accent-gold);
-            color: var(--accent-gold);
-            font-weight: bold;
-            background: transparent;
-            transition: 0.3s;
-        }
-        .btn-outline-gold:hover {
-            background-color: var(--accent-gold);
-            color: #000;
-        }
-
-        /* --- RELATED NEWS --- */
-        .news-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--accent-gold);
-        }
-        .news-img {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* --- Q&A MODAL --- */
-        .modal-content {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--accent-gold);
-        }
-        .modal-header { border-bottom-color: var(--border-color); }
-        .modal-footer { border-top-color: var(--border-color); }
-        .form-control {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
-        .form-control:focus {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: #0a0a0a;
-            color: #cccccc !important;
-            border-top: 4px solid var(--accent-gold);
-        }
-        footer h4 { color: #ffffff !important; }
+        .article-content { max-width: 800px; margin: 0 auto; }
+        .article-img { width: 100%; height: auto; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1); }
+        .bg-card { background-color: var(--bg-card); }
+        footer { background-color: #0a0a0a; color: #cccccc !important; border-top: 4px solid var(--accent-gold); }
         footer a { color: #aaaaaa !important; text-decoration: none; }
         footer a:hover { color: var(--accent-gold) !important; }
-        footer p, footer li { color: #cccccc !important; }
-
-        /* --- UTILS --- */
-        .text-dynamic { color: var(--text-main); }
-        .text-dynamic-muted { color: var(--text-muted); }
-        .islamic-pattern-bg {
-            background-color: var(--bg-body);
-            background-image: radial-gradient(var(--primary-green) 0.5px, transparent 0.5px), radial-gradient(var(--primary-green) 0.5px, var(--bg-body) 0.5px);
-            background-size: 20px 20px;
-            opacity: 1;
-        }
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        .section-title::after {
-            content: '♦'; 
-            display: block;
-            text-align: center;
-            color: var(--accent-gold);
-            font-size: 1.5rem;
-            margin-top: 5px;
-        }
     </style>
 </head>
 
@@ -304,190 +59,104 @@
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="width: 55px; height: 55px; object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
-                <div class="ms-3 lh-1">
-                    <span class="d-block fs-4 fw-bold brand-font">Masjid e Mehtab Ali Shah</span>
-                    <span class="d-block navbar-subtitle fw-bold kufi-font mt-1">Ashoorkhana Naale Hyder</span>
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="width: 45px; height: 45px; object-fit: cover;">
+                <div class="ms-2 ms-lg-3 lh-1">
+                    <span class="d-block brand-font fw-bold" style="font-size: 1.2rem;">Masjid e Mehtab Ali Shah</span>
                 </div>
             </a>
-            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="background-image: url(&quot;data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E&quot;);"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center text-center mt-3 mt-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link active" href="News.html">News</a></li>
                     <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Dark Mode">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="Contact.html#donation-section" class="btn btn-donate rounded-pill px-4 shadow-sm w-100 w-lg-auto">Donate</a>
                     </li>
-                    <li class="nav-item ms-2 mt-2 mt-lg-0">
-                        <a href="Contact.html#donation-section" class="btn btn-gold rounded-pill px-4 shadow-sm">Donate</a>
+                    <li class="nav-item ms-lg-2 mt-3 mt-lg-0">
+                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Theme">
+                            <i class="fas fa-sun"></i>
+                        </button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="page-hero">
-        <canvas id="hero-canvas"></canvas>
-        <div class="hero-content container" data-aos="fade-up" data-aos-duration="1500">
-            <span class="badge bg-warning text-dark mb-3 px-3 py-2 fw-bold rounded-pill shadow">Press Release</span>
-            <h1 class="brand-font fw-bold mb-3 display-4 text-white" style="text-shadow: 2px 2px 10px rgba(0,0,0,1);">New Mutawalli Appointed</h1>
-            <p class="lead mb-0 mx-auto col-lg-8 text-white-50" style="text-shadow: 1px 1px 5px rgba(0,0,0,1);">
-                A continuing legacy of hereditary stewardship approved by the Waqf Board.
-            </p>
-        </div>
-    </header>
-
-    <!-- Main Article Section -->
-    <section class="py-5 bg-body">
-        <div class="container py-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <div class="article-card p-4 p-md-5" data-aos="fade-up">
-                        
-                        <!-- Header & Meta -->
-                        <div class="text-center mb-4">
-                            <h2 class="brand-font fw-bold display-6 mb-3">Stewardship Renewed</h2>
-                            <div class="article-meta d-flex justify-content-center gap-4 text-uppercase small ls-1">
-                                <span><i class="fas fa-calendar-alt gold-text me-2"></i> August 1, 2025</span>
-                                <span><i class="fas fa-user gold-text me-2"></i> Admin</span>
-                                <span><i class="fas fa-tag gold-text me-2"></i> Heritage</span>
-                            </div>
-                        </div>
-
-                        <!-- Image -->
-                        <div class="text-center mb-5" data-aos="zoom-in">
-                            <div class="profile-frame shadow-lg">
-                                <img src="Home/Mushtaque Ahmed Photo.jpg" alt="Mohammed Mushtaque Ahmed" onerror="this.src='https://placehold.co/250x250/0f5132/ffffff?text=Mutawalli';">
-                            </div>
-                            <p class="small text-dynamic-muted mt-2 fst-italic">Sajjada Nashin Va Mutawally Mohammed Mushtaque Ahmed</p>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="article-body">
-                            <p class="drop-cap text-dynamic">We are honored to announce the official appointment of <strong>Sajjada Nashin Va Mutawally Mohammad Mushtaque Ahmed Mohammad Ali Shah</strong> as the new Mutawalli of the Masjid e Mehtab Ali Shah complex. The appointment was formally approved by the Maharashtra State Waqf Board, continuing a legacy of hereditary stewardship rooted in the institution's founding.</p>
-                            
-                            <p class="text-dynamic">A <b>Mutawalli</b> is the official caretaker or trustee of a Waqf (an Islamic endowment of property), responsible for its administration. This sacred role ensures that the institution's assets, originally endowed in October 1880 under the historic deed <strong>Muntaqab No. 25624</strong>, are used for their intended charitable and religious purposes.</p>
-                            
-                            <blockquote class="my-5 shadow-sm">
-                                "I am humbled by this responsibility and am dedicated to upholding the values and traditions of this sacred institution for future generations."
-                                <div class="mt-2 small fw-bold gold-text">- Mohammed Mushtaque Ahmed</div>
-                            </blockquote>
-
-                            <p class="text-dynamic">Mr. Ahmed brings a deep commitment to preserving this rich heritage and has pledged to work closely with the community and government officials. His primary focus will be on addressing the long-standing issue of illegal encroachment on the Masjid's endowed land.</p>
-                            
-                            <p class="text-dynamic">The community has expressed strong support for his appointment and is optimistic about the future of the complex under his leadership. His vision includes not only protecting the Waqf property but also enhancing the community services we offer. We look forward to a new chapter of growth, preservation, and community service.</p>
-                        </div>
-
-                        <!-- Share Links -->
-                        <div class="mt-5 pt-4 border-top text-center">
-                            <h6 class="brand-font mb-3">Share this Update</h6>
-                            <div class="d-flex justify-content-center gap-3">
-                                <a href="#" class="btn btn-outline-secondary rounded-circle"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="btn btn-outline-secondary rounded-circle"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" class="btn btn-outline-secondary rounded-circle"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="btn btn-outline-secondary rounded-circle"><i class="fas fa-link"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- Back Button -->
-                        <div class="text-center mt-5">
-                            <a href="News.html" class="btn btn-outline-gold rounded-pill px-5">
-                                <i class="fas fa-arrow-left me-2"></i> Back to News
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Related News -->
-    <section class="py-5 islamic-pattern-bg">
+    <!-- Main Article -->
+    <article class="py-5">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Related Updates</h2>
-            </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-5 col-lg-4">
-                    <div class="news-card shadow-sm">
-                        <div class="news-img" style="background-image: url('Home/student.jpg');" onerror="this.style.backgroundColor='#ccc'"></div>
-                        <div class="p-4 d-flex flex-column h-100">
-                            <small class="gold-text fw-bold mb-2">Education</small>
-                            <h5 class="brand-font fw-bold mb-2 text-dynamic">Youth Program Launch</h5>
-                            <p class="text-dynamic-muted small mb-4">Starting new weekend Islamic studies for youth ages 7-14.</p>
-                            <a href="youth-program.html" class="btn btn-sm btn-outline-success rounded-pill mt-auto align-self-start">Read More</a>
-                        </div>
-                    </div>
+            <div class="article-content" data-aos="fade-up">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="News.html" class="text-decoration-none text-muted">News</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Appointment</li>
+                    </ol>
+                </nav>
+                
+                <h1 class="display-5 fw-bold brand-font mb-3">New Mutawalli Appointed for the Trust</h1>
+                <div class="d-flex align-items-center mb-4 text-muted small">
+                    <span class="me-3"><i class="far fa-calendar-alt me-2"></i>Aug 01, 2025</span>
+                    <span><i class="far fa-user me-2"></i>Waqf Board</span>
                 </div>
-                <div class="col-md-5 col-lg-4">
-                    <div class="news-card shadow-sm">
-                        <div class="news-img" style="background-image: url('Home/Old Document.jpg');" onerror="this.style.backgroundColor='#ccc'"></div>
-                        <div class="p-4 d-flex flex-column h-100">
-                            <small class="gold-text fw-bold mb-2">Archives</small>
-                            <h5 class="brand-font fw-bold mb-2 text-dynamic">Nizam-Era Land Grant</h5>
-                            <p class="text-dynamic-muted small mb-4">Digitization of historic documents is now underway.</p>
-                            <a href="land-grant-archives.html" class="btn btn-sm btn-outline-success rounded-pill mt-auto align-self-start">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Q&A Section -->
-    <section class="py-5 bg-card border-top border-bottom">
-        <div class="container text-center" data-aos="fade-in">
-            <h2 class="brand-font mb-3">Have Questions About This Story?</h2>
-            <p class="text-dynamic-muted mb-4 col-lg-6 mx-auto">
-                Our automated assistant can explain terms like "Mutawalli" or provide context on the Waqf history.
-            </p>
-            <button class="btn btn-gold btn-lg rounded-pill px-5 shadow" data-bs-toggle="modal" data-bs-target="#qa-modal">
-                <i class="fas fa-robot me-2"></i> Ask Community Helper
-            </button>
+                <img src="Home/Mushtaque%20Ahmed%20Photo.jpg" class="article-img shadow-lg" alt="Mutawalli" onerror="this.src='https://placehold.co/800x400/2c3e50/ffffff?text=Mutawalli';">
+
+                <div class="lead mb-4">
+                    The Maharashtra State Board of Waqfs has officially announced the appointment of <strong>Janab Mohammed Mushtaque Ahmed</strong> as the new Mutawalli (Administrator) of the Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder trust.
+                </div>
+
+                <p>In a ceremony held at the district Waqf office, the official order was handed over, marking a new chapter in the administration of this historic 19th-century institution.</p>
+
+                <h3 class="brand-font mt-4">Vision for the Future</h3>
+                <p>Addressing the community, Janab Mushtaque Ahmed outlined his priorities:</p>
+                <ul>
+                    <li><strong>Legal Protection:</strong> Continuing the fight to reclaim encroached Waqf land.</li>
+                    <li><strong>Education:</strong> Expanding the Maktab program for children.</li>
+                    <li><strong>Transparency:</strong> Digitizing all financial records and donation tracking.</li>
+                </ul>
+
+                <blockquote class="blockquote my-4 p-3 border-start border-4 border-warning bg-card rounded">
+                    <p class="mb-0 fst-italic">"I am a servant of this house of Allah. My only goal is to restore its glory and ensure it serves the poor and needy as intended by our ancestors."</p>
+                </blockquote>
+
+                <p>The community has welcomed this decision, hoping for a swift resolution to pending development projects.</p>
+                
+                <div class="mt-5 text-center">
+                    <a href="News.html" class="btn btn-outline-secondary rounded-pill px-4">Back to News</a>
+                </div>
+            </div>
         </div>
-    </section>
+    </article>
 
     <!-- Footer -->
-    <footer id="contact" class="pt-5 pb-3">
+    <footer class="pt-5 pb-3">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
                     <p class="small text-white-50">
                         Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
                     </p>
-                    <div class="mt-3">
-                        <a href="https://www.facebook.com/people/Ashoorkhana-Naale-Hyder-Parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/anh_parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-instagram"></i></a>
-                        <a href="mailto:anhparbhani123@gmail.com" class="fs-5"><i class="fas fa-envelope"></i></a>
-                    </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h5 class="text-white mb-3">Quick Links</h5>
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="index.html#prayer-times">Prayer Times</a></li>
                         <li class="mb-2"><a href="about.html">History & Lineage</a></li>
-                        <li class="mb-2"><a href="index.html#services">Educational Programs</a></li>
-                        <li class="mb-2"><a href="Contact.html#donation-section">Donate for Maintenance</a></li>
+                        <li class="mb-2"><a href="Contact.html">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-center text-lg-start">
                     <h5 class="text-white mb-3">Contact Us</h5>
-                    <p class="small text-white-50 mb-1"><i class="fas fa-map-marker-alt text-warning me-2"></i> Lokmanya Tilak Road, Parbhani, MH, India</p>
-                    <p class="small text-white-50 mb-1"><i class="fas fa-phone text-warning me-2"></i> +91 91194 88111, +91 94214 88111</p>
-                    <p class="small text-white-50"><i class="fas fa-envelope text-warning me-2"></i> anhparbhani123@gmail.com</p>
+                    <p class="small text-white-50 mb-1">Lokmanya Tilak Road, Parbhani</p>
+                    <p class="small text-white-50">anhparbhani123@gmail.com</p>
                 </div>
             </div>
             <hr class="border-secondary mt-4">
@@ -498,113 +167,18 @@
         </div>
     </footer>
 
-    <!-- Q&A Modal -->
-    <div class="modal fade" id="qa-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content shadow-lg border-0 rounded-4">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title brand-font gold-text"><i class="fas fa-comments me-2"></i>Community Helper</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="small text-muted mb-3">Ask about "Mutawalli", "Waqf", or "History".</p>
-                    <div class="mb-3">
-                        <textarea class="form-control" id="qa-topic-input" rows="2" placeholder="Type your question here..."></textarea>
-                    </div>
-                    <div class="d-grid">
-                        <button id="generate-qa-btn" class="btn btn-gold rounded-pill">Get Answer</button>
-                    </div>
-                    <hr class="my-4">
-                    <div id="qa-output" class="bg-body p-3 rounded border text-center">
-                        <span class="text-muted small fst-italic">Answer will appear here...</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script>
-        AOS.init({ once: true, offset: 100, duration: 800 });
-
-        // Theme Toggle Logic
+        AOS.init({ once: true, offset: 50 });
         const toggleBtn = document.getElementById('theme-toggle');
         const icon = toggleBtn.querySelector('i');
         const html = document.documentElement;
-
         toggleBtn.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', newTheme);
             icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        });
-
-        // 3D Background Logic (Matches Home Page)
-        function initThreeJS() {
-            const canvas = document.getElementById('hero-canvas');
-            if(!canvas) return;
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.position.z = 5;
-
-            const geometry = new THREE.BufferGeometry();
-            const count = 500;
-            const positions = new Float32Array(count * 3);
-            for(let i=0; i<count*3; i++) positions[i] = (Math.random()-0.5)*15;
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            
-            // Using Gold Color to match theme
-            const material = new THREE.PointsMaterial({ size: 0.04, color: 0xd4af37, transparent: true, opacity: 0.6 });
-            const mesh = new THREE.Points(geometry, material);
-            scene.add(mesh);
-
-            let mouseX = 0; let mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX * 0.0005; mouseY = e.clientY * 0.0005;
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                mesh.rotation.y += 0.001 + (mouseX - mesh.rotation.y) * 0.05;
-                mesh.rotation.x += 0.001 + (mouseY - mesh.rotation.x) * 0.05;
-                renderer.render(scene, camera);
-            }
-            animate();
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-        initThreeJS();
-
-        // Q&A Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const qaBtn = document.getElementById('generate-qa-btn');
-            const qaTopicInput = document.getElementById('qa-topic-input');
-            const qaOutput = document.getElementById('qa-output');
-
-            qaBtn.addEventListener('click', () => {
-                const topic = qaTopicInput.value.toLowerCase();
-                let answer = '';
-
-                if (topic.includes('mutawalli')) {
-                    answer = "A <strong>Mutawalli</strong> is the official caretaker or trustee of a Waqf (an Islamic endowment), responsible for managing its assets and ensuring they are used for their intended religious and charitable purposes.";
-                } else if (topic.includes('waqf')) {
-                    answer = "A <strong>Waqf</strong> is an inalienable charitable endowment under Islamic law. It typically involves donating a property or asset for Muslim religious or charitable purposes. Our Waqf is registered with the Maharashtra State Board of Waqfs.";
-                } else if (topic.includes('history') || topic.includes('silsila')) {
-                    answer = "Our institution dates back to the Nizam era, founded in October 1880. The 'Silsila' is a historic document that details the chain of succession of our caretakers. You can find more on our 'About Us' page.";
-                } else {
-                    answer = "Thank you for your question. For more detailed inquiries about other topics like our community services or events, please feel free to ask, or get in touch through our 'Contact Us' page.";
-                }
-                qaOutput.innerHTML = `<p class="text-success fw-bold mb-1">Answer:</p><p class="mb-0 text-dynamic">${answer}</p>`;
-            });
         });
     </script>
 </body>

@@ -1,139 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop & Land Registration - Masjid e Mehtab Ali Shah</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Shop & Land Registration | Masjid e Mehtab Ali Shah</title>
+    <meta name="description" content="Register for shop or land lease opportunities with Masjid e Mehtab Ali Shah Waqf institution.">
 
-        <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
-    <!-- Bootstrap CSS -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+
+    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- AOS (Animate on Scroll) Library -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
-        /* Applying custom fonts to the body and headings */
+        /* --- THEME VARIABLES --- */
+        :root {
+            --primary-green: #0f5132;   /* Deep Emerald */
+            --primary-light: #198754;
+            --accent-gold: #d4af37;     /* Royal Gold */
+            --accent-gold-hover: #bfa34a;
+            --bg-body: #fdfbf7;         /* Warm Cream */
+            --bg-card: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #6c757d;
+            --border-color: rgba(0,0,0,0.1);
+            --navbar-bg: rgba(255, 255, 255, 0.98);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary-green: #2ecc71;
+            --primary-light: #27ae60;
+            --accent-gold: #f1c40f;
+            --accent-gold-hover: #f39c12;
+            --bg-body: #121212;
+            --bg-card: #1e1e1e;
+            --text-main: #ecf0f1;
+            --text-muted: #bdc3c7;
+            --border-color: rgba(255,255,255,0.1);
+            --navbar-bg: rgba(20, 20, 20, 0.98);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* --- GLOBAL TYPOGRAPHY & OVERFLOW FIX --- */
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden !important; /* CRITICAL FIX: Forces no horizontal scroll */
+            position: relative;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            color: #555;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Merriweather', serif;
-            color: #2c3e50;
+
+        h1, h2, h3, h4, h5, h6, .brand-font {
+            font-family: 'Amiri', serif;
+            color: var(--primary-green);
         }
-        /* Custom styles for navbar links to avoid conflicts */
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500; /* medium weight */
-            transition: color 0.3s;
+        
+        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6, 
+        [data-theme="dark"] .brand-font {
+            color: var(--accent-gold);
         }
-        .navbar-nav .nav-link.active,
-        .navbar-nav .nav-link:hover {
-            color: #1abc9c; /* primary color */
+
+        .kufi-font { font-family: 'Reem Kufi', sans-serif; }
+        .gold-text { color: var(--accent-gold) !important; }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-gold);
+            transition: background-color 0.3s ease;
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+            width: 100%;
         }
-        /* Force navbar to be visible on desktop to override conflicts */
+
+        .navbar-brand img {
+            width: 45px; height: 45px;
+        }
         @media (min-width: 992px) {
-            #main-nav.navbar-collapse {
-                display: flex !important;
-                visibility: visible !important;
-            }
+            .navbar-brand img { width: 55px; height: 55px; }
         }
-        .btn {
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+        .navbar-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.2;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        @media (min-width: 992px) {
+            .navbar-subtitle { font-size: 0.85rem; }
         }
-        .bg-primary {
-            background-color: #1abc9c !important;
+
+        .brand-title {
+            font-size: 1.2rem;
         }
-        .bg-secondary {
-            background-color: #e67e22 !important;
+        @media (min-width: 992px) {
+            .brand-title { font-size: 1.5rem; }
         }
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
+
+        .nav-link {
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 500;
+            color: var(--primary-green) !important;
+            font-size: 1.1rem;
+            margin: 0 5px;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
         }
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
+        [data-theme="dark"] .nav-link { color: #ffffff !important; }
+        
+        /* Active State */
+        .nav-link.active { border-bottom: 3px solid var(--accent-gold); }
+        .nav-link:hover { color: var(--accent-gold) !important; }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0;
         }
-        .text-primary {
-            color: #1abc9c !important;
+        .navbar-toggler:focus { box-shadow: none; }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(15, 81, 50, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
-        .text-dark-blue {
-            color: #2c3e50 !important;
+        [data-theme="dark"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 500px;
+            /* Using Old Document bg for business feel */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Home/Old%20Document.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Mobile Optimization */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            width: 100%;
+        }
+        @media (min-width: 992px) {
+            .page-hero { background-attachment: fixed; }
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 2; padding: 0 15px; }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+        }
+
+        /* --- FORM STYLING --- */
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border-top: 5px solid var(--accent-gold);
+        }
+        
+        .form-control, .form-select {
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.8rem;
+            border-radius: 10px;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: var(--bg-body);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+            color: var(--text-main);
+        }
+        label { font-weight: bold; color: var(--primary-green); margin-bottom: 0.5rem; font-family: 'Reem Kufi', sans-serif; }
+        [data-theme="dark"] label { color: var(--accent-gold); }
+
+        /* --- NOTICE CARD --- */
+        .notice-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-gold);
+            border-radius: 10px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-gold:hover {
+            background-color: var(--accent-gold-hover);
+            transform: scale(1.05);
+            color: #000;
+        }
+
+        /* --- UTILS --- */
+        .text-dynamic { color: var(--text-main); }
+        .text-dynamic-muted { color: var(--text-muted); }
+        .islamic-pattern-bg {
+            background-color: var(--bg-body);
+            background-image: radial-gradient(var(--primary-green) 0.5px, transparent 0.5px), radial-gradient(var(--primary-green) 0.5px, var(--bg-body) 0.5px);
+            background-size: 20px 20px;
+            opacity: 1;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        @media (min-width: 768px) {
+            .section-title { margin-bottom: 3rem; font-size: 2.2rem; }
+        }
+        .section-title::after {
+            content: '♦'; 
+            display: block;
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        /* Prevent X-overflow on section containers */
+        section {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0a0a0a;
+            color: #cccccc !important;
+            border-top: 4px solid var(--accent-gold);
+        }
+        footer h4 { color: #ffffff !important; }
+        footer a { color: #aaaaaa !important; text-decoration: none; }
+        footer a:hover { color: var(--accent-gold) !important; }
+        footer p, footer li { color: #cccccc !important; }
     </style>
 </head>
 
-<body class="bg-white">
+<body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container">
-            <!-- Logo + Site Name -->
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="Contact/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
-                <span style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <!-- Logo -->
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
+                <!-- Text -->
+                <div class="ms-2 ms-lg-3 lh-1">
+                    <span class="d-block brand-font brand-title fw-bold">Masjid e Mehtab Ali Shah</span>
+                    <span class="d-block navbar-subtitle fw-bold kufi-font mt-1">Ashoorkhana Naale Hyder</span>
+                </div>
             </a>
-            <!-- Hamburger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link active px-3" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
+            
+            <!-- Mobile Controls Wrapper (Theme Toggle + Hamburger) -->
+            <div class="d-flex align-items-center">
+                <!-- Theme Toggle (Visible always) -->
+                <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border me-3" id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Hamburger Menu -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center text-center mt-3 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="News.html">News</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="Contact.html">Contact</a></li>
+                    
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="Contact.html#donation-section" class="btn btn-gold rounded-pill px-4 shadow-sm w-100 w-lg-auto">Donate</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="py-5 bg-light-gray">
-        <div class="container text-center" data-aos="fade-in">
-            <h1 class="display-4 fw-bold">Shop & Land Registration</h1>
-            <p class="lead text-secondary">Register your business or inquire about new opportunities on Waqf property.</p>
+    <!-- Hero Section -->
+    <header class="page-hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content container" data-aos="fade-up" data-aos-duration="1500">
+            <span class="badge bg-white text-success mb-3 px-3 py-2 fw-bold rounded-pill shadow">Waqf Property Lease</span>
+            <h1 class="brand-font fw-bold mb-3 text-white hero-title">Shop & Land Registration</h1>
+            <p class="lead mb-4 mx-auto col-lg-8 text-white" style="text-shadow: 1px 1px 5px rgba(0,0,0,1);">
+                Register your business or inquire about new commercial opportunities on the historic Waqf estate.
+            </p>
+            <a href="#registration-form" class="btn btn-gold btn-lg rounded-pill px-5 shadow">Apply Now</a>
         </div>
     </header>
 
     <!-- Official Notice Section -->
-    <section class="py-5">
-        <div class="container my-5" data-aos="fade-up">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4 p-md-5">
-                    <h2 class="display-6 fw-bold mb-4 text-center">Official Notice & Terms</h2>
-                    <p class="text-center text-secondary mb-4">Please read the following terms carefully before proceeding with your application.</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">All properties are offered on a lease basis for a period of <strong>11 months, 3 years, or 30 years</strong>.</li>
-                        <li class="list-group-item">The lease is for <strong>business, residential, or educational purposes only</strong>, as specified in your application.</li>
-                        <li class="list-group-item">A <strong>deposit is required</strong> to participate in the auction/bidding process for new leases.</li>
-                        <li class="list-group-item">All tenants must adhere to the terms and conditions set forth by the <strong>Maharashtra State Board of Waqfs</strong>.</li>
-                        <li class="list-group-item">You can download the official rent agreement form below to review all terms and conditions in detail.</li>
-                    </ul>
-                    <div class="text-center mt-4">
-                        <a href="Contact/Waqf Rent Agreement.pdf" class="btn btn-lg bg-primary text-white fw-bold rounded-pill px-5 py-3 mt-3 btn-hover" download>
-                            <i class="fas fa-file-download me-2"></i> Download Rent Agreement PDF
-                        </a>
+    <section class="py-4 py-lg-5 bg-body">
+        <div class="container py-2 py-lg-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="notice-card p-4 p-md-5 shadow-sm" data-aos="fade-up">
+                        <div class="text-center mb-4">
+                            <h2 class="section-title mb-3">Official Notice & Terms</h2>
+                            <p class="text-dynamic-muted">Please read the following terms carefully before proceeding with your application.</p>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush bg-transparent">
+                                    <li class="list-group-item bg-transparent text-dynamic"><i class="fas fa-check-circle text-success me-2"></i> Lease periods: <strong>11 months, 3 years, or 30 years</strong>.</li>
+                                    <li class="list-group-item bg-transparent text-dynamic"><i class="fas fa-check-circle text-success me-2"></i> Permitted uses: <strong>Business, Residential, or Educational</strong>.</li>
+                                    <li class="list-group-item bg-transparent text-dynamic"><i class="fas fa-check-circle text-success me-2"></i> A <strong>security deposit</strong> is mandatory for participation.</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush bg-transparent">
+                                    <li class="list-group-item bg-transparent text-dynamic"><i class="fas fa-check-circle text-success me-2"></i> Adherence to <strong>State Board of Waqfs</strong> regulations is strictly required.</li>
+                                    <li class="list-group-item bg-transparent text-dynamic"><i class="fas fa-check-circle text-success me-2"></i> Sub-leasing is <strong>strictly prohibited</strong> without prior written consent.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <a href="Contact/Waqf Rent Agreement.pdf" class="btn btn-outline-success rounded-pill px-4 py-2 shadow-sm" download>
+                                <i class="fas fa-file-download me-2"></i> Download Official Rent Agreement
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,77 +375,73 @@
     </section>
 
     <!-- Registration Form Section -->
-    <section class="py-5 bg-light-gray">
-        <div class="container my-5">
+    <section id="registration-form" class="py-4 py-lg-5 islamic-pattern-bg">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10" data-aos="fade-up">
-                    <div class="card border-0 shadow-sm p-4 p-md-5">
+                    <div class="form-card p-4 p-md-5">
                         <div id="registration-form-container">
-                            <h2 class="display-6 fw-bold mb-4 text-center">Business Registration Form</h2>
-                            <p class="text-center text-secondary mb-4">Please fill out the form below to register your existing business or to inquire about new commercial opportunities on the Waqf land. Our administrative office will review your submission and contact you shortly.</p>
-                            <form id="registration-form">
+                            <div class="text-center mb-5">
+                                <h2 class="brand-font fw-bold mb-2">Business Registration Form</h2>
+                                <p class="text-dynamic-muted">Fill out the details below to register your interest.</p>
+                            </div>
+                            
+                            <form id="registration-form-element">
                                 <!-- Applicant Details -->
-                                <h4 class="fw-bold mb-3 border-bottom pb-2">Applicant Details</h4>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <h4 class="brand-font gold-text border-bottom pb-2 mb-4">Applicant Details</h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
                                         <label for="applicant-name" class="form-label">Full Name</label>
                                         <input type="text" class="form-control" id="applicant-name" required>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6">
                                         <label for="occupation" class="form-label">Occupation</label>
                                         <input type="text" class="form-control" id="occupation" required>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6">
                                         <label for="phone" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="phone" required>
                                     </div>
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-6">
                                         <label for="email" class="form-label">Email Address</label>
                                         <input type="email" class="form-control" id="email" required>
                                     </div>
                                 </div>
 
-                                <!-- Document Uploads -->
-                                <h4 class="fw-bold mb-3 border-bottom pb-2">Document Uploads</h4>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <!-- Documents -->
+                                <h4 class="brand-font gold-text border-bottom pb-2 mb-4">Documents</h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
                                         <label for="aadhar-card" class="form-label">Aadhar Card</label>
                                         <input class="form-control" type="file" id="aadhar-card" required>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6">
                                         <label for="pan-card" class="form-label">PAN Card</label>
                                         <input class="form-control" type="file" id="pan-card" required>
                                     </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="passport-photo" class="form-label">Passport Size Photo</label>
-                                    <input class="form-control" type="file" id="passport-photo" required>
+                                    <div class="col-12">
+                                        <label for="passport-photo" class="form-label">Passport Size Photo</label>
+                                        <input class="form-control" type="file" id="passport-photo" required>
+                                    </div>
                                 </div>
 
                                 <!-- Property Details -->
-                                <h4 class="fw-bold mb-3 border-bottom pb-2">Property Details</h4>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <h4 class="brand-font gold-text border-bottom pb-2 mb-4">Property & Lease Info</h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
                                         <label for="property-description" class="form-label">Property Description</label>
                                         <input type="text" class="form-control" id="property-description" placeholder="e.g., Shop No. 5, Janta Market" required>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6">
                                         <label for="survey-number" class="form-label">Survey / CTS Number</label>
                                         <input type="text" class="form-control" id="survey-number" required>
                                     </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="area" class="form-label">Area (in sq. ft. or sq. m.)</label>
-                                    <input type="text" class="form-control" id="area" required>
-                                </div>
-
-                                <!-- Lease Information -->
-                                <h4 class="fw-bold mb-3 border-bottom pb-2">Lease Information</h4>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="lease-duration" class="form-label">Lease Duration</label>
+                                    <div class="col-md-4">
+                                        <label for="area" class="form-label">Area (sq. ft.)</label>
+                                        <input type="text" class="form-control" id="area" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="lease-duration" class="form-label">Duration</label>
                                         <select class="form-select" id="lease-duration">
                                             <option selected>Choose...</option>
                                             <option value="11 months">11 Months</option>
@@ -219,8 +449,8 @@
                                             <option value="30 years">30 Years</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="purpose" class="form-label">Purpose of Use</label>
+                                    <div class="col-md-4">
+                                        <label for="purpose" class="form-label">Purpose</label>
                                         <select class="form-select" id="purpose">
                                             <option selected>Choose...</option>
                                             <option value="business">Business</option>
@@ -228,27 +458,30 @@
                                             <option value="educational">Educational</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-6">
                                         <label for="rent-offer" class="form-label">Annual Rent Offer (₹)</label>
                                         <input type="number" class="form-control" id="rent-offer" required>
                                     </div>
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-6">
                                         <label for="deposit-amount" class="form-label">Deposit Amount (₹)</label>
                                         <input type="number" class="form-control" id="deposit-amount" required>
                                     </div>
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn bg-primary text-white fw-bold rounded-pill px-5 py-2 mt-3 btn-hover">Submit Application</button>
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-gold btn-lg rounded-pill px-5 shadow">Submit Application</button>
                                 </div>
                             </form>
                         </div>
-                        <div id="confirmation-message" class="text-center" style="display: none;">
-                            <i class="fas fa-check-circle fa-4x text-primary mb-3"></i>
-                            <h3 class="fw-bold">Thank You!</h3>
-                            <p class="lead">Your registration has been submitted. Our office will review the information and be in touch with you soon.</p>
+
+                        <!-- Confirmation Message -->
+                        <div id="confirmation-message" class="text-center py-5" style="display: none;">
+                            <div class="mb-4">
+                                <i class="fas fa-check-circle fa-5x text-success"></i>
+                            </div>
+                            <h3 class="brand-font fw-bold mb-3">Application Submitted!</h3>
+                            <p class="text-dynamic-muted lead">Your registration details have been securely received. Our administrative office will review your documents and contact you shortly regarding the next steps.</p>
+                            <button onclick="location.reload()" class="btn btn-outline-gold rounded-pill mt-4 px-4">Submit Another Application</button>
                         </div>
                     </div>
                 </div>
@@ -257,49 +490,116 @@
     </section>
 
     <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Contact/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+    <footer id="contact" class="pt-5 pb-3">
         <div class="container">
-            <div class="py-4">
-                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
-                <p class="col-md-6 mx-auto text-white-50">
-                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
-                </p>
-                <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+            <div class="row g-4">
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
+                    <p class="small text-white-50">
+                        Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
+                    </p>
+                    <div class="mt-3">
+                        <a href="https://www.facebook.com/people/Ashoorkhana-Naale-Hyder-Parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/anh_parbhani/" target="_blank" class="me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:anhparbhani123@gmail.com" class="fs-5"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5 class="text-white mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html#prayer-times">Prayer Times</a></li>
+                        <li class="mb-2"><a href="about.html">History & Lineage</a></li>
+                        <li class="mb-2"><a href="index.html#services">Educational Programs</a></li>
+                        <li class="mb-2"><a href="Contact.html#donation-section">Donate for Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-center text-lg-start">
+                    <h5 class="text-white mb-3">Contact Us</h5>
+                    <p class="small text-white-50 mb-1"><i class="fas fa-map-marker-alt text-warning me-2"></i> Lokmanya Tilak Road, Parbhani, MH, India</p>
+                    <p class="small text-white-50 mb-1"><i class="fas fa-phone text-warning me-2"></i> +91 91194 88111, +91 94214 88111</p>
+                    <p class="small text-white-50"><i class="fas fa-envelope text-warning me-2"></i> anhparbhani123@gmail.com</p>
                 </div>
             </div>
-            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
-                <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+            <hr class="border-secondary mt-4">
+            <div class="text-center small text-white-50">
+                <p class="mb-0">&copy; 2025 Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+                <p class="mb-0 mt-1">Website Designed & Developed by <span class="text-white fw-bold">Kamel Shah</span></p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <script>
-        // Initialize AOS with some default options
-        AOS.init({
-            duration: 800, // values from 0 to 3000, with step 50ms
-            once: true, // whether animation should happen only once - while scrolling down
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // Theme Toggle Logic
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const html = document.documentElement;
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         });
 
-        // Handle form submission
-        const form = document.getElementById('registration-form');
+        // 3D Background Logic
+        function initThreeJS() {
+            const canvas = document.getElementById('hero-canvas');
+            if(!canvas) return;
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.position.z = 5;
+
+            const geometry = new THREE.BufferGeometry();
+            const count = 500;
+            const positions = new Float32Array(count * 3);
+            for(let i=0; i<count*3; i++) positions[i] = (Math.random()-0.5)*15;
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            
+            // Using Gold Color to match theme
+            const material = new THREE.PointsMaterial({ size: 0.04, color: 0xd4af37, transparent: true, opacity: 0.6 });
+            const mesh = new THREE.Points(geometry, material);
+            scene.add(mesh);
+
+            let mouseX = 0; let mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX * 0.0005; mouseY = e.clientY * 0.0005;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                mesh.rotation.y += 0.001 + (mouseX - mesh.rotation.y) * 0.05;
+                mesh.rotation.x += 0.001 + (mouseY - mesh.rotation.x) * 0.05;
+                renderer.render(scene, camera);
+            }
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        initThreeJS();
+
+        // Form Logic
+        const form = document.getElementById('registration-form-element');
         const formContainer = document.getElementById('registration-form-container');
         const confirmationMessage = document.getElementById('confirmation-message');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
+            e.preventDefault();
             formContainer.style.display = 'none';
             confirmationMessage.style.display = 'block';
+            window.scrollTo({ top: document.getElementById('registration-form').offsetTop, behavior: 'smooth' });
         });
     </script>
 </body>
-
 </html>
