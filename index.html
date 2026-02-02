@@ -27,7 +27,6 @@
             font-family: 'Roboto', sans-serif;
             color: #555;
             overflow-x: hidden;
-            /* Prevent horizontal overflow */
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -59,7 +58,6 @@
             color: #1abc9c;
         }
 
-        /* Card hover effect */
         .card-hover {
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -75,17 +73,16 @@
             background-size: 200% auto;
         }
 
-        .btn-hover:hover {
+        .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-position: right center; /* change the direction of the change here */
+            background-position: right center;
         }
-        
+
         .btn-gradient-secondary {
             background-image: linear-gradient(to right, #f39c12 0%, #e67e22 51%, #f39c12 100%);
         }
 
-        /* News image container */
         .news-img-container {
             height: 200px;
             background-size: cover;
@@ -99,18 +96,17 @@
             object-fit: cover;
             border: 3px solid #1abc9c;
         }
-        
+
         .profile-image {
             width: 180px;
             height: 180px;
             object-fit: cover;
-            border: 5px solid #1abc9c; /* primary color border */
+            border: 5px solid #1abc9c;
         }
-
 
         /* Custom color palette */
         .bg-primary { background-color: #1abc9c !important; }
-        .bg-secondary { background-color: #f39c12 !important; } /* Updated secondary color */
+        .bg-secondary { background-color: #f39c12 !important; }
         .bg-dark-blue { 
             background-color: #2c3e50 !important; 
             background-image: linear-gradient(315deg, #2c3e50 0%, #466380 74%);
@@ -118,7 +114,7 @@
         .bg-light-gray { background-color: #f8f9fa !important; }
         .text-primary { color: #1abc9c !important; }
         .text-dark-blue { color: #2c3e50 !important; }
-        .text-secondary { color: #6c757d !important; } /* Softer secondary text color */
+        .text-secondary { color: #6c757d !important; }
 
         /* Responsive font size adjustments */
         .display-3 { font-size: 3rem; }
@@ -168,6 +164,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none; /* Allows clicking through canvas */
         }
 
         header .container {
@@ -187,52 +184,10 @@
             font-weight: 700;
         }
 
-        /* Custom Animated Navbar Toggler */
-        .navbar-toggler.custom-toggler {
-            border: none;
-            background: transparent !important;
-            outline: none !important;
-            box-shadow: none !important;
-            position: relative;
-            width: 30px;
-            height: 20px;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .custom-toggler .toggler-icon {
-            display: block;
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background: #2c3e50;
-            border-radius: 1px;
-            opacity: 1;
-            left: 0;
-            transform: rotate(0deg);
-            transition: all 0.25s ease-in-out;
-        }
-
-        .custom-toggler .toggler-icon:nth-child(1) { top: 0px; }
-        .custom-toggler .toggler-icon:nth-child(2) { top: 8px; }
-        .custom-toggler .toggler-icon:nth-child(3) { top: 16px; }
-
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(1) { top: 8px; transform: rotate(135deg); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .custom-toggler:not(.collapsed) .toggler-icon:nth-child(3) { top: 8px; transform: rotate(-135deg); }
-
-        /* Responsive brand text for small screens */
         @media (max-width: 420px) {
             .brand-text {
                 font-size: 16px !important;
             }
-        }
-        
-        /* Feature Styles */
-        .spinner-border-sm {
-            width: 1rem;
-            height: 1rem;
-            border-width: .2em;
         }
     </style>
 </head>
@@ -242,13 +197,12 @@
     <nav class="navbar navbar-expand-lg bg-white shadow sticky-top py-2">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Logo';">
+                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;"
+                    onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=MA';">
                 <span class="brand-text" style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
             </a>
-            <button class="navbar-toggler custom-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
-                <span class="toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="main-nav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
@@ -270,7 +224,7 @@
             <div class="animated-section is-visible">
                 <h1 class="display-3 fw-bold mb-3 text-white">A Beacon of Faith, Heritage, and Community</h1>
                 <p class="lead col-md-8 mx-auto mb-5">
-                    Welcome to the historic complex of Ashoorkhana Naale Hyder, Masjid Mahetab Ali Shah, parbhani. Survey No. 1, 2 & 3.. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
+                    Welcome to the historic complex of Ashoorkhana Naale Hyder, Masjid Mahetab Ali Shah, Parbhani. Survey No. 1, 2 & 3. A spiritual center established during the Nizam era, dedicated to preserving a rich legacy of worship and community service.
                 </p>
             </div>
 
@@ -340,7 +294,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h2 class="display-5 fw-bold mb-3">A Living History, A Thriving Community</h2>
-                    <p class="lead text-secondary" style="font-size: 1.2rem;">For generations, the <strong>Ashoorkhana Nale Hyder & Masjid Mehtab Ali Shah</strong> complex has been a cornerstone of faith in Parbhani.</p>
+                    <p class="lead text-secondary" style="font-size: 1.2rem;">For generations, the <b>Ashoorkhana Nale Hyder & Masjid Mehtab Ali Shah</b> complex has been a cornerstone of faith in Parbhani.</p>
                     <p class="text-secondary">Registered as a historic Waqf property (MSBW/PBN/47/2010), our mission is to preserve the profound spiritual traditions and Nizam-era architecture of this sacred place. We are committed to serving the needs of our modern community while honoring the legacy of those who came before us.</p>
                     <a href="About.html" class="btn bg-primary text-white fw-bold py-2 px-4 rounded-pill fs-6 btn-hover mt-3">Learn More About Us</a>
                 </div>
@@ -357,7 +311,9 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
-                        <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
+                        <img src="Home/ANH2.jpg" class="card-img-top" alt="Ashoorkhana"
+                            style="height: 180px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Ashoorkhana';">
                         <div class="card-body">
                             <h4 class="fw-bold">Ashoorkhana Nale Hyder</h4>
                             <p class="small">A sacred space for mourning and remembrance, central to our community's spiritual life.</p>
@@ -366,7 +322,9 @@
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
-                        <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
+                        <img src="Home/architectural.jpg" class="card-img-top" alt="Naqqar Khana"
+                            style="height: 180px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Naqqar+Khana';">
                         <div class="card-body">
                             <h4 class="fw-bold">Naqqar Khana</h4>
                             <p class="small">The historic drum house, echoing Nizam-era traditions of announcing prayer and events.</p>
@@ -375,7 +333,9 @@
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
-                        <img src="Home/structure.jpg" class="card-img-top" alt="Baradari" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
+                        <img src="Home/structure.jpg" class="card-img-top" alt="Baradari"
+                            style="height: 180px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Baradari';">
                         <div class="card-body">
                             <h4 class="fw-bold">Baradari</h4>
                             <p class="small">The twelve-doored pavilion, a timeless architectural marvel for community gatherings.</p>
@@ -384,7 +344,9 @@
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover border-0 text-center">
-                        <img src="Home/Footer Img.jpg" class="card-img-top" alt="Graveyard" style="height: 180px; object-fit: cover;" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Graveyard';">
+                        <img src="Home/Footer Img.jpg" class="card-img-top" alt="Graveyard"
+                            style="height: 180px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=Graveyard';">
                         <div class="card-body">
                             <h4 class="fw-bold">Graveyard</h4>
                             <p class="small">A peaceful resting place, connecting us to the generations that built our community.</p>
@@ -463,7 +425,7 @@
         </div>
     </section>
 
-    <section class="py-4 py-lg-5 bg-light-gray animated-section">
+    <section class="py-4 py-lg-5 animated-section">
         <div class="container my-4 my-lg-5">
             <div class="row align-items-center g-5">
                 <div class="col-lg-5 order-lg-2">
@@ -491,8 +453,11 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
-                            <img src="Home/AA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"Praying here feels like connecting with generations past. It’s more than a masjid; it’s our heritage. The sense of peace is profound."</p>
+                            <img src="Home/AA Shah.jpg" alt="Community Member"
+                                class="rounded-circle mb-3 testimonial-img mx-auto"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=MB';">
+                            <p class="fst-italic">"Praying here feels like connecting with generations past. It’s more
+                                than a masjid; it’s our heritage. The sense of peace is profound."</p>
                             <h5 class="fw-bold mt-auto">- Dr. Anwar Ali Shah.</h5>
                         </div>
                     </div>
@@ -500,8 +465,11 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
-                            <img src="Home/FA Shah.jpg" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"The new Islamic studies classes are wonderful. My kids are learning about their deen in the same place their great-grandparents prayed."</p>
+                            <img src="Home/FA Shah.jpg" alt="Community Member"
+                                class="rounded-circle mb-3 testimonial-img mx-auto"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=MA';">
+                            <p class="fst-italic">"The new Islamic studies classes are wonderful. My kids are learning
+                                about their deen in the same place their great-grandparents prayed."</p>
                             <h5 class="fw-bold mt-auto">- Mr. Farooq Ali Shah.</h5>
                         </div>
                     </div>
@@ -509,8 +477,11 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
-                            <img src="Home/JA Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
-                            <p class="fst-italic">"I am grateful for the sense of unity here. This complex is the heart of our community, a place of solace and connection for everyone."</p>
+                            <img src="Home/JA Shah.png" alt="Community Member"
+                                class="rounded-circle mb-3 testimonial-img mx-auto"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=JA';">
+                            <p class="fst-italic">"I am grateful for the sense of unity here. This complex is the heart
+                                of our community, a place of solace and connection for everyone."</p>
                             <h5 class="fw-bold mt-auto">- Mr. Junaid Ali Shah.</h5>
                         </div>
                     </div>
@@ -518,7 +489,9 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm card-hover bg-white text-dark-blue border-0 p-4">
                         <div class="card-body text-center d-flex flex-column">
-                            <img src="Home/Dr Habib Ali Shah.png" alt="Community Member" class="rounded-circle mb-3 testimonial-img mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=User';">
+                            <img src="Home/Dr Habib Ali Shah.png" alt="Community Member"
+                                class="rounded-circle mb-3 testimonial-img mx-auto"
+                                onerror="this.onerror=null;this.src='https://placehold.co/80x80/cccccc/ffffff?text=HA';">
                             <p class="fst-italic">"The preservation efforts are inspiring. It's a blessing to see our history and faith being honored with such dedication for future generations."</p>
                             <h5 class="fw-bold mt-auto">- Dr. Habib Ali Shah.</h5>
                         </div>
@@ -535,15 +508,62 @@
                 <p class="lead text-secondary">Stay informed about recent events and important announcements.</p>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
-                        <div class="news-img-container" style="background-image: url('Home/Mushtaque Ahmed Photo.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'"></div>
+                        <div class="news-img-container" style="background-image: url('Home/Mushtaque Ahmed Photo.jpg');"
+                            onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=News)'">
+                        </div>
                         <div class="card-body d-flex flex-column">
-                            <p class="card-text text-secondary small"><i class="fas fa-calendar-alt text-primary me-1"></i> August 1, 2025</p>
-                            <h5 class="card-title fw-bold"><a href="single-news-post.html" class="text-dark-blue text-decoration-none">Waqf Board Appoints New Mutawalli</a></h5>
-                            <p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> August 1, 2025</p>
+                            <h5 class="card-title fw-bold"><a href="single-news-post.html"
+                                    class="text-dark-blue text-decoration-none">Waqf Board Appoints New Mutawalli</a>
+                            </h5>
+                            <p class="card-text">We are honored to welcome Mohammed Mushtaque Ahmed as the new
+                                Mutawalli, officially appointed by the Maharashtra State Board of Waqfs...</p>
                             <div class="mt-auto pt-3">
-                                <a href="single-news-post.html" class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
+                                <a href="single-news-post.html"
+                                    class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/student.jpg');"
+                            onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=Students)'">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-secondary small"><i
+                                    class="fas fa-calendar-alt text-primary me-1"></i> August 15, 2025</p>
+                            <h5 class="card-title fw-bold"><a href="youth-program.html"
+                                    class="text-dark-blue text-decoration-none">New Youth Islamic Studies Program</a>
+                            </h5>
+                            <p class="card-text">We're excited to launch our new weekend Islamic Studies Program for
+                                youth ages 7-14! Classes will be held on Saturday and Sunday mornings...</p>
+                            <div class="mt-auto pt-3">
+                                <a href="youth-program.html"
+                                    class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm overflow-hidden card-hover border-0">
+                        <div class="news-img-container" style="background-image: url('Home/Old Document.jpg');"
+                            onerror="this.style.backgroundImage='url(https://placehold.co/400x250/cccccc/ffffff?text=Archive)'">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-text text-secondary small"><i class="fas fa-archive text-primary me-1"></i>
+                                From the Archives</p>
+                            <h5 class="card-title fw-bold"><a href="land-grant-archives.html"
+                                    class="text-dark-blue text-decoration-none">Our Roots: The Nizam-Era Land Grant</a>
+                            </h5>
+                            <p class="card-text">This historic document from the Nizam's government details the original
+                                land grant for the Masjid complex, cementing our place in history...</p>
+                            <div class="mt-auto pt-3">
+                                <a href="land-grant-archives.html"
+                                    class="btn btn-sm bg-primary text-white rounded-pill px-3">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -560,12 +580,16 @@
             <div class="py-4">
                 <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
                 <p class="col-md-6 mx-auto text-white-50">
-                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
+                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy
+                    of the Nizam era.
                 </p>
                 <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i
+                            class="fas fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank"
+                        class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
 
@@ -665,9 +689,10 @@
 
         // Prayer Time Logic
         document.addEventListener('DOMContentLoaded', function() {
+            // Default times in case API fails
             let prayerTimes = {
-                'Fajr': '05:06', 'Dhuhr': '12:21', 'Asr': '15:45', 'Maghrib': '18:13', 'Isha': '19:35'
-            }; // Fallback times
+                'Fajr': '05:30', 'Dhuhr': '13:15', 'Asr': '17:00', 'Maghrib': '18:45', 'Isha': '20:30'
+            };
 
             const prayerElements = {
                 'Fajr': document.getElementById('fajr').querySelector('.card'),
@@ -706,8 +731,8 @@
 
                     startCountdown();
                 } catch (error) {
-                    console.error("Failed to fetch prayer times:", error);
-                    // Use fallback times if API fails
+                    console.error("Failed to fetch prayer times, using default:", error);
+                    // Use fallback times
                     document.querySelector('#fajr p').textContent = formatTime(prayerTimes.Fajr);
                     document.querySelector('#dhuhr p').textContent = formatTime(prayerTimes.Dhuhr);
                     document.querySelector('#asr p').textContent = formatTime(prayerTimes.Asr);
@@ -747,6 +772,7 @@
             function updateCountdown() {
                 const now = new Date();
                 const nextPrayerInfo = getNextPrayer();
+
                 const diff = nextPrayerInfo.time - now;
 
                 const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -773,12 +799,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof THREE !== 'undefined') {
                 const header = document.querySelector('header');
-                if (!header) return;
+                const canvas = document.querySelector('#bg-animation');
+                if (!header || !canvas) return;
 
                 const scene = new THREE.Scene();
                 const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
                 const renderer = new THREE.WebGLRenderer({
-                    canvas: document.querySelector('#bg-animation'),
+                    canvas: canvas,
                     alpha: true
                 });
 
@@ -831,34 +858,36 @@
             }
         });
         
-        // Community Q&A Logic (Removed AI call)
+        // Community Q&A Logic
         document.addEventListener('DOMContentLoaded', () => {
             const qaBtn = document.getElementById('generate-qa-btn');
             const qaTopicInput = document.getElementById('qa-topic-input');
             const qaOutput = document.getElementById('qa-output');
 
-            qaBtn.addEventListener('click', () => {
-                const topic = qaTopicInput.value.toLowerCase();
-                let answer = '';
+            if(qaBtn && qaTopicInput && qaOutput) {
+                qaBtn.addEventListener('click', () => {
+                    const topic = qaTopicInput.value.toLowerCase();
+                    let answer = '';
 
-                if (topic.includes('program') || topic.includes('class') || topic.includes('youth')) {
-                    answer = "We offer a weekend Islamic Studies Program for youth aged 7-14, covering Quran, Islamic history, and more. For specific timings, please contact the Masjid office directly through the details on our Contact page.";
-                } else if (topic.includes('history') || topic.includes('naqqar khana') || topic.includes('baradari')) {
-                    answer = "Our complex is a historic Waqf property from the Nizam era. It includes the Ashoorkhana Nale Hyder, the Naqqar Khana (drum house), and the Baradari pavilion. You can learn more on our 'About Us' page.";
-                } else if (topic.includes('donate') || topic.includes('charity')) {
-                    answer = "You can find all donation details, including bank account information and a QR code, on our 'Contact Us' page. Your support is greatly appreciated!";
-                } else if (topic.includes('contact') || topic.includes('phone') || topic.includes('email')) {
-                    answer = "You can find our phone number, email, and address on the 'Contact Us' page. We look forward to hearing from you.";
-                } else {
-                    answer = "Thank you for your question. For detailed inquiries, please use the form on our 'Contact Us' page to send us a message directly. You can ask about our history, community services, or events.";
-                }
-                qaOutput.innerHTML = `<p>${answer}</p>`;
-            });
+                    if (topic.includes('program') || topic.includes('class') || topic.includes('youth')) {
+                        answer = "We offer a weekend Islamic Studies Program for youth aged 7-14, covering Quran, Islamic history, and more. For specific timings, please contact the Masjid office directly through the details on our Contact page.";
+                    } else if (topic.includes('history') || topic.includes('naqqar khana') || topic.includes('baradari')) {
+                        answer = "Our complex is a historic Waqf property from the Nizam era. It includes the Ashoorkhana Nale Hyder, the Naqqar Khana (drum house), and the Baradari pavilion. You can learn more on our 'About Us' page.";
+                    } else if (topic.includes('donate') || topic.includes('charity')) {
+                        answer = "You can find all donation details, including bank account information and a QR code, on our 'Contact Us' page. Your support is greatly appreciated!";
+                    } else if (topic.includes('contact') || topic.includes('phone') || topic.includes('email')) {
+                        answer = "You can find our phone number, email, and address on the 'Contact Us' page. We look forward to hearing from you.";
+                    } else if (topic.trim() === '') {
+                         answer = "Please enter a question or topic so we can help you.";
+                    } else {
+                        answer = "Thank you for your question. For detailed inquiries, please use the form on our 'Contact Us' page to send us a message directly. You can ask about our history, community services, or events.";
+                    }
+                    qaOutput.innerHTML = `<p>${answer}</p>`;
+                });
+            }
         });
 
     </script>
 </body>
 
 </html>
-
-
