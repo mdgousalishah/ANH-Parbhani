@@ -1,0 +1,15 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/about", "destination": "/About.html" },
+    { "source": "/about.html", "destination": "/About.html" },
+    { "source": "/news", "destination": "/News.html" },
+    { "source": "/news.html", "destination": "/News.html" },
+    { "source": "/contact", "destination": "/Contact.html" },
+    { "source": "/contact.html", "destination": "/Contact.html" },
+    { "source": "/land-grant-archives", "destination": "/land-grant-archives.html" },
+    { "source": "/shop-registration", "destination": "/shop-registration.html" },
+    { "source": "/single-news-post", "destination": "/single-news-post.html" },
+    { "source": "/youth-program", "destination": "/youth-program.html" }
+  ]
+}
