@@ -4,203 +4,609 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>From the Archives: Land Grants - Masjid e Mehtab Ali Shah</title>
+    <title>Historic Waqf Land Grants | Masjid e Mehtab Ali Shah Archives</title>
 
-        <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="Home/ANH2.jpg">
     
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Merriweather & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- AOS (Animate on Scroll) Library -->
+    <!-- Light Gallery for Document Zoom/Download -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-zoom.min.css" />
+
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Three.js for subtle background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
-        /* Applying custom fonts to the body and headings */
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #555;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+        /* --- Core Variables & Theming --- */
+        :root {
+            /* Light Theme */
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-surface-alt: #f1f5f9;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --heading-color: #0f172a;
+            --border-color: rgba(0, 0, 0, 0.08);
+            
+            /* Brand Colors */
+            --primary: #15803d;
+            --primary-hover: #166534;
+            --accent: #22c55e;
+            --secondary: #f59e0b;
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-card: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Merriweather', serif;
-            color: #2c3e50;
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-alt: #0b1120;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --heading-color: #f8fafc;
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            /* Glassmorphism Dark */
+            --glass-bg: rgba(15, 23, 42, 0.85);
+            --glass-card: rgba(30, 41, 59, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Shadows Dark */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
-        /* Custom styles for navbar links to avoid conflicts */
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500; /* medium weight */
-            transition: color 0.3s;
+
+        /* --- Global Styles --- */
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6, .brand-text { font-family: 'Merriweather', serif; color: var(--heading-color); }
+        p { color: var(--text-main); line-height: 1.8; font-size: 1.1rem; }
+        .text-muted-custom { color: var(--text-muted) !important; }
+        .text-primary-custom { color: var(--primary) !important; }
+
+        /* Highlighted Keywords */
+        .keyword-highlight { background: rgba(34, 197, 94, 0.1); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: 600; font-family: 'Inter', sans-serif; border: 1px solid rgba(34, 197, 94, 0.3);}
+        [data-theme="dark"] .keyword-highlight { background: rgba(34, 197, 94, 0.2); }
+
+        /* --- Navbar --- */
+        .navbar { background-color: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: padding 0.3s ease, background-color 0.4s ease; }
+        .navbar.scrolled { padding-top: 0.5rem; padding-bottom: 0.5rem; box-shadow: var(--shadow-sm); }
+        .navbar-brand { color: var(--heading-color) !important; }
+        .nav-link { color: var(--text-main) !important; font-weight: 500; position: relative; padding: 0.5rem 1rem; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
+        .theme-toggle { background: transparent; border: none; color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: transform 0.3s ease; }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); color: var(--secondary); }
+
+        /* --- Buttons --- */
+        .btn-modern { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white !important; border: none; border-radius: 50px; padding: 12px 30px; font-weight: 600; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(21, 128, 61, 0.2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; z-index: 1; }
+        .btn-modern::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--primary-hover)); opacity: 0; z-index: -1; transition: opacity 0.3s ease; }
+        .btn-modern:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3); }
+        .btn-modern:hover::before { opacity: 1; }
+
+        .btn-outline-modern { background: transparent; color: var(--heading-color); border: 2px solid var(--primary); border-radius: 50px; padding: 10px 28px; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-outline-modern:hover { background: var(--primary); color: white; box-shadow: 0 10px 25px rgba(21, 128, 61, 0.3); transform: translateY(-3px); }
+
+        /* --- Hero Header --- */
+        .archive-hero {
+            position: relative; min-height: 55vh; display: flex; align-items: center; padding-bottom: 40px; padding-top: 100px;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), url('Home/Old\ Document.jpg') center/cover no-repeat fixed;
         }
-        .navbar-nav .nav-link.active,
-        .navbar-nav .nav-link:hover {
-            color: #1abc9c; /* primary color */
+        .hero-pattern {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1; pointer-events: none;
         }
-        /* Force navbar to be visible on desktop to override conflicts */
-        @media (min-width: 992px) {
-            #main-nav.navbar-collapse {
-                display: flex !important;
-                visibility: visible !important;
-            }
+        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .hero-content { position: relative; z-index: 3; color: white; width: 100%; }
+        
+        .breadcrumb-modern { margin-bottom: 1.5rem; font-size: 0.9rem; letter-spacing: 0.5px; opacity: 0.8; }
+        .breadcrumb-modern a { color: white; text-decoration: none; transition: opacity 0.3s; }
+        .breadcrumb-modern a:hover { color: var(--accent); opacity: 1; }
+        .breadcrumb-modern span { margin: 0 8px; }
+
+        .archive-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; text-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .archive-subtitle { font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 300; opacity: 0.9; max-width: 700px; line-height: 1.6;}
+
+        /* --- General Layout --- */
+        .section-padding { padding: 80px 0; }
+        .bg-alt { background-color: var(--bg-surface-alt); }
+        .section-title { position: relative; display: inline-block; margin-bottom: 3rem; color: var(--heading-color); font-weight: 700;}
+        .section-title::after { content: ''; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent); border-radius: 3px; }
+
+        .custom-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: 16px; box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn {
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .custom-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--glass-border); }
+
+        /* --- Legal Importance & Article --- */
+        .article-container { max-width: 800px; margin: 0 auto; position: relative; }
+        .legal-banner { border-left: 5px solid var(--secondary); background: linear-gradient(to right, rgba(245, 158, 11, 0.1), transparent); padding: 1.5rem 2rem; border-radius: 0 16px 16px 0; margin-bottom: 3rem; }
+        .legal-banner h5 { color: var(--secondary); font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;}
+        .legal-banner p { margin: 0; font-size: 1rem; color: var(--heading-color); line-height: 1.6;}
+
+        .custom-quote {
+            position: relative; padding: 2.5rem 2.5rem 2.5rem 4rem; margin: 3rem 0;
+            background-color: var(--bg-surface-alt); border-left: 6px solid var(--accent); border-radius: 0 16px 16px 0;
+            font-family: 'Merriweather', serif; font-size: 1.4rem; font-style: italic; color: var(--heading-color); line-height: 1.7; box-shadow: var(--shadow-sm);
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        .custom-quote::before { content: '\f10d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: 20px; left: 15px; font-size: 2rem; color: var(--primary); opacity: 0.2; }
+
+        /* --- Historical Timeline --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 0; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background: linear-gradient(to bottom, var(--primary), var(--accent)); top: 0; bottom: 0; left: 40px; border-radius: 4px; }
+        .timeline-item { position: relative; padding-left: 100px; margin-bottom: 40px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot { position: absolute; left: 26px; top: 0; width: 32px; height: 32px; background: var(--accent); border: 6px solid var(--bg-body); border-radius: 50%; z-index: 1; box-shadow: 0 0 15px rgba(34,197,94,0.4); display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; transition: transform 0.3s;}
+        .timeline-item:hover .timeline-dot { transform: scale(1.2); }
+        .timeline-content { padding: 1.5rem; background: var(--bg-surface); border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); transition: all 0.3s;}
+        .timeline-item:hover .timeline-content { transform: translateX(10px); border-color: var(--accent); box-shadow: var(--shadow-md); }
+        .timeline-date { color: var(--primary); font-weight: 800; font-size: 1.2rem; margin-bottom: 5px; font-family: 'Merriweather', serif;}
+
+        /* --- Document Viewer Gallery --- */
+        .doc-details-card { height: 100%; border-left: 4px solid var(--primary); }
+        .detail-row { display: flex; border-bottom: 1px solid var(--border-color); padding: 12px 0; }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-label { width: 40%; font-weight: 600; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;}
+        .detail-value { width: 60%; color: var(--heading-color); font-weight: 500; }
+
+        .archive-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .gallery-item {
+            position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);
+            aspect-ratio: 3/4; cursor: pointer; border: 1px solid var(--border-color); transition: all 0.4s ease;
         }
-        .gallery-img {
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .gallery-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.4); opacity: 0; transition: opacity 0.3s; z-index: 1;
         }
-        .gallery-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: sepia(0.3) contrast(1.1); }
+        .gallery-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .gallery-item:hover::before { opacity: 1; }
+        .gallery-item:hover img { transform: scale(1.05); filter: sepia(0) contrast(1.2); }
+        
+        .gallery-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            color: white; z-index: 2; transform: translateY(20px); opacity: 0; transition: all 0.4s ease;
         }
-        .bg-primary {
-            background-color: #1abc9c !important;
-        }
-        .bg-secondary {
-            background-color: #e67e22 !important;
-        }
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
-        }
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
-        }
-        .text-primary {
-            color: #1abc9c !important;
-        }
-        .text-dark-blue {
-            color: #2c3e50 !important;
-        }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); opacity: 1; }
+        .zoom-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); color: white; font-size: 3rem; opacity: 0; z-index: 2; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .gallery-item:hover .zoom-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        
+        .official-badge { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.7); color: white; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; z-index: 2; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(4px);}
+
+        /* --- CTA Banner --- */
+        .cta-banner { background: linear-gradient(135deg, var(--primary), var(--heading-color)); color: white; border-radius: 20px; padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+        .cta-banner::before { content: '\f19c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -20px; bottom: -40px; font-size: 15rem; color: rgba(255,255,255,0.05); }
+
+        /* --- Footer --- */
+        .footer { background-color: #0f172a; color: #cbd5e1; padding-top: 80px; padding-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-heading { color: white; font-family: 'Merriweather', serif; font-size: 1.25rem; margin-bottom: 1.5rem; }
+        .footer-link { color: #cbd5e1; text-decoration: none; transition: color 0.3s; display: block; margin-bottom: 0.75rem; }
+        .footer-link:hover { color: var(--accent); transform: translateX(5px); }
+        .social-circle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; transition: all 0.3s; margin-right: 10px; text-decoration: none; }
+        .social-circle:hover { background: var(--primary); transform: translateY(-3px); color: white;}
     </style>
 </head>
 
-<body class="bg-white">
+<body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNavbar">
         <div class="container">
-            <!-- Logo + Site Name -->
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
-                <span style="font-family: 'Merriweather', serif; font-size: 19px;">Masjid e Mehtab Ali Shah</span>
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 45px; width: 45px; object-fit: cover;" onerror="this.src='https://placehold.co/45x45/15803d/ffffff?text=M'">
+                <span class="brand-text fw-bold fs-5">Masjid e Mehtab Ali Shah</span>
             </a>
-            <!-- Hamburger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
-                    </li>
+            
+            <div class="d-flex align-items-center gap-3 d-lg-none">
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <i class="fas fa-bars fs-3" style="color: var(--heading-color)"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="News.html">News & Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="land-grant-archives.html">Archives</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
                 </ul>
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <button class="theme-toggle d-none d-lg-block" id="themeToggleDesktop" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                    <a href="Contact.html#donate" class="btn-modern text-decoration-none"><span>Support</span> <i class="fas fa-heart"></i></a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Article Content Section -->
-    <section class="py-5">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <!-- Article Header -->
-                    <div class="text-center" data-aos="fade-down">
-                        <h1 class="display-5 fw-bold mb-3">A Glimpse into Our History: The Land Grants</h1>
-                        <p class="text-muted mb-4"><i class="fas fa-archive text-primary me-1"></i> From the Archives</p>
-                    </div>
-                    
-                    <!-- Article Image -->
-                    <div class="text-center my-4" data-aos="zoom-in">
-                        <img src="Home/Old Document.jpg" class="img-fluid rounded-3 shadow-lg" alt="Historic Land Grant Document" onerror="this.onerror=null;this.src='https://placehold.co/800x500/cccccc/ffffff?text=Error';">
-                    </div>
+    <!-- Archive Hero Header -->
+    <header class="archive-hero">
+        <div class="hero-pattern"></div>
+        <canvas id="bg-animation"></canvas>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <div class="breadcrumb-modern mb-3">
+                    <a href="index.html">Home</a> <span>/</span> <a href="News.html">News & Archives</a> <span>/</span> <span class="text-accent fw-bold">Waqf Land Grants</span>
+                </div>
+                <h1 class="archive-title">Historic Waqf Land Grants</h1>
+                <p class="archive-subtitle">Original, high-resolution documentation from the Nizam era confirming the endowment and legal status of the Masjid e Mehtab Ali Shah complex.</p>
+            </div>
+        </div>
+    </header>
 
-                    <!-- Article Body -->
-                    <div class="fs-5" data-aos="fade-up">
-                        <p>This historic document, dating back to the Nizam era, is a cornerstone of our institution's history. It details the original service endowment (**Khidmat-e-Mash**) of over 13 acres of land granted for the establishment and maintenance of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Nale Hyder.</p>
-                        <p>The grant was a sacred trust, intended to ensure that the complex would serve as a center for prayer, community gathering, and spiritual remembrance for generations to come. The document outlines the specific survey numbers and boundaries of the land, underscoring its legal and religious significance as a Waqf property.</p>
-                        <blockquote class="blockquote bg-light-gray p-4 rounded-3 my-4 border-start border-5 border-primary" data-aos="fade-left">
-                            <p class="mb-0 fst-italic">"This endowment was not merely a gift of land, but a commitment to the future of our community—a promise that this sacred space would be protected and preserved."</p>
-                        </blockquote>
-                        <p>Today, this document is more important than ever. It serves as a critical piece of evidence in our ongoing efforts to address the illegal encroachment on these historic grounds. Preserving this land is not just about protecting property; it is about honoring the intentions of our ancestors and safeguarding a vital piece of our heritage for the future.</p>
-                    </div>
+    <!-- Main Content & Timeline -->
+    <main class="section-padding bg-body">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- Article Text -->
+                <div class="col-lg-7" data-aos="fade-up">
+                    <div class="article-container">
+                        <div class="legal-banner">
+                            <h5><i class="fas fa-balance-scale"></i> Legal Importance</h5>
+                            <p>These historical records confirm the original <span class="keyword-highlight">Waqf Endowment</span> of the Masjid land. They serve as essential, irrefutable evidence for protecting the property from illegal encroachment and ensuring the preservation of the institution's heritage under the Waqf Act.</p>
+                        </div>
 
-                    <!-- Document Gallery -->
-                    <div class="mt-5" data-aos="fade-up">
-                        <h2 class="fw-bold text-center mb-4">Explore the Documents</h2>
-                        <div class="row g-4">
-                            <div class="col-md-4"><img src="Home/waqf 123_5.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 1" data-bs-toggle="modal" data-bs-target="#docModal1"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_6.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 2" data-bs-toggle="modal" data-bs-target="#docModal2"></div>
-                            <div class="col-md-4"><img src="Home/waqf 123_433.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Document 3" data-bs-toggle="modal" data-bs-target="#docModal3"></div>
+                        <p>This historic document, dating back to the <span class="keyword-highlight">Nizam Era</span>, is the absolute cornerstone of our institution's history and legal standing. It meticulously details the original service endowment, known formally as <strong><span class="keyword-highlight">Khidmat-e-Mash</span></strong>, of over <span class="keyword-highlight">13+ Acres</span> of land granted exclusively for the establishment and continuous maintenance of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Nale Hyder.</p>
+                        
+                        <p>The grant was established as a sacred trust, intended to ensure that the complex would serve as an eternal center for prayer, community gathering, and spiritual remembrance for generations to come. The document strictly outlines the specific survey numbers and boundaries of the land, underscoring its religious significance and inalienable status as a Waqf property.</p>
+                        
+                        <div class="custom-quote" data-aos="fade-left">
+                            "This endowment was not merely a gift of land, but a divine commitment to the future of our community—a promise that this sacred space would be protected, maintained, and preserved until the end of times."
+                        </div>
+                        
+                        <p>Today, as the institution faces modern challenges, this document is more important than ever. It is the primary reference in our ongoing legal and administrative efforts to address illegal encroachments. Preserving this land is not just about protecting property; it is a religious obligation to honor the intentions of our founders and safeguard a vital piece of our spiritual heritage.</p>
+                    </div>
+                </div>
+
+                <!-- Historical Timeline -->
+                <div class="col-lg-5" data-aos="fade-left">
+                    <h3 class="fw-bold mb-4" style="color: var(--heading-color)">Chronology of Endowment</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"><i class="fas fa-scroll"></i></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">1880</div>
+                                <h6 class="fw-bold" style="color: var(--heading-color)">Original Endowment Issued</h6>
+                                <p class="small text-muted-custom mb-0">The 'Sanad' is granted by the Nizam Government, officially establishing the Khidmat-e-Mash.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"><i class="fas fa-file-signature"></i></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">1961</div>
+                                <h6 class="fw-bold" style="color: var(--heading-color)">Trust Registration</h6>
+                                <p class="small text-muted-custom mb-0">Registered under the Bombay Public Trust Act, securing its legal status in modern India.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"><i class="fas fa-gavel"></i></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">1987</div>
+                                <h6 class="fw-bold" style="color: var(--heading-color)">Administrative Scheme</h6>
+                                <p class="small text-muted-custom mb-0">An official legal scheme for the administration and management of the trust is adopted.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"><i class="fas fa-shield-alt"></i></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Present Day</div>
+                                <h6 class="fw-bold" style="color: var(--heading-color)">Active Protection</h6>
+                                <p class="small text-muted-custom mb-0">Current Mutawalli and Waqf Board actively use these documents to reclaim encroached land.</p>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Back to News Link -->
-                    <div class="text-center mt-5" data-aos="fade-up">
-                        <a href="News.html" class="btn bg-primary text-white fw-bold rounded-pill px-5 py-2 btn-hover">
-                            <i class="fas fa-arrow-left me-2"></i> Back to All News
+            </div>
+        </div>
+    </main>
+
+    <!-- Digital Archive Viewer Section -->
+    <section class="section-padding bg-alt border-top border-secondary border-opacity-10">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Digital Archive Viewer</h2>
+                <p class="text-muted-custom">Click any document to open the high-resolution viewer. You can zoom in to read the original text or download a copy.</p>
+            </div>
+            
+            <div class="row g-4 mb-4">
+                <!-- Document Details Card -->
+                <div class="col-lg-4 order-lg-2" data-aos="fade-left">
+                    <div class="custom-card doc-details-card p-4">
+                        <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary border-opacity-10 pb-3">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle"><i class="fas fa-info-circle fs-4"></i></div>
+                            <h4 class="fw-bold mb-0" style="color: var(--heading-color)">Record Details</h4>
+                        </div>
+                        
+                        <div class="detail-row">
+                            <div class="detail-label">Doc Name</div>
+                            <div class="detail-value">Muntaqab No. 25624</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Authority</div>
+                            <div class="detail-value">Hyderabad State (Nizam Government)</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Type</div>
+                            <div class="detail-value">Waqf Endowment (Khidmat-e-Mash)</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Purpose</div>
+                            <div class="detail-value">Endowment for Masjid & Ashoorkhana</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Total Land</div>
+                            <div class="detail-value">13 Acres, 23 Gunthas</div>
+                        </div>
+                        
+                        <div class="mt-4 pt-3 border-top border-secondary border-opacity-10">
+                            <button class="btn-outline-modern w-100 justify-content-center" onclick="document.querySelector('.gallery-item').click()">
+                                <i class="fas fa-search-plus"></i> Open Viewer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="col-lg-8 order-lg-1" data-aos="fade-right">
+                    <div class="archive-gallery" id="archive-gallery">
+                        <!-- Item 1 -->
+                        <a href="Home/waqf 123_5.jpg" class="gallery-item" data-src="Home/waqf 123_5.jpg" data-sub-html="<h4>Page 1: The Sanad</h4><p>The primary grant document bearing the official seal of the Nizam Government, detailing the endowment of the land.</p>">
+                            <span class="official-badge">Official Waqf Record</span>
+                            <img src="Home/waqf 123_5.jpg" alt="Sanad Page 1" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=600';">
+                            <i class="fas fa-search-plus zoom-icon"></i>
+                            <div class="gallery-overlay">
+                                <h5 class="fw-bold mb-1">Page 1: The Sanad</h5>
+                                <p class="small mb-0 opacity-75">Primary grant document with official seal.</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Item 2 -->
+                        <a href="Home/waqf 123_6.jpg" class="gallery-item" data-src="Home/waqf 123_6.jpg" data-sub-html="<h4>Page 2: Land Details</h4><p>Continuation of the grant, detailing specific survey numbers and boundaries of the 13-acre property.</p>">
+                            <span class="official-badge">Official Waqf Record</span>
+                            <img src="Home/waqf 123_6.jpg" alt="Sanad Page 2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1604871000636-074fa5117945?auto=format&fit=crop&q=80&w=600';">
+                            <i class="fas fa-search-plus zoom-icon"></i>
+                            <div class="gallery-overlay">
+                                <h5 class="fw-bold mb-1">Page 2: Land Details</h5>
+                                <p class="small mb-0 opacity-75">Survey numbers and boundary descriptions.</p>
+                            </div>
+                        </a>
+
+                        <!-- Item 3 -->
+                        <a href="Home/waqf 123_433.jpg" class="gallery-item" data-src="Home/waqf 123_433.jpg" data-sub-html="<h4>Trust Registration Record</h4><p>Document verifying the official registration of the property under the Bombay Public Trust Act in 1961.</p>">
+                            <span class="official-badge">Official Waqf Record</span>
+                            <img src="Home/waqf 123_433.jpg" alt="Trust Registration" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600';">
+                            <i class="fas fa-search-plus zoom-icon"></i>
+                            <div class="gallery-overlay">
+                                <h5 class="fw-bold mb-1">Trust Registration</h5>
+                                <p class="small mb-0 opacity-75">1961 Bombay Public Trust Act record.</p>
+                            </div>
                         </a>
                     </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="News.html" class="btn-outline-modern">
+                    <i class="fas fa-arrow-left"></i> Back to News & Archives
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="py-5 bg-body">
+        <div class="container my-4">
+            <div class="cta-banner" data-aos="zoom-in">
+                <h2 class="display-5 fw-bold mb-3">Help Us Preserve Our Heritage</h2>
+                <p class="fs-5 opacity-75 mb-5 max-w-700 mx-auto" style="max-width: 700px;">Protecting this Waqf land is a legal and spiritual duty. Your support ensures this historic institution remains for future generations.</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap position-relative z-3">
+                    <a href="Contact.html#donate" class="btn btn-light text-primary fw-bold rounded-pill px-5 py-3 fs-5 shadow">
+                        Support the Masjid
+                    </a>
+                    <a href="Contact.html" class="btn btn-outline-light rounded-pill px-5 py-3 fs-5 fw-bold">
+                        Contact Administration
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modals for Document Viewer -->
-    <div class="modal fade" id="docModal1" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_5.jpg" class="img-fluid"></div></div></div></div>
-    <div class="modal fade" id="docModal2" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_6.jpg" class="img-fluid"></div></div></div></div>
-    <div class="modal fade" id="docModal3" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body"><img src="Home/waqf 123_433.jpg" class="img-fluid"></div></div></div></div>
-
-    <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+    <!-- Structured Footer -->
+    <footer class="footer">
         <div class="container">
-            <div class="py-4">
-                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
-                <p class="col-md-6 mx-auto text-white-50">
-                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
-                </p>
-                <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+            <div class="row g-5 mb-5">
+                <!-- About -->
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center gap-2 text-decoration-none mb-4" href="index.html">
+                        <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;" onerror="this.src='https://placehold.co/40x40/15803d/ffffff?text=M'">
+                        <span class="fw-bold fs-5 text-white" style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
+                    </a>
+                    <p class="text-muted mb-4 pe-lg-4">Preserving our shared history and fostering a vibrant Islamic community in Parbhani, Maharashtra. A legacy of the Nizam era.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <!-- Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h4 class="footer-heading">Masjid</h4>
+                    <a href="About.html" class="footer-link">About Us</a>
+                    <a href="About.html#timeline" class="footer-link">History</a>
+                    <a href="News.html" class="footer-link">News</a>
+                    <a href="News.html#gallery" class="footer-link">Gallery</a>
+                </div>
+                <!-- Archives -->
+                <div class="col-lg-2 col-md-6">
+                    <h4 class="footer-heading">Archives</h4>
+                    <a href="land-grant-archives.html" class="footer-link text-accent">Land Grants</a>
+                    <a href="#" class="footer-link">Historical Photos</a>
+                    <a href="#" class="footer-link">Trust Papers</a>
+                </div>
+                <!-- Contact & Map -->
+                <div class="col-lg-4">
+                    <h4 class="footer-heading">Contact Info</h4>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2 text-muted"><i class="fas fa-map-marker-alt text-primary me-2"></i> Survey No. 1, 2 & 3, Parbhani, MH</li>
+                        <li class="mb-2"><i class="fas fa-phone text-primary me-2"></i> <a href="tel:+919421488111" class="text-muted text-decoration-none">+91 9421488111</a></li>
+                        <li class="mb-2"><i class="fas fa-envelope text-primary me-2"></i> <a href="mailto:anhparbhani123@gmail.com" class="text-muted text-decoration-none">anhparbhani123@gmail.com</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
-               <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+            <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-muted small">
+                <p class="mb-0">&copy; <span id="currentYear"></span> Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+                <p class="mt-1">Designed & Developed by Kamel Shah</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
     <script>
-        // Initialize AOS with some default options
-        AOS.init({
-            duration: 800, // values from 0 to 3000, with step 50ms
-            once: true, // whether animation should happen only once - while scrolling down
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initialize AOS
+            AOS.init({ once: true, duration: 800, offset: 50 });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // 2. Navbar Scroll
+            const navbar = document.getElementById('mainNavbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            // 3. Dark Mode Logic
+            const themeToggleDesktop = document.getElementById('themeToggleDesktop');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const body = document.documentElement;
+
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                updateToggleIcons('dark');
+            }
+
+            function updateToggleIcons(theme) {
+                const iconClass = theme === 'dark' ? 'fas fa-sun text-warning' : 'fas fa-moon';
+                themeToggleDesktop.innerHTML = `<i class="${iconClass}"></i>`;
+                themeToggleMobile.innerHTML = `<i class="${iconClass}"></i>`;
+            }
+
+            function toggleTheme() {
+                let theme = body.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    updateToggleIcons('light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateToggleIcons('dark');
+                }
+            }
+
+            themeToggleDesktop.addEventListener('click', toggleTheme);
+            themeToggleMobile.addEventListener('click', toggleTheme);
+
+            // 4. Initialize LightGallery (Archive Viewer)
+            const archiveGallery = document.getElementById('archive-gallery');
+            if(archiveGallery) {
+                lightGallery(archiveGallery, {
+                    plugins: [lgZoom],
+                    speed: 500,
+                    mode: 'lg-fade',
+                    download: true, // Enables download button
+                    zoomFromOrigin: true,
+                    mobileSettings: { controls: true, showCloseIcon: true, download: true }
+                });
+            }
+
+            // 5. Three.js Background Animation (Parallax Hero)
+            if (typeof THREE !== 'undefined') {
+                const header = document.querySelector('.archive-hero');
+                const canvas = document.querySelector('#bg-animation');
+                if (header && canvas) {
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
+                    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+                    const setSize = () => {
+                        renderer.setSize(header.clientWidth, header.clientHeight);
+                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                        camera.aspect = header.clientWidth / header.clientHeight;
+                        camera.updateProjectionMatrix();
+                    };
+                    setSize();
+                    camera.position.z = 5;
+
+                    const particlesGeometry = new THREE.BufferGeometry();
+                    const count = window.innerWidth > 768 ? 800 : 300;
+                    const positions = new Float32Array(count * 3);
+                    for (let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 15;
+                    
+                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                    const particlesMaterial = new THREE.PointsMaterial({
+                        size: 0.02, color: 0xf59e0b, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending
+                    });
+                    
+                    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                    scene.add(particles);
+
+                    let mouseX = 0; let mouseY = 0;
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                        mouseY = -(e.clientY / window.innerHeight) * 2 - 1;
+                    });
+
+                    const clock = new THREE.Clock();
+                    const animate = () => {
+                        const elapsedTime = clock.getElapsedTime();
+                        // Slow, subtle rotation suitable for archives
+                        particles.rotation.y = elapsedTime * 0.01 + mouseX * 0.02;
+                        particles.rotation.x = elapsedTime * 0.005 + mouseY * 0.02;
+                        renderer.render(scene, camera);
+                        window.requestAnimationFrame(animate);
+                    };
+                    animate();
+                    window.addEventListener('resize', setSize);
+                }
+            }
         });
     </script>
 </body>
-
 </html>

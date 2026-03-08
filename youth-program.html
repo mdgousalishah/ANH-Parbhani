@@ -4,185 +4,395 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Youth Islamic Studies Program - Masjid e Mehtab Ali Shah</title>
+    <title>Youth Islamic Studies Program | Masjid e Mehtab Ali Shah</title>
 
-        <link rel="icon" type="image/png" href="Home/ANH2.jpg">
+    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
     <link rel="apple-touch-icon" href="Home/ANH2.jpg">
-    
-    <!-- Bootstrap CSS -->
+
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
+
+    <!-- Google Fonts: Merriweather & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <!-- AOS (Animate on Scroll) Library -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Three.js for Hero Particles -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
-        /* Applying custom fonts to the body and headings */
+        /* --- Core Variables & Theming --- */
+        :root {
+            /* Light Theme */
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-surface-alt: #f1f5f9;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --heading-color: #0f172a;
+            --border-color: rgba(0, 0, 0, 0.08);
+            
+            /* Brand Colors */
+            --primary: #15803d;
+            --primary-hover: #166534;
+            --accent: #22c55e;
+            --secondary: #f59e0b;
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-card: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-alt: #0b1120;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --heading-color: #f8fafc;
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            /* Glassmorphism Dark */
+            --glass-bg: rgba(15, 23, 42, 0.85);
+            --glass-card: rgba(30, 41, 59, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Shadows Dark */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- Global Styles --- */
         body {
-            font-family: 'Roboto', sans-serif;
-            color: #555;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
-        h1, h2, h3, h4, h5, h6 {
+
+        h1, h2, h3, h4, h5, h6, .brand-text {
             font-family: 'Merriweather', serif;
-            color: #2c3e50;
+            color: var(--heading-color);
         }
-        /* Custom styles for navbar links to avoid conflicts */
-        .navbar-nav .nav-link {
-            color: #2c3e50;
-            font-weight: 500; /* medium weight */
-            transition: color 0.3s;
+
+        p { color: var(--text-main); line-height: 1.7; }
+        .text-muted-custom { color: var(--text-muted) !important; }
+        .text-primary-custom { color: var(--primary) !important; }
+
+        /* --- Navbar --- */
+        .navbar {
+            background-color: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color); transition: padding 0.3s ease, background-color 0.4s ease;
         }
-        .navbar-nav .nav-link.active,
-        .navbar-nav .nav-link:hover {
-            color: #1abc9c; /* primary color */
+        .navbar.scrolled { padding-top: 0.5rem; padding-bottom: 0.5rem; box-shadow: var(--shadow-sm); }
+        .navbar-brand { color: var(--heading-color) !important; }
+        
+        .nav-link { color: var(--text-main) !important; font-weight: 500; position: relative; padding: 0.5rem 1rem; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
+        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
+        .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
+
+        .theme-toggle { background: transparent; border: none; color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: transform 0.3s ease; }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); color: var(--secondary); }
+
+        /* --- Modern Buttons --- */
+        .btn-modern {
+            background: linear-gradient(135deg, var(--primary), var(--accent)); color: white !important; border: none; border-radius: 50px;
+            padding: 12px 30px; font-weight: 600; position: relative; overflow: hidden; transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(21, 128, 61, 0.2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; z-index: 1;
         }
-        /* Force navbar to be visible on desktop to override conflicts */
-        @media (min-width: 992px) {
-            #main-nav.navbar-collapse {
-                display: flex !important;
-                visibility: visible !important;
-            }
+        .btn-modern::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--primary-hover)); opacity: 0; z-index: -1; transition: opacity 0.3s ease; }
+        .btn-modern:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3); }
+        .btn-modern:hover::before { opacity: 1; }
+
+        .btn-outline-modern {
+            background: transparent; color: var(--heading-color);
+            border: 2px solid var(--primary); border-radius: 50px;
+            padding: 10px 28px; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
         }
-        .btn {
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .btn-outline-modern:hover { background: var(--primary); color: white; box-shadow: 0 10px 25px rgba(21, 128, 61, 0.3); transform: translateY(-3px); }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            position: relative; min-height: 80vh; display: flex; align-items: center;
+            background: url('Home/student1.jpg') center/cover no-repeat fixed;
+            padding-top: 100px; padding-bottom: 60px;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1;
         }
-        .benefit-card, .instructor-card {
-            transition: transform 0.3s, box-shadow 0.3s;
+        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .hero-content { position: relative; z-index: 3; color: white; }
+        .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; text-shadow: 0 4px 20px rgba(0,0,0,0.5); color: white;}
+
+        /* --- General Cards & Sections --- */
+        .section-padding { padding: 80px 0; }
+        .bg-alt { background-color: var(--bg-surface-alt); }
+        .section-title { position: relative; display: inline-block; margin-bottom: 3rem; color: var(--heading-color); }
+        .section-title::after { content: ''; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent); border-radius: 3px; }
+
+        .custom-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: 16px; box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); height: 100%; position: relative;
         }
-        .benefit-card:hover, .instructor-card:hover {
-             transform: translateY(-10px);
-             box-shadow: 0 1.5rem 4rem rgba(0,0,0,.12)!important;
+        .custom-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+
+        /* --- Program Highlights (Overlap Hero) --- */
+        .highlights-section { position: relative; z-index: 10; margin-top: -60px; padding-bottom: 60px; }
+        .highlight-card {
+            background: var(--glass-card); backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+            box-shadow: var(--shadow-md); transition: transform 0.3s ease;
         }
-        .instructor-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 4px solid #1abc9c;
-        }
-        .bg-primary {
-            background-color: #1abc9c !important;
-        }
-        .bg-secondary {
-            background-color: #e67e22 !important;
-        }
-        .bg-dark-blue {
-            background-color: #2c3e50 !important;
-        }
-        .bg-light-gray {
-            background-color: #f8f9fa !important;
-        }
-        .text-primary {
-            color: #1abc9c !important;
-        }
-        .text-dark-blue {
-            color: #2c3e50 !important;
-        }
+        .highlight-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .highlight-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(21, 128, 61, 0.1), rgba(34, 197, 94, 0.1)); color: var(--primary); font-size: 1.5rem; flex-shrink: 0; }
+
+        /* --- Details Cards --- */
+        .detail-icon { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); transition: transform 0.4s ease; }
+        .custom-card:hover .detail-icon { transform: scale(1.1) rotate(5deg); color: var(--accent); }
+
+        /* --- Benefits Cards --- */
+        .benefit-card { overflow: hidden; }
+        .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+        .b-icon-wrap { width: 70px; height: 70px; border-radius: 50%; background: var(--bg-surface-alt); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; border: 2px solid var(--border-color); font-size: 1.8rem; color: var(--secondary); transition: all 0.4s ease; }
+        .benefit-card:hover .b-icon-wrap { background: var(--primary); color: white; border-color: var(--primary); transform: rotateY(180deg); }
+
+        /* --- Instructors --- */
+        .instructor-card { text-align: center; padding: 2rem; }
+        .instructor-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 1.5rem; border: 4px solid var(--bg-surface-alt); box-shadow: var(--shadow-md); transition: transform 0.4s ease; }
+        .instructor-card:hover .instructor-img { transform: scale(1.1); border-color: var(--accent); }
+        .spec-badge { background: rgba(21, 128, 61, 0.1); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin-bottom: 1rem; }
+
+        /* --- Testimonials --- */
+        .testimonial-card { padding: 2rem; position: relative; z-index: 1; }
+        .testimonial-card::after { content: '\f10d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: 20px; right: 20px; font-size: 4rem; color: var(--text-muted); opacity: 0.1; z-index: -1; }
+
+        /* --- Registration Form (Floating Labels) --- */
+        .form-floating > .form-control { background-color: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 12px; transition: all 0.3s; }
+        .form-floating > .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.1); background-color: var(--bg-surface); }
+        .form-floating > label { color: var(--text-muted); }
+        .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label { color: var(--primary); }
+        
+        .loading-spinner { display: none; width: 1.5rem; height: 1.5rem; margin-right: 8px; }
+
+        /* --- FAQ Accordion --- */
+        .accordion-item { background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px !important; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow-sm); }
+        .accordion-button { background-color: var(--bg-surface); color: var(--heading-color); font-weight: 600; padding: 1.25rem 1.5rem; box-shadow: none !important; transition: all 0.3s; }
+        .accordion-button:not(.collapsed) { background-color: rgba(21, 128, 61, 0.05); color: var(--primary); }
+        .accordion-button::after { filter: invert(0.5); }
+        [data-theme="dark"] .accordion-button::after { filter: invert(1); }
+        .accordion-body { color: var(--text-main); padding: 1.5rem; background-color: var(--bg-surface-alt); border-top: 1px solid var(--border-color); }
+
+        /* --- CTA Banner --- */
+        .cta-banner { background: linear-gradient(135deg, var(--primary), var(--heading-color)); color: white; border-radius: 20px; padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+        .cta-banner::before { content: '\f5fc'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -20px; bottom: -40px; font-size: 15rem; color: rgba(255,255,255,0.05); }
+
+        /* --- Footer --- */
+        .footer { background-color: #0f172a; color: #cbd5e1; padding-top: 80px; padding-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-heading { color: white; font-family: 'Merriweather', serif; font-size: 1.25rem; margin-bottom: 1.5rem; }
+        .footer-link { color: #cbd5e1; text-decoration: none; transition: color 0.3s; display: block; margin-bottom: 0.75rem; }
+        .footer-link:hover { color: var(--accent); transform: translateX(5px); }
+        .social-circle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; transition: all 0.3s; margin-right: 10px; text-decoration: none; }
+        .social-circle:hover { background: var(--primary); transform: translateY(-3px); color: white;}
     </style>
 </head>
 
-<body class="bg-white">
+<body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-2">
+    <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNavbar">
         <div class="container">
-            <!-- Logo + Site Name -->
-            <a class="navbar-brand d-flex align-items-center fw-bold text-dark-blue" href="index.html">
-                <img src="About/ANH2.jpg" alt="Masjid Logo" class="me-2 rounded-circle" style="height: 40px;" onerror="this.onerror=null;this.src='https://placehold.co/40x40/cccccc/ffffff?text=Error';">
-                <span style="font-family: 'Merriweather', serif; font-size: 19px">Masjid e Mehtab Ali Shah</span>
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 45px; width: 45px; object-fit: cover;" onerror="this.src='https://placehold.co/45x45/15803d/ffffff?text=M'">
+                <span class="brand-text fw-bold fs-5">Masjid e Mehtab Ali Shah</span>
             </a>
-            <!-- Hamburger -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active px-3" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                        <a class="btn bg-secondary text-white fw-bold rounded-pill px-4 py-2 btn-hover" href="Contact.html#message-form">Join Us</a>
-                    </li>
+            
+            <div class="d-flex align-items-center gap-3 d-lg-none">
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <i class="fas fa-bars fs-3" style="color: var(--heading-color)"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="News.html">News & Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
                 </ul>
+                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                    <button class="theme-toggle d-none d-lg-block" id="themeToggleDesktop" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                    <a href="#register" class="btn-modern text-decoration-none"><span>Register Now</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="py-5 position-relative text-white text-center" style="background: linear-gradient(rgba(44, 62, 80, 0.425), rgba(44, 62, 80, 0.42)), url(Home/student1.jpg) center/cover no-repeat;" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/cccccc/ffffff?text=Image+Not+Found)'">
-        <div class="container text-center" data-aos="fade-in">
-            <h1 class="display-4 fw-bold text-white">Youth Islamic Studies Program</h1>
-            <p class="lead text-white">Nurturing the next generation with knowledge and faith.</p>
+    <!-- Hero Header -->
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+        <canvas id="bg-animation"></canvas>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 hero-content" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="badge bg-accent text-dark border border-accent rounded-pill px-3 py-2 mb-4 fw-bold" style="letter-spacing: 1px;">
+                        <i class="fas fa-star-and-crescent me-2"></i> Enrollments Open for 2026
+                    </span>
+                    <h1 class="hero-title mb-4">Nurturing the Next Generation with Knowledge & Faith</h1>
+                    <p class="fs-5 opacity-90 mb-5 max-w-700">A comprehensive weekend Islamic Studies program designed to build a strong moral and spiritual foundation for youth aged 7 to 14 in a safe, engaging environment.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#register" class="btn-modern text-decoration-none py-3 px-5 fs-5">Register Now</a>
+                        <a href="#details" class="btn-outline-modern bg-dark bg-opacity-50 text-white border-white text-decoration-none py-3 px-4 fs-5">View Curriculum</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- Program Details Section -->
-    <section class="py-5">
-        <div class="container my-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <img src="Home/student.jpg" alt="Youth learning program" class="img-fluid rounded-3 shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/ffffff?text=Error';">
+    <!-- Program Highlights (Overlapping) -->
+    <div class="container highlights-section">
+        <div class="row g-3" data-aos="fade-up">
+            <div class="col-md-6 col-lg-3">
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Qualified Teachers</h6>
+                        <small class="text-muted-custom">Experienced instructors</small>
+                    </div>
                 </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <h2 class="display-5 fw-bold mb-3">About the Program</h2>
-                    <p class="fs-5 text-secondary">We are excited to launch our new weekend Islamic Studies Program designed to build a strong foundation in Islamic knowledge and values for the youth of our community.</p>
-                    <p>Our engaging curriculum covers essential topics in a way that is both educational and inspiring for young minds. Classes are held in a supportive and welcoming environment where students are encouraged to ask questions, engage in discussions, and connect with their faith on a deeper level.</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-book-open text-primary me-2"></i><strong>Curriculum:</strong> Quranic studies, stories of the Prophets, Islamic history, and essential prayers.</li>
-                        <li class="list-group-item"><i class="fas fa-user-friends text-primary me-2"></i><strong>Age Group:</strong> 7 - 14 years.</li>
-                        <li class="list-group-item"><i class="fas fa-calendar-alt text-primary me-2"></i><strong>Schedule:</strong> Saturday & Sunday mornings.</li>
-                        <li class="list-group-item"><i class="fas fa-map-marker-alt text-primary me-2"></i><strong>Location:</strong> Community Hall, Masjid e Mehtab Ali Shah Complex.</li>
-                    </ul>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Safe Environment</h6>
+                        <small class="text-muted-custom">Secure learning spaces</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Interactive Learning</h6>
+                        <small class="text-muted-custom">Engaging activities</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="far fa-calendar-check"></i></div>
+                    <div>
+                        <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Weekend Schedule</h6>
+                        <small class="text-muted-custom">Convenient timings</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Program Details Grid -->
+    <section class="section-padding bg-alt" id="details">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h2 class="display-6 fw-bold mb-4" style="color: var(--heading-color)">Program Overview</h2>
+                    <p class="text-muted-custom mb-4">We are excited to offer this comprehensive program designed to build a strong foundation in Islamic knowledge and values. Our curriculum is tailored to be both educational and inspiring for young minds.</p>
+                    <p class="text-muted-custom mb-4">Classes are held in a supportive and welcoming environment where students are encouraged to ask questions, engage in discussions, and connect with their faith on a deeper level.</p>
+                    <a href="#register" class="btn-outline-modern mt-2">Enroll Your Child <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <div class="custom-card p-4 p-xl-5 text-center">
+                                <i class="fas fa-book-open detail-icon"></i>
+                                <h5 class="fw-bold" style="color: var(--heading-color)">Curriculum</h5>
+                                <p class="text-muted-custom small mb-0">Quranic studies, Seerah of the Prophets, Islamic history, and essential daily prayers (Duas).</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="custom-card p-4 p-xl-5 text-center">
+                                <i class="fas fa-user-graduate detail-icon"></i>
+                                <h5 class="fw-bold" style="color: var(--heading-color)">Age Group</h5>
+                                <p class="text-muted-custom small mb-0">Specifically designed for youth ages 7 through 14. Boys and girls are welcome.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="custom-card p-4 p-xl-5 text-center">
+                                <i class="fas fa-calendar-alt detail-icon"></i>
+                                <h5 class="fw-bold" style="color: var(--heading-color)">Schedule</h5>
+                                <p class="text-muted-custom small mb-0">Saturday & Sunday mornings.<br>10:00 AM to 1:00 PM.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="custom-card p-4 p-xl-5 text-center">
+                                <i class="fas fa-map-marker-alt detail-icon"></i>
+                                <h5 class="fw-bold" style="color: var(--heading-color)">Location</h5>
+                                <p class="text-muted-custom small mb-0">Community Education Hall, Masjid e Mehtab Ali Shah Complex.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Benefits Section -->
-    <section class="py-5 bg-light-gray">
+    <section class="section-padding">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold">Why Enroll Your Child?</h2>
+                <h2 class="section-title">Why Choose This Program?</h2>
+                <p class="text-muted-custom">Benefits of enrolling your child in our weekend studies.</p>
             </div>
-            <div class="row text-center">
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-seedling fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Strong Foundation</h5>
-                        <p class="card-text">Build a solid base of Islamic knowledge and values that will last a lifetime.</p>
+            
+            <div class="row g-4 text-center">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="custom-card benefit-card p-4">
+                        <div class="b-icon-wrap"><i class="fas fa-seedling"></i></div>
+                        <h5 class="fw-bold" style="color: var(--heading-color)">Strong Foundation</h5>
+                        <p class="text-muted-custom small mb-0">Build a solid base of Islamic knowledge (Aqeedah) and values that will guide them for a lifetime.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-lightbulb fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Engaging Lessons</h5>
-                        <p class="card-text">Interactive and age-appropriate lessons that make learning about Islam enjoyable.</p>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="custom-card benefit-card p-4">
+                        <div class="b-icon-wrap"><i class="fas fa-lightbulb"></i></div>
+                        <h5 class="fw-bold" style="color: var(--heading-color)">Engaging Lessons</h5>
+                        <p class="text-muted-custom small mb-0">Interactive, age-appropriate lessons utilizing modern teaching techniques to make learning enjoyable.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card h-100 shadow-sm benefit-card border-0 p-4">
-                        <div class="p-4 bg-primary text-white rounded-circle d-inline-block mb-3 mx-auto">
-                            <i class="fas fa-users fa-2x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Community Connection</h5>
-                        <p class="card-text">A chance for children to connect with peers in a positive and faith-based environment.</p>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="custom-card benefit-card p-4">
+                        <div class="b-icon-wrap"><i class="fas fa-users"></i></div>
+                        <h5 class="fw-bold" style="color: var(--heading-color)">Community Bonding</h5>
+                        <p class="text-muted-custom small mb-0">A chance for children to connect with peers in a positive, faith-based environment, fostering lifelong friendships.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="custom-card benefit-card p-4">
+                        <div class="b-icon-wrap"><i class="fas fa-heart"></i></div>
+                        <h5 class="fw-bold" style="color: var(--heading-color)">Character Development</h5>
+                        <p class="text-muted-custom small mb-0">Emphasis on Akhlaq (manners) and Adab (etiquette) to shape them into responsible, caring individuals.</p>
                     </div>
                 </div>
             </div>
@@ -190,73 +400,69 @@
     </section>
 
     <!-- Meet Our Instructors Section -->
-    <section class="py-5">
-        <div class="container my-5">
+    <section class="section-padding bg-alt">
+        <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold">Meet Our Instructors</h2>
-                <p class="lead text-secondary">Our dedicated teachers are passionate about Islamic education.</p>
+                <h2 class="section-title">Meet Our Instructors</h2>
+                <p class="text-muted-custom">Dedicated teachers passionate about Islamic education.</p>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4 text-center mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
-                        <img src="https://placehold.co/150x150/2c3e50/ffffff?text=A" alt="Instructor 1" class="rounded-circle mx-auto instructor-img mb-3">
-                        <h5 class="fw-bold">Ahmed Khan</h5>
-                        <p class="text-secondary">Specializes in Quranic Studies and Tafsir. Over 10 years of teaching experience.</p>
+            
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="custom-card instructor-card">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" alt="Ahmed Khan" class="instructor-img" onerror="this.src='https://placehold.co/300x300/15803d/ffffff?text=AK';">
+                        <h4 class="fw-bold mb-1" style="color: var(--heading-color)">Hafiz Ahmed Khan</h4>
+                        <span class="spec-badge">Quranic Studies & Tajweed</span>
+                        <p class="text-muted-custom small mb-0">Over 10 years of experience teaching Quranic recitation with proper Tajweed to children of all age groups.</p>
                     </div>
                 </div>
-                <div class="col-md-4 text-center mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card h-100 shadow-sm instructor-card border-0 p-4">
-                        <img src="https://placehold.co/150x150/e67e22/ffffff?text=F" alt="Instructor 2" class="rounded-circle mx-auto instructor-img mb-3">
-                        <h5 class="fw-bold">Fatima Ali</h5>
-                        <p class="text-secondary">Focuses on Islamic History and the stories of the Prophets. Creates an engaging and interactive classroom.</p>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="custom-card instructor-card">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="Fatima Ali" class="instructor-img" onerror="this.src='https://placehold.co/300x300/15803d/ffffff?text=FA';">
+                        <h4 class="fw-bold mb-1" style="color: var(--heading-color)">Ustadha Fatima Ali</h4>
+                        <span class="spec-badge">Islamic History & Seerah</span>
+                        <p class="text-muted-custom small mb-0">Focuses on Islamic History and the inspiring stories of the Prophets. Creates a highly interactive classroom experience.</p>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
-    <!-- Registration Form Section -->
-    <section class="py-5 bg-light-gray" id="registration-form">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up">
-                    <div class="card border-0 shadow-sm p-4 p-md-5">
-                        <div id="registration-form-container">
-                            <h2 class="display-6 fw-bold mb-4 text-center">Register Your Child</h2>
-                            <p class="text-center text-secondary mb-4">Spaces are limited, so please register early to secure a spot. We look forward to welcoming your child to our program!</p>
-                            <form id="registration-form-element">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="parent-name" class="form-label">Parent's Full Name</label>
-                                        <input type="text" class="form-control" id="parent-name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="child-name" class="form-label">Child's Full Name</label>
-                                        <input type="text" class="form-control" id="child-name" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="child-age" class="form-label">Child's Age</label>
-                                        <input type="number" class="form-control" id="child-age" min="7" max="14" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" required>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn bg-secondary text-white fw-bold rounded-pill px-5 py-2 mt-3 btn-hover">Submit Registration</button>
-                                </div>
-                            </form>
+    <!-- Testimonials Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">What Parents Say</h2>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-5" data-aos="fade-right">
+                    <div class="custom-card testimonial-card">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <div id="confirmation-message" class="text-center" style="display: none;">
-                            <i class="fas fa-check-circle fa-4x text-primary mb-3"></i>
-                            <h3 class="fw-bold">Thank You for Registering!</h3>
-                            <p class="lead">Your registration has been received. We will contact you shortly with further details about the program.</p>
+                        <p class="fst-italic text-main fs-5 mb-4">"Our child has learned so much about Islamic values and history in just a few months. The teachers are wonderful and the environment is very welcoming."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:40px; height:40px; font-weight:bold;">SA</div>
+                            <div>
+                                <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Salman A.</h6>
+                                <small class="text-muted-custom">Parent of 9-year-old</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5" data-aos="fade-left">
+                    <div class="custom-card testimonial-card">
+                        <div class="text-warning mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="fst-italic text-main fs-5 mb-4">"The curriculum is engaging and my daughter actually looks forward to waking up early on weekends to attend her classes. Highly recommended!"</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width:40px; height:40px; font-weight:bold;">NK</div>
+                            <div>
+                                <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Nida K.</h6>
+                                <small class="text-muted-custom">Parent of 12-year-old</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,50 +470,330 @@
         </div>
     </section>
 
-    <!-- Footer -->
-   <footer class="text-white text-center position-relative py-5" style="background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url(Home/Footer\ Img.jpg) center/cover no-repeat;" onerror="this.onerror=null;this.src='https://placehold.co/1920x600/cccccc/ffffff?text=Error';">
+    <!-- Registration Form & FAQ Section -->
+    <section class="section-padding bg-alt" id="register">
         <div class="container">
-            <div class="py-4">
-                <h3 style="font-family: 'Merriweather', serif;" class="fs-2">Ashoorkhana Nale Hyder</h3>
-                <p class="col-md-6 mx-auto text-white-50">
-                    Preserving our shared history and fostering a vibrant community in Parbhani, Maharashtra. A legacy of the Nizam era.
-                </p>
-                <div class="social-links mt-4">
-                    <a href="mailto:anhparbhani123@gmail.com" class="text-white fs-4 mx-2"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/anh_parbhani" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" class="text-white fs-4 mx-2"><i class="fab fa-facebook"></i></a>
+            <div class="row g-5">
+                
+                <!-- Registration Form -->
+                <div class="col-lg-7" data-aos="fade-right">
+                    <div class="custom-card p-4 p-md-5">
+                        <div id="registration-form-container">
+                            <h2 class="display-6 fw-bold mb-2" style="color: var(--heading-color)">Register Your Child</h2>
+                            <p class="text-muted-custom mb-4">Spaces are limited. Please register early to secure a spot for the upcoming semester.</p>
+                            
+                            <form id="registration-form-element">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="parent-name" placeholder="Parent Name" required>
+                                            <label for="parent-name">Parent's Full Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control" id="phone" placeholder="Phone" required>
+                                            <label for="phone">Phone Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                            <label for="email">Email Address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="child-name" placeholder="Child Name" required>
+                                            <label for="child-name">Child's Full Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control" id="child-age" placeholder="Age" min="7" max="14" required>
+                                            <label for="child-age">Child's Age (7-14)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn-modern w-100 py-3 fs-5" id="submitBtn">
+                                            <span class="spinner-border loading-spinner" id="btnSpinner" role="status" aria-hidden="true"></span>
+                                            <span id="btnText">Submit Registration</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Success Message -->
+                        <div id="confirmation-message" class="text-center py-5" style="display: none;">
+                            <i class="fas fa-check-circle fa-4x text-accent mb-4"></i>
+                            <h3 class="fw-bold" style="color: var(--heading-color)">Registration Received!</h3>
+                            <p class="text-muted-custom fs-5 mb-4">Alhamdulillah. We have received your application. Our team will contact you via email/phone shortly with schedule details.</p>
+                            <button class="btn-outline-modern" onclick="resetForm()">Register Another Child</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="col-lg-5" data-aos="fade-left">
+                    <h2 class="display-6 fw-bold mb-4" style="color: var(--heading-color)">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="h1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true">
+                                    What is the age limit?
+                                </button>
+                            </h2>
+                            <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted-custom small">
+                                    The program is designed for children between the ages of 7 and 14. Students are grouped into appropriate class levels based on age and previous knowledge.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="h2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                                    Is the program free?
+                                </button>
+                            </h2>
+                            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted-custom small">
+                                    The program is heavily subsidized by the Waqf Trust. However, a nominal monthly fee is collected to cover learning materials and activities. Scholarships are available for families in need.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="h3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
+                                    Do parents need to stay during class?
+                                </button>
+                            </h2>
+                            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted-custom small">
+                                    No, parents are not required to stay. You may drop off your child at 10:00 AM and pick them up at 1:00 PM. We maintain a secure environment with CCTV surveillance.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="h4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4">
+                                    What materials do students need to bring?
+                                </button>
+                            </h2>
+                            <div id="c4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted-custom small">
+                                    Students should bring a dedicated notebook and pen. All specific textbooks, Quranic copies, and supplementary materials will be provided by the institute.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Banner -->
+    <section class="py-5 bg-body">
+        <div class="container my-4">
+            <div class="cta-banner" data-aos="zoom-in">
+                <h2 class="display-5 fw-bold mb-3">Invest in Your Child's Spiritual Future</h2>
+                <p class="fs-5 opacity-75 mb-5 max-w-700 mx-auto" style="max-width: 700px;">Join dozens of families in Parbhani who are providing their children with a balanced, comprehensive Islamic education.</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap position-relative z-3">
+                    <button class="btn btn-light text-primary fw-bold rounded-pill px-5 py-3 fs-5 shadow" onclick="document.getElementById('parent-name').focus(); window.location.href='#register';">
+                        Enroll Your Child Today
+                    </button>
+                    <a href="Contact.html" class="btn btn-outline-light rounded-pill px-5 py-3 fs-5 fw-bold">
+                        Contact Office
+                    </a>
                 </div>
             </div>
-            <div class="footer-bottom border-top border-white-50 pt-4 mt-4">
-               <p class="mb-0">&copy; Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-<p class="small text-white-50 mt-2">Website Designed & Developed by Kamel Shah</p>
+        </div>
+    </section>
+
+    <!-- Structured Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                    <a class="d-flex align-items-center gap-2 text-decoration-none mb-4" href="index.html">
+                        <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;" onerror="this.src='https://placehold.co/40x40/15803d/ffffff?text=M'">
+                        <span class="fw-bold fs-5 text-white" style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
+                    </a>
+                    <p class="text-muted mb-4 pe-lg-4">Preserving our shared history and fostering a vibrant Islamic community in Parbhani, Maharashtra. A legacy of the Nizam era.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h4 class="footer-heading">Masjid</h4>
+                    <a href="About.html" class="footer-link">About Us</a>
+                    <a href="News.html" class="footer-link">News & Updates</a>
+                    <a href="youth-program.html" class="footer-link text-accent">Youth Programs</a>
+                    <a href="News.html#gallery" class="footer-link">Gallery</a>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h4 class="footer-heading">Community</h4>
+                    <a href="News.html#events" class="footer-link">Events</a>
+                    <a href="About.html#services" class="footer-link">Education</a>
+                    <a href="Contact.html#lease" class="footer-link">Shop Leasing</a>
+                    <a href="Contact.html#donate" class="footer-link">Donate / Zakat</a>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="footer-heading">Contact Info</h4>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2 text-muted"><i class="fas fa-map-marker-alt text-primary me-2"></i> Survey No. 1, 2 & 3, Parbhani, MH</li>
+                        <li class="mb-2"><i class="fas fa-phone text-primary me-2"></i> <a href="tel:+919421488111" class="text-muted text-decoration-none">+91 9421488111</a></li>
+                        <li class="mb-2"><i class="fas fa-envelope text-primary me-2"></i> <a href="mailto:anhparbhani123@gmail.com" class="text-muted text-decoration-none">anhparbhani123@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-muted small">
+                <p class="mb-0">&copy; <span id="currentYear"></span> Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
+                <p class="mt-1">Designed & Developed by Kamel Shah</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
     <script>
-        // Initialize AOS with some default options
-        AOS.init({
-            duration: 800, // values from 0 to 3000, with step 50ms
-            once: true, // whether animation should happen only once - while scrolling down
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Initialize AOS
+            AOS.init({ once: true, duration: 800, offset: 50 });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Handle form submission
-        const form = document.getElementById('registration-form');
-        const formContainer = document.getElementById('registration-form-container');
-        const confirmationMessage = document.getElementById('confirmation-message');
+            // 2. Navbar Scroll Styling
+            const navbar = document.getElementById('mainNavbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual form submission
-            formContainer.style.display = 'none';
-            confirmationMessage.style.display = 'block';
+            // 3. Dark Mode Logic
+            const themeToggleDesktop = document.getElementById('themeToggleDesktop');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const body = document.documentElement;
+
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                updateToggleIcons('dark');
+            }
+
+            function updateToggleIcons(theme) {
+                const iconClass = theme === 'dark' ? 'fas fa-sun text-warning' : 'fas fa-moon';
+                themeToggleDesktop.innerHTML = `<i class="${iconClass}"></i>`;
+                themeToggleMobile.innerHTML = `<i class="${iconClass}"></i>`;
+            }
+
+            function toggleTheme() {
+                let theme = body.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    updateToggleIcons('light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    updateToggleIcons('dark');
+                }
+            }
+
+            themeToggleDesktop.addEventListener('click', toggleTheme);
+            themeToggleMobile.addEventListener('click', toggleTheme);
+
+            // 4. Form Submission Handling
+            const formElement = document.getElementById('registration-form-element');
+            const formContainer = document.getElementById('registration-form-container');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const btnText = document.getElementById('btnText');
+
+            formElement.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                btnSpinner.style.display = 'inline-block';
+                btnText.textContent = 'Processing...';
+
+                // Simulate network request delay (1.5s)
+                setTimeout(() => {
+                    formContainer.style.display = 'none';
+                    confirmationMessage.style.display = 'block';
+                    
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    btnSpinner.style.display = 'none';
+                    btnText.textContent = 'Submit Registration';
+                }, 1500);
+            });
+
+            // Make resetForm globally accessible
+            window.resetForm = function() {
+                formElement.reset();
+                confirmationMessage.style.display = 'none';
+                formContainer.style.display = 'block';
+                document.getElementById('parent-name').focus();
+            };
+
+            // 5. Three.js Background Animation (Parallax Hero)
+            if (typeof THREE !== 'undefined') {
+                const header = document.querySelector('.hero-section');
+                const canvas = document.querySelector('#bg-animation');
+                if (header && canvas) {
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
+                    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+                    const setSize = () => {
+                        renderer.setSize(header.clientWidth, header.clientHeight);
+                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                        camera.aspect = header.clientWidth / header.clientHeight;
+                        camera.updateProjectionMatrix();
+                    };
+                    setSize();
+                    camera.position.z = 5;
+
+                    const particlesGeometry = new THREE.BufferGeometry();
+                    const count = window.innerWidth > 768 ? 1200 : 500;
+                    const positions = new Float32Array(count * 3);
+                    for (let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 15;
+                    
+                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                    const particlesMaterial = new THREE.PointsMaterial({
+                        size: 0.018, color: 0x22c55e, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending
+                    });
+                    
+                    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+                    scene.add(particles);
+
+                    let mouseX = 0; let mouseY = 0;
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                        mouseY = -(e.clientY / window.innerHeight) * 2 - 1;
+                    });
+
+                    const clock = new THREE.Clock();
+                    const animate = () => {
+                        const elapsedTime = clock.getElapsedTime();
+                        // Gentle ascending flow
+                        particles.rotation.y = elapsedTime * 0.02 + mouseX * 0.05;
+                        particles.position.y = (elapsedTime * 0.1) % 5 - 2.5; 
+                        renderer.render(scene, camera);
+                        window.requestAnimationFrame(animate);
+                    };
+                    animate();
+                    window.addEventListener('resize', setSize);
+                }
+            }
         });
     </script>
 </body>
-
 </html>
