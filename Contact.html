@@ -1,1376 +1,310 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<html lang="en" data-theme="light" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us | Masjid e Mehtab Ali Shah</title>
-
-    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link rel="apple-touch-icon" href="Home/ANH2.jpg">
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Markdown & Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <style>
-        /* --- Core Variables & Theming --- */
-        :root {
-            /* Light Theme */
-            --bg-body: #f8fafc;
-            --bg-surface: #ffffff;
-            --bg-surface-alt: #f1f5f9;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --heading-color: #0f172a;
-            --border-color: rgba(0, 0, 0, 0.08);
-            
-            /* Brand Colors */
-            --primary: #059669; /* Emerald 600 */
-            --primary-hover: #047857; /* Emerald 700 */
-            --accent: #10b981; /* Emerald 500 */
-            --secondary: #d97706; /* Amber 600 */
-            
-            /* Glassmorphism Light */
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-card: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        [data-theme="dark"] {
-            /* Dark Theme */
-            --bg-body: #0f172a; /* Slate 900 */
-            --bg-surface: #1e293b; /* Slate 800 */
-            --bg-surface-alt: #0b1120;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --heading-color: #f8fafc;
-            --border-color: rgba(255, 255, 255, 0.1);
-            
-            /* Glassmorphism Dark */
-            --glass-bg: rgba(15, 23, 42, 0.85);
-            --glass-card: rgba(30, 41, 59, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        /* --- Global Styles --- */
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-body); 
-            color: var(--text-main); 
-            transition: background-color 0.4s ease, color 0.4s ease; 
-            overflow-x: hidden; 
-        }
-        h1, h2, h3, h4, h5, h6, .brand-text { 
-            font-family: 'Merriweather', serif; 
-            color: var(--heading-color); 
-        }
-        p { line-height: 1.7; }
-        .text-muted-custom { color: var(--text-muted) !important; }
-        .text-primary-custom { color: var(--primary) !important; }
-
-        /* --- Navbar --- */
-        .navbar { 
-            background-color: var(--glass-bg); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color); 
-            transition: padding 0.3s ease, box-shadow 0.3s ease; 
-        }
-        .navbar.scrolled { 
-            padding-top: 0.5rem; 
-            padding-bottom: 0.5rem; 
-            box-shadow: var(--shadow-sm); 
-        }
-        .navbar-brand { color: var(--heading-color) !important; }
-        .nav-link { 
-            color: var(--text-main) !important; 
-            font-weight: 500; 
-            position: relative; 
-            padding: 0.5rem 1rem; 
-            transition: color 0.3s ease; 
-        }
-        .nav-link::after { 
-            content: ''; 
-            position: absolute; 
-            width: 0; 
-            height: 2px; 
-            bottom: 0; 
-            left: 50%; 
-            background-color: var(--accent); 
-            transition: all 0.3s ease; 
-            transform: translateX(-50%); 
-        }
-        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
-        .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
-
-        .theme-toggle { 
-            background: transparent; 
-            border: none; 
-            color: var(--text-main); 
-            font-size: 1.25rem; 
-            cursor: pointer; 
-            transition: transform 0.3s ease, color 0.3s ease; 
-        }
-        .theme-toggle:hover { 
-            transform: rotate(15deg) scale(1.1); 
-            color: var(--secondary); 
-        }
-
-        /* --- Modern Buttons --- */
-        .btn-modern { 
-            background: linear-gradient(135deg, var(--primary), var(--accent)); 
-            color: white !important; 
-            border: none; 
-            border-radius: 50px; 
-            padding: 12px 30px; 
-            font-weight: 600; 
-            position: relative; 
-            overflow: hidden; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.25); 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            z-index: 1; 
-        }
-        .btn-modern::before { 
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: linear-gradient(135deg, var(--accent), var(--primary-hover)); 
-            opacity: 0; 
-            z-index: -1; 
-            transition: opacity 0.3s ease; 
-        }
-        .btn-modern:hover { 
-            transform: translateY(-2px) scale(1.02); 
-            box-shadow: 0 12px 25px rgba(5, 150, 105, 0.35); 
-        }
-        .btn-modern:hover::before { opacity: 1; }
-        
-        .btn-outline-modern { 
-            background: transparent; 
-            color: var(--heading-color); 
-            border: 2px solid var(--border-color); 
-            border-radius: 50px; 
-            padding: 10px 28px; 
-            font-weight: 600; 
-            transition: all 0.3s ease; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px; 
-        }
-        .btn-outline-modern:hover { 
-            background: var(--bg-surface-alt); 
-            border-color: var(--primary);
-            color: var(--primary); 
-            transform: translateY(-2px); 
-        }
-
-        /* --- Hero Section --- */
-        .hero-section { 
-            position: relative; 
-            min-height: 60vh; 
-            display: flex; 
-            align-items: center; 
-            background: url('Contact/about%20page.jpg') center/cover no-repeat fixed; 
-            background-color: #0f172a; /* Fallback */
-            padding-top: 100px; 
-            padding-bottom: 60px; 
-            overflow: hidden;
-        }
-        .hero-overlay { 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.4)); 
-            z-index: 1; 
-        }
-        #bg-animation { 
-            position: absolute; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            z-index: 2; 
-            pointer-events: none; 
-        }
-        .hero-content { 
-            position: relative; 
-            z-index: 3; 
-            color: white; 
-            text-align: center; 
-        }
-        .hero-title { 
-            font-size: clamp(2.5rem, 5vw, 4.5rem); 
-            font-weight: 700; 
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5); 
-            color: white;
-            line-height: 1.2;
-        }
-
-        /* --- General Layout --- */
-        .section-padding { padding: 100px 0; }
-        .bg-alt { background-color: var(--bg-surface-alt); }
-        .section-title { 
-            position: relative; 
-            display: inline-block; 
-            margin-bottom: 3.5rem; 
-            font-weight: 700;
-        }
-        .section-title::after { 
-            content: ''; 
-            position: absolute; 
-            left: 50%; bottom: -12px; 
-            transform: translateX(-50%); 
-            width: 60px; height: 4px; 
-            background: var(--accent); 
-            border-radius: 4px; 
-        }
-        
-        .custom-card { 
-            background: var(--bg-surface); 
-            border: 1px solid var(--border-color); 
-            border-radius: 20px; 
-            box-shadow: var(--shadow-md); 
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
-            position: relative; 
-            z-index: 1;
-        }
-        .custom-card:hover { 
-            transform: translateY(-6px); 
-            box-shadow: var(--shadow-lg); 
-            border-color: var(--accent); 
-        }
-
-        /* --- Contact Info Cards --- */
-        .contact-icon-card { 
-            display: flex; 
-            align-items: flex-start; 
-            padding: 1.75rem; 
-            gap: 1.5rem; 
-        }
-        .contact-icon-box { 
-            width: 60px; height: 60px; 
-            border-radius: 16px; 
-            flex-shrink: 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.5rem; 
-            background: var(--bg-surface-alt);
-            color: var(--primary); 
-            transition: all 0.4s ease; 
-        }
-        .custom-card:hover .contact-icon-box { 
-            background: linear-gradient(135deg, var(--primary), var(--accent)); 
-            color: white; 
-            transform: rotateY(180deg); 
-            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3); 
-        }
-
-        /* --- Contact Form (Floating Labels) --- */
-        .form-floating > .form-control, .form-floating > .form-select { 
-            background-color: var(--bg-surface-alt); 
-            border: 1.5px solid var(--border-color); 
-            color: var(--text-main); 
-            border-radius: 14px; 
-            transition: all 0.3s; 
-        }
-        .form-floating > .form-control:focus, .form-floating > .form-select:focus { 
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1); 
-            background-color: var(--bg-surface); 
-        }
-        .form-floating > label { color: var(--text-muted); }
-        .form-floating > .form-control:focus ~ label, 
-        .form-floating > .form-control:not(:placeholder-shown) ~ label,
-        .form-floating > .form-select:focus ~ label, 
-        .form-floating > .form-select:not(:placeholder-shown) ~ label { 
-            color: var(--primary); 
-            font-weight: 600;
-        }
-
-        /* --- WhatsApp Preview Modal --- */
-        .whatsapp-preview { 
-            background: #e5ddd5; 
-            padding: 1rem; 
-            border-radius: 12px; 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-        }
-        [data-theme="dark"] .whatsapp-preview { background: #0b141a; }
-        .wa-bubble { 
-            background: #dcf8c6; 
-            padding: 12px 16px; 
-            border-radius: 12px; 
-            border-top-left-radius: 0; 
-            display: inline-block; 
-            max-width: 100%; 
-            color: #303030; 
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1); 
-            white-space: pre-wrap; 
-            line-height: 1.5;
-        }
-        [data-theme="dark"] .wa-bubble { background: #005c4b; color: #e9edef; }
-
-        /* --- Donation Section --- */
-        .donation-card { 
-            border: 2px solid transparent; 
-            background-clip: padding-box; 
-            position: relative; 
-        }
-        .donation-card::before { 
-            content: ''; 
-            position: absolute; 
-            top: -2px; left: -2px; right: -2px; bottom: -2px; 
-            z-index: -1; 
-            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary)); 
-            border-radius: 22px; 
-            opacity: 0.3; 
-            transition: opacity 0.4s; 
-        }
-        .donation-card:hover::before { opacity: 1; }
-        .copy-btn { 
-            cursor: pointer; 
-            color: var(--text-muted); 
-            transition: color 0.2s, transform 0.2s; 
-            padding: 4px;
-        }
-        .copy-btn:hover { 
-            color: var(--accent); 
-            transform: scale(1.1);
-        }
-
-        /* --- Leasing Section --- */
-        .lease-banner { 
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98)), url('Home/architectural.jpg') center/cover; 
-            color: white; 
-            border-radius: 24px; 
-            overflow: hidden; 
-            position: relative; 
-            box-shadow: var(--shadow-lg); 
-        }
-        .lease-banner::before { 
-            content: '\f56e'; 
-            font-family: 'Font Awesome 6 Free'; 
-            font-weight: 900; 
-            position: absolute; 
-            right: -5%; bottom: -15%; 
-            font-size: 20rem; 
-            color: rgba(255,255,255,0.02); 
-            transform: rotate(-15deg);
-        }
-
-        /* --- FAQ Accordion --- */
-        .accordion-item { 
-            background-color: var(--bg-surface); 
-            border: 1px solid var(--border-color); 
-            border-radius: 16px !important; 
-            margin-bottom: 1.25rem; 
-            overflow: hidden; 
-            box-shadow: var(--shadow-sm); 
-            transition: transform 0.3s ease;
-        }
-        .accordion-item:hover { transform: translateY(-2px); }
-        .accordion-button { 
-            background-color: var(--bg-surface); 
-            color: var(--heading-color); 
-            font-weight: 600; 
-            padding: 1.25rem 1.5rem; 
-            box-shadow: none !important; 
-            transition: all 0.3s; 
-        }
-        .accordion-button:not(.collapsed) { 
-            background-color: rgba(5, 150, 105, 0.05); 
-            color: var(--primary); 
-        }
-        .accordion-button::after { filter: invert(0.5); }
-        [data-theme="dark"] .accordion-button::after { filter: invert(1); }
-        .accordion-body { 
-            color: var(--text-main); 
-            padding: 1.5rem; 
-            background-color: var(--bg-surface-alt); 
-            border-top: 1px solid var(--border-color); 
-        }
-
-        /* --- AI Chat Interface --- */
-        .chat-container { 
-            background: var(--bg-surface); 
-            border: 1px solid var(--border-color); 
-            border-radius: 24px; 
-            box-shadow: var(--shadow-md); 
-            overflow: hidden; 
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-header { 
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
-            color: white; 
-            padding: 1.25rem 1.5rem; 
-        }
-        .chat-box { 
-            height: 400px; 
-            overflow-y: auto; 
-            padding: 1.5rem; 
-            background: var(--bg-surface-alt); 
-            display: flex; 
-            flex-direction: column; 
-            gap: 1.25rem; 
-            scroll-behavior: smooth;
-        }
-        
-        /* Modern Asymmetric Chat Bubbles */
-        .chat-bubble { 
-            max-width: 85%; 
-            padding: 14px 20px; 
-            font-size: 0.95rem; 
-            line-height: 1.6; 
-            position: relative;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .chat-bubble p:last-child { margin-bottom: 0; }
-        .bubble-ai { 
-            background: var(--bg-surface); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            align-self: flex-start; 
-            border-radius: 18px 18px 18px 4px; 
-            box-shadow: var(--shadow-sm);
-        }
-        .bubble-user { 
-            background: var(--primary); 
-            color: white; 
-            align-self: flex-end; 
-            border-radius: 18px 18px 4px 18px; 
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .suggestion-chips { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 10px; 
-            padding: 1rem 1.5rem; 
-            background: var(--bg-surface); 
-            border-top: 1px solid var(--border-color); 
-        }
-        .chip { 
-            background: var(--bg-surface-alt); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            padding: 8px 16px; 
-            border-radius: 50px; 
-            font-size: 0.85rem; 
-            font-weight: 500;
-            cursor: pointer; 
-            transition: all 0.2s; 
-            white-space: nowrap;
-        }
-        .chip:hover { 
-            background: var(--primary); 
-            color: white; 
-            border-color: var(--primary); 
-            transform: translateY(-2px);
-        }
-        .chat-input-area { 
-            padding: 1.25rem 1.5rem; 
-            background: var(--bg-surface); 
-            border-top: 1px solid var(--border-color); 
-            display: flex; 
-            gap: 12px; 
-        }
-        .chat-input { 
-            background: var(--bg-surface-alt); 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            border-radius: 50px; 
-            padding: 12px 24px; 
-            flex-grow: 1;
-        }
-        .chat-input:focus { 
-            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1); 
-            border-color: var(--primary); 
-            outline: none;
-        }
-        .btn-send { 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            width: 50px; height: 50px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            transition: all 0.2s; 
-            flex-shrink: 0;
-        }
-        .btn-send:hover:not(:disabled) { 
-            transform: scale(1.05); 
-            background: var(--primary-hover); 
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-        }
-        .btn-send:disabled {
-            background: var(--text-muted);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .typing-indicator { display: flex; gap: 6px; padding: 4px; align-items: center; height: 24px;}
-        .typing-dot { 
-            width: 8px; height: 8px; 
-            background: var(--text-muted); 
-            border-radius: 50%; 
-            animation: typing 1.4s infinite ease-in-out both; 
-        }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 
-            0%, 80%, 100% { transform: scale(0); opacity: 0.4;} 
-            40% { transform: scale(1); opacity: 1;} 
-        }
-
-        /* --- Footer --- */
-        .footer { 
-            background-color: #0f172a; 
-            color: #cbd5e1; 
-            padding-top: 80px; 
-            padding-bottom: 30px; 
-            border-top: 1px solid rgba(255,255,255,0.05); 
-        }
-        .footer-heading { 
-            color: white; 
-            font-family: 'Merriweather', serif; 
-            font-size: 1.25rem; 
-            margin-bottom: 1.5rem; 
-        }
-        .footer-link { 
-            color: #cbd5e1; 
-            text-decoration: none; 
-            transition: color 0.3s, transform 0.3s; 
-            display: block; 
-            margin-bottom: 0.75rem; 
-            width: fit-content;
-        }
-        .footer-link:hover { 
-            color: var(--accent); 
-            transform: translateX(5px); 
-        }
-        .social-circle { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            width: 44px; height: 44px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.05); 
-            color: white; 
-            transition: all 0.3s; 
-            margin-right: 12px; 
-            text-decoration: none; 
-        }
-        .social-circle:hover { 
-            background: var(--primary); 
-            transform: translateY(-4px); 
-            color: white;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
-        }
-        .map-container { 
-            border-radius: 16px; 
-            overflow: hidden; 
-            height: 220px; 
-            border: 2px solid rgba(255,255,255,0.05); 
-            position: relative;
-        }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-        .map-overlay { 
-            position: absolute; 
-            top:0; left:0; 
-            width:100%; height:100%; 
-            background: rgba(15, 23, 42, 0.6); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            opacity: 0; 
-            transition: opacity 0.3s; 
-            color: white; 
-            font-weight: 600;
-            backdrop-filter: blur(2px);
-        }
-        .map-container:hover .map-overlay { opacity: 1; }
-
-        /* Utilities */
-        .glass-panel {
-            background: var(--glass-card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us | Masjid e Mehtab Ali Shah</title>
+  <meta name="description" content="Contact the office of Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder, Parbhani. Phone, WhatsApp, email, donation and Zakat details, and Waqf property leasing.">
+  <meta name="theme-color" content="#0d2b2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact Us | Masjid e Mehtab Ali Shah">
+  <meta property="og:description" content="Contact the office of Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder, Parbhani. Phone, WhatsApp, email, donation and Zakat details, and Waqf property leasing.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Figtree:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/anh.css">
 </head>
-
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNavbar">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle shadow-sm" style="height: 48px; width: 48px; object-fit: cover;" onerror="this.src='https://placehold.co/48x48/059669/ffffff?text=M'">
-                <span class="brand-text fw-bold fs-5">Masjid e Mehtab Ali Shah</span>
-            </a>
-            
-            <div class="d-flex align-items-center gap-3 d-lg-none">
-                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
-                <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                    <i class="fas fa-bars fs-3" style="color: var(--heading-color)"></i>
-                </button>
-            </div>
-
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium gap-lg-2">
-                    <li class="nav-item"><a class="nav-link rounded-pill" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link rounded-pill" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link rounded-pill" href="News.html">News & Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link active rounded-pill" href="Contact.html">Contact</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-4 mt-4 mt-lg-0">
-                    <button class="theme-toggle d-none d-lg-block" id="themeToggleDesktop" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
-                    <a href="#donate" class="btn-modern text-decoration-none"><span>Donate</span> <i class="fas fa-heart"></i></a>
-                </div>
-            </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <nav class="navbar navbar-expand-xl" aria-label="Main">
+      <div class="container">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+          <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-xl-none">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
+        <div class="collapse navbar-collapse" id="siteMenu">
+          <ul class="navbar-nav nav-links mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="News.html">News &amp; gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="land-grant-archives.html">Archives</a></li>
+          <li class="nav-item"><a class="nav-link" href="youth-program.html">Youth program</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="Contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-tools nav-tools--menu">
+            <button class="icon-btn d-none d-xl-inline-flex" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+          </div>
+        </div>
+      </div>
     </nav>
+  </header>
+<main id="main">
 
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="hero-overlay"></div>
-        <canvas id="bg-animation"></canvas>
-        <div class="container hero-content" data-aos="zoom-out" data-aos-duration="1000">
-            <span class="badge bg-primary bg-opacity-25 text-white border border-primary rounded-pill px-4 py-2 mb-4 fw-medium shadow-sm" style="letter-spacing: 1px; backdrop-filter: blur(4px);">
-                <i class="fas fa-envelope text-accent me-2"></i> We are here to assist you
-            </span>
-            <h1 class="hero-title mb-4">Connect With Us</h1>
-            <p class="hero-subtitle mb-5 mx-auto fs-5 opacity-75" style="max-width: 700px;">Reach out for inquiries regarding Waqf land, community services, educational programs, or to offer your support to the institution.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#contact-form" class="btn-modern text-decoration-none py-3 px-5 fs-5">Send Message <i class="fas fa-paper-plane ms-2"></i></a>
-                <a href="#lease" class="btn-outline-modern bg-dark bg-opacity-50 text-white border-white text-decoration-none py-3 px-5 fs-5" style="backdrop-filter: blur(8px);">Shop Leasing</a>
-            </div>
+    <section class="page-hero night jaali" aria-labelledby="page-title">
+      <div class="container">
+        <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Contact</li></ol></nav>
+        <h1 id="page-title">Connect with us</h1>
+        <p class="lede">Reach out about Waqf land, community services, educational programs, or to support the institution.</p>
+        <div class="hero-actions">
+          <a class="btn-a btn-zari" href="#contact-form"><i class="fab fa-whatsapp"></i> Send a message</a>
+          <a class="btn-a btn-ghost" href="#lease">Shop leasing</a>
         </div>
-    </header>
-
-    <!-- Contact Info & Form Section -->
-    <section class="section-padding bg-alt">
-        <div class="container">
-            <div class="row g-5">
-                <!-- Info Cards -->
-                <div class="col-lg-5" data-aos="fade-right">
-                    <h2 class="display-6 fw-bold mb-4" style="color: var(--heading-color)">Get in Touch</h2>
-                    <p class="text-muted-custom mb-5 fs-5">Our office is open for community members. Feel free to reach out via phone, email, or by visiting us directly.</p>
-                    
-                    <div class="custom-card contact-icon-card mb-4">
-                        <div class="contact-icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                        <div>
-                            <h5 class="fw-bold" style="color: var(--heading-color)">Location</h5>
-                            <p class="text-muted-custom mb-2 small">Ashoorkhana Naale Hyder, Masjid e Mehtab Ali Shah Complex, Parbhani, Maharashtra</p>
-                            <a href="#map" class="text-primary-custom text-decoration-none fw-medium small">View on Map <i class="fas fa-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div class="custom-card contact-icon-card mb-4">
-                        <div class="contact-icon-box"><i class="fas fa-phone-alt"></i></div>
-                        <div>
-                            <h5 class="fw-bold" style="color: var(--heading-color)">Phone</h5>
-                            <p class="text-muted-custom mb-2 small">Speak directly with Mutawalli Mohammed Mushtaque Ahmed.</p>
-                            <a href="tel:+919421488111" class="text-primary-custom text-decoration-none fw-bold fs-5 d-block mb-1">+91 9421488111</a>
-                            <a href="tel:+919119488111" class="text-muted-custom text-decoration-none fw-medium">+91 9119488111</a>
-                        </div>
-                    </div>
-                    
-                    <div class="custom-card contact-icon-card mb-4">
-                        <div class="contact-icon-box"><i class="fas fa-envelope"></i></div>
-                        <div>
-                            <h5 class="fw-bold" style="color: var(--heading-color)">Email</h5>
-                            <p class="text-muted-custom mb-2 small">For official documents, legal notices, and formal inquiries.</p>
-                            <a href="mailto:anhparbhani123@gmail.com" class="text-primary-custom text-decoration-none fw-medium">anhparbhani123@gmail.com</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Form -->
-                <div class="col-lg-7" data-aos="fade-left" id="contact-form">
-                    <div class="custom-card p-4 p-md-5 h-100 d-flex flex-column justify-content-center">
-                        <div class="d-flex align-items-center gap-4 mb-5">
-                            <div class="bg-success bg-opacity-10 p-3 rounded-circle">
-                                <i class="fab fa-whatsapp fs-2 text-success"></i>
-                            </div>
-                            <div>
-                                <h3 class="fw-bold mb-1" style="color: var(--heading-color)">Direct WhatsApp Message</h3>
-                                <p class="text-muted-custom small mb-0">Fastest way to reach our administration.</p>
-                            </div>
-                        </div>
-                        
-                        <form id="joinUsForm">
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control shadow-none" id="name" placeholder="John Doe" required>
-                                        <label for="name">Your Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="tel" class="form-control shadow-none" id="phone" placeholder="+91..." required>
-                                        <label for="phone">Phone Number</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <select class="form-select shadow-none" id="subject" required>
-                                            <option value="" selected disabled>Select a topic...</option>
-                                            <option value="General Inquiry">General Inquiry</option>
-                                            <option value="Shop Leasing">Shop Leasing Application</option>
-                                            <option value="Donation/Zakat">Donation & Zakat</option>
-                                            <option value="Volunteering">Volunteering</option>
-                                            <option value="Legal/Waqf Issue">Legal / Waqf Issue</option>
-                                        </select>
-                                        <label for="subject">Subject</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control shadow-none" id="message" placeholder="Leave a message here" style="height: 140px; resize: none;" required></textarea>
-                                        <label for="message">Your Message</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 mt-4">
-                                    <button type="button" class="btn-modern w-100 py-3 fs-5" onclick="showPreview()">
-                                        Review & Send <i class="fab fa-whatsapp ms-2"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
     </section>
 
-    <!-- Donation Section -->
-    <section class="section-padding" id="donate">
-        <div class="container" data-aos="fade-up">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Support Our Mission</h2>
-                <p class="text-muted-custom fs-5 mx-auto" style="max-width: 600px;">Donations help preserve the historic Waqf complex, maintain community services, and support educational programs.</p>
-            </div>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="custom-card donation-card p-4 p-md-5">
-                        <div class="row align-items-center g-5">
-                            <div class="col-md-7 position-relative">
-                                <div class="d-none d-md-block position-absolute end-0 top-0 h-100 border-end border-secondary opacity-25"></div>
-                                <h4 class="fw-bold mb-4" style="color: var(--heading-color)"><i class="fas fa-university text-primary me-3"></i> Official Bank Details</h4>
-                                
-                                <div class="mb-4">
-                                    <p class="text-muted-custom small text-uppercase fw-semibold mb-1 tracking-wider">Account Name</p>
-                                    <p class="fw-bold mb-0" style="color: var(--heading-color)">ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</p>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <p class="text-muted-custom small text-uppercase fw-semibold mb-1">Bank Name</p>
-                                        <p class="fw-bold mb-0 fs-5 text-primary-custom">Canara Bank</p>
-                                        <small class="text-muted-custom">Parbhani Branch</small>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted-custom small text-uppercase fw-semibold mb-1">Account Number</p>
-                                        <div class="d-flex align-items-center gap-2 bg-light bg-opacity-10 p-2 rounded">
-                                            <p class="fw-bold mb-0 text-primary-custom fs-5 font-monospace" id="accNum">120029337799</p>
-                                            <i class="far fa-copy copy-btn ms-auto" onclick="copyText('accNum')" title="Copy Account Number"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-muted-custom small text-uppercase fw-semibold mb-1">IFSC Code</p>
-                                    <div class="d-flex align-items-center gap-2 bg-light bg-opacity-10 p-2 rounded d-inline-flex">
-                                        <p class="fw-bold mb-0 font-monospace" id="ifscCode" style="color: var(--heading-color)">CNRB0005939</p>
-                                        <i class="far fa-copy copy-btn ms-2" onclick="copyText('ifscCode')" title="Copy IFSC"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5 text-center px-md-4">
-                                <h5 class="fw-bold mb-4" style="color: var(--heading-color)">Scan & Pay via UPI</h5>
-                                <div class="bg-white p-3 d-inline-block rounded-4 shadow-sm mb-4 border border-light">
-                                    <img src="Contact/QR.png" alt="UPI QR Code" style="width: 220px; height: 220px; object-fit: contain;" onerror="this.src='https://placehold.co/220x220/059669/ffffff?text=Scan+To+Donate';">
-                                </div>
-                                <p class="text-success small mb-0 fw-semibold bg-success bg-opacity-10 py-2 px-3 rounded-pill d-inline-flex align-items-center mx-auto">
-                                    <i class="fas fa-shield-alt me-2"></i> Verified & Secure Transaction
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    <section class="section" aria-labelledby="touch-title">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <h2 id="touch-title">Get in touch</h2>
+            <p class="muted mb-4">The office is open to community members. Call, WhatsApp, email or visit us.</p>
+            <ul class="contact-list">
+              <li>
+                <span class="motif"><i class="fas fa-location-dot" aria-hidden="true"></i></span>
+                <h3>Location</h3>
+                <p>Ashoorkhana Naale Hyder, Masjid e Mehtab Ali Shah complex, Parbhani, Maharashtra</p>
+                <p><a class="text-link" href="#map">View on map</a></p>
+              </li>
+              <li>
+                <span class="motif"><i class="fas fa-phone" aria-hidden="true"></i></span>
+                <h3>Phone</h3>
+                <p>Speak directly with Mutawalli Mohammed Mushtaque Ahmed.</p>
+                <p><a class="big" href="tel:+919421488111">+91 94214 88111</a><br><a href="tel:+919119488111">+91 91194 88111</a></p>
+              </li>
+              <li>
+                <span class="motif"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                <h3>Email</h3>
+                <p>For official documents, legal notices and formal inquiries.</p>
+                <p><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-7" id="contact-form">
+            <div class="panel">
+              <h2 class="mb-1">Message us on WhatsApp</h2>
+              <p class="muted mb-4">The fastest way to reach the administration. You'll see the message before it's sent.</p>
+              <form data-wa-form="New website inquiry" novalidate>
+                <div class="row g-0 gx-md-3">
+                  <div class="col-md-6 field"><label for="c-name">Your name</label><input id="c-name" name="name" type="text" autocomplete="name" required data-wa-label="Name"></div>
+                  <div class="col-md-6 field"><label for="c-phone">Phone number</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required data-wa-label="Phone"></div>
                 </div>
+                <div class="field">
+                  <label for="c-subject">Topic</label>
+                  <select id="c-subject" name="subject" required data-wa-label="Subject">
+                    <option value="" selected disabled>Choose a topic</option>
+                    <option value="General Inquiry">General inquiry</option>
+                    <option value="Shop Leasing">Shop leasing application</option>
+                    <option value="Donation/Zakat">Donation and Zakat</option>
+                    <option value="Volunteering">Volunteering</option>
+                    <option value="Legal/Waqf Issue">Legal or Waqf issue</option>
+                  </select>
+                </div>
+                <div class="field"><label for="c-message">Your message</label><textarea id="c-message" name="message" required data-wa-label="Message"></textarea></div>
+                <button type="submit" class="btn-a btn-wa btn-block"><i class="fab fa-whatsapp"></i> Review and send on WhatsApp</button>
+              </form>
+              <div class="form-success" data-wa-success hidden tabindex="-1">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <h3>WhatsApp is open with your message</h3>
+                <p class="muted">Press send in WhatsApp to deliver it to the office. If WhatsApp didn't open, call <a href="tel:+919421488111">+91 94214 88111</a>.</p>
+                <button type="button" class="btn-a btn-line" data-wa-reset>Write another message</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Shop Lease Registration -->
-    <section class="section-padding bg-alt" id="lease">
-        <div class="container">
-            <div class="lease-banner p-4 p-lg-5" data-aos="zoom-in">
-                <div class="row align-items-center position-relative z-3">
-                    <div class="col-lg-7 mb-4 mb-lg-0 pe-lg-5">
-                        <span class="badge bg-warning text-dark mb-4 px-3 py-2 fs-6 fw-semibold shadow-sm"><i class="fas fa-bullhorn me-2"></i> Official Waqf Leasing Notice</span>
-                        <h2 class="display-5 fw-bold mb-4 text-white line-height-tight">Apply for Property Lease</h2>
-                        <p class="fs-5 mb-0 text-white opacity-75">Waqf properties are available on lease for business, residential, or educational purposes strictly under the guidelines of the Maharashtra State Board of Waqfs.</p>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="glass-panel rounded-4 p-4 p-md-5 shadow-lg text-start" style="color: var(--text-main);">
-                            <h5 class="fw-bold mb-4 text-dark fs-4">Key Terms:</h5>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-3 d-flex align-items-start gap-3">
-                                    <i class="fas fa-check-circle text-success mt-1 fs-5"></i>
-                                    <span>Lease periods available: <strong>11 months, 3 years, or 30 years</strong>.</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-start gap-3">
-                                    <i class="fas fa-check-circle text-success mt-1 fs-5"></i>
-                                    <span>Deposit required for auction participation.</span>
-                                </li>
-                                <li class="mb-3 d-flex align-items-start gap-3">
-                                    <i class="fas fa-check-circle text-success mt-1 fs-5"></i>
-                                    <span>Subletting is strictly prohibited under Waqf rules.</span>
-                                </li>
-                            </ul>
-                            <a href="#" class="btn-modern w-100 py-3" download>
-                                <i class="fas fa-file-pdf me-2"></i> Download Agreement PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="section section--alt" id="donate" aria-labelledby="donate-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="donate-title">Support our mission</h2>
+          <p>Donations preserve the historic Waqf complex, maintain community services and support educational programs.</p>
         </div>
+        <div class="panel">
+          <div class="bank">
+            <div class="bank-details">
+              <h3 class="mb-2"><i class="fas fa-building-columns me-2" style="color: var(--zari)" aria-hidden="true"></i>Bank transfer</h3>
+              <div class="bank-row"><span class="k">Account name</span><span class="v">ASHOOR KHANA NALA HYDER MASJID MEHTAB ALI SHAH GRAVEYARD AND NAQQAR KHANA BARADARI</span></div>
+              <div class="bank-row"><span class="k">Bank</span><span class="v">Canara Bank, Parbhani branch</span></div>
+              <div class="bank-row"><span class="k">Account number</span><span class="v mono"><span id="accNum">120029337799</span><button type="button" class="copy-btn" data-copy="accNum"><i class="far fa-copy" aria-hidden="true"></i><span>Copy</span></button></span></div>
+              <div class="bank-row"><span class="k">IFSC code</span><span class="v mono"><span id="ifscCode">CNRB0005939</span><button type="button" class="copy-btn" data-copy="ifscCode"><i class="far fa-copy" aria-hidden="true"></i><span>Copy</span></button></span></div>
+            </div>
+            <div class="bank-qr">
+              <h3 class="mb-3">Scan and pay with UPI</h3>
+              <div class="qr-frame"><img src="Contact/QR.png" alt="UPI QR code for donations" width="200" height="200"></div>
+              <p class="small-print mt-3 mb-0">Works with any UPI app. Please check the account name before paying.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- AI Chat & FAQ Section -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="row g-5">
-                <!-- AI Assistant -->
-                <div class="col-lg-6 d-flex flex-column" data-aos="fade-right">
-                    <h2 class="display-6 fw-bold mb-3" style="color: var(--heading-color)">Ask Our AI Assistant</h2>
-                    <p class="text-muted-custom mb-4 fs-5">Get instant answers regarding donations, volunteering, or lease terms.</p>
-                    
-                    <div class="chat-container flex-grow-1">
-                        <div class="chat-header d-flex align-items-center gap-3">
-                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 46px; height: 46px;">
-                                <i class="fas fa-robot text-primary fs-4"></i>
-                            </div>
-                            <div>
-                                <h5 class="mb-0 fw-bold">Masjid Support</h5>
-                                <small class="text-white-50 d-flex align-items-center gap-1">
-                                    <span style="display:inline-block; width:8px; height:8px; background:#10b981; border-radius:50%;"></span> Online
-                                </small>
-                            </div>
-                        </div>
-                        
-                        <div class="chat-box" id="chat-box">
-                            <div class="chat-bubble bubble-ai">
-                                <p>As-salamu alaykum! I am the support assistant for Masjid e Mehtab Ali Shah. How can I assist you with your inquiry today?</p>
-                            </div>
-                        </div>
-                        
-                        <div class="suggestion-chips">
-                            <button class="chip" onclick="setChatInput('How can I volunteer?')">Volunteering</button>
-                            <button class="chip" onclick="setChatInput('What are the bank details for Zakat?')">Zakat Details</button>
-                            <button class="chip" onclick="setChatInput('Who is the Mutawalli?')">Contact Mutawalli</button>
-                        </div>
-                        
-                        <div class="chat-input-area">
-                            <input type="text" class="form-control chat-input" id="chat-input" placeholder="Type your question..." onkeypress="handleChatEnter(event)">
-                            <button class="btn-send shadow-sm" id="btn-send-chat" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FAQ Accordion -->
-                <div class="col-lg-6 d-flex flex-column" data-aos="fade-left">
-                    <h2 class="display-6 fw-bold mb-3" style="color: var(--heading-color)">Common Questions</h2>
-                    <p class="text-muted-custom mb-4 fs-5">Quick answers to frequently asked questions.</p>
-                    
-                    <div class="accordion flex-grow-1" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h1">
-                                <button class="accordion-button fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true">
-                                    <i class="fas fa-hand-holding-heart me-3 text-primary opacity-75"></i> How can I donate or pay Zakat?
-                                </button>
-                            </h2>
-                            <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted-custom">
-                                    You can donate via bank transfer to our Canara Bank account or scan the UPI QR code in the donation section above. Funds are used for Masjid maintenance, educational programs, and aiding the destitute in the community.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h2">
-                                <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
-                                    <i class="fas fa-users me-3 text-primary opacity-75"></i> How can I volunteer my time?
-                                </button>
-                            </h2>
-                            <div id="c2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted-custom">
-                                    We highly encourage community participation! Please use the WhatsApp form above, select "Volunteering" as the subject, and let us know your skills. We often need help with event organization, tutoring, and maintenance.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h3">
-                                <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
-                                    <i class="fas fa-book-open me-3 text-primary opacity-75"></i> What educational programs are available?
-                                </button>
-                            </h2>
-                            <div id="c3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted-custom">
-                                    We offer a weekend Islamic Studies Program for youth (ages 7-14), adult Tafseer sessions, and operate a 24-hour computer institute open to students of all backgrounds to empower the next generation.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="h4">
-                                <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#c4">
-                                    <i class="fas fa-store me-3 text-primary opacity-75"></i> How do I apply for a shop lease?
-                                </button>
-                            </h2>
-                            <div id="c4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-muted-custom">
-                                    Download the Rent Agreement PDF from the Leasing section to review the terms. Once ready, contact the Mutawalli's office directly or submit an inquiry via the WhatsApp form to participate in the formal allocation process.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="band night jaali" id="lease" aria-labelledby="lease-title">
+      <span class="edge edge--top edge--alt" aria-hidden="true"></span>
+      <div class="container band-grid">
+        <div>
+          <p class="tag" style="color: var(--zari)">Official Waqf leasing notice</p>
+          <h2 id="lease-title">Apply for a property lease</h2>
+          <p class="lede">Waqf properties are available on lease for business, residential or educational purposes, strictly under the guidelines of the Maharashtra State Board of Waqfs.</p>
         </div>
+        <div class="bank-mini">
+          <h3 class="fs-5 mb-3">Key terms</h3>
+          <ul class="checks mb-4">
+            <li>Lease periods of 11 months, 3 years or 30 years</li>
+            <li>A deposit is required to take part in the auction</li>
+            <li>Subletting is strictly prohibited under Waqf rules</li>
+          </ul>
+          <div class="gap-actions">
+            <a class="btn-a btn-zari" href="Contact/Waqf%20Rent%20Agreement.pdf" download><i class="fas fa-file-pdf"></i> Download agreement (PDF)</a>
+            <a class="btn-a btn-ghost" href="shop-registration.html">Apply online</a>
+          </div>
+        </div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
     </section>
 
-    <!-- Map Section -->
-    <section id="map" class="position-relative">
-        <div class="container position-absolute top-0 start-50 translate-middle-x mt-4 z-3" style="max-width: 450px; pointer-events: none;">
-            <div class="custom-card p-3 px-4 text-center d-flex align-items-center justify-content-between shadow-lg border-primary" style="pointer-events: auto;">
-                <div class="text-start">
-                    <h6 class="fw-bold mb-0" style="color: var(--heading-color)">Masjid Location</h6>
-                    <small class="text-muted-custom">Parbhani, Maharashtra</small>
-                </div>
-                <a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" class="btn btn-sm btn-modern px-3 rounded-pill">
-                    Directions <i class="fas fa-external-link-alt ms-1"></i>
-                </a>
+    <section class="section" id="helper" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-6">
+            <h2>Quick answers</h2>
+            <p class="muted mb-4">Instant answers about donations, volunteering and lease terms.</p>
+            <div class="helper" data-helper>
+            <div class="helper-head">
+              <img src="assets/img/logo-seal.png" alt="" width="40" height="36">
+              <div><strong>Quick answers</strong><span>Answers come from this website. For anything else, message the office.</span></div>
             </div>
+            <div class="helper-log" aria-live="polite">
+              <div class="msg msg-bot"><p>As-salamu alaykum. Ask about donations, prayer times, the youth program, leasing, our history or how to reach us.</p></div>
+            </div>
+            <div class="chips"><button type="button" class="chip">How can I volunteer?</button><button type="button" class="chip">Bank details for Zakat</button><button type="button" class="chip">Who is the Mutawalli?</button><button type="button" class="chip">Lease terms</button></div>
+            <form class="helper-form">
+              <label class="visually-hidden" for="helperQ">Your question</label>
+              <input class="input" id="helperQ" type="text" placeholder="Type your question" autocomplete="off">
+              <button class="btn-a btn-firoza" type="submit" aria-label="Ask"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 id="faq-title">Common questions</h2>
+            <p class="muted mb-4">Answers to the questions we hear most.</p>
+            <div class="accordion faq" id="faqAccordion">
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true" aria-controls="c1">How can I donate or pay Zakat?</button></h3>
+                <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">You can donate by bank transfer to our Canara Bank account or scan the UPI QR code in the donation section above. Funds are used for masjid maintenance, educational programs and helping those in need in the community.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2" aria-expanded="false" aria-controls="c2">How can I volunteer my time?</button></h3>
+                <div id="c2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">We encourage community participation. Use the WhatsApp form above, choose "Volunteering" as the topic, and tell us your skills. We often need help with events, tutoring and maintenance.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3" aria-expanded="false" aria-controls="c3">What educational programs are available?</button></h3>
+                <div id="c3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">We offer a weekend Islamic Studies Program for youth aged 7 to 14, adult Tafseer sessions, and a 24-hour computer institute open to students of all backgrounds. <a href="youth-program.html">See the youth program</a>.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4" aria-expanded="false" aria-controls="c4">How do I apply for a shop lease?</button></h3>
+                <div id="c4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Download the rent agreement PDF from the leasing section to review the terms. When you're ready, <a href="shop-registration.html">fill in the registration form</a>, contact the Mutawalli's office, or send an inquiry with the WhatsApp form.</div></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15119.835158654854!2d76.76450095!3d19.26620955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd0175b31276d49%3A0x8e83b4b830d17!2sParbhani%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin" width="100%" height="450" style="border:0; filter: grayscale(10%) contrast(1.1);" allowfullscreen="" loading="lazy"></iframe>
+      </div>
     </section>
 
-    <!-- Structured Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <a class="d-flex align-items-center gap-3 text-decoration-none mb-4" href="index.html">
-                        <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle shadow" style="height: 48px; width: 48px; object-fit: cover;" onerror="this.src='https://placehold.co/48x48/059669/ffffff?text=M'">
-                        <span class="fw-bold fs-5 text-white" style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
-                    </a>
-                    <p class="text-muted mb-4 pe-lg-4 line-height-lg">Preserving our shared history and fostering a vibrant Islamic community in Parbhani, Maharashtra. A lasting legacy of the Nizam era.</p>
-                    <div class="d-flex gap-2">
-                        <a href="#" class="social-circle" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-circle" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-circle" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Masjid</h4>
-                    <a href="About.html" class="footer-link">About Us</a>
-                    <a href="About.html#timeline" class="footer-link">Our History</a>
-                    <a href="News.html" class="footer-link">News & Updates</a>
-                    <a href="News.html#gallery" class="footer-link">Gallery</a>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Community</h4>
-                    <a href="News.html#events" class="footer-link">Events</a>
-                    <a href="youth-program.html" class="footer-link">Youth Programs</a>
-                    <a href="#lease" class="footer-link">Shop Leasing</a>
-                    <a href="#donate" class="footer-link text-accent fw-medium">Donate / Zakat</a>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="footer-heading">Contact Info</h4>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-3 text-muted d-flex align-items-start gap-3">
-                            <i class="fas fa-map-marker-alt text-primary mt-1"></i>
-                            <span>Survey No. 1, 2 & 3, Parbhani, MH</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-start gap-3">
-                            <i class="fas fa-phone text-primary mt-1"></i>
-                            <a href="tel:+919421488111" class="text-muted text-decoration-none hover-text-primary">+91 9421488111</a>
-                        </li>
-                    </ul>
-                    <a href="#map" class="map-container d-block text-decoration-none">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15119.835158654854!2d76.76450095!3d19.26620955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd0175b31276d49%3A0x8e83b4b830d17!2sParbhani%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" style="pointer-events: none;"></iframe>
-                        <div class="map-overlay">Open Map <i class="fas fa-external-link-alt ms-2"></i></div>
-                    </a>
-                </div>
-            </div>
-            <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-muted small d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-2 mb-md-0">&copy; <span id="currentYear"></span> Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="mb-0">Designed & Developed by Kamel Shah</p>
-            </div>
-        </div>
-    </footer>
+    <section id="map" class="map-frame" aria-label="Map">
+      <div class="map-card">
+        <div><strong>Masjid location</strong><span>Parbhani, Maharashtra</span></div>
+        <a class="btn-a btn-firoza" href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener"><i class="fas fa-diamond-turn-right"></i> Directions</a>
+      </div>
+      <iframe title="Map of Parbhani, Maharashtra" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15119.835158654854!2d76.76450095!3d19.26620955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd0175b31276d49%3A0x8e83b4b830d17!2sParbhani%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </section>
 
-    <!-- WhatsApp Preview Modal -->
-    <div class="modal fade" id="waPreviewModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0" style="background-color: var(--bg-surface); color: var(--text-main); border-radius: 20px; overflow: hidden;">
-                <div class="modal-header border-bottom border-secondary border-opacity-25 bg-success bg-opacity-10 py-3">
-                    <h5 class="modal-title fw-bold text-success d-flex align-items-center">
-                        <i class="fab fa-whatsapp fs-3 me-2"></i> Confirm Message
-                    </h5>
-                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close" style="filter: var(--close-btn-filter);"></button>
-                </div>
-                <div class="modal-body p-4 whatsapp-preview position-relative" id="waPreviewBody">
-                    <!-- Populated by JS -->
-                </div>
-                <div class="modal-footer border-top border-secondary border-opacity-25 bg-light bg-opacity-10">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-medium" data-bs-dismiss="modal">Edit</button>
-                    <button type="button" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" onclick="sendToWhatsApp()">
-                        <span>Send via App</span> <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
+  </main>
+  <footer class="site-footer night jaali footer--joined">
+    
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand mb-3" href="index.html">
+            <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+            <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+          </a>
+          <p>A Nizam-era Waqf in Parbhani, Maharashtra, keeping a legacy of worship, remembrance and service alive for the community.</p>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Registered Waqf MSBW/PBN/47/2010</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919421488111" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
         </div>
+        <div>
+          <h2>Visit</h2>
+          <ul class="footer-links">
+            <li><a href="About.html">About us</a></li>
+            <li><a href="About.html#timeline">Our history</a></li>
+            <li><a href="About.html#land-map">Land records</a></li>
+            <li><a href="land-grant-archives.html">Waqf archives</a></li>
+            <li><a href="News.html">News &amp; gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul class="footer-links">
+            <li><a href="About.html#services">Services</a></li>
+            <li><a href="youth-program.html">Youth program</a></li>
+            <li><a href="shop-registration.html">Shop leasing</a></li>
+            <li><a href="Contact.html#donate">Donate / Zakat</a></li>
+            <li><a href="Contact.html#helper">Quick answers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul class="footer-links footer-contact">
+            <li><i class="fas fa-location-dot"></i><span>Ashoorkhana Naale Hyder, Survey No. 1, 2 &amp; 3, Parbhani, Maharashtra</span></li>
+            <li><i class="fas fa-phone"></i><a href="tel:+919421488111">+91 94214 88111</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></li>
+            <li><i class="fas fa-diamond-turn-right"></i><a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener">Get directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>&copy; <span data-year>2026</span> Masjid e Mehtab Ali Shah. All rights reserved.</p>
+        <p>Designed &amp; developed by Kamel Shah</p>
+      </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize AOS
-            AOS.init({ once: true, duration: 800, offset: 50, easing: 'ease-out-cubic' });
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            // Navbar Scroll Effect
-            const navbar = document.getElementById('mainNavbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) navbar.classList.add('scrolled');
-                else navbar.classList.remove('scrolled');
-            });
-
-            // Dark Mode Logic
-            const themeToggleDesktop = document.getElementById('themeToggleDesktop');
-            const themeToggleMobile = document.getElementById('themeToggleMobile');
-            const body = document.documentElement;
-
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'dark');
-                updateToggleIcons('dark');
-            }
-
-            function updateToggleIcons(theme) {
-                const iconClass = theme === 'dark' ? 'fas fa-sun text-warning' : 'fas fa-moon';
-                themeToggleDesktop.innerHTML = `<i class="${iconClass}"></i>`;
-                themeToggleMobile.innerHTML = `<i class="${iconClass}"></i>`;
-                if (theme === 'dark') {
-                    document.documentElement.style.setProperty('--close-btn-filter', 'invert(1) grayscale(100%) brightness(200%)');
-                } else {
-                    document.documentElement.style.setProperty('--close-btn-filter', 'none');
-                }
-            }
-
-            function toggleTheme() {
-                let theme = body.getAttribute('data-theme');
-                if (theme === 'dark') {
-                    body.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                    updateToggleIcons('light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                    updateToggleIcons('dark');
-                }
-            }
-
-            themeToggleDesktop.addEventListener('click', toggleTheme);
-            themeToggleMobile.addEventListener('click', toggleTheme);
-
-            // Three.js Background Animation (Elegant Particle Dust)
-            if (typeof THREE !== 'undefined') {
-                const header = document.querySelector('.hero-section');
-                const canvas = document.querySelector('#bg-animation');
-                if (header && canvas) {
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(60, header.clientWidth / header.clientHeight, 0.1, 1000);
-                    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-
-                    const setSize = () => {
-                        renderer.setSize(header.clientWidth, header.clientHeight);
-                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                        camera.aspect = header.clientWidth / header.clientHeight;
-                        camera.updateProjectionMatrix();
-                    };
-                    setSize();
-                    camera.position.z = 8;
-
-                    const particlesGeometry = new THREE.BufferGeometry();
-                    // Reduce count for performance and elegance
-                    const count = window.innerWidth > 768 ? 600 : 300; 
-                    const positions = new Float32Array(count * 3);
-                    for (let i = 0; i < count * 3; i++) {
-                        positions[i] = (Math.random() - 0.5) * 20;
-                    }
-                    
-                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                    const particlesMaterial = new THREE.PointsMaterial({
-                        size: 0.04, 
-                        color: 0x10b981, // Emerald Accent
-                        transparent: true, 
-                        opacity: 0.6, 
-                        blending: THREE.AdditiveBlending
-                    });
-                    
-                    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-                    scene.add(particles);
-
-                    let mouseX = 0; let mouseY = 0;
-                    let targetX = 0; let targetY = 0;
-                    
-                    document.addEventListener('mousemove', (e) => {
-                        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                        mouseY = -(e.clientY / window.innerHeight) * 2 - 1;
-                    });
-
-                    const clock = new THREE.Clock();
-                    const animate = () => {
-                        const elapsedTime = clock.getElapsedTime();
-                        
-                        // Smoothly interpolate mouse target
-                        targetX = mouseX * 0.001;
-                        targetY = mouseY * 0.001;
-                        
-                        particles.rotation.y += 0.0005 + targetX;
-                        particles.rotation.x += 0.0002 + targetY;
-                        particles.position.y = Math.sin(elapsedTime * 0.1) * 0.3;
-                        
-                        renderer.render(scene, camera);
-                        window.requestAnimationFrame(animate);
-                    };
-                    animate();
-                    window.addEventListener('resize', setSize);
-                }
-            }
-        });
-
-        // Copy Text Logic
-        window.copyText = function(elementId) {
-            const textElement = document.getElementById(elementId);
-            if (!textElement) return;
-            
-            const text = textElement.innerText;
-            
-            // Clipboard API (Modern)
-            navigator.clipboard.writeText(text).then(() => {
-                const icon = textElement.nextElementSibling;
-                if(icon && icon.classList.contains('copy-btn')) {
-                    icon.classList.remove('far', 'fa-copy');
-                    icon.classList.add('fas', 'fa-check', 'text-success');
-                    
-                    // Add subtle scale animation
-                    icon.style.transform = 'scale(1.2)';
-                    
-                    setTimeout(() => {
-                        icon.classList.remove('fas', 'fa-check', 'text-success');
-                        icon.classList.add('far', 'fa-copy');
-                        icon.style.transform = 'scale(1)';
-                    }, 2000);
-                }
-            }).catch(err => {
-                console.error("Failed to copy text: ", err);
-                // Fallback for older browsers / strict iframes
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                } catch (err) {
-                    console.error('Fallback: Oops, unable to copy', err);
-                }
-                document.body.removeChild(textArea);
-            });
-        }
-
-        // WhatsApp Form Logic
-        let finalWaUrl = "";
-        
-        window.showPreview = function() {
-            const form = document.getElementById('joinUsForm');
-            if(!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            const rawMsg = `*New Website Inquiry*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
-            
-            // Formatting output for HTML modal display
-            const formattedMsg = rawMsg.replace(/\n/g, '<br>').replace(/\*(.*?)\*/g, '<strong>$1</strong>');
-            document.getElementById('waPreviewBody').innerHTML = `<div class="wa-bubble shadow-sm">${formattedMsg}</div>`;
-            
-            const phoneNumber = '919421488111';
-            finalWaUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(rawMsg)}`;
-            
-            const waModal = new bootstrap.Modal(document.getElementById('waPreviewModal'));
-            waModal.show();
-        }
-
-        window.sendToWhatsApp = function() {
-            if(finalWaUrl) {
-                window.open(finalWaUrl, '_blank');
-                document.getElementById('joinUsForm').reset();
-                bootstrap.Modal.getInstance(document.getElementById('waPreviewModal')).hide();
-            }
-        }
-
-        // AI Chat Logic (UI & Gemini API)
-        const apiKey = ""; // API key is populated automatically by the environment
-        
-        window.setChatInput = function(text) {
-            const inputEl = document.getElementById('chat-input');
-            inputEl.value = text;
-            inputEl.focus();
-            setTimeout(sendChatMessage, 100);
-        }
-        
-        window.handleChatEnter = function(e) {
-            if(e.key === 'Enter') sendChatMessage();
-        }
-
-        window.sendChatMessage = async function() {
-            const inputEl = document.getElementById('chat-input');
-            const topic = inputEl.value.trim();
-            if (!topic) return;
-
-            const chatBox = document.getElementById('chat-box');
-            const btnSend = document.getElementById('btn-send-chat');
-
-            // Add User Bubble
-            chatBox.insertAdjacentHTML('beforeend', `<div class="chat-bubble bubble-user">${topic}</div>`);
-            inputEl.value = '';
-            
-            // Auto scroll
-            requestAnimationFrame(() => chatBox.scrollTop = chatBox.scrollHeight);
-
-            // Disable Input & Show Typing
-            inputEl.disabled = true;
-            btnSend.disabled = true;
-            const typingId = 'typing-' + Date.now();
-            
-            chatBox.insertAdjacentHTML('beforeend', `
-                <div class="chat-bubble bubble-ai" id="${typingId}">
-                    <div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
-                </div>
-            `);
-            requestAnimationFrame(() => chatBox.scrollTop = chatBox.scrollHeight);
-
-            const systemPrompt = `You are a helpful, respectful, and concise AI assistant for Masjid e Mehtab Ali Shah. Keep answers brief (1-3 sentences) and polite based ONLY on this context:
-            
-            - Email: anhparbhani123@gmail.com
-            - Phone: +91 9421488111
-            - Address: Ashoorkhana Naale Hyder, Masjid e Mehtab Ali Shah Complex, Parbhani, Maharashtra
-            - Waqf Steward (Mutawalli): Mohammed Mushtaque Ahmed.
-            - Donations & Zakat: Canara Bank, Account: 120029337799, IFSC: CNRB0005939. UPI accepted via QR on site.
-            - Volunteering: Use WhatsApp contact form, select "Volunteering".
-            - Leasing: Shop/Land leases available for 11 mo, 3 yr, or 30 yr. Must agree to Waqf rules.`;
-
-            const payload = {
-                contents: [{ parts: [{ text: topic }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-            let responseText = "";
-            let retries = 5;
-            let delays = [1000, 2000, 4000, 8000, 16000];
-            
-            for (let attempt = 0; attempt < retries; attempt++) {
-                try {
-                    const response = await fetch(apiUrl, { 
-                        method: 'POST', 
-                        headers: { 'Content-Type': 'application/json' }, 
-                        body: JSON.stringify(payload) 
-                    });
-                    
-                    if (!response.ok) {
-                        // Strict implementation of exponential backoff.
-                        // Throw if it is a fatal error, continue to catch block to delay/retry if applicable
-                        if (response.status !== 429 && response.status < 500) {
-                             throw new Error("Fatal configuration or auth error.");
-                        }
-                        throw new Error(`API Rate Limit / Server Error: ${response.status}`);
-                    }
-                    
-                    const result = await response.json();
-                    responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
-                    break; // Success, break out of retry loop
-
-                } catch (error) {
-                    if (attempt === retries - 1 || error.message.includes("Fatal configuration")) {
-                        responseText = "I'm having trouble connecting right now. Please try calling us at +91 9421488111 instead.";
-                        break;
-                    }
-                    // Wait before retrying based on exponential backoff
-                    await new Promise(r => setTimeout(r, delays[attempt]));
-                }
-            }
-
-            // Remove typing indicator
-            const typingIndicator = document.getElementById(typingId);
-            if(typingIndicator) typingIndicator.remove();
-            
-            // Format output safely (Markdown -> HTML, or plain text fallback)
-            let formattedResponse = typeof marked !== 'undefined' ? marked.parse(responseText) : responseText.replace(/\n/g, "<br>");
-            
-            // Add AI response
-            chatBox.insertAdjacentHTML('beforeend', `<div class="chat-bubble bubble-ai">${formattedResponse}</div>`);
-            
-            // Re-enable input
-            inputEl.disabled = false;
-            btnSend.disabled = false;
-            inputEl.focus();
-            requestAnimationFrame(() => chatBox.scrollTop = chatBox.scrollHeight);
-        }
-    </script>
+  </footer>
+  <div class="modal fade" id="waModal" tabindex="-1" aria-labelledby="waModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="waModalTitle"><i class="fab fa-whatsapp me-2" style="color:#1f8f4e"></i>Check your message</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="small-print">This opens WhatsApp with the message addressed to the office (+91 94214 88111). Press send in WhatsApp to deliver it.</p>
+          <div class="wa-preview" id="waPreview"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-a btn-line" data-bs-dismiss="modal">Edit</button>
+          <a class="btn-a btn-wa" id="waSend" href="https://wa.me/919421488111" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Open WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/anh.js"></script>
 </body>
 </html>

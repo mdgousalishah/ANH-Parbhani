@@ -1,935 +1,333 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Masjid e Mehtab Ali Shah | Ashoorkhana Naale Hyder</title>
-
-    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link rel="apple-touch-icon" href="Home/ANH2.jpg">
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- AOS Animation CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-    <!-- Three.js for Hero Particles & Marked for AI -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <style>
-        :root {
-            --bg-body: #f8fafc;
-            --bg-surface: #ffffff;
-            --bg-surface-alt: #f1f5f9;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --heading-color: #0f172a;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --primary: #15803d;
-            --primary-hover: #166534;
-            --accent: #22c55e;
-            --secondary: #f59e0b;
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-card: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="dark"] {
-            --bg-body: #0f172a;
-            --bg-surface: #1e293b;
-            --bg-surface-alt: #0b1120;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --heading-color: #f8fafc;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --glass-bg: rgba(15, 23, 42, 0.85);
-            --glass-card: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
-        h1, h2, h3, h4, h5, h6, .brand-text { font-family: 'Merriweather', serif; color: var(--heading-color); }
-        p { color: var(--text-main); line-height: 1.7; }
-        .text-muted-custom { color: var(--text-muted) !important; }
-        .text-primary-custom { color: var(--primary) !important; }
-        .text-secondary-custom { color: var(--secondary) !important; }
-
-        /* Navbar */
-        .navbar { background-color: var(--glass-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: padding 0.3s ease; }
-        .navbar.scrolled { padding-top: 0.5rem; padding-bottom: 0.5rem; box-shadow: var(--shadow-sm); }
-        .navbar-brand { color: var(--heading-color) !important; }
-        .nav-link { color: var(--text-main) !important; font-weight: 500; position: relative; padding: 0.5rem 1rem; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
-        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
-        .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
-        .theme-toggle { background: transparent; border: none; color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: transform 0.3s ease; }
-        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); color: var(--secondary); }
-
-        /* Buttons */
-        .btn-modern { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white !important; border: none; border-radius: 50px; padding: 10px 28px; font-weight: 600; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3); z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-modern::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--primary)); opacity: 0; z-index: -1; transition: opacity 0.3s ease; }
-        .btn-modern:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4); }
-        .btn-modern:hover::before { opacity: 1; }
-        .btn-outline-modern { background: transparent; color: var(--heading-color); border: 2px solid var(--primary); border-radius: 50px; padding: 8px 26px; font-weight: 600; transition: all 0.3s ease; }
-        .btn-outline-modern:hover { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(21, 128, 61, 0.3); }
-
-        /* Hero Section */
-        .hero-section { position: relative; min-height: 90vh; display: flex; align-items: center; background: url('https://images.unsplash.com/photo-1587598993888-a7342618a6e8?q=80&w=2070') center/cover no-repeat fixed; padding-top: 80px; padding-bottom: 60px; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)); z-index: 1; }
-        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        .hero-content { position: relative; z-index: 3; color: white; }
-        .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; text-shadow: 0 4px 20px rgba(0,0,0,0.5); color: white;}
-        .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 3; animation: bounce 2s infinite; color: white; opacity: 0.7; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-20px) translateX(-50%); } 60% { transform: translateY(-10px) translateX(-50%); } }
-
-        /* Prayer Dashboard */
-        .prayer-dashboard { background: var(--glass-card); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; margin-top: -60px; position: relative; z-index: 10; box-shadow: var(--shadow-lg); transition: background 0.4s; }
-        .prayer-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 15px; padding: 1.5rem 1rem; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
-        .prayer-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent); }
-        .prayer-card i { font-size: 2rem; color: var(--secondary); margin-bottom: 10px; transition: transform 0.3s; }
-        .prayer-card:hover i { transform: scale(1.1); }
-        .prayer-active { background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important; color: white !important; border-color: var(--accent) !important; transform: scale(1.05); box-shadow: 0 10px 25px rgba(21, 128, 61, 0.4); }
-        .prayer-active h4, .prayer-active p, .prayer-active i { color: white !important; }
-
-        /* General Layout */
-        .section-padding { padding: 80px 0; }
-        .bg-alt { background-color: var(--bg-surface-alt); }
-        .section-title { position: relative; display: inline-block; margin-bottom: 3rem; }
-        .section-title::after { content: ''; position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent); border-radius: 3px; }
-        
-        /* Fixed height issue: removed height 100% */
-        .custom-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-sm); transition: all 0.4s ease; overflow: hidden; position: relative; }
-        .custom-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--glass-border); }
-
-        .quote-section { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1564683214965-0610c3f09fb9?auto=format&fit=crop&q=80') center/cover fixed; color: white; text-align: center; padding: 100px 0; }
-        .quote-text { font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2.5rem); font-style: italic; font-weight: 300; }
-        
-        .service-icon-box { width: 70px; height: 70px; background: rgba(34, 197, 94, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--primary); font-size: 1.8rem; transition: all 0.3s; }
-        .custom-card:hover .service-icon-box { background: var(--primary); color: white; transform: rotateY(180deg); }
-
-        .img-hover-zoom { overflow: hidden; border-radius: 12px; }
-        .img-hover-zoom img { transition: transform 0.5s ease; width: 100%; height: 100%; object-fit: cover; }
-        .img-hover-zoom:hover img { transform: scale(1.08); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-        .gallery-item { height: 250px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: var(--shadow-sm); }
-        .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-        .donate-banner { background: linear-gradient(135deg, var(--primary), #064e3b); border-radius: 24px; padding: 3rem; color: white; box-shadow: 0 20px 40px rgba(6, 78, 59, 0.3); position: relative; overflow: hidden; }
-        .donate-banner::after { content: '\f4c0'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; right: -20px; bottom: -40px; font-size: 15rem; color: rgba(255,255,255,0.05); }
-
-        .testimonial-img { width: 80px; height: 80px; object-fit: cover; border: 3px solid var(--accent); padding: 3px; }
-        .profile-image { width: 160px; height: 160px; object-fit: cover; border: 4px solid var(--accent); padding: 4px; }
-        .mutawalli-card { border-left: 5px solid var(--primary); }
-
-        /* Typing indicator for AI */
-        .typing-indicator { display: flex; justify-content: center; gap: 4px; padding: 10px; }
-        .typing-dot { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-        /* Footer */
-        .footer { background-color: #0f172a; color: #cbd5e1; padding-top: 80px; padding-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .footer-heading { color: white; font-family: 'Merriweather', serif; font-size: 1.25rem; margin-bottom: 1.5rem; }
-        .footer-link { color: #cbd5e1; text-decoration: none; transition: color 0.3s; display: block; margin-bottom: 0.75rem; }
-        .footer-link:hover { color: var(--accent); transform: translateX(5px); }
-        .social-circle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; transition: all 0.3s; margin-right: 10px; text-decoration: none; }
-        .social-circle:hover { background: var(--primary); transform: translateY(-3px); color: white;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Masjid e Mehtab Ali Shah | Ashoorkhana Naale Hyder, Parbhani</title>
+  <meta name="description" content="Historic Nizam-era Waqf complex in Parbhani, Maharashtra: Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder. Prayer times, history, services and donations.">
+  <meta name="theme-color" content="#0d2b2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Masjid e Mehtab Ali Shah | Ashoorkhana Naale Hyder, Parbhani">
+  <meta property="og:description" content="Historic Nizam-era Waqf complex in Parbhani, Maharashtra: Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder. Prayer times, history, services and donations.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Figtree:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+  <link rel="stylesheet" href="assets/css/anh.css">
 </head>
-
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNavbar">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 45px; width: 45px; object-fit: cover;" onerror="this.src='https://placehold.co/45x45/15803d/ffffff?text=M'">
-                <span class="brand-text fw-bold fs-5">Masjid e Mehtab Ali Shah</span>
-            </a>
-            
-            <div class="d-flex align-items-center gap-3 d-lg-none">
-                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle Dark Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                    <i class="fas fa-bars fs-3" style="color: var(--heading-color)"></i>
-                </button>
-            </div>
-
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="News.html">News & Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                    <button class="theme-toggle d-none d-lg-block" id="themeToggleDesktop" aria-label="Toggle Dark Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <a href="Contact.html#donate" class="btn-modern text-decoration-none">
-                        <span>Donate</span> <i class="fas fa-heart"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-overlay"></div>
-        <canvas id="bg-animation"></canvas>
-        <div class="container hero-content text-center" data-aos="fade-up">
-            <span class="badge bg-success bg-opacity-25 text-white border border-success rounded-pill px-3 py-2 mb-4 fw-normal letter-spacing-1">
-                <i class="fas fa-star-and-crescent text-secondary me-2"></i> Historic Waqf Property (MSBW/PBN/47/2010)
-            </span>
-            <h1 class="hero-title mb-4">A Beacon of Faith, Heritage,<br>and Community</h1>
-            <p class="hero-subtitle mb-5">Welcome to the historic complex of Ashoorkhana Naale Hyder & Masjid Mahetab Ali Shah. A spiritual center established during the Nizam era, preserving a rich legacy of worship.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#history" class="btn-modern text-decoration-none py-3 px-4 fs-5">
-                    Explore Masjid <i class="fas fa-arrow-right ms-2"></i>
-                </a>
-                <a href="About.html" class="btn-outline-modern bg-dark bg-opacity-50 text-white border-white text-decoration-none py-3 px-4 fs-5">
-                    View History
-                </a>
-            </div>
-        </div>
-        <a href="#prayer-dashboard" class="scroll-indicator fs-3">
-            <i class="fas fa-chevron-down"></i>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <nav class="navbar navbar-expand-xl" aria-label="Main">
+      <div class="container">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+          <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
         </a>
+        <div class="d-flex align-items-center gap-2 d-xl-none">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="collapse navbar-collapse" id="siteMenu">
+          <ul class="navbar-nav nav-links mx-auto">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="News.html">News &amp; gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="land-grant-archives.html">Archives</a></li>
+          <li class="nav-item"><a class="nav-link" href="youth-program.html">Youth program</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-tools nav-tools--menu">
+            <button class="icon-btn d-none d-xl-inline-flex" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+<main id="main">
+
+    <section class="hero night jaali" aria-labelledby="hero-title">
+      <span class="lantern" style="top:24%;left:6%" aria-hidden="true"></span>
+      <span class="lantern" style="top:62%;left:46%" aria-hidden="true"></span>
+      <span class="lantern" style="top:14%;right:8%" aria-hidden="true"></span>
+      <div class="container hero-grid">
+        <div>
+          <p class="bismillah reveal" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+          <h1 id="hero-title" class="reveal">A house of prayer and remembrance since the Nizam era</h1>
+          <p class="lede reveal">Welcome to the historic complex of Ashoorkhana Naale Hyder and Masjid e Mehtab Ali Shah in Parbhani, a place of worship, learning and service kept as a sacred trust for generations.</p>
+          <div class="hero-actions reveal">
+            <a class="btn-a btn-zari" href="#prayer"><i class="far fa-clock"></i> Today's prayer times</a>
+            <a class="btn-a btn-ghost" href="About.html">Read our history</a>
+          </div>
+          <p class="waqf-reg reveal"><i class="fas fa-landmark"></i> Registered Waqf property, MSBW/PBN/47/2010</p>
+        </div>
+        <figure class="hero-art m-0">
+          <div class="arch"><img src="assets/img/prayer-hall.jpg" alt="Worshippers in the prayer hall of Masjid e Mehtab Ali Shah, with rows of green prayer carpets beneath white arches" decoding="async"><svg viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="arch-outer" d="M0.50 125.00 L0.50 67.01 L0.51 66.02 L0.53 65.04 L0.56 64.05 L0.61 63.07 L0.68 62.08 L0.75 61.10 L0.84 60.12 L0.95 59.14 L1.07 58.16 L1.20 57.18 L1.35 56.21 L1.51 55.23 L1.68 54.26 L1.87 53.29 L2.07 52.33 L2.29 51.36 L2.52 50.41 L2.76 49.45 L3.02 48.50 L3.29 47.55 L3.57 46.60 L3.87 45.66 L4.18 44.73 L4.50 43.80 L4.84 42.87 L5.19 41.95 L5.56 41.03 L5.93 40.12 L6.32 39.21 L6.72 38.31 L7.14 37.42 L7.57 36.53 L8.01 35.64 L8.46 34.77 L8.92 33.90 L9.40 33.03 L9.89 32.18 L10.39 31.33 L10.91 30.49 L11.43 29.65 L11.97 28.83 L12.52 28.01 L13.08 27.19 L13.65 26.39 L14.24 25.60 L14.83 24.81 L15.44 24.03 L16.05 23.26 L16.68 22.50 L17.32 21.75 L17.97 21.01 L18.63 20.27 L19.30 19.55 L19.98 18.84 L20.67 18.13 L21.37 17.44 L22.08 16.75 L22.80 16.08 L23.53 15.42 L24.27 14.76 L25.02 14.12 L25.78 13.49 L26.55 12.87 L27.32 12.26 L28.10 11.66 L28.90 11.07 L29.70 10.49 L30.50 9.93 L31.32 9.38 L32.15 8.83 L32.98 8.30 L33.82 7.79 L34.66 7.28 L35.52 6.79 L36.38 6.30 L37.25 5.83 L38.12 5.38 L39.00 4.93 L39.89 4.50 L40.78 4.08 L41.68 3.67 L42.58 3.28 L43.49 2.90 L44.41 2.53 L45.33 2.18 L46.25 1.83 L47.18 1.51 L48.12 1.19 L49.06 0.89 L50.00 0.60 L50.94 0.89 L51.88 1.19 L52.82 1.51 L53.75 1.83 L54.67 2.18 L55.59 2.53 L56.51 2.90 L57.42 3.28 L58.32 3.67 L59.22 4.08 L60.11 4.50 L61.00 4.93 L61.88 5.38 L62.75 5.83 L63.62 6.30 L64.48 6.79 L65.34 7.28 L66.18 7.79 L67.02 8.30 L67.85 8.83 L68.68 9.38 L69.50 9.93 L70.30 10.49 L71.10 11.07 L71.90 11.66 L72.68 12.26 L73.45 12.87 L74.22 13.49 L74.98 14.12 L75.73 14.76 L76.47 15.42 L77.20 16.08 L77.92 16.75 L78.63 17.44 L79.33 18.13 L80.02 18.84 L80.70 19.55 L81.37 20.27 L82.03 21.01 L82.68 21.75 L83.32 22.50 L83.95 23.26 L84.56 24.03 L85.17 24.81 L85.76 25.60 L86.35 26.39 L86.92 27.19 L87.48 28.01 L88.03 28.83 L88.57 29.65 L89.09 30.49 L89.61 31.33 L90.11 32.18 L90.60 33.03 L91.08 33.90 L91.54 34.77 L91.99 35.64 L92.43 36.53 L92.86 37.42 L93.28 38.31 L93.68 39.21 L94.07 40.12 L94.44 41.03 L94.81 41.95 L95.16 42.87 L95.50 43.80 L95.82 44.73 L96.13 45.66 L96.43 46.60 L96.71 47.55 L96.98 48.50 L97.24 49.45 L97.48 50.41 L97.71 51.36 L97.93 52.33 L98.13 53.29 L98.32 54.26 L98.49 55.23 L98.65 56.21 L98.80 57.18 L98.93 58.16 L99.05 59.14 L99.16 60.12 L99.25 61.10 L99.32 62.08 L99.39 63.07 L99.44 64.05 L99.47 65.04 L99.49 66.02 L99.50 67.01 L99.50 125.00" vector-effect="non-scaling-stroke" pathLength="100"/><path class="arch-inner" d="M6.00 125.00 L6.00 66.53 L5.57 65.65 L5.16 64.75 L4.79 63.85 L4.46 62.93 L4.18 62.01 L3.97 61.08 L3.82 60.16 L3.75 59.23 L3.76 58.31 L3.85 57.40 L4.02 56.50 L4.27 55.61 L4.60 54.74 L5.00 53.89 L5.46 53.06 L5.99 52.25 L6.56 51.47 L7.17 50.70 L7.82 49.96 L8.48 49.23 L8.31 48.26 L8.17 47.29 L8.07 46.32 L8.01 45.34 L8.00 44.38 L8.06 43.43 L8.18 42.50 L8.37 41.59 L8.64 40.71 L8.98 39.86 L9.40 39.04 L9.89 38.26 L10.45 37.52 L11.07 36.82 L11.75 36.15 L12.48 35.52 L13.25 34.93 L14.05 34.37 L14.88 33.84 L15.72 33.32 L15.83 32.35 L15.97 31.37 L16.14 30.41 L16.36 29.46 L16.62 28.54 L16.94 27.64 L17.32 26.78 L17.76 25.96 L18.27 25.19 L18.83 24.47 L19.46 23.80 L20.15 23.19 L20.89 22.64 L21.69 22.14 L22.53 21.69 L23.40 21.29 L24.31 20.94 L25.24 20.62 L26.18 20.34 L27.13 20.09 L27.51 19.18 L27.92 18.29 L28.36 17.41 L28.83 16.56 L29.35 15.75 L29.90 14.98 L30.51 14.26 L31.16 13.60 L31.86 13.00 L32.61 12.47 L33.40 12.00 L34.23 11.61 L35.10 11.29 L36.01 11.03 L36.94 10.84 L37.89 10.70 L38.86 10.62 L39.84 10.58 L40.82 10.57 L41.80 10.59 L42.42 9.83 L43.07 9.09 L43.73 8.37 L44.43 7.69 L45.15 7.05 L45.90 6.47 L46.68 5.95 L47.49 5.50 L48.33 5.12 L49.20 4.82 L51.67 5.12 L52.51 5.50 L53.32 5.95 L54.10 6.47 L54.85 7.05 L55.57 7.69 L56.27 8.37 L56.93 9.09 L57.58 9.83 L58.20 10.59 L59.18 10.57 L60.16 10.58 L61.14 10.62 L62.11 10.70 L63.06 10.84 L63.99 11.03 L64.90 11.29 L65.77 11.61 L66.60 12.00 L67.39 12.47 L68.14 13.00 L68.84 13.60 L69.49 14.26 L70.10 14.98 L70.65 15.75 L71.17 16.56 L71.64 17.41 L72.08 18.29 L72.49 19.18 L72.87 20.09 L73.82 20.34 L74.76 20.62 L75.69 20.94 L76.60 21.29 L77.47 21.69 L78.31 22.14 L79.11 22.64 L79.85 23.19 L80.54 23.80 L81.17 24.47 L81.73 25.19 L82.24 25.96 L82.68 26.78 L83.06 27.64 L83.38 28.54 L83.64 29.46 L83.86 30.41 L84.03 31.37 L84.17 32.35 L84.28 33.32 L85.12 33.84 L85.95 34.37 L86.75 34.93 L87.52 35.52 L88.25 36.15 L88.93 36.82 L89.55 37.52 L90.11 38.26 L90.60 39.04 L91.02 39.86 L91.36 40.71 L91.63 41.59 L91.82 42.50 L91.94 43.43 L92.00 44.38 L91.99 45.34 L91.93 46.32 L91.83 47.29 L91.69 48.26 L91.52 49.23 L92.18 49.96 L92.83 50.70 L93.44 51.47 L94.01 52.25 L94.54 53.06 L95.00 53.89 L95.40 54.74 L95.73 55.61 L95.98 56.50 L96.15 57.40 L96.24 58.31 L96.25 59.23 L96.18 60.16 L96.03 61.08 L95.82 62.01 L95.54 62.93 L95.21 63.85 L94.84 64.75 L94.43 65.65 L94.00 66.53 L94.00 125.00" vector-effect="non-scaling-stroke" pathLength="100"/></svg></div>
+          <figcaption>The prayer hall of Masjid e Mehtab Ali Shah</figcaption>
+        </figure>
+      </div>
+
+      <div class="container">
+        <div class="prayer" id="prayer" aria-labelledby="prayer-title">
+          <div class="prayer-head">
+            <h2 id="prayer-title">Prayer times in Parbhani</h2>
+            <div class="prayer-meta">
+              <span data-prayer-date>Today</span>
+              <span class="hijri" data-hijri hidden></span>
+              <span class="prayer-next" data-prayer-next aria-live="polite"></span>
+            </div>
+          </div>
+          <ol class="prayer-list">
+            <li data-prayer="Fajr"><span class="prayer-name">Fajr</span><span class="prayer-time">--:--</span></li>
+            <li data-prayer="Sunrise"><span class="prayer-name">Sunrise</span><span class="prayer-time">--:--</span></li>
+            <li data-prayer="Dhuhr"><span class="prayer-name">Dhuhr</span><span class="prayer-time">--:--</span></li>
+            <li data-prayer="Asr"><span class="prayer-name">Asr</span><span class="prayer-time">--:--</span></li>
+            <li data-prayer="Maghrib"><span class="prayer-name">Maghrib</span><span class="prayer-time">--:--</span></li>
+            <li data-prayer="Isha"><span class="prayer-name">Isha</span><span class="prayer-time">--:--</span></li>
+          </ol>
+          <p class="prayer-note" data-prayer-note hidden>Live times could not be loaded, so usual times are shown. Please confirm with the masjid.</p>
+        </div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
     </section>
 
-    <!-- Prayer Times Dashboard -->
-    <div class="container" id="prayer-dashboard">
-        <div class="prayer-dashboard" data-aos="fade-up" data-aos-delay="100">
-            <div class="row align-items-center mb-4">
-                <div class="col-md-6 text-center text-md-start">
-                    <h3 class="fw-bold mb-1" style="color: var(--heading-color)">Today's Prayer Times</h3>
-                    <p class="text-muted-custom mb-0"><i class="fas fa-map-marker-alt text-primary me-2"></i>Parbhani, Maharashtra</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                    <div class="d-inline-flex align-items-center bg-primary bg-opacity-10 rounded-pill px-4 py-2 border border-primary border-opacity-25">
-                        <i class="far fa-clock text-primary fs-4 me-2"></i>
-                        <span class="fs-5 fw-bold" style="color: var(--heading-color)" id="prayer-countdown">Calculating...</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row g-3">
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-fajr">
-                        <i class="fas fa-cloud-sun"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Fajr</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-fajr">--:--</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-sunrise">
-                        <i class="fas fa-sun text-warning"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Sunrise</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-sunrise">--:--</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-dhuhr">
-                        <i class="fas fa-sun"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Dhuhr</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-dhuhr">--:--</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-asr">
-                        <i class="fas fa-cloud-sun-rain"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Asr</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-asr">--:--</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-maghrib">
-                        <i class="fas fa-moon"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Maghrib</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-maghrib">--:--</p>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="prayer-card text-center h-100" id="card-isha">
-                        <i class="fas fa-star-and-crescent"></i>
-                        <h4 class="fs-5 mb-1" style="color: var(--heading-color)">Isha</h4>
-                        <p class="fw-bold mb-0 text-primary-custom" id="time-isha">--:--</p>
-                    </div>
-                </div>
-            </div>
+    <section class="section" id="reflection" aria-labelledby="reflection-title">
+      <div class="container">
+        <div class="verse">
+          <div class="star-rule"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5l2.4 4.7 5-1.6-1.6 5 4.7 2.4-4.7 2.4 1.6 5-5-1.6L12 22.5l-2.4-4.7-5 1.6 1.6-5L1.5 12l4.7-2.4-1.6-5 5 1.6z"/></svg></div>
+          <h2 class="verse-title" id="reflection-title" data-v-title>Daily reflection</h2>
+          <p class="verse-intro" data-v-intro>Every day is a new opportunity to grow closer to Allah through remembrance and good deeds.</p>
+          <p class="ar" lang="ar" data-v-ar>فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ</p>
+          <p class="verse-en" data-v-en>"So remember Me; I will remember you. And be grateful to Me and do not deny Me."</p>
+          <p class="verse-ref" data-v-ref>Quran 2:152</p>
         </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="history" aria-labelledby="history-title">
+      <div class="container">
+        <div class="row g-4 g-lg-5 align-items-end">
+          <div class="col-lg-6">
+            <h2 id="history-title">A living history, a thriving community</h2>
+            <p class="lede mb-0">Established during the Hyderabad Nizam era.</p>
+          </div>
+          <div class="col-lg-6">
+            <p class="mb-0">For generations, the Ashoorkhana Naale Hyder and Masjid e Mehtab Ali Shah complex has been a cornerstone of faith in Parbhani. Registered as a historic Waqf property with the Maharashtra State Board of Waqfs, our mission is to preserve its spiritual traditions and its architecture.</p>
+            <ul class="checks">
+              <li>Authentic Nizam-era architecture</li>
+              <li>An unbroken chain of stewardship (Silsila)</li>
+              <li>Dedicated to community welfare</li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="photo ratio-wide mt-lg">
+          <img src="assets/img/naqqar-khana.jpg" alt="The Naqqar Khana, with arched windows rising above the gateway of the complex" loading="lazy" decoding="async">
+        </figure>
+
+        <div class="legend">
+          <div class="legend-item">
+            <span class="motif"><i class="fas fa-star-and-crescent" aria-hidden="true"></i></span>
+            <h3>Ashoorkhana</h3>
+            <p>A sacred space for mourning and remembrance, central to the spiritual life of the complex.</p>
+          </div>
+          <div class="legend-item">
+            <span class="motif"><i class="fas fa-drum" aria-hidden="true"></i></span>
+            <h3>Naqqar Khana</h3>
+            <p>The historic drum house, echoing the old tradition of announcing prayers and occasions.</p>
+          </div>
+          <div class="legend-item">
+            <span class="motif"><i class="fas fa-archway" aria-hidden="true"></i></span>
+            <h3>Baradari</h3>
+            <p>The twelve-doored pavilion, a timeless piece of architecture for gatherings.</p>
+          </div>
+          <div class="legend-item">
+            <span class="motif"><i class="fas fa-tree" aria-hidden="true"></i></span>
+            <h3>Graveyard</h3>
+            <p>A peaceful resting place that connects us to the generations who built this community.</p>
+          </div>
+        </div>
+        <p class="mt-lg mb-0"><a class="text-link" href="About.html#architecture">Explore the architecture</a></p>
+      </div>
+    </section>
+
+    <section class="band night jaali" aria-labelledby="quote-title">
+      <span class="edge edge--top edge--alt" aria-hidden="true"></span>
+      <div class="container">
+        <div class="verse">
+          <h2 class="visually-hidden" id="quote-title">From the Quran</h2>
+          <p class="ar" lang="ar">إِنَّمَا يَعْمُرُ مَسَاجِدَ اللَّهِ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ</p>
+          <p class="verse-en">"The mosques of Allah are only to be maintained by those who believe in Allah and the Last Day."</p>
+          <p class="verse-ref">Quran 9:18</p>
+        </div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="services-title">Masjid services</h2>
+          <p>Serving the spiritual and social needs of the Ummah.</p>
+        </div>
+        <ul class="service-list">
+          <li><i class="fas fa-person-praying" aria-hidden="true"></i><h3>Daily salah</h3><p>Congregational prayers five times a day, with facilities for wudu.</p></li>
+          <li><i class="fas fa-users" aria-hidden="true"></i><h3>Jumu'ah prayer</h3><p>Weekly Friday sermons on contemporary issues and Islamic guidance.</p></li>
+          <li><i class="fas fa-book-quran" aria-hidden="true"></i><h3>Quran education</h3><p>Madrasa classes for children and Tafseer sessions for adults.</p></li>
+          <li><i class="fas fa-hand-holding-heart" aria-hidden="true"></i><h3>Community charity</h3><p>Zakat distribution, food drives and support for the underprivileged.</p></li>
+          <li><i class="fas fa-ring" aria-hidden="true"></i><h3>Nikah services</h3><p>Islamic marriages within the premises, with proper documentation.</p></li>
+          <li><i class="fas fa-comments" aria-hidden="true"></i><h3>Islamic guidance</h3><p>Counselling and fatwa services for personal and family matters.</p></li>
+        </ul>
+        <p class="mt-lg mb-0">Have a question about our services? <a class="text-link" href="Contact.html#helper">Get quick answers</a></p>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="steward-title">
+      <div class="container">
+        <div class="steward">
+          <div class="arch arch--sm"><img src="assets/img/mutawalli.jpg" alt="Portrait of Mohammad Mushtaque Ahmed" loading="lazy" decoding="async" style="object-position:50% 20%"><svg viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="arch-outer" d="M0.50 125.00 L0.50 67.01 L0.51 66.02 L0.53 65.04 L0.56 64.05 L0.61 63.07 L0.68 62.08 L0.75 61.10 L0.84 60.12 L0.95 59.14 L1.07 58.16 L1.20 57.18 L1.35 56.21 L1.51 55.23 L1.68 54.26 L1.87 53.29 L2.07 52.33 L2.29 51.36 L2.52 50.41 L2.76 49.45 L3.02 48.50 L3.29 47.55 L3.57 46.60 L3.87 45.66 L4.18 44.73 L4.50 43.80 L4.84 42.87 L5.19 41.95 L5.56 41.03 L5.93 40.12 L6.32 39.21 L6.72 38.31 L7.14 37.42 L7.57 36.53 L8.01 35.64 L8.46 34.77 L8.92 33.90 L9.40 33.03 L9.89 32.18 L10.39 31.33 L10.91 30.49 L11.43 29.65 L11.97 28.83 L12.52 28.01 L13.08 27.19 L13.65 26.39 L14.24 25.60 L14.83 24.81 L15.44 24.03 L16.05 23.26 L16.68 22.50 L17.32 21.75 L17.97 21.01 L18.63 20.27 L19.30 19.55 L19.98 18.84 L20.67 18.13 L21.37 17.44 L22.08 16.75 L22.80 16.08 L23.53 15.42 L24.27 14.76 L25.02 14.12 L25.78 13.49 L26.55 12.87 L27.32 12.26 L28.10 11.66 L28.90 11.07 L29.70 10.49 L30.50 9.93 L31.32 9.38 L32.15 8.83 L32.98 8.30 L33.82 7.79 L34.66 7.28 L35.52 6.79 L36.38 6.30 L37.25 5.83 L38.12 5.38 L39.00 4.93 L39.89 4.50 L40.78 4.08 L41.68 3.67 L42.58 3.28 L43.49 2.90 L44.41 2.53 L45.33 2.18 L46.25 1.83 L47.18 1.51 L48.12 1.19 L49.06 0.89 L50.00 0.60 L50.94 0.89 L51.88 1.19 L52.82 1.51 L53.75 1.83 L54.67 2.18 L55.59 2.53 L56.51 2.90 L57.42 3.28 L58.32 3.67 L59.22 4.08 L60.11 4.50 L61.00 4.93 L61.88 5.38 L62.75 5.83 L63.62 6.30 L64.48 6.79 L65.34 7.28 L66.18 7.79 L67.02 8.30 L67.85 8.83 L68.68 9.38 L69.50 9.93 L70.30 10.49 L71.10 11.07 L71.90 11.66 L72.68 12.26 L73.45 12.87 L74.22 13.49 L74.98 14.12 L75.73 14.76 L76.47 15.42 L77.20 16.08 L77.92 16.75 L78.63 17.44 L79.33 18.13 L80.02 18.84 L80.70 19.55 L81.37 20.27 L82.03 21.01 L82.68 21.75 L83.32 22.50 L83.95 23.26 L84.56 24.03 L85.17 24.81 L85.76 25.60 L86.35 26.39 L86.92 27.19 L87.48 28.01 L88.03 28.83 L88.57 29.65 L89.09 30.49 L89.61 31.33 L90.11 32.18 L90.60 33.03 L91.08 33.90 L91.54 34.77 L91.99 35.64 L92.43 36.53 L92.86 37.42 L93.28 38.31 L93.68 39.21 L94.07 40.12 L94.44 41.03 L94.81 41.95 L95.16 42.87 L95.50 43.80 L95.82 44.73 L96.13 45.66 L96.43 46.60 L96.71 47.55 L96.98 48.50 L97.24 49.45 L97.48 50.41 L97.71 51.36 L97.93 52.33 L98.13 53.29 L98.32 54.26 L98.49 55.23 L98.65 56.21 L98.80 57.18 L98.93 58.16 L99.05 59.14 L99.16 60.12 L99.25 61.10 L99.32 62.08 L99.39 63.07 L99.44 64.05 L99.47 65.04 L99.49 66.02 L99.50 67.01 L99.50 125.00" vector-effect="non-scaling-stroke" pathLength="100"/><path class="arch-inner" d="M6.00 125.00 L6.00 66.53 L5.57 65.65 L5.16 64.75 L4.79 63.85 L4.46 62.93 L4.18 62.01 L3.97 61.08 L3.82 60.16 L3.75 59.23 L3.76 58.31 L3.85 57.40 L4.02 56.50 L4.27 55.61 L4.60 54.74 L5.00 53.89 L5.46 53.06 L5.99 52.25 L6.56 51.47 L7.17 50.70 L7.82 49.96 L8.48 49.23 L8.31 48.26 L8.17 47.29 L8.07 46.32 L8.01 45.34 L8.00 44.38 L8.06 43.43 L8.18 42.50 L8.37 41.59 L8.64 40.71 L8.98 39.86 L9.40 39.04 L9.89 38.26 L10.45 37.52 L11.07 36.82 L11.75 36.15 L12.48 35.52 L13.25 34.93 L14.05 34.37 L14.88 33.84 L15.72 33.32 L15.83 32.35 L15.97 31.37 L16.14 30.41 L16.36 29.46 L16.62 28.54 L16.94 27.64 L17.32 26.78 L17.76 25.96 L18.27 25.19 L18.83 24.47 L19.46 23.80 L20.15 23.19 L20.89 22.64 L21.69 22.14 L22.53 21.69 L23.40 21.29 L24.31 20.94 L25.24 20.62 L26.18 20.34 L27.13 20.09 L27.51 19.18 L27.92 18.29 L28.36 17.41 L28.83 16.56 L29.35 15.75 L29.90 14.98 L30.51 14.26 L31.16 13.60 L31.86 13.00 L32.61 12.47 L33.40 12.00 L34.23 11.61 L35.10 11.29 L36.01 11.03 L36.94 10.84 L37.89 10.70 L38.86 10.62 L39.84 10.58 L40.82 10.57 L41.80 10.59 L42.42 9.83 L43.07 9.09 L43.73 8.37 L44.43 7.69 L45.15 7.05 L45.90 6.47 L46.68 5.95 L47.49 5.50 L48.33 5.12 L49.20 4.82 L51.67 5.12 L52.51 5.50 L53.32 5.95 L54.10 6.47 L54.85 7.05 L55.57 7.69 L56.27 8.37 L56.93 9.09 L57.58 9.83 L58.20 10.59 L59.18 10.57 L60.16 10.58 L61.14 10.62 L62.11 10.70 L63.06 10.84 L63.99 11.03 L64.90 11.29 L65.77 11.61 L66.60 12.00 L67.39 12.47 L68.14 13.00 L68.84 13.60 L69.49 14.26 L70.10 14.98 L70.65 15.75 L71.17 16.56 L71.64 17.41 L72.08 18.29 L72.49 19.18 L72.87 20.09 L73.82 20.34 L74.76 20.62 L75.69 20.94 L76.60 21.29 L77.47 21.69 L78.31 22.14 L79.11 22.64 L79.85 23.19 L80.54 23.80 L81.17 24.47 L81.73 25.19 L82.24 25.96 L82.68 26.78 L83.06 27.64 L83.38 28.54 L83.64 29.46 L83.86 30.41 L84.03 31.37 L84.17 32.35 L84.28 33.32 L85.12 33.84 L85.95 34.37 L86.75 34.93 L87.52 35.52 L88.25 36.15 L88.93 36.82 L89.55 37.52 L90.11 38.26 L90.60 39.04 L91.02 39.86 L91.36 40.71 L91.63 41.59 L91.82 42.50 L91.94 43.43 L92.00 44.38 L91.99 45.34 L91.93 46.32 L91.83 47.29 L91.69 48.26 L91.52 49.23 L92.18 49.96 L92.83 50.70 L93.44 51.47 L94.01 52.25 L94.54 53.06 L95.00 53.89 L95.40 54.74 L95.73 55.61 L95.98 56.50 L96.15 57.40 L96.24 58.31 L96.25 59.23 L96.18 60.16 L96.03 61.08 L95.82 62.01 L95.54 62.93 L95.21 63.85 L94.84 64.75 L94.43 65.65 L94.00 66.53 L94.00 125.00" vector-effect="non-scaling-stroke" pathLength="100"/></svg></div>
+          <div>
+            <h2 class="visually-hidden" id="steward-title">A message from the Mutawalli</h2>
+            <blockquote>
+              <p>"I am humbled by the responsibility to serve this historic institution. My commitment is to uphold its sacred values, protect its heritage, and ensure it continues to be a source of guidance, education and support for our entire community."</p>
+            </blockquote>
+            <span class="steward-name">Mohammad Mushtaque Ahmed</span>
+            <span class="steward-role">Sajjada Nashin va Mutawally</span>
+            <p class="mt-3 mb-0"><a class="text-link" href="single-news-post.html">Read about his appointment</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 section-head" style="max-width:none">
+          <div>
+            <h2 id="gallery-title" class="mb-2">Moments from the complex</h2>
+            <p class="mb-0">Select a photo to view it full size.</p>
+          </div>
+          <a class="btn-a btn-line" href="News.html#gallery">See the full gallery</a>
+        </div>
+        <div class="mosaic" data-gallery>
+          <a href="Home/structure.jpg" data-sub-html="<h4>The Baradari and Ashoorkhana facade</h4>"><figure><img src="assets/img/facade-arches.jpg" alt="The turquoise limewashed facade with its scalloped Deccan arches" loading="lazy" decoding="async"><figcaption>The scalloped arches of the facade</figcaption></figure></a>
+          <a href="Home/waqf%20123_432.jpg" data-sub-html="<h4>Silsila document</h4>"><figure><img src="assets/img/news/silsila.jpg" alt="Historic Silsila document of the line of stewardship" loading="lazy" decoding="async"><figcaption>Silsila document</figcaption></figure></a>
+          <a href="Home/Sbm.jpg" data-sub-html="<h4>Serving food to the community</h4>"><figure><img src="assets/img/community-food.jpg" alt="Volunteers serving food from a large cooking pot" loading="lazy" decoding="async"><figcaption>Serving the community</figcaption></figure></a>
+          <a href="News/waqf%20123_502.jpg" data-sub-html="<h4>118th Urs celebration</h4><p>Honouring H. Syed Shah Turab Ul Haq.</p>"><figure><img src="News/waqf%20123_502.jpg" alt="Members presenting the poster for the 118th Urs" loading="lazy" decoding="async"><figcaption>118th Urs celebration</figcaption></figure></a>
+          <a href="Home/architectural.jpg" data-sub-html="<h4>The Naqqar Khana</h4>"><figure><img src="assets/img/naqqar-khana.jpg" alt="The Naqqar Khana above the gateway" loading="lazy" decoding="async" style="object-position:40% 50%"><figcaption>The Naqqar Khana</figcaption></figure></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="voices-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="voices-title">Voices of our community</h2>
+        </div>
+        <div class="voices">
+          <figure class="voice m-0">
+            <blockquote>Praying here feels like connecting with generations past. It's more than a masjid; it's our heritage.</blockquote>
+            <figcaption><img src="assets/img/avatar-anwar.jpg" alt="" width="52" height="52" loading="lazy">Dr. Anwar Ali Shah</figcaption>
+          </figure>
+          <figure class="voice m-0">
+            <blockquote>The Islamic studies classes are wonderful. Kids learn about deen where their great-grandparents prayed.</blockquote>
+            <figcaption><img src="assets/img/avatar-farooq.jpg" alt="" width="52" height="52" loading="lazy">Mr. Farooq Ali Shah</figcaption>
+          </figure>
+          <figure class="voice m-0">
+            <blockquote>I am grateful for the unity here. This complex is the heart of our community, a place of solace.</blockquote>
+            <figcaption><img src="assets/img/avatar-junaid.jpg" alt="" width="52" height="52" loading="lazy">Mr. Junaid Ali Shah</figcaption>
+          </figure>
+          <figure class="voice m-0">
+            <blockquote>The preservation efforts are inspiring. It's a blessing to see history honoured for future generations.</blockquote>
+            <figcaption><img src="assets/img/avatar-habib.jpg" alt="" width="52" height="52" loading="lazy">Dr. Habib Ali Shah</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band night jaali" id="donate" aria-labelledby="donate-title">
+      <span class="edge edge--top edge--alt" aria-hidden="true"></span>
+      <div class="container band-grid">
+        <div>
+          <h2 id="donate-title">Support the house of Allah</h2>
+          <p class="lede">Your donations help maintain the Waqf property, develop the masjid, and fund educational programs and charity for the community. Be part of this Sadaqah Jariyah.</p>
+          <div class="gap-actions mt-4">
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate now</a>
+            <a class="btn-a btn-ghost" href="Contact.html#donate">Scan the UPI code</a>
+          </div>
+        </div>
+        <div class="bank-mini">
+          <dl>
+            <dt>Bank</dt><dd>Canara Bank, Parbhani</dd>
+            <dt>Account no.</dt><dd>120029337799</dd>
+            <dt>IFSC</dt><dd>CNRB0005939</dd>
+          </dl>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Account name: Ashoor Khana Nala Hyder Masjid Mehtab Ali Shah Graveyard and Naqqar Khana Baradari</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer night jaali footer--joined">
+    
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand mb-3" href="index.html">
+            <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+            <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+          </a>
+          <p>A Nizam-era Waqf in Parbhani, Maharashtra, keeping a legacy of worship, remembrance and service alive for the community.</p>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Registered Waqf MSBW/PBN/47/2010</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919421488111" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h2>Visit</h2>
+          <ul class="footer-links">
+            <li><a href="About.html">About us</a></li>
+            <li><a href="About.html#timeline">Our history</a></li>
+            <li><a href="About.html#land-map">Land records</a></li>
+            <li><a href="land-grant-archives.html">Waqf archives</a></li>
+            <li><a href="News.html">News &amp; gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul class="footer-links">
+            <li><a href="About.html#services">Services</a></li>
+            <li><a href="youth-program.html">Youth program</a></li>
+            <li><a href="shop-registration.html">Shop leasing</a></li>
+            <li><a href="Contact.html#donate">Donate / Zakat</a></li>
+            <li><a href="Contact.html#helper">Quick answers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul class="footer-links footer-contact">
+            <li><i class="fas fa-location-dot"></i><span>Ashoorkhana Naale Hyder, Survey No. 1, 2 &amp; 3, Parbhani, Maharashtra</span></li>
+            <li><i class="fas fa-phone"></i><a href="tel:+919421488111">+91 94214 88111</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></li>
+            <li><i class="fas fa-diamond-turn-right"></i><a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener">Get directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>&copy; <span data-year>2026</span> Masjid e Mehtab Ali Shah. All rights reserved.</p>
+        <p>Designed &amp; developed by Kamel Shah</p>
+      </div>
     </div>
-
-    <!-- Daily Reflection -->
-    <section class="section-padding" id="reflection">
-        <div class="container" data-aos="fade-up">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="custom-card text-center border-0" style="border-top: 5px solid var(--accent);">
-                        <div class="card-body p-5" id="reflection-content">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- History Overview Section -->
-    <section class="section-padding bg-alt" id="history">
-        <div class="container">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <div class="position-relative img-hover-zoom rounded-4 shadow-lg">
-                        <img src="Home/In SideMasjid .jpg" alt="Inside the Masjid" loading="lazy" 
-                             onerror="this.src='https://images.unsplash.com/photo-1598522325825-9a84f5d6811d?auto=format&fit=crop&q=80&w=800';">
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <h2 class="display-6 fw-bold mb-3">A Living History, A Thriving Community</h2>
-                    <p class="lead text-primary-custom fw-medium mb-4">Established during the Hyderabad Nizam era.</p>
-                    <p class="text-muted-custom mb-4">For generations, the <b>Ashoorkhana Nale Hyder & Masjid Mehtab Ali Shah</b> complex has been a cornerstone of faith in Parbhani. Registered as a historic Waqf property under the Maharashtra State Board of Waqfs, our mission is to preserve these profound spiritual traditions and architectural marvels.</p>
-                    
-                    <ul class="list-unstyled mb-4 text-muted-custom">
-                        <li class="mb-2"><i class="fas fa-check-circle text-accent me-2" style="color:var(--accent)"></i> Authentic Nizam-era Architecture</li>
-                        <li class="mb-2"><i class="fas fa-check-circle text-accent me-2" style="color:var(--accent)"></i> Unbroken Chain of Stewardship (Silsila)</li>
-                        <li class="mb-2"><i class="fas fa-check-circle text-accent me-2" style="color:var(--accent)"></i> Dedicated to Community Welfare</li>
-                    </ul>
-                    <a href="#services" class="btn-outline-modern text-decoration-none">Discover Our Services</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Complex Structures -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="text-center" data-aos="fade-up">
-                <h2 class="section-title">Explore Our Sacred Complex</h2>
-                <p class="text-muted-custom mb-5">Discover the historic landmarks that make our premises unique.</p>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="custom-card text-center border-0 p-4 h-100">
-                        <div class="service-icon-box mx-auto"><i class="fas fa-kaaba"></i></div>
-                        <h4 class="fw-bold mb-3 fs-5">Ashoorkhana</h4>
-                        <p class="text-muted-custom small mb-0">A sacred space for mourning and remembrance, central to spiritual life.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="custom-card text-center border-0 p-4 h-100">
-                        <div class="service-icon-box mx-auto"><i class="fas fa-drum"></i></div>
-                        <h4 class="fw-bold mb-3 fs-5">Naqqar Khana</h4>
-                        <p class="text-muted-custom small mb-0">The historic drum house, echoing traditions of announcing prayers.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="custom-card text-center border-0 p-4 h-100">
-                        <div class="service-icon-box mx-auto"><i class="fas fa-archway"></i></div>
-                        <h4 class="fw-bold mb-3 fs-5">Baradari</h4>
-                        <p class="text-muted-custom small mb-0">The twelve-doored pavilion, a timeless architectural marvel for gatherings.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="custom-card text-center border-0 p-4 h-100">
-                        <div class="service-icon-box mx-auto"><i class="fas fa-tree"></i></div>
-                        <h4 class="fw-bold mb-3 fs-5">Graveyard</h4>
-                        <p class="text-muted-custom small mb-0">A peaceful resting place, connecting us to the generations that built our community.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Islamic Quote Section -->
-    <section class="quote-section" data-aos="fade-in">
-        <div class="container">
-            <i class="fas fa-quote-left fs-1 text-secondary mb-4 opacity-50"></i>
-            <p class="quote-text">“Indeed, the mosques of Allah are only to be maintained by those who believe in Allah and the Last Day.”</p>
-            <p class="quote-author">— Quran 9:18</p>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="section-padding bg-alt" id="services">
-        <div class="container">
-            <div class="text-center" data-aos="fade-up">
-                <h2 class="section-title">Masjid Services</h2>
-                <p class="text-muted-custom mb-5">Serving the spiritual and social needs of the Ummah.</p>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-praying-hands"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Daily Salah</h5>
-                            <p class="text-muted-custom small mb-0">Congregational prayers held 5 times a day with facilities for wudu.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-users"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Jumu'ah Prayer</h5>
-                            <p class="text-muted-custom small mb-0">Weekly Friday sermons focusing on contemporary issues and Islamic guidance.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-book-quran"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Quran Education</h5>
-                            <p class="text-muted-custom small mb-0">Madrasa classes for children and Tafseer sessions for adults.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-hand-holding-heart"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Community Charity</h5>
-                            <p class="text-muted-custom small mb-0">Zakat distribution, food drives, and support for the underprivileged.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-ring"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Nikah Services</h5>
-                            <p class="text-muted-custom small mb-0">Facilitating Islamic marriages within the premises with proper documentation.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                    <div class="custom-card p-4 d-flex align-items-start gap-3 h-100">
-                        <div class="text-primary fs-2"><i class="fas fa-comments"></i></div>
-                        <div>
-                            <h5 class="fw-bold">Islamic Guidance</h5>
-                            <p class="text-muted-custom small mb-0">Counseling and fatwa services for personal and family matters.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-5" data-aos="fade-up">
-                <button class="btn-modern shadow-none" data-bs-toggle="modal" data-bs-target="#qa-modal">
-                    <i class="fas fa-robot me-2"></i> Have Questions? Ask our Helper
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mutawalli Message -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="row justify-content-center" data-aos="fade-up">
-                <div class="col-lg-10">
-                    <div class="custom-card mutawalli-card">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 text-center p-4 bg-alt h-100 d-flex flex-column justify-content-center">
-                                <img src="Home/Mushtaque Ahmed Photo.jpg" class="rounded-circle profile-image mx-auto mb-3" alt="Mutawalli" 
-                                     onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=200&h=200';">
-                                <h5 class="fw-bold mb-1" style="color: var(--heading-color)">Mohammad Mushtaque Ahmed</h5>
-                                <p class="text-muted-custom small mb-0">Sajjada Nashin Va Mutawally</p>
-                            </div>
-                            <div class="col-md-8 p-4 p-md-5">
-                                <i class="fas fa-quote-left text-primary opacity-25 fs-1 mb-3"></i>
-                                <p class="fs-5 fst-italic mb-0" style="color: var(--text-main); line-height: 1.8;">
-                                    "I am humbled by the responsibility to serve this historic institution. My commitment is to uphold its sacred values, protect its heritage, and ensure it continues to be a source of guidance, education, and support for our entire community."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Preview -->
-    <section class="section-padding bg-alt" id="gallery">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
-                <div>
-                    <h2 class="section-title mb-0">Visual Journey</h2>
-                </div>
-            </div>
-            
-            <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
-                <div class="gallery-item">
-                    <img src="Home/waqf 123_432.jpg" alt="Silsila Document" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&q=80&w=600'">
-                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="Home/architectural.jpg" alt="Architecture" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1542382156909-9ae382a88a0e?auto=format&fit=crop&q=80&w=600'">
-                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="Home/structure.jpg" alt="Baradari" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?auto=format&fit=crop&q=80&w=600'">
-                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-                </div>
-                <div class="gallery-item">
-                    <img src="Home/Footer Img.jpg" alt="Graveyard" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1587598993888-a7342618a6e8?auto=format&fit=crop&q=80&w=600'">
-                    <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="text-center" data-aos="fade-up">
-                <h2 class="section-title">Voices of Our Community</h2>
-            </div>
-            
-            <div class="row g-4 mt-2">
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="custom-card p-4 text-center h-100">
-                        <img src="Home/AA Shah.jpg" alt="Dr. Anwar" class="rounded-circle testimonial-img mb-3 mx-auto" onerror="this.src='https://placehold.co/80x80/22c55e/ffffff?text=AA'">
-                        <p class="fst-italic text-muted-custom small flex-grow-1">"Praying here feels like connecting with generations past. It’s more than a masjid; it’s our heritage."</p>
-                        <h6 class="fw-bold mb-0">- Dr. Anwar Ali Shah</h6>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="custom-card p-4 text-center h-100">
-                        <img src="Home/FA Shah.jpg" alt="Farooq" class="rounded-circle testimonial-img mb-3 mx-auto" onerror="this.src='https://placehold.co/80x80/22c55e/ffffff?text=FA'">
-                        <p class="fst-italic text-muted-custom small flex-grow-1">"The Islamic studies classes are wonderful. Kids learn about deen where great-grandparents prayed."</p>
-                        <h6 class="fw-bold mb-0">- Mr. Farooq Ali Shah</h6>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="custom-card p-4 text-center h-100">
-                        <img src="Home/JA Shah.png" alt="Junaid" class="rounded-circle testimonial-img mb-3 mx-auto" onerror="this.src='https://placehold.co/80x80/22c55e/ffffff?text=JA'">
-                        <p class="fst-italic text-muted-custom small flex-grow-1">"I am grateful for the unity here. This complex is the heart of our community, a place of solace."</p>
-                        <h6 class="fw-bold mb-0">- Mr. Junaid Ali Shah</h6>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-                    <div class="custom-card p-4 text-center h-100">
-                        <img src="Home/Dr Habib Ali Shah.png" alt="Dr. Habib" class="rounded-circle testimonial-img mb-3 mx-auto" onerror="this.src='https://placehold.co/80x80/22c55e/ffffff?text=HA'">
-                        <p class="fst-italic text-muted-custom small flex-grow-1">"The preservation efforts are inspiring. It's a blessing to see history honored for future generations."</p>
-                        <h6 class="fw-bold mb-0">- Dr. Habib Ali Shah</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Donation CTA Section -->
-    <section class="section-padding bg-alt" id="donate">
-        <div class="container" data-aos="zoom-in">
-            <div class="donate-banner">
-                <div class="row align-items-center position-relative" style="z-index: 2;">
-                    <div class="col-lg-8 mb-4 mb-lg-0">
-                        <h2 class="display-6 fw-bold mb-3 text-white">Support the House of Allah</h2>
-                        <p class="fs-5 mb-0 opacity-75">Your generous donations help in Waqf property maintenance, masjid development, educational programs, and community charity support. Be a part of this Sadaqah Jariyah.</p>
-                    </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a href="Contact.html#donate" class="btn btn-light btn-lg rounded-pill px-5 py-3 fw-bold text-success shadow text-decoration-none">
-                            Donate Now <i class="fas fa-heart ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Structured Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <a class="d-flex align-items-center gap-2 text-decoration-none mb-4" href="index.html">
-                        <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;" onerror="this.src='https://placehold.co/40x40/15803d/ffffff?text=M'">
-                        <span class="fw-bold fs-5 text-white" style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
-                    </a>
-                    <p class="text-muted mb-4 pe-lg-4">Preserving our shared history and fostering a vibrant Islamic community in Parbhani, Maharashtra. A legacy of the Nizam era.</p>
-                    <div class="d-flex gap-2">
-                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Masjid</h4>
-                    <a href="About.html" class="footer-link">About Us</a>
-                    <a href="About.html#timeline" class="footer-link">Our History</a>
-                    <a href="News.html#gallery" class="footer-link">Gallery</a>
-                    <a href="News.html" class="footer-link">News & Updates</a>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Community</h4>
-                    <a href="#services" class="footer-link">Daily Prayers</a>
-                    <a href="Contact.html#donate" class="footer-link text-accent">Donate / Zakat</a>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="footer-heading">Contact & Location</h4>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt text-primary me-2"></i> Ashoorkhana Naale Hyder, Survey No. 1, 2 & 3, Parbhani, MH</li>
-                        <li class="mb-2"><i class="fas fa-envelope text-primary me-2"></i> <a href="mailto:anhparbhani123@gmail.com" class="text-muted text-decoration-none">anhparbhani123@gmail.com</a></li>
-                    </ul>
-                    <div class="map-container bg-dark">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15119.835158654854!2d76.76450095!3d19.26620955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd0175b31276d49%3A0x8e83b4b830d17!2sParbhani%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1690000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-muted small">
-                <p class="mb-0">&copy; <span id="currentYear"></span> Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="mt-1">Designed & Developed by Kamel Shah</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Community Q&A Modal -->
-    <div class="modal fade" id="qa-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0" style="background-color: var(--bg-surface); color: var(--text-main);">
-                <div class="modal-header border-bottom border-secondary border-opacity-25">
-                    <h5 class="modal-title fw-bold" style="color: var(--heading-color)"><i class="fas fa-robot text-primary me-2"></i> Community Q&A</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: var(--close-btn-filter);"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <p class="text-muted-custom mb-4">Have a question about our services, history, or events? Ask below.</p>
-                    <textarea class="form-control bg-transparent text-main border-secondary border-opacity-25 shadow-none mb-3" id="qa-topic-input" rows="3" placeholder="e.g., What are the timings for the youth program?"></textarea>
-                    <button id="generate-qa-btn" class="btn-modern w-100 mb-4">Ask Question</button>
-                    
-                    <div id="qa-output" class="p-3 rounded bg-alt border border-secondary border-opacity-10" style="min-height: 80px; display: none;">
-                        <div class="text-muted-custom mb-0 m-0 w-100" id="qa-text"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize AOS Animations
-            AOS.init({ once: true, duration: 800, offset: 50 });
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            // Navbar Scroll Effect
-            const navbar = document.getElementById('mainNavbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) navbar.classList.add('scrolled', 'shadow-sm');
-                else navbar.classList.remove('scrolled', 'shadow-sm');
-            });
-
-            // Dark Mode Logic
-            const themeToggleDesktop = document.getElementById('themeToggleDesktop');
-            const themeToggleMobile = document.getElementById('themeToggleMobile');
-            const body = document.documentElement;
-
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'dark');
-                updateToggleIcons('dark');
-            }
-
-            function updateToggleIcons(theme) {
-                const iconClass = theme === 'dark' ? 'fas fa-sun text-warning' : 'fas fa-moon';
-                themeToggleDesktop.innerHTML = `<i class="${iconClass}"></i>`;
-                themeToggleMobile.innerHTML = `<i class="${iconClass}"></i>`;
-                
-                if (theme === 'dark') {
-                    document.documentElement.style.setProperty('--close-btn-filter', 'invert(1) grayscale(100%) brightness(200%)');
-                } else {
-                    document.documentElement.style.setProperty('--close-btn-filter', 'none');
-                }
-            }
-
-            function toggleTheme() {
-                let theme = body.getAttribute('data-theme');
-                if (theme === 'dark') {
-                    body.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                    updateToggleIcons('light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                    updateToggleIcons('dark');
-                }
-            }
-
-            themeToggleDesktop.addEventListener('click', toggleTheme);
-            themeToggleMobile.addEventListener('click', toggleTheme);
-            updateToggleIcons(currentTheme);
-
-            // Daily Reflection Logic
-            const reflectionContainer = document.getElementById('reflection-content');
-            if (reflectionContainer) {
-                const today = new Date();
-                const dayOfWeek = today.getDay(); // 5 = Friday
-                let reflectionHtml = '';
-                if (dayOfWeek === 5) {
-                    reflectionHtml = `
-                        <i class="fas fa-star-and-crescent fa-3x text-primary mb-3"></i>
-                        <h3 class="fw-bold" style="color: var(--heading-color)">The Blessing of Jumu'ah</h3>
-                        <p class="text-muted-custom">Today is Friday, the most blessed day of the week. The Prophet (PBUH) said, "The best day on which the sun has risen is Friday."</p>
-                        <hr class="my-4 border-secondary opacity-25">
-                        <blockquote class="blockquote mb-0">
-                            <p class="fst-italic" style="color: var(--text-main)">"O you who have believed, when the adhan is called for the prayer on the day of Jumu'ah (Friday), then proceed to the remembrance of Allah..."</p>
-                            <footer class="blockquote-footer mt-2">Quran 62:9</footer>
-                        </blockquote>
-                    `;
-                } else {
-                    reflectionHtml = `
-                        <i class="fas fa-moon fa-3x text-primary mb-3"></i>
-                        <h3 class="fw-bold" style="color: var(--heading-color)">Daily Spiritual Reflection</h3>
-                        <p class="text-muted-custom">Every day is a new opportunity to grow closer to Allah through remembrance and good deeds.</p>
-                        <hr class="my-4 border-secondary opacity-25">
-                        <blockquote class="blockquote mb-0">
-                            <p class="fst-italic" style="color: var(--text-main)">"So remember Me; I will remember you. And be grateful to Me and do not deny Me."</p>
-                            <footer class="blockquote-footer mt-2">Quran 2:152</footer>
-                        </blockquote>
-                    `;
-                }
-                reflectionContainer.innerHTML = reflectionHtml;
-            }
-
-            // AI Integration with Exponential Backoff
-            const qaBtn = document.getElementById('generate-qa-btn');
-            const qaTopicInput = document.getElementById('qa-topic-input');
-            const qaOutput = document.getElementById('qa-output');
-            const qaText = document.getElementById('qa-text');
-
-            if (qaBtn) {
-                qaBtn.addEventListener('click', async () => {
-                    const topic = qaTopicInput.value.trim();
-                    if (!topic) {
-                        qaOutput.style.display = 'block';
-                        qaText.innerHTML = "Please enter a question so we can assist you.";
-                        return;
-                    }
-
-                    qaOutput.style.display = 'block';
-                    qaText.innerHTML = 'Thinking...';
-                    qaBtn.disabled = true;
-
-                    const apiKey = ""; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                    
-                    const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website. Keep answers concise. 
-                    Context: Parbhani, Maharashtra. 250+ years old Nizam era Waqf property. Services: Youth programs, Computer classes, Nikah, Charity.`;
-                    
-                    const payload = {
-                        contents: [{ parts: [{ text: topic }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] },
-                    };
-
-                    let responseText = "";
-                    let retries = 5;
-                    let delays = [1000, 2000, 4000, 8000, 16000];
-                    let attempt = 0;
-
-                    while (attempt < retries && !responseText) {
-                        try {
-                            const response = await fetch(apiUrl, {
-                                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-                            });
-                            if (!response.ok) {
-                                if (response.status === 429 && attempt < retries - 1) {
-                                    await new Promise(r => setTimeout(r, delays[attempt]));
-                                    attempt++;
-                                    continue;
-                                }
-                                throw new Error(`API failed: ${response.status}`);
-                            }
-                            const result = await response.json();
-                            responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I received an unusual response.";
-                        } catch (error) {
-                            if (attempt < retries - 1) {
-                                await new Promise(r => setTimeout(r, delays[attempt]));
-                                attempt++;
-                            } else {
-                                console.error(error);
-                                responseText = "Sorry, there was an error connecting to the AI service. Please try again later.";
-                                break;
-                            }
-                        }
-                    }
-
-                    qaText.innerHTML = typeof marked !== 'undefined' ? marked.parse(responseText) : responseText;
-                    qaBtn.disabled = false;
-                });
-            }
-
-            // Prayer Times Logic
-            let prayerTimes = { 'Fajr': '05:30', 'Sunrise': '06:45', 'Dhuhr': '12:30', 'Asr': '16:00', 'Maghrib': '18:15', 'Isha': '19:45' };
-            const countdownElement = document.getElementById('prayer-countdown');
-
-            function formatTime(time24) {
-                const [hours, minutes] = time24.split(':');
-                const h = parseInt(hours, 10);
-                const m = parseInt(minutes, 10);
-                const ampm = h >= 12 ? 'PM' : 'AM';
-                const h12 = h % 12 || 12;
-                return `${h12}:${m < 10 ? '0' + m : m} ${ampm}`;
-            }
-
-            async function fetchPrayerTimes() {
-                try {
-                    const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Parbhani&country=India&method=2');
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    const data = await response.json();
-                    const times = data.data.timings;
-                    
-                    prayerTimes = {
-                        'Fajr': times.Fajr, 'Sunrise': times.Sunrise, 'Dhuhr': times.Dhuhr, 
-                        'Asr': times.Asr, 'Maghrib': times.Maghrib, 'Isha': times.Isha
-                    };
-                } catch (error) {
-                    console.error("Prayer API failed, using defaults", error);
-                }
-                updatePrayerUI();
-            }
-
-            function updatePrayerUI() {
-                document.getElementById('time-fajr').textContent = formatTime(prayerTimes.Fajr);
-                document.getElementById('time-sunrise').textContent = formatTime(prayerTimes.Sunrise);
-                document.getElementById('time-dhuhr').textContent = formatTime(prayerTimes.Dhuhr);
-                document.getElementById('time-asr').textContent = formatTime(prayerTimes.Asr);
-                document.getElementById('time-maghrib').textContent = formatTime(prayerTimes.Maghrib);
-                document.getElementById('time-isha').textContent = formatTime(prayerTimes.Isha);
-                startCountdown();
-            }
-
-            function getNextPrayer() {
-                const now = new Date();
-                let nextPrayer = null;
-                let nextPrayerTime = null;
-
-                for (const [name, time] of Object.entries(prayerTimes)) {
-                    if (name === 'Sunrise') continue;
-                    
-                    const [hours, minutes] = time.split(':');
-                    const prayerDate = new Date();
-                    prayerDate.setHours(hours, minutes, 0, 0);
-
-                    if (prayerDate > now) {
-                        nextPrayer = name;
-                        nextPrayerTime = prayerDate;
-                        break;
-                    }
-                }
-
-                if (!nextPrayer) {
-                    nextPrayer = 'Fajr';
-                    const [hours, minutes] = prayerTimes['Fajr'].split(':');
-                    nextPrayerTime = new Date();
-                    nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
-                    nextPrayerTime.setHours(hours, minutes, 0, 0);
-                }
-                return { name: nextPrayer, time: nextPrayerTime };
-            }
-
-            function updateCountdown() {
-                const now = new Date();
-                const next = getNextPrayer();
-                const diff = next.time - now;
-
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                countdownElement.innerHTML = `<span class="fw-normal me-1 text-muted-custom fs-6">Next: ${next.name} in</span> ${hours}h ${minutes}m ${seconds}s`;
-
-                document.querySelectorAll('.prayer-card').forEach(c => c.classList.remove('prayer-active'));
-                const activeCard = document.getElementById(`card-${next.name.toLowerCase()}`);
-                if (activeCard) activeCard.classList.add('prayer-active');
-            }
-
-            function startCountdown() {
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
-            }
-
-            fetchPrayerTimes();
-
-            // Three.js Background Animation (Lantern Particles)
-            if (typeof THREE !== 'undefined') {
-                const header = document.querySelector('.hero-section');
-                const canvas = document.querySelector('#bg-animation');
-                if (header && canvas) {
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-
-                    const setSize = () => {
-                        renderer.setSize(header.clientWidth, header.clientHeight);
-                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                        camera.aspect = header.clientWidth / header.clientHeight;
-                        camera.updateProjectionMatrix();
-                    };
-                    setSize();
-
-                    camera.position.z = 5;
-                    const particlesGeometry = new THREE.BufferGeometry();
-                    const count = window.innerWidth > 768 ? 2000 : 800;
-                    const positions = new Float32Array(count * 3);
-                    
-                    for (let i = 0; i < count * 3; i++) {
-                        positions[i] = (Math.random() - 0.5) * 15;
-                    }
-                    
-                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                    const particlesMaterial = new THREE.PointsMaterial({
-                        size: 0.015, color: 0xf59e0b, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending
-                    });
-                    
-                    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-                    scene.add(particles);
-
-                    let mouseX = 0; let mouseY = 0;
-                    document.addEventListener('mousemove', (event) => {
-                        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-                    });
-
-                    const clock = new THREE.Clock();
-                    const animate = () => {
-                        const elapsedTime = clock.getElapsedTime();
-                        particles.rotation.y = elapsedTime * 0.03 + mouseX * 0.1;
-                        particles.rotation.x = elapsedTime * 0.01 + mouseY * 0.1;
-                        particles.position.y = Math.sin(elapsedTime * 0.2) * 0.2;
-
-                        renderer.render(scene, camera);
-                        window.requestAnimationFrame(animate);
-                    };
-                    animate();
-                    window.addEventListener('resize', setSize);
-                }
-            }
-        });
-    </script>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+  <script src="assets/js/anh.js"></script>
 </body>
 </html>

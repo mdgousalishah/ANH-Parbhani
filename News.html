@@ -1,851 +1,342 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>News & Gallery | Masjid e Mehtab Ali Shah</title>
-
-    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link rel="apple-touch-icon" href="Home/ANH2.jpg">
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- Light Gallery -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css" />
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Markdown & Three.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <style>
-        :root {
-            --bg-body: #f8fafc;
-            --bg-surface: #ffffff;
-            --bg-surface-alt: #f1f5f9;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --heading-color: #0f172a;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --primary: #15803d;
-            --primary-hover: #166534;
-            --accent: #22c55e;
-            --secondary: #f59e0b;
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-card: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-        }
-
-        [data-theme="dark"] {
-            --bg-body: #0f172a;
-            --bg-surface: #1e293b;
-            --bg-surface-alt: #0b1120;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --heading-color: #f8fafc;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --glass-bg: rgba(15, 23, 42, 0.85);
-            --glass-card: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); transition: background-color 0.4s ease, color 0.4s ease; overflow-x: hidden; }
-        h1, h2, h3, h4, h5, h6, .brand-text { font-family: 'Merriweather', serif; color: var(--heading-color); }
-        p { color: var(--text-main); line-height: 1.7; }
-        .text-muted-custom { color: var(--text-muted) !important; }
-
-        /* Navbar */
-        .navbar { background-color: var(--glass-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); transition: padding 0.3s ease; }
-        .navbar.scrolled { padding-top: 0.5rem; padding-bottom: 0.5rem; box-shadow: var(--shadow-sm); }
-        .navbar-brand { color: var(--heading-color) !important; }
-        .nav-link { color: var(--text-main) !important; font-weight: 500; position: relative; padding: 0.5rem 1rem; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--accent); transition: all 0.3s ease; transform: translateX(-50%); }
-        .nav-link:hover::after, .nav-link.active::after { width: 80%; }
-        .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
-        .theme-toggle { background: transparent; border: none; color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: transform 0.3s ease; }
-        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); color: var(--secondary); }
-
-        /* Buttons */
-        .btn-modern { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white !important; border: none; border-radius: 50px; padding: 10px 28px; font-weight: 600; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(21, 128, 61, 0.2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; z-index: 1; }
-        .btn-modern::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--primary-hover)); opacity: 0; z-index: -1; transition: opacity 0.3s ease; }
-        .btn-modern:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 35px rgba(34, 197, 94, 0.3); }
-        .btn-modern:hover::before { opacity: 1; }
-
-        .btn-outline-modern { background: transparent; color: var(--heading-color); border: 2px solid var(--primary); border-radius: 50px; padding: 8px 26px; font-weight: 600; transition: all 0.3s ease; }
-        .btn-outline-modern:hover { background: var(--primary); color: white; box-shadow: 0 10px 25px rgba(21, 128, 61, 0.3); transform: translateY(-3px); }
-
-        /* Hero Section */
-        .hero-section { position: relative; min-height: 65vh; display: flex; align-items: center; background: url('News/about%20page.jpg') center/cover no-repeat fixed; padding-top: 100px; padding-bottom: 60px; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6)); z-index: 1; }
-        #bg-animation { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        .hero-content { position: relative; z-index: 3; color: white; text-align: center; }
-
-        /* Community Impact Stats */
-        .impact-section { margin-top: -50px; position: relative; z-index: 10; }
-        .stat-card { background: var(--glass-card); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; text-align: center; box-shadow: var(--shadow-lg); transition: transform 0.3s; }
-        .stat-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--primary); font-family: 'Merriweather', serif; }
-
-        /* Featured News */
-        .featured-news-card { position: relative; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 500px; display: flex; align-items: flex-end; transition: transform 0.4s ease; cursor: pointer; }
-        .featured-news-card img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; z-index: 1; }
-        .featured-news-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%); z-index: 2; transition: background 0.4s; }
-        .featured-news-card:hover { transform: translateY(-5px); }
-        .featured-news-card:hover img { transform: scale(1.05); }
-        .featured-news-card:hover::after { background: linear-gradient(to top, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.5) 60%, transparent 100%); }
-        .featured-content { position: relative; z-index: 3; padding: 3rem; color: white; width: 100%; }
-
-        /* News Archive Grid */
-        .news-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: all 0.3s; box-shadow: var(--shadow-sm); cursor: pointer; height: 100%; display: flex; flex-direction: column; }
-        .news-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
-        .news-img-wrapper { height: 220px; overflow: hidden; position: relative; }
-        .news-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .news-card:hover .news-img-wrapper img { transform: scale(1.08); }
-        
-        .filter-btn-group .btn { border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-main); transition: all 0.3s ease; border-radius: 50px; font-weight: 500; }
-        .filter-btn-group .btn.active, .filter-btn-group .btn:hover { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 15px rgba(21,128,61,0.3); }
-
-        /* Horizontal Gallery */
-        .timeline-gallery-wrapper { position: relative; padding: 20px 0; }
-        .timeline-line { position: absolute; top: 50px; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent); z-index: 0; opacity: 0.5; }
-        .horizontal-scroll-gallery { display: flex; overflow-x: auto; gap: 2rem; padding: 2rem 1rem; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; position: relative; z-index: 1; scroll-behavior: smooth; scroll-snap-type: x mandatory; }
-        .horizontal-scroll-gallery::-webkit-scrollbar { display: none; }
-        .horizontal-scroll-gallery:active { cursor: grabbing; scroll-behavior: auto; }
-        .gallery-item { flex: 0 0 calc(85% - 2rem); scroll-snap-align: center; position: relative; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 16/10; transition: all 0.4s ease; border: 2px solid transparent; }
-        @media (min-width: 768px) { .gallery-item { flex: 0 0 calc(45% - 2rem); } }
-        @media (min-width: 1024px) { .gallery-item { flex: 0 0 calc(30% - 2rem); } }
-        .gallery-item:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: var(--accent); z-index: 10;}
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: brightness(0.85); }
-        .gallery-item:hover img { transform: scale(1.1); filter: brightness(1); }
-        .gallery-caption { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; transform: translateY(10px); opacity: 0; transition: all 0.4s ease; }
-        .gallery-item:hover .gallery-caption { transform: translateY(0); opacity: 1; }
-        .timeline-badge { position: absolute; top: 15px; right: 15px; background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
-
-        /* AI Chat Interface */
-        .chat-container { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; }
-        .chat-header { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; padding: 1.5rem; }
-        .chat-box { height: 350px; overflow-y: auto; padding: 1.5rem; background: var(--bg-surface-alt); display: flex; flex-direction: column; gap: 1rem; }
-        .chat-bubble { max-width: 85%; padding: 12px 18px; border-radius: 18px; font-size: 0.95rem; line-height: 1.5; position: relative;}
-        .chat-bubble p:last-child { margin-bottom: 0; }
-        .bubble-ai { background: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: var(--shadow-sm);}
-        .bubble-user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: var(--shadow-sm);}
-        
-        .suggestion-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 1rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); }
-        .chip { background: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 50px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;}
-        .chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        
-        .chat-input-area { padding: 1rem; background: var(--bg-surface); border-top: 1px solid var(--border-color); display: flex; gap: 10px; }
-        .chat-input { background: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-main); border-radius: 50px; padding: 10px 20px; }
-        .chat-input:focus { box-shadow: none; border-color: var(--primary); }
-        .btn-send { background: var(--primary); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-        .btn-send:hover { transform: scale(1.1); background: var(--accent); }
-
-        .typing-indicator { display: flex; gap: 4px; padding: 5px; }
-        .typing-dot { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-        .section-title { position: relative; display: inline-block; margin-bottom: 3rem; }
-        .section-title::after { content: ''; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); width: 60px; height: 3px; background: var(--accent); border-radius: 3px; }
-        
-        /* Footer */
-        .footer { background-color: #0f172a; color: #cbd5e1; padding-top: 80px; padding-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
-        .footer-heading { color: white; font-family: 'Merriweather', serif; font-size: 1.25rem; margin-bottom: 1.5rem; }
-        .footer-link { color: #cbd5e1; text-decoration: none; transition: color 0.3s; display: block; margin-bottom: 0.75rem; }
-        .footer-link:hover { color: var(--accent); transform: translateX(5px); }
-        .social-circle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; transition: all 0.3s; margin-right: 10px; text-decoration: none; }
-        .social-circle:hover { background: var(--primary); transform: translateY(-3px); color: white;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News &amp; Gallery | Masjid e Mehtab Ali Shah</title>
+  <meta name="description" content="Announcements, community events and updates on the legal efforts to protect the historic Waqf land of Masjid e Mehtab Ali Shah, Parbhani.">
+  <meta name="theme-color" content="#0d2b2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="News &amp; Gallery | Masjid e Mehtab Ali Shah">
+  <meta property="og:description" content="Announcements, community events and updates on the legal efforts to protect the historic Waqf land of Masjid e Mehtab Ali Shah, Parbhani.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Figtree:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+  <link rel="stylesheet" href="assets/css/anh.css">
 </head>
-
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top py-3" id="mainNavbar">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 45px; width: 45px; object-fit: cover;" onerror="this.src='https://placehold.co/45x45/15803d/ffffff?text=M'">
-                <span class="brand-text fw-bold fs-5">Masjid e Mehtab Ali Shah</span>
-            </a>
-            
-            <div class="d-flex align-items-center gap-3 d-lg-none">
-                <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
-                <button class="navbar-toggler border-0 shadow-none p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                    <i class="fas fa-bars fs-3" style="color: var(--heading-color)"></i>
-                </button>
-            </div>
-
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-medium">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="News.html">News & Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                    <button class="theme-toggle d-none d-lg-block" id="themeToggleDesktop" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
-                    <a href="Contact.html#donate" class="btn-modern text-decoration-none"><span>Donate</span> <i class="fas fa-heart"></i></a>
-                </div>
-            </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <nav class="navbar navbar-expand-xl" aria-label="Main">
+      <div class="container">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+          <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-xl-none">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
+        <div class="collapse navbar-collapse" id="siteMenu">
+          <ul class="navbar-nav nav-links mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="News.html">News &amp; gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="land-grant-archives.html">Archives</a></li>
+          <li class="nav-item"><a class="nav-link" href="youth-program.html">Youth program</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-tools nav-tools--menu">
+            <button class="icon-btn d-none d-xl-inline-flex" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+          </div>
+        </div>
+      </div>
     </nav>
+  </header>
+<main id="main">
 
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="hero-overlay"></div>
-        <canvas id="bg-animation"></canvas>
-        <div class="container hero-content" data-aos="zoom-out" data-aos-duration="1000">
-            <span class="badge bg-secondary bg-opacity-25 text-white border border-secondary rounded-pill px-3 py-2 mb-4 fw-normal" style="letter-spacing: 1px;">
-                <i class="fas fa-bullhorn text-secondary me-2"></i> Official Announcements & Media
-            </span>
-            <h1 class="hero-title mb-4">News & Archives</h1>
-            <p class="hero-subtitle mb-5">Stay informed about the latest happenings, community events, and ongoing legal efforts to protect our historic Waqf property.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#featured" class="btn-modern text-decoration-none py-3 px-4 fs-5">Latest Updates <i class="fas fa-arrow-down ms-2"></i></a>
-                <a href="#gallery" class="btn-outline-modern bg-dark bg-opacity-50 text-white border-white text-decoration-none py-3 px-4 fs-5">Explore Gallery</a>
-            </div>
+    <section class="page-hero night jaali" aria-labelledby="page-title">
+      <div class="container">
+        <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">News &amp; gallery</li></ol></nav>
+        <h1 id="page-title">News and archives</h1>
+        <p class="lede">Official announcements, community events, and the ongoing legal efforts to protect our historic Waqf property.</p>
+        <div class="hero-actions">
+          <a class="btn-a btn-zari" href="#featured">Latest updates</a>
+          <a class="btn-a btn-ghost" href="#gallery">Explore the gallery</a>
         </div>
-    </header>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
+    </section>
 
-    <!-- Community Impact Counters -->
-    <div class="container impact-section" data-aos="fade-up">
-        <div class="row g-3">
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-number"><span class="counter" data-target="250">0</span>+</div>
-                    <p class="text-muted-custom small mb-0 fw-bold text-uppercase">Years Heritage</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-number"><span class="counter" data-target="13">0</span></div>
-                    <p class="text-muted-custom small mb-0 fw-bold text-uppercase">Acres Waqf Land</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-number"><span class="counter" data-target="610">0</span>+</div>
-                    <p class="text-muted-custom small mb-0 fw-bold text-uppercase">Legal Notices</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-number"><span class="counter" data-target="1000">0</span>+</div>
-                    <p class="text-muted-custom small mb-0 fw-bold text-uppercase">Community Members</p>
-                </div>
-            </div>
+    <section class="section section--tight" aria-label="At a glance">
+      <div class="container">
+        <div class="facts">
+          <div class="fact"><span class="num"><span data-count="250">250</span>+</span><span>Years of heritage</span></div>
+          <div class="fact"><span class="num"><span data-count="13">13</span></span><span>Acres of Waqf land</span></div>
+          <div class="fact"><span class="num"><span data-count="610">610</span>+</span><span>Legal notices issued</span></div>
+          <div class="fact"><span class="num"><span data-count="1000">1,000</span>+</span><span>Community members</span></div>
         </div>
+      </div>
+    </section>
+
+    <section class="section pt-0" id="featured" aria-labelledby="featured-title">
+      <div class="container">
+        <h2 class="visually-hidden" id="featured-title">Featured story</h2>
+        <article class="feature-story">
+          <div class="photo"><img src="assets/img/news/minority-commission-order.jpg" alt="Newspaper report on the order" loading="lazy"></div>
+          <div class="body">
+            <p class="tag tag--legal">Legal victory</p>
+            <h3>Minority Commission orders municipality to return land</h3>
+            <p class="muted">In a landmark decision, the Maharashtra State Minority Commission has directed the Parbhani Municipal Corporation to hand back possession of the leased Waqf land to the institution.</p>
+            <p class="date"><i class="far fa-calendar me-2" aria-hidden="true"></i>26 Dec 2024</p>
+            <div><button type="button" class="btn-a btn-firoza" data-bs-toggle="modal" data-bs-target="#newsModal6">Read the full story</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="gallery" aria-labelledby="gallery-title">
+      <div class="container" data-strip>
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 section-head" style="max-width:none">
+          <div>
+            <h2 id="gallery-title" class="mb-2">Timeline of our efforts</h2>
+            <p class="mb-0">Advocacy, meetings and community gatherings, in order. Select a photo to view it full size.</p>
+          </div>
+          <div class="strip-nav">
+            <button type="button" data-dir="prev" aria-label="Scroll back"><i class="fas fa-chevron-left"></i></button>
+            <button type="button" data-dir="next" aria-label="Scroll forward"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="strip" data-gallery tabindex="0" aria-label="Timeline gallery">
+          <a href="News/Demand.jpg" data-sub-html="<h4>Demand submitted, May 2024</h4><p>Formal request to the Minority Affairs Minister.</p>">
+            <div class="photo"><img src="assets/img/news/demand.jpg" alt="Submitting the demand to the Minister" loading="lazy"></div>
+            <span class="when">May 2024</span><h3>Demand submitted</h3><p>Formal request to the Minority Affairs Minister.</p>
+          </a>
+          <a href="News/meet%20with%20offical.jpg" data-sub-html="<h4>Waqf Board meeting, June 2024</h4><p>The Mutawalli discusses encroachment with the President.</p>">
+            <div class="photo"><img src="assets/img/news/waqf-board-meeting.jpg" alt="Meeting with the Waqf Board" loading="lazy"></div>
+            <span class="when">Jun 2024</span><h3>Waqf Board meeting</h3><p>The Mutawalli discusses encroachment with the President.</p>
+          </a>
+          <a href="News/MNP%20sr.jpg" data-sub-html="<h4>Site inspection, July 2024</h4><p>Municipal officials inspect the expired lease land.</p>">
+            <div class="photo"><img src="assets/img/news/site-inspection.jpg" alt="Municipal officials inspecting the site" loading="lazy"></div>
+            <span class="when">Jul 2024</span><h3>Site inspection</h3><p>Municipal officials inspect the expired lease land.</p>
+          </a>
+          <a href="News/Waqf%20News%20PP_page-0009.jpg" data-sub-html="<h4>Notices issued, October 2024</h4><p>The Waqf Board targets 621 illegal occupants.</p>">
+            <div class="photo"><img src="assets/img/news/notices-news.jpg" alt="Newspaper report on Waqf Board notices" loading="lazy"></div>
+            <span class="when">Oct 2024</span><h3>Notices issued</h3><p>The Waqf Board targets 621 illegal occupants.</p>
+          </a>
+          <a href="News/waqf%20123_423.jpg" data-sub-html="<h4>Community discussion, November 2024</h4><p>Gathering to plan future actions.</p>">
+            <div class="photo"><img src="assets/img/news/community-discussion.jpg" alt="Community members in discussion" loading="lazy"></div>
+            <span class="when">Nov 2024</span><h3>Community discussion</h3><p>Gathering to plan future actions.</p>
+          </a>
+          <a href="News/waqf%20123_502.jpg" data-sub-html="<h4>118th Urs celebration, February 2025</h4><p>Honouring H. Syed Shah Turab Ul Haq.</p>">
+            <div class="photo"><img src="assets/img/news/urs-118.jpg" alt="Presenting the poster for the 118th Urs" loading="lazy"></div>
+            <span class="when">Feb 2025</span><h3>118th Urs celebration</h3><p>Honouring H. Syed Shah Turab Ul Haq.</p>
+          </a>
+          <a href="News/Grp%20Photo.jpg" data-sub-html="<h4>National meeting, February 2025</h4><p>Mutawalli Inamdar Organisation gathering.</p>">
+            <div class="photo"><img src="assets/img/news/national-meeting.jpg" alt="Group photo at the national meeting" loading="lazy"></div>
+            <span class="when">Feb 2025</span><h3>National meeting</h3><p>Mutawalli Inamdar Organisation gathering.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="archive" aria-labelledby="archive-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="archive-title">News archive</h2>
+          <p>Our record of articles and announcements.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter news">
+          <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All news</button>
+          <button type="button" class="filter-btn" data-filter="legal" aria-pressed="false">Legal &amp; official</button>
+          <button type="button" class="filter-btn" data-filter="community" aria-pressed="false">Community</button>
+          <button type="button" class="filter-btn" data-filter="announcements" aria-pressed="false">Announcements</button>
+        </div>
+        <div class="news-grid news-grid--2">
+          <div data-category="legal">
+            <article class="news-card">
+              <div class="photo"><img src="assets/img/news/notices-610.jpg" alt="" loading="lazy"></div>
+              <span class="tag tag--legal">Legal</span>
+              <span class="date">14 Jun 2025</span>
+              <h3><button type="button" class="card-link" data-bs-toggle="modal" data-bs-target="#newsModal4">610 individuals receive notices</button></h3>
+              <p>In a decisive action, the Maharashtra State Waqf Board has issued legal notices to occupants on the Masjid's land.</p>
+              <span class="more" aria-hidden="true">Read article</span>
+            </article>
+          </div>
+          <div data-category="announcements">
+            <article class="news-card">
+              <div class="photo"><img src="assets/img/mutawalli.jpg" alt="" loading="lazy" style="object-position: 50% 25%"></div>
+              <span class="tag">Announcement</span>
+              <span class="date">1 Aug 2025</span>
+              <h3><a class="card-link" href="single-news-post.html">Waqf Board appoints new Mutawalli</a></h3>
+              <p>We are honoured to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the State Board.</p>
+              <span class="more" aria-hidden="true">Read article</span>
+            </article>
+          </div>
+          <div data-category="community">
+            <article class="news-card">
+              <div class="photo"><img src="assets/img/news/youth-program.jpg" alt="" loading="lazy"></div>
+              <span class="tag tag--community">Education</span>
+              <span class="date">15 Aug 2025</span>
+              <h3><button type="button" class="card-link" data-bs-toggle="modal" data-bs-target="#newsModal11">New youth Islamic studies program</button></h3>
+              <p>Our weekend Islamic Studies Program for youth aged 7 to 14 covers Quranic recitation and history.</p>
+              <span class="more" aria-hidden="true">Read article</span>
+            </article>
+          </div>
+          <div data-category="legal">
+            <article class="news-card">
+              <div class="photo"><img src="assets/img/news/old-document.jpg" alt="" loading="lazy" style="filter: sepia(.25)"></div>
+              <span class="tag">From the archives</span>
+              <span class="date">Nizam era</span>
+              <h3><a class="card-link" href="land-grant-archives.html">Our roots: the Nizam-era land grant</a></h3>
+              <p>The historic document from the Nizam's government that records the original land grant.</p>
+              <span class="more" aria-hidden="true">View the documents</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="helper-section" aria-labelledby="helper-title">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-5">
+            <h2 id="helper-title">Questions about the land case or our history?</h2>
+            <p class="lede">Get instant answers from the information on this website, from the latest legal updates to 250+ years of history.</p>
+            <ul class="checks">
+              <li>Latest legal updates</li>
+              <li>History of the Waqf</li>
+              <li>How to contact the Mutawalli</li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <div class="helper" data-helper>
+            <div class="helper-head">
+              <img src="assets/img/logo-seal.png" alt="" width="40" height="36">
+              <div><strong>Quick answers</strong><span>Answers come from this website. For anything else, message the office.</span></div>
+            </div>
+            <div class="helper-log" aria-live="polite">
+              <div class="msg msg-bot"><p>As-salamu alaykum. Ask about donations, prayer times, the youth program, leasing, our history or how to reach us.</p></div>
+            </div>
+            <div class="chips"><button type="button" class="chip">Latest land case update</button><button type="button" class="chip">When was the masjid founded?</button><button type="button" class="chip">Who is the current Mutawalli?</button></div>
+            <form class="helper-form">
+              <label class="visually-hidden" for="helperQ">Your question</label>
+              <input class="input" id="helperQ" type="text" placeholder="Type your question" autocomplete="off">
+              <button class="btn-a btn-firoza" type="submit" aria-label="Ask"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="modal fade" id="newsModal6" tabindex="-1" aria-labelledby="newsModal6Title">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header align-items-start">
+          <div><p class="tag tag--legal mb-1">Legal victory</p><h2 class="modal-title fs-4" id="newsModal6Title">Minority Commission orders municipality to return land</h2><p class="date mb-0">26 Dec 2024</p></div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <figure class="photo"><img src="News/Ministry%20order.jpg" alt="Newspaper report on the order" loading="lazy"></figure>
+          <p class="fs-5">In a major victory for the Waqf, the Maharashtra State Minority Commission has ordered the Parbhani Municipal Commissioner to hand over possession of the leased Waqf land back to the institution.</p>
+          <p>The commission's decision follows a complaint filed by the Mutawalli about the land whose lease expired in 1989. It is a significant step towards reclaiming the property and using it for the educational and spiritual upliftment of the community, as originally intended by the Nizam's grant.</p>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn-a btn-line" data-bs-dismiss="modal">Close story</button></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Featured News Section -->
-    <section class="py-5 mt-4" id="featured">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">Featured Story</h2>
-            </div>
-            <div class="featured-news-card" data-aos="fade-up" data-aos-delay="100" data-bs-toggle="modal" data-bs-target="#newsModal6">
-                <img src="News/Ministry order.jpg" alt="Minority Commission Order" onerror="this.src='https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1200';">
-                <div class="featured-content">
-                    <span class="badge bg-primary mb-3 fs-6 px-3 py-2">Legal Victory</span>
-                    <h2 class="display-6 fw-bold mb-3">Minority Commission Orders Municipality to Return Land</h2>
-                    <p class="fs-5 opacity-75 mb-4 d-none d-md-block" style="max-width: 800px;">In a landmark decision, the Maharashtra State Minority Commission has directed the Parbhani Municipal Corporation to hand over possession of the leased Waqf land back to the institution.</p>
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                        <div class="text-white-50"><i class="fas fa-calendar-alt text-accent me-2"></i> Dec 26, 2024</div>
-                        <button class="btn btn-outline-light rounded-pill px-4 hover-glow">Read Full Story <i class="fas fa-arrow-right ms-2"></i></button>
-                    </div>
-                </div>
-            </div>
+  <div class="modal fade" id="newsModal4" tabindex="-1" aria-labelledby="newsModal4Title">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header align-items-start">
+          <div><p class="tag tag--legal mb-1">Legal action</p><h2 class="modal-title fs-4" id="newsModal4Title">610 individuals receive notices</h2><p class="date mb-0">14 Jun 2025</p></div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    </section>
-
-    <!-- Visual Timeline Gallery -->
-    <section class="py-5 bg-surface-alt" id="gallery">
-        <div class="container" data-aos="fade-up">
-            <div class="d-flex justify-content-between align-items-end mb-4">
-                <div>
-                    <h2 class="section-title mb-0">Timeline of Our Efforts</h2>
-                    <p class="text-muted-custom mt-3 mb-0">A visual journey of advocacy, meetings, and community gatherings.</p>
-                </div>
-                <div class="d-none d-md-block text-muted-custom small">
-                    <i class="fas fa-arrows-alt-h me-1"></i> Drag to explore
-                </div>
-            </div>
+        <div class="modal-body">
+          <figure class="photo"><img src="News/notice%20210.jpg" alt="Newspaper report on the notices" loading="lazy"></figure>
+          <p class="fs-5">In a second phase of decisive action, the Maharashtra State Waqf Board has issued legal notices to 610 occupants on the Masjid's land.</p>
+          <p>The notice warns of criminal proceedings under the Waqf Act if they do not give a satisfactory explanation for their occupation. The move has been widely welcomed by the community.</p>
         </div>
-        
-        <div class="timeline-gallery-wrapper">
-            <div class="timeline-line"></div>
-            <div id="lightgallery" class="horizontal-scroll-gallery" data-aos="fade-in" data-aos-delay="200">
-                <!-- Image Cards -->
-                <a href="News/Demand.jpg" class="gallery-item">
-                    <img src="News/Demand.jpg" alt="Submitting Demand to Minister" onerror="this.src='https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">May '24</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">Demand Submitted</h5>
-                        <p class="small mb-0 opacity-75">Formal request to Minority Affairs Minister.</p>
-                    </div>
-                </a>
-                <a href="News/meet with offical.jpg" class="gallery-item">
-                    <img src="News/meet with offical.jpg" alt="Meeting with Waqf Board" onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Jun '24</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">Waqf Board Meeting</h5>
-                        <p class="small mb-0 opacity-75">Mutawalli discusses encroachment with President.</p>
-                    </div>
-                </a>
-                <a href="News/MNP sr.jpg" class="gallery-item">
-                    <img src="News/MNP sr.jpg" alt="Municipal Site Inspection" onerror="this.src='https://images.unsplash.com/photo-1503694978374-8a2fa686963a?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Jul '24</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">Site Inspection</h5>
-                        <p class="small mb-0 opacity-75">Municipal officials inspect expired lease land.</p>
-                    </div>
-                </a>
-                <a href="News/Waqf News PP_page-0009.jpg" class="gallery-item">
-                    <img src="News/Waqf News PP_page-0009.jpg" alt="Waqf Board Notice News" onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Oct '24</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">Notices Issued</h5>
-                        <p class="small mb-0 opacity-75">Waqf Board targets 621 illegal occupants.</p>
-                    </div>
-                </a>
-                <a href="News/waqf 123_423.jpg" class="gallery-item">
-                    <img src="News/waqf 123_423.jpg" alt="Community Discussion" onerror="this.src='https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Nov '24</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">Community Discussion</h5>
-                        <p class="small mb-0 opacity-75">Gathering to strategize future actions.</p>
-                    </div>
-                </a>
-                <a href="waqf 123_502.jpg" class="gallery-item">
-                    <img src="waqf 123_502.jpg" alt="118th Urs Celebration" onerror="this.src='https://images.unsplash.com/photo-1564683214965-0610c3f09fb9?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Feb '25</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">118th Urs Celebration</h5>
-                        <p class="small mb-0 opacity-75">Honoring H. Syed Shah Turab Ul Haq.</p>
-                    </div>
-                </a>
-                <a href="News/Grp Photo.jpg" class="gallery-item">
-                    <img src="News/Grp Photo.jpg" alt="National Meeting" onerror="this.src='https://images.unsplash.com/photo-1511649475669-e288648b2339?auto=format&fit=crop&q=80&w=600';">
-                    <span class="timeline-badge">Feb '25</span>
-                    <div class="gallery-caption">
-                        <h5 class="fw-bold mb-1">National Meeting</h5>
-                        <p class="small mb-0 opacity-75">Mutawalli Inamdar Organization gathering.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Archive Grid -->
-    <section class="py-5 bg-alt">
-        <div class="container my-4">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title">News Archive</h2>
-                <p class="text-muted-custom">Browse our complete record of articles and announcements.</p>
-            </div>
-            
-            <div class="d-flex justify-content-center flex-wrap gap-3 mb-5 filter-btn-group" data-aos="fade-up">
-                <button class="btn active px-4 py-2" data-filter="all">All News</button>
-                <button class="btn px-4 py-2" data-filter="legal">Legal & Official</button>
-                <button class="btn px-4 py-2" data-filter="community">Community</button>
-                <button class="btn px-4 py-2" data-filter="announcements">Announcements</button>
-            </div>
-            
-            <div class="row g-4" id="news-grid">
-                <!-- Item 1 -->
-                <div class="col-lg-4 col-md-6 news-item" data-category="legal" data-aos="fade-up">
-                    <div class="news-card" data-bs-toggle="modal" data-bs-target="#newsModal4">
-                        <div class="news-img-wrapper">
-                            <span class="position-absolute top-0 start-0 m-3 badge bg-danger z-3">Legal</span>
-                            <img src="News/notice 210.jpg" alt="Legal Action" onerror="this.src='https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600';">
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column">
-                            <p class="text-secondary-custom small mb-2 fw-bold"><i class="fas fa-calendar-alt me-1"></i> Jun 14, 2025</p>
-                            <h5 class="fw-bold mb-3" style="color: var(--heading-color)">610 Individuals Receive Notices</h5>
-                            <p class="text-muted-custom small mb-4 flex-grow-1">In a decisive action, the Maharashtra State Waqf Board has issued legal notices to occupants on the Masjid's land...</p>
-                            <span class="text-primary fw-bold mt-auto">Read Article <i class="fas fa-arrow-right ms-1 fs-7"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="col-lg-4 col-md-6 news-item" data-category="announcements" data-aos="fade-up" data-aos-delay="100">
-                    <div class="news-card" data-bs-toggle="modal" data-bs-target="#newsModal10">
-                        <div class="news-img-wrapper">
-                            <span class="position-absolute top-0 start-0 m-3 badge bg-primary z-3">Announcement</span>
-                            <img src="Home/Mushtaque Ahmed Photo.jpg" alt="New Mutawalli" onerror="this.src='https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=600';">
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column">
-                            <p class="text-secondary-custom small mb-2 fw-bold"><i class="fas fa-calendar-alt me-1"></i> Aug 1, 2025</p>
-                            <h5 class="fw-bold mb-3" style="color: var(--heading-color)">Waqf Board Appoints New Mutawalli</h5>
-                            <p class="text-muted-custom small mb-4 flex-grow-1">We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the State Board...</p>
-                            <span class="text-primary fw-bold mt-auto">Read Article <i class="fas fa-arrow-right ms-1 fs-7"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="col-lg-4 col-md-6 news-item" data-category="community" data-aos="fade-up" data-aos-delay="200">
-                    <div class="news-card" data-bs-toggle="modal" data-bs-target="#newsModal11">
-                        <div class="news-img-wrapper">
-                            <span class="position-absolute top-0 start-0 m-3 badge bg-success z-3">Education</span>
-                            <img src="Home/student.jpg" alt="Youth Program" onerror="this.src='https://images.unsplash.com/photo-1512844195191-c24479f6e4a2?auto=format&fit=crop&q=80&w=600';">
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column">
-                            <p class="text-secondary-custom small mb-2 fw-bold"><i class="fas fa-calendar-alt me-1"></i> Aug 15, 2025</p>
-                            <h5 class="fw-bold mb-3" style="color: var(--heading-color)">New Youth Islamic Studies Program</h5>
-                            <p class="text-muted-custom small mb-4 flex-grow-1">Excited to launch our weekend Islamic Studies Program for youth ages 7-14 covering Quranic recitation and history.</p>
-                            <span class="text-primary fw-bold mt-auto">Read Article <i class="fas fa-arrow-right ms-1 fs-7"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Chat Section -->
-    <section class="py-5" id="ai-assistant">
-        <div class="container my-4">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-5" data-aos="fade-right">
-                    <h2 class="display-6 fw-bold mb-3" style="color: var(--heading-color)">Ask Our AI Heritage Assistant</h2>
-                    <p class="lead text-muted-custom mb-4">Have questions about the legal case, our history, or upcoming events? Our intelligent assistant is trained on the Waqf's archives and latest updates.</p>
-                    <ul class="list-unstyled text-muted-custom mb-4">
-                        <li class="mb-2"><i class="fas fa-bolt text-accent me-2"></i> Instant answers</li>
-                        <li class="mb-2"><i class="fas fa-file-contract text-accent me-2"></i> Legal updates</li>
-                        <li class="mb-2"><i class="fas fa-history text-accent me-2"></i> 250+ years of history</li>
-                    </ul>
-                </div>
-                <div class="col-lg-7" data-aos="fade-left">
-                    <div class="chat-container">
-                        <div class="chat-header d-flex align-items-center gap-3">
-                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="fas fa-robot text-primary fs-5"></i>
-                            </div>
-                            <div>
-                                <h5 class="mb-0 fw-bold">Masjid Assistant</h5>
-                                <small class="text-white-50">Online • Powered by Gemini</small>
-                            </div>
-                        </div>
-                        
-                        <div class="chat-box" id="chat-box">
-                            <div class="chat-bubble bubble-ai">
-                                <p>As-salamu alaykum! I am the virtual assistant for Masjid e Mehtab Ali Shah. How can I help you with our archives and news today?</p>
-                            </div>
-                        </div>
-                        
-                        <div class="suggestion-chips">
-                            <button class="chip" onclick="setChatInput('Latest land case update?')">Latest land case update</button>
-                            <button class="chip" onclick="setChatInput('When was the masjid founded?')">When was the masjid founded?</button>
-                            <button class="chip" onclick="setChatInput('Who is the current mutawalli?')">Current mutawalli?</button>
-                        </div>
-                        
-                        <div class="chat-input-area">
-                            <input type="text" class="form-control chat-input" id="chat-input" placeholder="Type your question here..." onkeypress="handleChatEnter(event)">
-                            <button class="btn-send shadow-sm" id="btn-send-chat" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Structured Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <a class="d-flex align-items-center gap-2 text-decoration-none mb-4" href="index.html">
-                        <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover;" onerror="this.src='https://placehold.co/40x40/15803d/ffffff?text=M'">
-                        <span class="fw-bold fs-5 text-white" style="font-family: 'Merriweather', serif;">Masjid e Mehtab Ali Shah</span>
-                    </a>
-                    <p class="text-muted mb-4 pe-lg-4">Preserving our shared history and fostering a vibrant Islamic community in Parbhani, Maharashtra. A legacy of the Nizam era.</p>
-                    <div class="d-flex gap-2">
-                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Masjid</h4>
-                    <a href="About.html" class="footer-link">About Us</a>
-                    <a href="About.html#timeline" class="footer-link">Our History</a>
-                    <a href="#gallery" class="footer-link">Gallery</a>
-                    <a href="News.html" class="footer-link">News & Updates</a>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h4 class="footer-heading">Community</h4>
-                    <a href="News.html#events" class="footer-link">Events</a>
-                    <a href="Contact.html#donate" class="footer-link text-accent">Donate / Zakat</a>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="footer-heading">Contact Info</h4>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2 text-muted"><i class="fas fa-map-marker-alt text-primary me-2"></i> Survey No. 1, 2 & 3, Parbhani, MH</li>
-                        <li class="mb-2"><i class="fas fa-envelope text-primary me-2"></i> <a href="mailto:anhparbhani123@gmail.com" class="text-muted text-decoration-none">anhparbhani123@gmail.com</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-muted small">
-                <p class="mb-0">&copy; <span id="currentYear"></span> Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="mt-1">Designed & Developed by Kamel Shah</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modals -->
-    <div class="modal fade" id="newsModal6" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content border-0" style="background: var(--bg-surface);">
-                <div class="modal-header p-4 pb-3 border-0">
-                    <div>
-                        <span class="badge bg-primary mb-2">Legal Victory</span>
-                        <h3 class="modal-title fs-4" style="color: var(--heading-color)">Minority Commission Orders Municipality to Return Land</h3>
-                        <p class="text-muted-custom small mb-0"><i class="fas fa-calendar-alt me-1"></i> Dec 26, 2024</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="align-self: flex-start; filter: var(--close-btn-filter);"></button>
-                </div>
-                <div class="modal-body p-4 pt-0">
-                    <img src="News/Ministry order.jpg" class="img-fluid rounded-3 mb-4 shadow-sm w-100" style="max-height: 400px; object-fit: cover;" alt="Order" onerror="this.src='https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1000';">
-                    <p class="fs-5 text-main lh-lg">In a major victory for the Waqf, the Maharashtra State Minority Commission has ordered the Parbhani Municipal Commissioner to hand over the possession of the leased Waqf land back to the institution.</p>
-                    <p class="text-main lh-lg">The commission's decision comes after a complaint filed by the Mutawalli regarding the land for which the lease expired in 1989. This is a significant step towards reclaiming the property and utilizing it for the educational and spiritual upliftment of the community as originally intended by the Nizam's grant.</p>
-                </div>
-                <div class="modal-footer border-0 p-4 pt-2 justify-content-end bg-alt rounded-bottom-4">
-                    <button type="button" class="btn-modern shadow-none" data-bs-dismiss="modal">Close Story</button>
-                </div>
-            </div>
-        </div>
+        <div class="modal-footer"><button type="button" class="btn-a btn-line" data-bs-dismiss="modal">Close story</button></div>
+      </div>
     </div>
+  </div>
 
-    <div class="modal fade" id="newsModal4" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content border-0" style="background: var(--bg-surface);">
-                <div class="modal-header p-4 pb-3 border-0">
-                    <div>
-                        <span class="badge bg-danger mb-2">Legal Action</span>
-                        <h3 class="modal-title fs-4" style="color: var(--heading-color)">610 Individuals Receive Notices</h3>
-                        <p class="text-muted-custom small mb-0"><i class="fas fa-calendar-alt me-1"></i> Jun 14, 2025</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="align-self: flex-start; filter: var(--close-btn-filter);"></button>
-                </div>
-                <div class="modal-body p-4 pt-0">
-                    <img src="News/notice 210.jpg" class="img-fluid rounded-3 mb-4 shadow-sm w-100" style="max-height: 400px; object-fit: cover;" alt="Legal Action" onerror="this.src='https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1000';">
-                    <p class="fs-5 text-main lh-lg">In a second phase of decisive action, the Maharashtra State Waqf Board has issued legal notices to 610 occupants on the Masjid's land.</p>
-                    <p class="text-main lh-lg">The notice explicitly warns of criminal proceedings under the strict guidelines of the Waqf Act if they do not provide a satisfactory explanation for their occupation. This bold move has been widely welcomed by the community.</p>
-                </div>
-                <div class="modal-footer border-0 p-4 pt-2 justify-content-end bg-alt rounded-bottom-4">
-                    <button type="button" class="btn-modern shadow-none" data-bs-dismiss="modal">Close Story</button>
-                </div>
-            </div>
+  <div class="modal fade" id="newsModal11" tabindex="-1" aria-labelledby="newsModal11Title">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header align-items-start">
+          <div><p class="tag tag--community mb-1">Education</p><h2 class="modal-title fs-4" id="newsModal11Title">New youth Islamic studies program launched</h2><p class="date mb-0">15 Aug 2025</p></div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <figure class="photo"><img src="assets/img/news/youth-program.jpg" alt="" loading="lazy"></figure>
+          <p class="fs-5">We are excited to launch our new weekend Islamic Studies Program for youth aged 7 to 14.</p>
+          <p>Classes are held on Saturday and Sunday mornings.</p>
+        </div>
+        <div class="modal-footer gap-2">
+          <button type="button" class="btn-a btn-line" data-bs-dismiss="modal">Close story</button>
+          <a class="btn-a btn-firoza" href="youth-program.html#register">Register your child</a>
+        </div>
+      </div>
     </div>
-
-    <!-- Modals generated from JS -->
-    <script>
-        const extraModals = [
-            {id: '10', badge: 'bg-primary', cat: 'Announcement', title: 'Waqf Board Appoints New Mutawalli', date: 'Aug 1, 2025', img: 'Home/Mushtaque Ahmed Photo.jpg', fallback: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000', p1: 'We are honored to welcome Mohammed Mushtaque Ahmed as the new Mutawalli, officially appointed by the Maharashtra State Board of Waqfs.', p2: 'His leadership marks a new chapter in our history, continuing the sacred trust.'},
-            {id: '11', badge: 'bg-success', cat: 'Education', title: 'New Youth Islamic Studies Program Launched', date: 'Aug 15, 2025', img: 'Home/student.jpg', fallback: 'https://images.unsplash.com/photo-1512844195191-c24479f6e4a2?auto=format&fit=crop&q=80&w=1000', p1: 'We are excited to launch our new weekend Islamic Studies Program for youth ages 7-14!', p2: 'Classes will be held on Saturday and Sunday mornings.'}
-        ];
-        
-        extraModals.forEach(m => {
-            document.body.insertAdjacentHTML('beforeend', `
-            <div class="modal fade" id="newsModal${m.id}" tabindex="-1">
-                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header p-4 pb-3 border-0">
-                            <div><span class="badge ${m.badge} mb-2">${m.cat}</span><h3 class="modal-title fs-4">${m.title}</h3><p class="text-muted-custom small mb-0"><i class="fas fa-calendar-alt me-1"></i> ${m.date}</p></div>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" style="align-self: flex-start;"></button>
-                        </div>
-                        <div class="modal-body p-4 pt-0">
-                            <img src="${m.img}" class="img-fluid rounded-3 mb-4 shadow-sm w-100" style="max-height: 400px; object-fit: cover;" alt="${m.cat}" onerror="this.src='${m.fallback}';">
-                            <p class="fs-5 text-main lh-lg">${m.p1}</p><p class="text-main lh-lg">${m.p2}</p>
-                        </div>
-                        <div class="modal-footer border-0 p-4 pt-2 justify-content-end bg-alt rounded-bottom-4">
-                            <button type="button" class="btn-modern shadow-none" data-bs-dismiss="modal">Close Story</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`);
-        });
-    </script>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize AOS
-            AOS.init({ duration: 800, once: true, offset: 50 });
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            // Navbar Scroll
-            const navbar = document.getElementById('mainNavbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) navbar.classList.add('scrolled');
-                else navbar.classList.remove('scrolled');
-            });
-
-            // Dark Mode
-            const themeToggleDesktop = document.getElementById('themeToggleDesktop');
-            const themeToggleMobile = document.getElementById('themeToggleMobile');
-            const body = document.documentElement;
-
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'dark');
-                updateToggleIcons('dark');
-            }
-
-            function updateToggleIcons(theme) {
-                const iconClass = theme === 'dark' ? 'fas fa-sun text-warning' : 'fas fa-moon';
-                themeToggleDesktop.innerHTML = `<i class="${iconClass}"></i>`;
-                themeToggleMobile.innerHTML = `<i class="${iconClass}"></i>`;
-                if (theme === 'dark') document.documentElement.style.setProperty('--close-btn-filter', 'invert(1) grayscale(100%) brightness(200%)');
-                else document.documentElement.style.setProperty('--close-btn-filter', 'none');
-            }
-
-            function toggleTheme() {
-                let theme = body.getAttribute('data-theme');
-                if (theme === 'dark') {
-                    body.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                    updateToggleIcons('light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                    updateToggleIcons('dark');
-                }
-            }
-            themeToggleDesktop.addEventListener('click', toggleTheme);
-            themeToggleMobile.addEventListener('click', toggleTheme);
-
-            // Counter Animation
-            const counters = document.querySelectorAll('.counter');
-            const animateCounters = () => {
-                counters.forEach(counter => {
-                    const updateCount = () => {
-                        const target = +counter.getAttribute('data-target');
-                        const count = +counter.innerText;
-                        const inc = target / 40;
-                        if (count < target) {
-                            counter.innerText = Math.ceil(count + inc);
-                            setTimeout(updateCount, 40);
-                        } else counter.innerText = target;
-                    };
-                    updateCount();
-                });
-            };
-            const statSection = document.querySelector('.impact-section');
-            if (statSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    if(entries[0].isIntersecting) { animateCounters(); observer.disconnect(); }
-                }, { threshold: 0.5 });
-                observer.observe(statSection);
-            }
-
-            // News Filters
-            const filterButtons = document.querySelectorAll('.filter-btn-group .btn');
-            const newsItems = document.querySelectorAll('#news-grid .news-item');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const filter = button.getAttribute('data-filter');
-                    newsItems.forEach(item => {
-                        const categories = item.getAttribute('data-category').split(' ');
-                        if (filter === 'all' || categories.includes(filter)) {
-                            item.style.display = 'block';
-                            item.classList.remove('aos-animate');
-                            setTimeout(() => item.classList.add('aos-animate'), 50);
-                        } else item.style.display = 'none';
-                    });
-                });
-            });
-
-            // Horizontal Gallery Drag & LightGallery
-            const lgElement = document.getElementById('lightgallery');
-            if(lgElement) {
-                lightGallery(lgElement, { selector: '.gallery-item', download: false, mode: 'lg-fade', speed: 500 });
-                let isDown = false; let startX; let scrollLeft;
-                lgElement.addEventListener('mousedown', (e) => {
-                    isDown = true; lgElement.style.cursor = 'grabbing';
-                    startX = e.pageX - lgElement.offsetLeft;
-                    scrollLeft = lgElement.scrollLeft;
-                });
-                lgElement.addEventListener('mouseleave', () => { isDown = false; lgElement.style.cursor = 'grab'; });
-                lgElement.addEventListener('mouseup', () => { isDown = false; lgElement.style.cursor = 'grab'; });
-                lgElement.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - lgElement.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    lgElement.scrollLeft = scrollLeft - walk;
-                });
-            }
-
-            // Three.js Background
-            if (typeof THREE !== 'undefined') {
-                const header = document.querySelector('.hero-section');
-                const canvas = document.querySelector('#bg-animation');
-                if (header && canvas) {
-                    const scene = new THREE.Scene();
-                    const camera = new THREE.PerspectiveCamera(75, header.clientWidth / header.clientHeight, 0.1, 1000);
-                    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-
-                    const setSize = () => {
-                        renderer.setSize(header.clientWidth, header.clientHeight);
-                        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-                        camera.aspect = header.clientWidth / header.clientHeight;
-                        camera.updateProjectionMatrix();
-                    };
-                    setSize();
-                    camera.position.z = 5;
-                    
-                    const particlesGeometry = new THREE.BufferGeometry();
-                    const count = window.innerWidth > 768 ? 2000 : 800;
-                    const positions = new Float32Array(count * 3);
-                    for (let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 15;
-                    
-                    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                    const particlesMaterial = new THREE.PointsMaterial({
-                        size: 0.015, color: 0xf59e0b, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending
-                    });
-                    
-                    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-                    scene.add(particles);
-
-                    let mouseX = 0; let mouseY = 0;
-                    document.addEventListener('mousemove', (e) => {
-                        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-                        mouseY = -(e.clientY / window.innerHeight) * 2 - 1;
-                    });
-
-                    const clock = new THREE.Clock();
-                    const animate = () => {
-                        const elapsedTime = clock.getElapsedTime();
-                        particles.rotation.y = elapsedTime * 0.02 + mouseX * 0.05;
-                        particles.rotation.x = elapsedTime * 0.01 + mouseY * 0.05;
-                        particles.position.y = Math.sin(elapsedTime * 0.2) * 0.2;
-
-                        renderer.render(scene, camera);
-                        window.requestAnimationFrame(animate);
-                    };
-                    animate();
-                    window.addEventListener('resize', setSize);
-                }
-            }
-        });
-
-        // AI Chat Logic with Exponential Backoff
-        const apiKey = ""; // API Key 
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        
-        function setChatInput(text) {
-            document.getElementById('chat-input').value = text;
-            sendChatMessage();
-        }
-        
-        function handleChatEnter(e) {
-            if(e.key === 'Enter') sendChatMessage();
-        }
-
-        async function sendChatMessage() {
-            const inputEl = document.getElementById('chat-input');
-            const topic = inputEl.value.trim();
-            if (!topic) return;
-
-            const chatBox = document.getElementById('chat-box');
-            const btnSend = document.getElementById('btn-send-chat');
-
-            // Add User Bubble
-            chatBox.insertAdjacentHTML('beforeend', `<div class="chat-bubble bubble-user">${topic}</div>`);
-            inputEl.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Disable Input & Show Typing
-            inputEl.disabled = true;
-            btnSend.disabled = true;
-            const typingId = 'typing-' + Date.now();
-            chatBox.insertAdjacentHTML('beforeend', `
-                <div class="chat-bubble bubble-ai" id="${typingId}">
-                    <div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
-                </div>
-            `);
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            const systemPrompt = `You are a helpful and friendly AI assistant for the Masjid e Mehtab Ali Shah website in Parbhani, Maharashtra. Your role is to answer community questions based ONLY on the following information. Keep your answers concise, friendly, and clear.
-            
-            **Recent News & Events:**
-            - Dec 2024: Minority Commission ordered Parbhani Municipality to return leased Waqf land.
-            - 2024-2025: Waqf Board issued over 600 notices to illegal occupants.
-            - Aug 2025: New Mutawalli appointed.
-            - Aug 2025: Youth program launched for ages 7-14.`;
-
-            const payload = {
-                contents: [{ parts: [{ text: topic }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
-
-            let responseText = "";
-            let retries = 5;
-            let delays = [1000, 2000, 4000, 8000, 16000];
-            let attempt = 0;
-
-            while (attempt < retries && !responseText) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-                    });
-                    if (!response.ok) {
-                        if (response.status === 429 && attempt < retries - 1) {
-                            await new Promise(r => setTimeout(r, delays[attempt]));
-                            attempt++; continue;
-                        }
-                        throw new Error(`API failed: ${response.status}`);
-                    }
-                    const result = await response.json();
-                    responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I received an unusual response.";
-                } catch (error) {
-                    if (attempt < retries - 1) {
-                        await new Promise(r => setTimeout(r, delays[attempt]));
-                        attempt++;
-                    } else {
-                        responseText = "Sorry, there was an error connecting to the AI service. Please try again later.";
-                        break;
-                    }
-                }
-            }
-
-            // Remove Typing & Add AI Response
-            document.getElementById(typingId).remove();
-            chatBox.insertAdjacentHTML('beforeend', `<div class="chat-bubble bubble-ai">${typeof marked !== 'undefined' ? marked.parse(responseText) : responseText}</div>`);
-            
-            inputEl.disabled = false;
-            btnSend.disabled = false;
-            inputEl.focus();
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    </script>
+  </div>
+  <footer class="site-footer night jaali">
+    <span class="edge edge--top edge--alt" aria-hidden="true"></span>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand mb-3" href="index.html">
+            <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+            <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+          </a>
+          <p>A Nizam-era Waqf in Parbhani, Maharashtra, keeping a legacy of worship, remembrance and service alive for the community.</p>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Registered Waqf MSBW/PBN/47/2010</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919421488111" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h2>Visit</h2>
+          <ul class="footer-links">
+            <li><a href="About.html">About us</a></li>
+            <li><a href="About.html#timeline">Our history</a></li>
+            <li><a href="About.html#land-map">Land records</a></li>
+            <li><a href="land-grant-archives.html">Waqf archives</a></li>
+            <li><a href="News.html">News &amp; gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul class="footer-links">
+            <li><a href="About.html#services">Services</a></li>
+            <li><a href="youth-program.html">Youth program</a></li>
+            <li><a href="shop-registration.html">Shop leasing</a></li>
+            <li><a href="Contact.html#donate">Donate / Zakat</a></li>
+            <li><a href="Contact.html#helper">Quick answers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul class="footer-links footer-contact">
+            <li><i class="fas fa-location-dot"></i><span>Ashoorkhana Naale Hyder, Survey No. 1, 2 &amp; 3, Parbhani, Maharashtra</span></li>
+            <li><i class="fas fa-phone"></i><a href="tel:+919421488111">+91 94214 88111</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></li>
+            <li><i class="fas fa-diamond-turn-right"></i><a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener">Get directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>&copy; <span data-year>2026</span> Masjid e Mehtab Ali Shah. All rights reserved.</p>
+        <p>Designed &amp; developed by Kamel Shah</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+  <script src="assets/js/anh.js"></script>
 </body>
 </html>
