@@ -1,368 +1,209 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-
+<html lang="en" data-theme="light" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Archives & Sanads | Masjid e Mehtab Ali Shah</title>
-    <meta name="description" content="Digital archives of the Nizam-era Sanads (1885) and land grant documents of the Waqf complex.">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Lightbox -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
-
-    <style>
-        /* --- THEME VARIABLES --- */
-        :root {
-            --primary-green: #0f5132;
-            --primary-light: #198754;
-            --accent-gold: #d4af37;
-            --accent-gold-hover: #bfa34a;
-            --bg-body: #fdfbf7;
-            --bg-card: #ffffff;
-            --text-main: #2c3e50;
-            --text-muted: #6c757d;
-            --border-color: rgba(0,0,0,0.1);
-            --navbar-bg: rgba(255, 255, 255, 0.98);
-        }
-
-        [data-theme="dark"] {
-            --primary-green: #2ecc71;
-            --primary-light: #27ae60;
-            --accent-gold: #f1c40f;
-            --accent-gold-hover: #f39c12;
-            --bg-body: #121212;
-            --bg-card: #1e1e1e;
-            --text-main: #ecf0f1;
-            --text-muted: #bdc3c7;
-            --border-color: rgba(255,255,255,0.1);
-            --navbar-bg: rgba(20, 20, 20, 0.98);
-        }
-
-        /* --- GLOBAL & TYPOGRAPHY --- */
-        html, body { width: 100%; overflow-x: hidden !important; position: relative; }
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Amiri', serif; color: var(--primary-green); }
-        [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] .brand-font { color: var(--accent-gold); }
-        .kufi-font { font-family: 'Reem Kufi', sans-serif; }
-        .gold-text { color: var(--accent-gold) !important; }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            background-color: var(--navbar-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent-gold);
-            padding-top: 0.8rem; padding-bottom: 0.8rem;
-        }
-        .navbar-brand img { width: 45px; height: 45px; }
-        @media (min-width: 992px) { .navbar-brand img { width: 55px; height: 55px; } }
-        
-        .nav-link {
-            font-family: 'Reem Kufi', sans-serif; font-weight: 500;
-            color: var(--primary-green) !important; margin: 0 5px; transition: color 0.3s;
-        }
-        [data-theme="dark"] .nav-link { color: #ffffff !important; }
-        .nav-link.active, .nav-link:hover { color: var(--accent-gold) !important; }
-        
-        /* --- BUTTONS --- */
-        .btn-donate {
-            background-color: var(--accent-gold); color: #000 !important; font-weight: bold;
-            border: 2px solid var(--accent-gold); transition: 0.3s;
-        }
-        .btn-donate:hover {
-            background-color: transparent; color: var(--accent-gold) !important;
-            border-color: var(--accent-gold); transform: scale(1.05);
-        }
-        .btn-gold {
-            background-color: var(--accent-gold); color: #000; font-weight: bold; border: none;
-        }
-        .btn-gold:hover { background-color: var(--accent-gold-hover); color: #000; }
-
-        /* --- ARCHIVE SPECIFIC --- */
-        .archive-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-        .archive-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border-color: var(--accent-gold);
-        }
-        .doc-preview {
-            height: 300px; width: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* --- GALLERY FRAME ALIGNMENT --- */
-        .gallery-frame {
-            display: block;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--bg-card);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            height: 100%;
-            position: relative;
-        }
-        .gallery-frame:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: var(--accent-gold);
-        }
-        .gallery-thumb {
-            width: 100%;
-            height: 250px; /* Fixed height for proper alignment */
-            object-fit: cover;
-            object-position: top; /* Focus on top of document */
-            display: block;
-        }
-        
-        /* --- FOOTER --- */
-        footer {
-            background-color: #0a0a0a; color: #cccccc !important;
-            border-top: 4px solid var(--accent-gold);
-        }
-        footer a { color: #aaaaaa !important; text-decoration: none; }
-        footer a:hover { color: var(--accent-gold) !important; }
-        
-        .text-dynamic { color: var(--text-main); }
-        .text-dynamic-muted { color: var(--text-muted); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historic Waqf Land Grants | Masjid e Mehtab Ali Shah Archives</title>
+  <meta name="description" content="Original Nizam-era records confirming the Waqf endowment of Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder, Parbhani. View and download the documents.">
+  <meta name="theme-color" content="#0d2b2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Historic Waqf Land Grants | Masjid e Mehtab Ali Shah Archives">
+  <meta property="og:description" content="Original Nizam-era records confirming the Waqf endowment of Masjid e Mehtab Ali Shah and Ashoorkhana Naale Hyder, Parbhani. View and download the documents.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Figtree:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lg-zoom.min.css">
+  <link rel="stylesheet" href="assets/css/anh.css">
 </head>
-
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="object-fit: cover;" onerror="this.src='https://placehold.co/55x55/0f5132/d4af37?text=M';">
-                <div class="ms-2 ms-lg-3 lh-1">
-                    <span class="d-block brand-font fw-bold" style="font-size: 1.2rem;">Masjid e Mehtab Ali Shah</span>
-                    <span class="d-block small text-muted fw-bold kufi-font mt-1">Ashoorkhana Naale Hyder</span>
-                </div>
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon" style="background-image: url(&quot;data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E&quot;);"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center text-center mt-3 mt-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
-                    
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a href="Contact.html#donation-section" class="btn btn-donate rounded-pill px-4 shadow-sm w-100 w-lg-auto">Donate</a>
-                    </li>
-                    <li class="nav-item ms-lg-2 mt-3 mt-lg-0">
-                        <button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle" aria-label="Toggle Theme">
-                            <i class="fas fa-sun"></i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <nav class="navbar navbar-expand-xl" aria-label="Main">
+      <div class="container">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+          <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-xl-none">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
+        <div class="collapse navbar-collapse" id="siteMenu">
+          <ul class="navbar-nav nav-links mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="News.html">News &amp; gallery</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="land-grant-archives.html">Archives</a></li>
+          <li class="nav-item"><a class="nav-link" href="youth-program.html">Youth program</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-tools nav-tools--menu">
+            <button class="icon-btn d-none d-xl-inline-flex" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+          </div>
+        </div>
+      </div>
     </nav>
+  </header>
+<main id="main">
 
-    <!-- Header -->
-    <header class="py-5 text-center" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('Home/Old Document.jpg') center/cover fixed;">
-        <div class="container py-5">
-            <h1 class="display-4 fw-bold text-white brand-font mb-3">Historical Archives</h1>
-            <p class="lead text-white-50 mx-auto col-lg-8">
-                Digitized records of the 1885 Nizam-era Sanad and land grant documents establishing the Waqf.
-            </p>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4 justify-content-center">
-                
-                <!-- Document 1: Original Sanad -->
-                <div class="col-lg-5" data-aos="fade-up">
-                    <div class="archive-card h-100">
-                        <div class="position-relative">
-                            <a href="Home/Old Document.jpg" data-lightbox="archives" data-title="Original Sanad (1885)">
-                                <img src="Home/Old Document.jpg" class="doc-preview" alt="Sanad" onerror="this.src='https://placehold.co/600x800/2c3e50/ffffff?text=Sanad+Document';">
-                                <div class="position-absolute top-50 start-50 translate-middle">
-                                    <i class="fas fa-search-plus fa-3x text-white opacity-75"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-4">
-                            <span class="badge bg-warning text-dark mb-2">Original Document</span>
-                            <h3 class="brand-font fw-bold text-dynamic">The Royal Grant (1885)</h3>
-                            <p class="text-dynamic-muted">
-                                This <strong>Sanad (Muntakhab)</strong> confirms the endowment of 13 acres 23 gunthas of land by H.H. Nizam VI to the first Mutawalli, Haji Syed Mahemood Ali Shah. It serves as the primary legal proof of the Waqf property.
-                            </p>
-                            <a href="Home/Old Document.jpg" download class="btn btn-outline-success rounded-pill btn-sm mt-2">
-                                <i class="fas fa-download me-2"></i>Download High-Res
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Document 2: Translation/Verification -->
-                <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
-                    <div class="archive-card h-100">
-                        <div class="position-relative">
-                            <a href="News/waqf 123_331.jpg" data-lightbox="archives" data-title="Gazette Notification">
-                                <img src="News/waqf 123_331.jpg" class="doc-preview" alt="Gazette" onerror="this.src='https://placehold.co/600x800/2c3e50/ffffff?text=Gazette';">
-                                <div class="position-absolute top-50 start-50 translate-middle">
-                                    <i class="fas fa-search-plus fa-3x text-white opacity-75"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-4">
-                            <span class="badge bg-info text-dark mb-2">Legal Verification</span>
-                            <h3 class="brand-font fw-bold text-dynamic">Official Gazette Record</h3>
-                            <p class="text-dynamic-muted">
-                                Government Gazette notification listing the property as a registered Waqf under the Waqf Act. This document validates the continuity of the institution's legal status post-independence.
-                            </p>
-                            <a href="News/waqf 123_331.jpg" download class="btn btn-outline-success rounded-pill btn-sm mt-2">
-                                <i class="fas fa-download me-2"></i>Download Copy
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Documents Grid -->
-                <div class="col-12 mt-5">
-                    <h3 class="brand-font text-center mb-4 text-dynamic">Related Records</h3>
-                    <div class="row g-3">
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_322.jpg" data-lightbox="gallery" data-title="Waqf Document 322" class="gallery-frame">
-                                <img src="waqf 123_322.jpg" class="gallery-thumb" alt="Record" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+1';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_399.jpg" data-lightbox="gallery" data-title="Waqf Document 399" class="gallery-frame">
-                                <img src="waqf 123_399.jpg" class="gallery-thumb" alt="Record" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+2';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_521.jpg" data-lightbox="gallery" data-title="Waqf Document 521" class="gallery-frame">
-                                <img src="waqf 123_521.jpg" class="gallery-thumb" alt="Record" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+3';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_253.jpg" data-lightbox="gallery" data-title="Waqf Document 253" class="gallery-frame">
-                                <img src="waqf 123_253.jpg" class="gallery-thumb" alt="Record" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+4';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_435.jpg" data-lightbox="gallery" data-title="Waqf Document 435" class="gallery-frame">
-                                <img src="waqf 123_435.jpg" class="gallery-thumb" alt="Record 435" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+5';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_434.jpg" data-lightbox="gallery" data-title="Waqf Document 434" class="gallery-frame">
-                                <img src="waqf 123_434.jpg" class="gallery-thumb" alt="Record 434" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+6';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="image_2fc155.jpg" data-lightbox="gallery" data-title="Old Archive Image" class="gallery-frame">
-                                <img src="image_2fc155.jpg" class="gallery-thumb" alt="Uploaded Record" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Uploaded+Record';">
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-6" data-aos="zoom-in">
-                            <a href="waqf 123_433.jpg" data-lightbox="gallery" data-title="Waqf Document 433" class="gallery-frame">
-                                <img src="waqf 123_433.jpg" class="gallery-thumb" alt="Record 433" onerror="this.src='https://placehold.co/400x500/0f5132/ffffff?text=Record+7';">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <section class="page-hero night jaali" aria-labelledby="page-title">
+      <div class="container">
+        <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="News.html">News &amp; archives</a></li><li aria-current="page">Waqf land grants</li></ol></nav>
+        <h1 id="page-title">Historic Waqf land grants</h1>
+        <p class="lede">Original documents from the Nizam era confirming the endowment and legal status of the Masjid e Mehtab Ali Shah complex.</p>
+        <div class="hero-actions"><a class="btn-a btn-zari" href="#viewer"><i class="fas fa-scroll"></i> Open the documents</a></div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
     </section>
 
-    <!-- Footer -->
-    <footer class="pt-5 pb-3">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
-                    <p class="small text-white-50">
-                        Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
-                    </p>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="text-white mb-3">Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="index.html">Home</a></li>
-                        <li class="mb-2"><a href="about.html">History</a></li>
-                        <li class="mb-2"><a href="Contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="text-white mb-3">Contact Us</h5>
-                    <p class="small text-white-50 mb-1">Lokmanya Tilak Road, Parbhani</p>
-                    <p class="small text-white-50">anhparbhani123@gmail.com</p>
-                </div>
+    <section class="section" aria-labelledby="about-title">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-7">
+            <h2 class="visually-hidden" id="about-title">About these records</h2>
+            <div class="callout">
+              <h3><i class="fas fa-scale-balanced" aria-hidden="true"></i>Legal importance</h3>
+              <p>These records confirm the original <mark class="k">Waqf endowment</mark> of the Masjid land. They are essential evidence for protecting the property from illegal encroachment and preserving the institution's heritage under the Waqf Act.</p>
             </div>
-            <hr class="border-secondary mt-4">
-            <div class="text-center small text-white-50">
-                <p class="mb-0">&copy; 2025 Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="mb-0 mt-1">Website Designed & Developed by <span class="text-white fw-bold">Kamel Shah</span></p>
+            <div class="prose" style="margin:0">
+              <p>This historic document from the <mark class="k">Nizam era</mark> is the cornerstone of our institution's history and legal standing. It details the original service endowment, formally known as <strong>Khidmat-e-Mash</strong>, of more than <mark class="k">13 acres</mark> of land granted exclusively for the establishment and continuous upkeep of the Masjid e Mehtab Ali Shah complex and the Ashoorkhana Naale Hyder.</p>
+              <p>The grant was made as a sacred trust, so that the complex would remain a centre for prayer, community gathering and spiritual remembrance for generations to come. The document sets out the survey numbers and boundaries of the land, underlining its religious significance and its inalienable status as Waqf property.</p>
+              <blockquote>
+                <p>"This endowment was not merely a gift of land, but a divine commitment to the future of our community: a promise that this sacred space would be protected, maintained and preserved until the end of time."</p>
+              </blockquote>
+              <p>As the institution faces modern challenges, this document matters more than ever. It is the primary reference in our legal and administrative efforts against illegal encroachment. Preserving this land is not only about protecting property; it is a religious obligation to honour the intentions of our founders and safeguard our spiritual heritage.</p>
             </div>
+          </div>
+          <div class="col-lg-5">
+            <h2 class="h3 mb-4">Chronology of the endowment</h2>
+            <ol class="timeline timeline--compact">
+              <li><div class="t-date">1880</div><div><h3>Original endowment issued</h3><p>The Sanad is granted by the Nizam Government, establishing the Khidmat-e-Mash.</p></div></li>
+              <li><div class="t-date">1961</div><div><h3>Trust registration</h3><p>Registered under the Bombay Public Trust Act, securing its legal status in modern India.</p></div></li>
+              <li><div class="t-date">1987</div><div><h3>Administrative scheme</h3><p>An official legal scheme for the administration and management of the trust is adopted.</p></div></li>
+              <li><div class="t-date">Present day</div><div><h3>Active protection</h3><p>The Mutawalli and the Waqf Board use these documents to reclaim encroached land.</p></div></li>
+            </ol>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <section class="section section--alt" id="viewer" aria-labelledby="viewer-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="viewer-title">Digital archive viewer</h2>
+          <p>Select a document to open the high-resolution viewer. Zoom in to read the original text, or download a copy.</p>
+        </div>
+        <div class="row g-5">
+          <div class="col-lg-8">
+            <div class="archive-grid" data-gallery="download" id="archive-gallery">
+              <a href="Home/waqf%20123_5.jpg" data-sub-html="<h4>Page 1: The Sanad</h4><p>The primary grant document bearing the official seal of the Nizam Government, detailing the endowment of the land.</p>">
+                <div class="photo"><img src="assets/img/news/sanad-1.jpg" alt="Sanad, page 1" loading="lazy"></div>
+                <h3>Page 1: The Sanad</h3><p>Primary grant document with the official seal.</p>
+              </a>
+              <a href="Home/waqf%20123_6.jpg" data-sub-html="<h4>Page 2: Land details</h4><p>Continuation of the grant, with the survey numbers and boundaries of the 13-acre property.</p>">
+                <div class="photo"><img src="assets/img/news/sanad-2.jpg" alt="Sanad, page 2" loading="lazy"></div>
+                <h3>Page 2: Land details</h3><p>Survey numbers and boundary descriptions.</p>
+              </a>
+              <a href="Home/waqf%20123_433.jpg" data-sub-html="<h4>Trust registration record</h4><p>Registration of the property under the Bombay Public Trust Act in 1961.</p>">
+                <div class="photo"><img src="assets/img/news/trust-registration.jpg" alt="Trust registration record" loading="lazy"></div>
+                <h3>Trust registration</h3><p>1961 Bombay Public Trust Act record.</p>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="panel">
+              <h3 class="mb-3">Record details</h3>
+              <ul class="record">
+                <li><span class="k">Document</span><span class="v">Muntaqab No. 25624</span></li>
+                <li><span class="k">Authority</span><span class="v">Hyderabad State (Nizam Government)</span></li>
+                <li><span class="k">Type</span><span class="v">Waqf endowment (Khidmat-e-Mash)</span></li>
+                <li><span class="k">Purpose</span><span class="v">Endowment for the Masjid and Ashoorkhana</span></li>
+                <li><span class="k">Total land</span><span class="v">13 acres, 23 gunthas</span></li>
+              </ul>
+              <button type="button" class="btn-a btn-line btn-block" onclick="document.querySelector('#archive-gallery a').click()"><i class="fas fa-magnifying-glass-plus"></i> Open viewer</button>
+            </div>
+          </div>
+        </div>
+        <p class="mt-lg mb-0"><a class="text-link" href="News.html">Back to news and archives</a></p>
+      </div>
+    </section>
+
+    <section class="band night jaali" aria-labelledby="cta-title">
+      <span class="edge edge--top edge--alt" aria-hidden="true"></span>
+      <div class="container text-center">
+        <h2 id="cta-title">Help us preserve our heritage</h2>
+        <p class="lede mx-auto">Protecting this Waqf land is a legal and spiritual duty. Your support keeps this historic institution standing for future generations.</p>
+        <div class="gap-actions justify-content-center mt-4">
+          <a class="btn-a btn-zari" href="Contact.html#donate">Support the masjid</a>
+          <a class="btn-a btn-ghost" href="Contact.html">Contact the administration</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer night jaali footer--joined">
     
-    <script>
-        AOS.init({ once: true, offset: 50, duration: 800 });
-
-        // Theme Toggle
-        const toggleBtn = document.getElementById('theme-toggle');
-        const icon = toggleBtn.querySelector('i');
-        const html = document.documentElement;
-
-        toggleBtn.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        });
-    </script>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand mb-3" href="index.html">
+            <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+            <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+          </a>
+          <p>A Nizam-era Waqf in Parbhani, Maharashtra, keeping a legacy of worship, remembrance and service alive for the community.</p>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Registered Waqf MSBW/PBN/47/2010</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919421488111" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h2>Visit</h2>
+          <ul class="footer-links">
+            <li><a href="About.html">About us</a></li>
+            <li><a href="About.html#timeline">Our history</a></li>
+            <li><a href="About.html#land-map">Land records</a></li>
+            <li><a href="land-grant-archives.html">Waqf archives</a></li>
+            <li><a href="News.html">News &amp; gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul class="footer-links">
+            <li><a href="About.html#services">Services</a></li>
+            <li><a href="youth-program.html">Youth program</a></li>
+            <li><a href="shop-registration.html">Shop leasing</a></li>
+            <li><a href="Contact.html#donate">Donate / Zakat</a></li>
+            <li><a href="Contact.html#helper">Quick answers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul class="footer-links footer-contact">
+            <li><i class="fas fa-location-dot"></i><span>Ashoorkhana Naale Hyder, Survey No. 1, 2 &amp; 3, Parbhani, Maharashtra</span></li>
+            <li><i class="fas fa-phone"></i><a href="tel:+919421488111">+91 94214 88111</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></li>
+            <li><i class="fas fa-diamond-turn-right"></i><a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener">Get directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>&copy; <span data-year>2026</span> Masjid e Mehtab Ali Shah. All rights reserved.</p>
+        <p>Designed &amp; developed by Kamel Shah</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+  <script src="assets/js/anh.js"></script>
 </body>
 </html>

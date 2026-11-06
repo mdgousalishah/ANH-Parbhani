@@ -1,181 +1,288 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-
+<html lang="en" data-theme="light" data-bs-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Youth Program | Masjid e Mehtab Ali Shah</title>
-    <meta name="description" content="Join our Youth Islamic Studies program. Quran classes, Seerah lessons, and moral education for children.">
-
-    <link rel="icon" type="image/png" href="Home/ANH2.jpg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Reem+Kufi:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        /* --- THEME VARIABLES --- */
-        :root {
-            --primary-green: #0f5132; --primary-light: #198754; --accent-gold: #d4af37;
-            --accent-gold-hover: #bfa34a; --bg-body: #fdfbf7; --bg-card: #ffffff;
-            --text-main: #2c3e50; --text-muted: #6c757d; --navbar-bg: rgba(255, 255, 255, 0.98);
-        }
-        [data-theme="dark"] {
-            --primary-green: #2ecc71; --primary-light: #27ae60; --accent-gold: #f1c40f;
-            --accent-gold-hover: #f39c12; --bg-body: #121212; --bg-card: #1e1e1e;
-            --text-main: #ecf0f1; --text-muted: #bdc3c7; --navbar-bg: rgba(20, 20, 20, 0.98);
-        }
-
-        html, body { width: 100%; overflow-x: hidden !important; }
-        body { font-family: 'Lato', sans-serif; background-color: var(--bg-body); color: var(--text-main); font-size: 1.1rem; }
-        
-        /* Override Bootstrap text-muted for Dark Mode visibility */
-        .text-muted { color: var(--text-muted) !important; }
-
-        .brand-font { font-family: 'Amiri', serif; color: var(--primary-green); }
-        [data-theme="dark"] .brand-font { color: var(--accent-gold); }
-        .kufi-font { font-family: 'Reem Kufi', sans-serif; }
-
-        .navbar { background-color: var(--navbar-bg); backdrop-filter: blur(10px); border-bottom: 2px solid var(--accent-gold); padding: 0.8rem 0; }
-        .nav-link { color: var(--primary-green) !important; font-family: 'Reem Kufi', sans-serif; font-weight: 500; transition: color 0.3s; }
-        [data-theme="dark"] .nav-link { color: #ffffff !important; }
-        .nav-link:hover, .nav-link.active { color: var(--accent-gold) !important; }
-
-        .btn-donate {
-            background-color: var(--accent-gold); color: #000 !important; font-weight: bold; border: 2px solid var(--accent-gold); transition: 0.3s;
-        }
-        .btn-donate:hover { background-color: transparent; color: var(--accent-gold) !important; transform: scale(1.05); }
-        [data-theme="dark"] .btn-donate:hover { color: var(--accent-gold) !important; }
-
-        .program-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; height: 100%; text-align: center; transition: 0.3s; }
-        .program-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-color: var(--accent-gold); }
-        
-        .icon-circle { width: 70px; height: 70px; background: rgba(var(--primary-green), 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--accent-gold); font-size: 1.8rem; }
-        [data-theme="dark"] .icon-circle { background: rgba(241, 196, 15, 0.1); }
-
-        footer { background-color: #0a0a0a; color: #cccccc !important; border-top: 4px solid var(--accent-gold); }
-        footer a { color: #aaaaaa !important; text-decoration: none; }
-        footer a:hover { color: var(--accent-gold) !important; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Youth Islamic Studies Program | Masjid e Mehtab Ali Shah</title>
+  <meta name="description" content="Weekend Islamic Studies Program for children aged 7 to 14 at Masjid e Mehtab Ali Shah, Parbhani. Saturdays and Sundays, 10 am to 1 pm. Register on WhatsApp.">
+  <meta name="theme-color" content="#0d2b2e">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Youth Islamic Studies Program | Masjid e Mehtab Ali Shah">
+  <meta property="og:description" content="Weekend Islamic Studies Program for children aged 7 to 14 at Masjid e Mehtab Ali Shah, Parbhani. Saturdays and Sundays, 10 am to 1 pm. Register on WhatsApp.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-bs-theme',t);}catch(e){}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Figtree:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/anh.css">
 </head>
-
 <body>
-
-    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="Home/ANH2.jpg" alt="Logo" class="rounded-circle border border-2 border-warning" style="width: 45px; height: 45px; object-fit: cover;">
-                <div class="ms-2 ms-lg-3 lh-1">
-                    <span class="d-block brand-font fw-bold" style="font-size: 1.2rem;">Masjid e Mehtab Ali Shah</span>
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon" style="background-image: url(&quot;data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(241, 196, 15, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E&quot;);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center text-center mt-3 mt-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html#prayer-times">Prayer Times</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="index.html#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="News.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a href="Contact.html#donation-section" class="btn btn-donate rounded-pill px-4 shadow-sm">Donate</a></li>
-                    <li class="nav-item ms-lg-2 mt-3 mt-lg-0"><button class="btn btn-sm btn-outline-secondary rounded-circle shadow-sm border" id="theme-toggle"><i class="fas fa-sun"></i></button></li>
-                </ul>
-            </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-nav">
+    <nav class="navbar navbar-expand-xl" aria-label="Main">
+      <div class="container">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+          <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-xl-none">
+          <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+          <button class="icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#siteMenu" aria-controls="siteMenu" aria-expanded="false" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
+        <div class="collapse navbar-collapse" id="siteMenu">
+          <ul class="navbar-nav nav-links mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="News.html">News &amp; gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="land-grant-archives.html">Archives</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="youth-program.html">Youth program</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-tools nav-tools--menu">
+            <button class="icon-btn d-none d-xl-inline-flex" type="button" data-theme-toggle aria-label="Switch to dark theme"><i class="fas fa-moon"></i></button>
+            <a class="btn-a btn-zari" href="Contact.html#donate"><i class="fas fa-hand-holding-heart"></i> Donate</a>
+          </div>
+        </div>
+      </div>
     </nav>
+  </header>
+<main id="main">
 
-    <header class="py-5 text-center" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('Home/student.jpg') center/cover;">
-        <div class="container py-5">
-            <h1 class="display-4 fw-bold text-white brand-font mb-3">Youth Islamic Studies</h1>
-            <p class="lead text-white-50 mx-auto col-lg-8">
-                Empowering the next generation with knowledge, ethics, and spiritual growth.
-            </p>
+    <section class="page-hero night jaali" aria-labelledby="page-title">
+      <div class="container">
+        <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Youth program</li></ol></nav>
+        <p class="tag" style="color: var(--zari)">Enrolment open for 2026</p>
+        <h1 id="page-title">Nurturing the next generation with knowledge and faith</h1>
+        <p class="lede">A weekend Islamic Studies program that builds a strong moral and spiritual foundation for children aged 7 to 14, in a safe and engaging environment.</p>
+        <div class="hero-actions">
+          <a class="btn-a btn-zari" href="#register">Register your child</a>
+          <a class="btn-a btn-ghost" href="#details">View the curriculum</a>
         </div>
-    </header>
-
-    <section class="py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up">
-                    <div class="program-card">
-                        <div class="icon-circle"><i class="fas fa-quran"></i></div>
-                        <h4 class="brand-font fw-bold">Nazira Quran</h4>
-                        <p class="text-muted small">Learn to read the Holy Quran with correct Tajweed and pronunciation under expert guidance.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="program-card">
-                        <div class="icon-circle"><i class="fas fa-history"></i></div>
-                        <h4 class="brand-font fw-bold">Seerah & History</h4>
-                        <p class="text-muted small">Lessons from the life of the Prophet (PBUH) and the history of our pious predecessors.</p>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="program-card">
-                        <div class="icon-circle"><i class="fas fa-hands-helping"></i></div>
-                        <h4 class="brand-font fw-bold">Akhlaq (Ethics)</h4>
-                        <p class="text-muted small">Building character through stories, practical lessons on manners, and community service.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-5" data-aos="zoom-in">
-                <div class="p-4 rounded-3 border border-warning" style="background: rgba(212, 175, 55, 0.05); display: inline-block; max-width: 600px;">
-                    <h3 class="brand-font mb-3">Join the Classes</h3>
-                    <p class="mb-2"><strong>Schedule:</strong> Every Weekend (Sat-Sun), 4:00 PM - 6:00 PM</p>
-                    <p class="mb-4"><strong>Location:</strong> Masjid Baradari Hall</p>
-                    <a href="Contact.html" class="btn btn-donate rounded-pill px-5">Register Your Child</a>
-                </div>
-            </div>
+        <div class="highlights">
+          <div><i class="fas fa-chalkboard-user" aria-hidden="true"></i><strong>Qualified teachers</strong><span>Experienced instructors</span></div>
+          <div><i class="fas fa-shield-halved" aria-hidden="true"></i><strong>Safe environment</strong><span>Secure learning spaces</span></div>
+          <div><i class="fas fa-puzzle-piece" aria-hidden="true"></i><strong>Interactive learning</strong><span>Engaging activities</span></div>
+          <div><i class="far fa-calendar-check" aria-hidden="true"></i><strong>Weekend schedule</strong><span>Convenient timings</span></div>
         </div>
+      </div>
+      <span class="edge edge--bottom" aria-hidden="true"></span>
     </section>
 
-    <footer class="pt-5 pb-3">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h4 class="brand-font mb-3">Masjid e Mehtab Ali Shah</h4>
-                    <p class="small text-white-50">
-                        Registered Waqf Institution (MSBW/PBN/47/2010). Dedicated to preserving Islamic heritage and serving the community of Parbhani.
-                    </p>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="text-white mb-3">Quick Links</h5>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2"><a href="index.html#prayer-times">Prayer Times</a></li>
-                        <li class="mb-2"><a href="about.html">History & Lineage</a></li>
-                        <li class="mb-2"><a href="Contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 text-center text-lg-start">
-                    <h5 class="text-white mb-3">Contact Us</h5>
-                    <p class="small text-white-50 mb-1">Lokmanya Tilak Road, Parbhani</p>
-                    <p class="small text-white-50">anhparbhani123@gmail.com</p>
-                </div>
-            </div>
-            <hr class="border-secondary mt-4">
-            <div class="text-center small text-white-50">
-                <p class="mb-0">&copy; 2025 Masjid e Mehtab Ali Shah. All Rights Reserved.</p>
-                <p class="mb-0 mt-1">Website Designed & Developed by <span class="text-white fw-bold">Kamel Shah</span></p>
-            </div>
+    <section class="section" id="details" aria-labelledby="overview-title">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <h2 id="overview-title">Program overview</h2>
+            <p class="muted">A comprehensive program that builds a strong foundation in Islamic knowledge and values, with a curriculum that is both educational and inspiring for young minds.</p>
+            <p class="muted">Classes are held in a supportive, welcoming environment where students are encouraged to ask questions, join discussions and connect with their faith more deeply.</p>
+            <a class="btn-a btn-line mt-2" href="#register">Enrol your child</a>
+          </div>
+          <div class="col-lg-7">
+            <ul class="detail-list">
+              <li><h3><i class="fas fa-book-open" aria-hidden="true"></i>Curriculum</h3><p>Quranic studies, Seerah of the Prophets, Islamic history and essential daily prayers (Duas).</p></li>
+              <li><h3><i class="fas fa-user-graduate" aria-hidden="true"></i>Age group</h3><p>Designed for children aged 7 to 14. Boys and girls are welcome.</p></li>
+              <li><h3><i class="fas fa-calendar-days" aria-hidden="true"></i>Schedule</h3><p>Saturday and Sunday mornings, 10:00 am to 1:00 pm.</p></li>
+              <li><h3><i class="fas fa-location-dot" aria-hidden="true"></i>Location</h3><p>Community Education Hall, Masjid e Mehtab Ali Shah complex.</p></li>
+            </ul>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ once: true, offset: 50 });
-        const toggleBtn = document.getElementById('theme-toggle');
-        const icon = toggleBtn.querySelector('i');
-        const html = document.documentElement;
-        toggleBtn.addEventListener('click', () => {
-            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        });
-    </script>
+    <section class="section section--alt" aria-labelledby="why-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="why-title">Why choose this program?</h2>
+          <p>What your child gains from our weekend studies.</p>
+        </div>
+        <div class="legend mt-0">
+          <div class="legend-item"><span class="motif"><i class="fas fa-seedling" aria-hidden="true"></i></span><h3>Strong foundation</h3><p>A solid base of Islamic knowledge (Aqeedah) and values to guide them for a lifetime.</p></div>
+          <div class="legend-item"><span class="motif"><i class="fas fa-lightbulb" aria-hidden="true"></i></span><h3>Engaging lessons</h3><p>Interactive, age-appropriate lessons that make learning enjoyable.</p></div>
+          <div class="legend-item"><span class="motif"><i class="fas fa-users" aria-hidden="true"></i></span><h3>Community bonding</h3><p>Children connect with peers in a positive, faith-based environment and make lasting friendships.</p></div>
+          <div class="legend-item"><span class="motif"><i class="fas fa-heart" aria-hidden="true"></i></span><h3>Character development</h3><p>Emphasis on Akhlaq (manners) and Adab (etiquette) to raise responsible, caring individuals.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="teachers-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="teachers-title">Meet our instructors</h2>
+          <p>Dedicated teachers who love Islamic education.</p>
+        </div>
+        <div class="people">
+          <div class="person">
+            <span class="monogram" aria-hidden="true">AK</span>
+            <h3>Hafiz Ahmed Khan</h3>
+            <span class="spec">Quranic studies and Tajweed</span>
+            <p>Over 10 years of experience teaching Quranic recitation with proper Tajweed to children of all ages.</p>
+          </div>
+          <div class="person">
+            <span class="monogram" aria-hidden="true">FA</span>
+            <h3>Ustadha Fatima Ali</h3>
+            <span class="spec">Islamic history and Seerah</span>
+            <p>Teaches Islamic history and the inspiring stories of the Prophets in a highly interactive classroom.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" aria-labelledby="parents-title">
+      <div class="container">
+        <div class="section-head"><h2 id="parents-title">What parents say</h2></div>
+        <div class="quotes-2">
+          <figure>
+            <blockquote><p>"Our child has learned so much about Islamic values and history in just a few months. The teachers are wonderful and the environment is very welcoming."</p></blockquote>
+            <figcaption><strong>Salman A.</strong>, parent of a 9-year-old</figcaption>
+          </figure>
+          <figure>
+            <blockquote><p>"The curriculum is engaging and my daughter actually looks forward to waking up early on weekends to attend her classes. Highly recommended!"</p></blockquote>
+            <figcaption><strong>Nida K.</strong>, parent of a 12-year-old</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="register" aria-labelledby="register-title">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-7">
+            <div class="panel">
+              <h2 id="register-title" class="mb-1">Register your child</h2>
+              <p class="muted mb-4">Spaces are limited, so please register early. Your details are sent to the office on WhatsApp, and you'll see the message before it goes.</p>
+              <form data-wa-form="Youth program registration" novalidate>
+                <div class="row g-0 gx-md-3">
+                  <div class="col-md-6 field"><label for="y-parent">Parent's full name</label><input id="y-parent" type="text" autocomplete="name" required data-wa-label="Parent"></div>
+                  <div class="col-md-6 field"><label for="y-phone">Phone number</label><input id="y-phone" type="tel" autocomplete="tel" inputmode="tel" required data-wa-label="Phone"></div>
+                </div>
+                <div class="field"><label for="y-email">Email address <span class="muted fw-normal">(optional)</span></label><input id="y-email" type="email" autocomplete="email" data-wa-label="Email"></div>
+                <div class="row g-0 gx-md-3">
+                  <div class="col-md-8 field"><label for="y-child">Child's full name</label><input id="y-child" type="text" required data-wa-label="Child"></div>
+                  <div class="col-md-4 field"><label for="y-age">Child's age</label><input id="y-age" type="number" min="7" max="14" inputmode="numeric" required data-wa-label="Age"><p class="hint">7 to 14 years</p></div>
+                </div>
+                <button type="submit" class="btn-a btn-wa btn-block"><i class="fab fa-whatsapp"></i> Review and send registration</button>
+              </form>
+              <div class="form-success" data-wa-success hidden tabindex="-1">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <h3>WhatsApp is open with your registration</h3>
+                <p class="muted">Press send in WhatsApp to deliver it. The office will contact you with schedule details. If WhatsApp didn't open, call <a href="tel:+919421488111">+91 94214 88111</a>.</p>
+                <button type="button" class="btn-a btn-line" data-wa-reset>Register another child</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <h2 class="h3">Frequently asked questions</h2>
+            <div class="accordion faq mt-3" id="faqAccordion">
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true" aria-controls="c1">What is the age limit?</button></h3>
+                <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">The program is for children aged 7 to 14. Students are grouped into class levels by age and previous knowledge.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2" aria-expanded="false" aria-controls="c2">Is the program free?</button></h3>
+                <div id="c2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">The program is heavily subsidised by the Waqf Trust. A nominal monthly fee covers learning materials and activities, and scholarships are available for families in need.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3" aria-expanded="false" aria-controls="c3">Do parents need to stay during class?</button></h3>
+                <div id="c3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">No. Drop your child off at 10:00 am and pick them up at 1:00 pm. The premises are monitored by CCTV.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4" aria-expanded="false" aria-controls="c4">What do students need to bring?</button></h3>
+                <div id="c4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">A dedicated notebook and pen. Textbooks, copies of the Quran and other materials are provided by the institute.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band night jaali" aria-labelledby="cta-title">
+      <span class="edge edge--top" aria-hidden="true"></span>
+      <div class="container text-center">
+        <h2 id="cta-title">Invest in your child's spiritual future</h2>
+        <p class="lede mx-auto">Join dozens of families in Parbhani who are giving their children a balanced, comprehensive Islamic education.</p>
+        <div class="gap-actions justify-content-center mt-4">
+          <a class="btn-a btn-zari" href="#register">Enrol your child today</a>
+          <a class="btn-a btn-ghost" href="Contact.html">Contact the office</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer night jaali footer--joined">
+    
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand mb-3" href="index.html">
+            <img src="assets/img/logo-seal.png" alt="" width="48" height="43">
+            <span><span class="brand-name">Masjid e Mehtab Ali Shah</span><span class="brand-sub">Ashoorkhana Naale Hyder, Parbhani</span></span>
+          </a>
+          <p>A Nizam-era Waqf in Parbhani, Maharashtra, keeping a legacy of worship, remembrance and service alive for the community.</p>
+          <p class="small-print mb-0" style="color: var(--on-night-muted)">Registered Waqf MSBW/PBN/47/2010</p>
+          <div class="socials">
+            <a href="https://www.instagram.com/anh_parbhani" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61560715079910" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919421488111" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <h2>Visit</h2>
+          <ul class="footer-links">
+            <li><a href="About.html">About us</a></li>
+            <li><a href="About.html#timeline">Our history</a></li>
+            <li><a href="About.html#land-map">Land records</a></li>
+            <li><a href="land-grant-archives.html">Waqf archives</a></li>
+            <li><a href="News.html">News &amp; gallery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Community</h2>
+          <ul class="footer-links">
+            <li><a href="About.html#services">Services</a></li>
+            <li><a href="youth-program.html">Youth program</a></li>
+            <li><a href="shop-registration.html">Shop leasing</a></li>
+            <li><a href="Contact.html#donate">Donate / Zakat</a></li>
+            <li><a href="Contact.html#helper">Quick answers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul class="footer-links footer-contact">
+            <li><i class="fas fa-location-dot"></i><span>Ashoorkhana Naale Hyder, Survey No. 1, 2 &amp; 3, Parbhani, Maharashtra</span></li>
+            <li><i class="fas fa-phone"></i><a href="tel:+919421488111">+91 94214 88111</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:anhparbhani123@gmail.com">anhparbhani123@gmail.com</a></li>
+            <li><i class="fas fa-diamond-turn-right"></i><a href="https://maps.google.com/?q=19.26620955,76.76450095" target="_blank" rel="noopener">Get directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p>&copy; <span data-year>2026</span> Masjid e Mehtab Ali Shah. All rights reserved.</p>
+        <p>Designed &amp; developed by Kamel Shah</p>
+      </div>
+    </div>
+  </footer>
+  <div class="modal fade" id="waModal" tabindex="-1" aria-labelledby="waModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="waModalTitle"><i class="fab fa-whatsapp me-2" style="color:#1f8f4e"></i>Check your message</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="small-print">This opens WhatsApp with the message addressed to the office (+91 94214 88111). Press send in WhatsApp to deliver it.</p>
+          <div class="wa-preview" id="waPreview"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-a btn-line" data-bs-dismiss="modal">Edit</button>
+          <a class="btn-a btn-wa" id="waSend" href="https://wa.me/919421488111" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Open WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/anh.js"></script>
 </body>
 </html>
